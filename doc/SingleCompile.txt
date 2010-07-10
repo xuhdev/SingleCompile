@@ -20,6 +20,7 @@ Commands:
 this command will compile the file which you are editing now. If you are 
 editing a source file of a interpreted language such as shell language, this
 command will run the file which you are editing.
+
                                             *SingleCompileRun*
 Commands:
     :SingleCompileRun
@@ -37,7 +38,7 @@ SETTINGS~
 
                                             *SingleCompile-autowrite*
     If you don't want to save your file automatically when you use
-"SingleCompiling" command or "SingleCompileRun" command, add the following
+"SingleCompile" command or "SingleCompileRun" command, add the following
 line to your vimrc:
 >
  let g:SingleCompile_autowrite = 0
