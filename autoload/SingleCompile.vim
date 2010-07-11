@@ -5,11 +5,11 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-function SingleCompile#GetVersion() " get the script version {{{1
+function! SingleCompile#GetVersion() " get the script version {{{1
     return 80
 endfunction
 
-function s:Intialize() "{{{1
+function! s:Intialize() "{{{1
     if !exists('g:SingleCompile_autowrite')
         let g:SingleCompile_autowrite = 1
     endif
@@ -23,7 +23,7 @@ function s:Intialize() "{{{1
     endif
 endfunction
 
-function SingleCompile#SetTemplate(langname,stype,string,...) " set the template. if the '...' is nonzero, this function will not override the corresponding template if there is an existing template {{{1
+function! SingleCompile#SetTemplate(langname,stype,string,...) " set the template. if the '...' is nonzero, this function will not override the corresponding template if there is an existing template {{{1
     if a:0 > 1
         echohl ErrorMsg | echo 'too many argument for SingleCompile#SetTemplate function' | echohl None
         return
@@ -54,7 +54,7 @@ function SingleCompile#SetTemplate(langname,stype,string,...) " set the template
 endfunction
 
 
-function s:ShowMessage(message) "{{{1
+function! s:ShowMessage(message) "{{{1
 
     if g:SingleCompile_usedialog == 0 || !((has('gui_running') && has('dialog_gui')) || has('dialog_con'))
         echohl ErrorMsg | echo a:message | echohl None
@@ -64,7 +64,7 @@ function s:ShowMessage(message) "{{{1
 
 endfunction
 
-function SingleCompile#Compile() " compile only {{{1
+function! SingleCompile#Compile() " compile only {{{1
     call s:Intialize()
     let l:toret = 0
 
@@ -117,7 +117,7 @@ function SingleCompile#Compile() " compile only {{{1
     return l:toret
 endfunction
 
-function s:Run() " {{{1
+function! s:Run() " {{{1
     call s:Intialize()
 
     if !has_key(g:SingleCompile_templates,&filetype)
@@ -141,7 +141,7 @@ function s:Run() " {{{1
     return
 endfunction
 
-function SingleCompile#CompileRun() " compile and run {{{1
+function! SingleCompile#CompileRun() " compile and run {{{1
     if SingleCompile#Compile() != 0
         return
     endif
