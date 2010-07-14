@@ -1,4 +1,5 @@
-" version: 0.8
+" File: autoload/SingleCompile.vim
+" Version: 0.8
 " check plugin/SingleCompile.vim and doc/SingleCompile.txt for more information
 
 

@@ -1,6 +1,6 @@
 *SingleCompile.txt*
 
-File: SingleCompile.vim
+File: SingleCompile.txt
 Version: 0.8
 Author: H Xu(xuhdev@gmail.com)
 Last Change: 5 July 2010

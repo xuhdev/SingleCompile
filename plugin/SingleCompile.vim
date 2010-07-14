@@ -1,5 +1,5 @@
-" File: SingleCompile.vim
-" Version: 0.7.8
+" File: plugin/SingleCompile.vim
+" Version: 0.8
 " Author: H Xu(xuhdev@gmail.com)
 " Last Change: 5 July 2010
 " Description: Let user compile or run a single source file conveniently.
