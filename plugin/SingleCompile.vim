@@ -98,8 +98,8 @@ call SingleCompile#SetTemplate('make','run','',1)
     
 
 " commands {{{1
-command SingleCompile       call SingleCompile#Compile()
-command SingleCompileRun    call SingleCompile#CompileRun()
+command -nargs=* SingleCompile       if <q-args> == '' | call SingleCompile#Compile() | else | call SingleCompile#Compile(<q-args>) | endif
+command -nargs=* SingleCompileRun    if <q-args> == '' | call SingleCompile#CompileRun() | else | call SingleCompile#CompileRun(<q-args>) | endif
 " }}}
 
 

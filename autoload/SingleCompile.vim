@@ -65,7 +65,7 @@ function! s:ShowMessage(message) "{{{1
 
 endfunction
 
-function! SingleCompile#Compile() " compile only {{{1
+function! SingleCompile#Compile(...) " compile only {{{1
     call s:Intialize()
     let l:toret = 0
 
@@ -86,8 +86,10 @@ function! SingleCompile#Compile() " compile only {{{1
     endif
 
     let l:compile_cmd = g:SingleCompile_templates[&filetype]['command']
-    " if 'flags' is not defined, use '' as let l:compile_flags = g:SingleCompile_templates[&filetype]['flags']
-    if has_key(g:SingleCompile_templates[&filetype],'flags')
+    " if a:0 is zero and 'flags' is not defined, assign '' to let l:compile_flags
+    if a:0 == 1
+        let l:compile_flags = a:1
+    elseif has_key(g:SingleCompile_templates[&filetype],'flags')
         let l:compile_flags = g:SingleCompile_templates[&filetype]['flags']
     else
         let l:compile_flags = ''
@@ -142,8 +144,14 @@ function! s:Run() " {{{1
     return
 endfunction
 
-function! SingleCompile#CompileRun() " compile and run {{{1
-    if SingleCompile#Compile() != 0
+function! SingleCompile#CompileRun(...) " compile and run {{{1
+    if a:0 > 0
+        let l:compileResult = SingleCompile#Compile(a:1)
+    else
+        let l:compileResult = SingleCompile#Compile()
+    endif
+
+    if l:compileResult != 0
         return
     endif
     call s:Run()
