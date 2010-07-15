@@ -1,7 +1,7 @@
 " File: plugin/SingleCompile.vim
-" Version: 0.8
+" Version: 0.9
 " Author: H Xu(xuhdev@gmail.com)
-" Last Change: 5 July 2010
+" Last Change: 16 July 2010
 " Description: Let user compile or run a single source file conveniently.
 " License: You can redistribute this plugin and / or modify it under the terms 
 "          of the GNU General Public License as published by the Free Software 
