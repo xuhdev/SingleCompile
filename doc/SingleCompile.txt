@@ -41,8 +41,17 @@ If your file type is supported, then press F9 to compile your source file, and
 press Ctrl-F9 to compile and run your source file. Here is a list of supported
 language:
 
-C, C++, Java, sh(UNIX shell), dos batch, html, xhtml, vb script, LaTeX,
-python, Makefile
+    C
+    C++
+    dos batch
+    html
+    Java
+    LaTeX
+    Makefile
+    python
+    sh(UNIX shell)
+    vb script
+    xhtml
 
 NOTE: built-in html and xhtml built-in support requires for firefox on
 UNIX/Linux and IE on Windows. Of course you can define your prefered browser
@@ -238,8 +247,19 @@ modify the built-in c language template.
 
                                             *SingleCompile-built-in-language*
     The following languages are built-in in this plugin:
-    C, C++, Java, sh(UNIX shell), dos batch, html, xhtml, vb script, LaTeX,
-python, Makefile
+
+    C
+    C++
+    dos batch
+    html
+    Java
+    LaTeX
+    Makefile
+    python
+    sh(UNIX shell)
+    vb script
+    xhtml
+
     NOTE: html and xhtml requires for firefox on UNIX/Linux and IE on Windows,
 but of course you can define your prefered browser if you don't have firefox
 or IE. Built-in latex support is for tex-live only. 
