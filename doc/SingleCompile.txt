@@ -12,6 +12,7 @@ License: You can redistribute this plugin and/or modify it under the terms
 CONTENTS~
                                             *SingleCompile-contents*
 ----------------------------------------------------------------------------
+1. Overview                                 |SingleCompile-overview|
 1. Commands                                 |SingleCompile-commands|
 2. Settings                                 |SingleCompile-settings|
 3. Key-mappings                             |SingleCompile-key-mapping|
@@ -19,6 +20,41 @@ CONTENTS~
 5. Supporting plugins                       |SingleCompile-supporting-plugins|
 6. Installation                             |SingleCompile-installation|
 7. Thanks                                   |SingleCompile-thanks|
+
+
+OVERVIEW~
+                                            *SingleCompile-overview*
+----------------------------------------------------------------------------
+This plugin aims to let user compile or run a single source file conveniently.
+
+Consider this situation: you have just written a small c source file for a
+small test, but you have to write a Makefile to compile it or exit vim to
+compile it or compile it using "!gcc" without quickfix feature because vim's
+make command only use the "make" command? This plugin will help you out.
+
+add these key-mappings to your vimrc:
+>
+ nmap <F9> :SingleCompile<cr> 
+ nmap <C-F9> :SingleCompileRun<cr>
+<
+If your file type is supported, then press F9 to compile your source file, and
+press Ctrl-F9 to compile and run your source file. Here is a list of supported
+language:
+
+C, C++, Java, sh(UNIX shell), dos batch, html, xhtml, vb script, LaTeX,
+python, Makefile
+
+NOTE: built-in html and xhtml built-in support requires for firefox on
+UNIX/Linux and IE on Windows. Of course you can define your prefered browser
+if you don't have firefox or IE. LaTeX built-in support is only for tex-live.
+
+You can add your language if your language is not in the list. See details in
+the help file SingleCompile.txt
+
+Interpreting language such as vb script can also be supported by this plugin,
+see details in the help file SingleCompile.txt.
+
+This plugin cannot deal with a project with more than one source file. 
 
 COMMANDS~
                                             *SingleCompile-commands*
