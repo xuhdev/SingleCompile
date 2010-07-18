@@ -76,6 +76,7 @@ just this time, just use the following command:
 >
  :SingleCompile -g -o %<
 <
+    "%<" means the current file name without extension.
 
                                             *SingleCompileRun*
 Commands:
