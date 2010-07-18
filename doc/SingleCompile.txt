@@ -9,6 +9,17 @@ License: You can redistribute this plugin and/or modify it under the terms
          of the GNU General Public License as published by the Free Software 
          Foundation; either version 2, or any later version. 
 
+CONTENTS~
+                                            *SingleCompile-contents*
+----------------------------------------------------------------------------
+1. Commands                                 |SingleCompile-commands|
+2. Settings                                 |SingleCompile-settings|
+3. Key-mappings                             |SingleCompile-key-mapping|
+4. Langage template                         |SingleCompile-language-template|
+5. Supporting plugins                       |SingleCompile-supporting-plugins|
+6. Installation                             |SingleCompile-installation|
+7. Thanks                                   |SingleCompile-thanks|
+
 COMMANDS~
                                             *SingleCompile-commands*
 ----------------------------------------------------------------------------
