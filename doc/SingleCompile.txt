@@ -276,9 +276,16 @@ vim-addon-actions:
 INSTALLATION~
                                             *SingleCompile-installation*
 ----------------------------------------------------------------------------
-Download the SingleCompile.zip file and extract it to your vim runtime
+    Download the SingleCompile.zip file and extract it to your vim runtime
 directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
-the plugin is installed correctly in this way.
+you'd better then use helptags command to generate the help tag(for example
+use ":helptags ~/.vim/doc" on Linux).
+
+TODO~
+                                            *SingleCompile-todo*
+----------------------------------------------------------------------------
+Add more built-in language support. Since I can't know the compilation command
+and run command for every programming language, help from anyone is welcome. 
 
 
 THANKS~
