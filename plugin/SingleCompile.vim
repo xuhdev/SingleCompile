@@ -95,6 +95,10 @@ call SingleCompile#SetTemplate('make','command','make',1)
 call SingleCompile#SetTemplate('make','flags','-f',1)
 call SingleCompile#SetTemplate('make','run','',1)
 
+" cmake
+call SingleCompile#SetTemplate('cmake','command','cmake',1)
+call SingleCompile#SetTemplate('cmake','flags','',1)
+call SingleCompile#SetTemplate('cmake','run','',1)
     
 
 " commands {{{1
