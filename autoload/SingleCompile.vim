@@ -81,7 +81,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
     let l:curcwd=getcwd()
     cd %:p:h
 
-    if g:SingleCompile_autowrite != 0
+    " if autowrite is set and the buffer has been modified, then save
+    if g:SingleCompile_autowrite != 0 && &modified != 0
         exec 'w'
     endif
 
