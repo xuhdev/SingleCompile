@@ -43,6 +43,7 @@ language:
 
     C
     C++
+    cmake
     dos batch
     html
     Java
@@ -250,6 +251,7 @@ modify the built-in c language template.
 
     C
     C++
+    cmake
     dos batch
     html
     Java

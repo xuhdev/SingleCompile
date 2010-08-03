@@ -7,7 +7,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 91
+    return 100
 endfunction
 
 function! s:Intialize() "{{{1
