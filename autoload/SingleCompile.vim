@@ -1,6 +1,6 @@
 " File: autoload/SingleCompile.vim
-" Version: 0.9.1
-" check plugin/SingleCompile.vim and doc/SingleCompile.txt for more information
+" Version: 1.0
+" check doc/SingleCompile.txt for more information
 
 
 let s:save_cpo = &cpo
