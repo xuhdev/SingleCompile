@@ -21,10 +21,10 @@ set cpo&vim
 " c
 call SingleCompile#SetTemplate('c','command','cc',1)
 call SingleCompile#SetTemplate('c','flags','-o %<',1)
-if !has('win32')
-    call SingleCompile#SetTemplate('c','run','./'.'%<',1)
-else
+if has('win32') || has('win64')
     call SingleCompile#SetTemplate('c','run','%<',1)
+else
+    call SingleCompile#SetTemplate('c','run','./'.'%<',1)
 endif
 
 " cpp
@@ -48,7 +48,7 @@ call SingleCompile#SetTemplate('dosbatch','flags','',1)
 call SingleCompile#SetTemplate('dosbatch','run','',1)
 
 " html
-if has('win32')
+if has('win32') || has('win64')
     call SingleCompile#SetTemplate('html','command',"start \"C:\\Program Files\\Internet Explorer\\iexplore.exe\"",1)
 elseif has('unix')
     call SingleCompile#SetTemplate('html','command','firefox',1)
@@ -71,7 +71,7 @@ call SingleCompile#SetTemplate('tex','command','latex',1)
 call SingleCompile#SetTemplate('tex','flags','',1)
 if has('unix')
     call SingleCompile#SetTemplate('tex','run','xdvi %<.dvi',1)
-elseif has('win32')
+elseif has('win32') || has('win64')
     call SingleCompile#SetTemplate('tex','run','dviout %<.dvi',1)
 endif
 

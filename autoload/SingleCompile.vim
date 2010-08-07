@@ -102,6 +102,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             let l:toret = 1
         endif
     else
+        " change the makeprg temporarily
         let l:old_makeprg = &makeprg
         let l:old_shellpipe = &shellpipe
         exec 'setlocal makeprg='.l:compile_cmd
