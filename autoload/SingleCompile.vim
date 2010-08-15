@@ -65,7 +65,7 @@ function! s:ShowMessage(message) "{{{1
 
 endfunction
 
-function! s:IsLanguageInterpreting(filetype_name) "{{{ tell if a language is an interpreting language, reutrn 1 if yes, 0 if no
+function! s:IsLanguageInterpreting(filetype_name) "{{{1 tell if a language is an interpreting language, reutrn 1 if yes, 0 if no
     return (!has_key(g:SingleCompile_templates[a:filetype_name],'run') 
                 \ || substitute(g:SingleCompile_templates[a:filetype_name]['run'], ' ','',"g") == '')
 endfunction
