@@ -65,6 +65,11 @@ function! s:ShowMessage(message) "{{{1
 
 endfunction
 
+function! s:IsLanguageInterpreting(filetype_name) "{{{ tell if a language is an interpreting language, reutrn 1 if yes, 0 if no
+    return (!has_key(g:SingleCompile_templates[a:filetype_name],'run') 
+                \ || substitute(g:SingleCompile_templates[a:filetype_name]['run'], ' ','',"g") == '')
+endfunction
+
 function! SingleCompile#Compile(...) " compile only {{{1
     call s:Intialize()
     let l:toret = 0
@@ -96,17 +101,39 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = ''
     endif
 
-    if g:SingleCompile_enablequickfix == 0 
-                \ || !has_key(g:SingleCompile_templates[&filetype],'run') 
-                \ || substitute(g:SingleCompile_templates[&filetype]['run'], ' ','',"g") == '' 
+    if g:SingleCompile_enablequickfix == 0
                 \ || !has('quickfix') 
-        " if quickfix is not enabled for this plugin and the run command of the language is empty(which means this is an interpreting language
+                \ || ( s:IsLanguageInterpreting(&filetype) && !has('unix') )
+        " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
         exec '!'.l:compile_cmd.' '.l:compile_flags.' %:p'
         if v:shell_error != 0
             let l:toret = 1
         endif
-    else
-        " change the makeprg temporarily
+
+    elseif has('unix') && s:IsLanguageInterpreting(&filetype) " use quickfix for interpreting language in unix
+        " change the makeprg and shellpipe temporarily
+        let l:old_makeprg = &makeprg
+        let l:old_shellpipe = &shellpipe
+        exec 'setlocal makeprg='.l:compile_cmd
+
+        " change shellpipe according to the shell type
+        if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || &shell =~ 'bash'
+            exec 'setlocal shellpipe=2>&1\|\ tee'
+        elseif &shell =~ 'csh' || &shell =~ 'tcsh' 
+            exec 'setlocal shellpipe=\|&\ tee'
+        else
+            exec 'setlocal shellpipe=\|\ tee'
+        endif
+
+        exec 'make'.' '.l:compile_flags.' %:p'
+        
+        " set back makeprg and shellpipe
+        exec 'setlocal makeprg='.l:old_makeprg
+        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |')
+
+    else " use quickfix for compiling language
+
+        " change the makeprg and shellpipe temporarily 
         let l:old_makeprg = &makeprg
         let l:old_shellpipe = &shellpipe
         exec 'setlocal makeprg='.l:compile_cmd
