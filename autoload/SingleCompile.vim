@@ -96,7 +96,11 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = ''
     endif
 
-    if g:SingleCompile_enablequickfix == 0 || !has_key(g:SingleCompile_templates[&filetype],'run') || substitute(g:SingleCompile_templates[&filetype]['run'], ' ','',"g") == '' || !has('quickfix') " if quickfix is not enabled for this plugin and the run command of the language is empty(which means this is an interpreting language
+    if g:SingleCompile_enablequickfix == 0 
+                \ || !has_key(g:SingleCompile_templates[&filetype],'run') 
+                \ || substitute(g:SingleCompile_templates[&filetype]['run'], ' ','',"g") == '' 
+                \ || !has('quickfix') 
+        " if quickfix is not enabled for this plugin and the run command of the language is empty(which means this is an interpreting language
         exec '!'.l:compile_cmd.' '.l:compile_flags.' %:p'
         if v:shell_error != 0
             let l:toret = 1
