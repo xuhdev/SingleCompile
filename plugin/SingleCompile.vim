@@ -101,7 +101,16 @@ command -nargs=* SingleCompile       if <q-args> == '' | call SingleCompile#Comp
 command -nargs=* SingleCompileRun    if <q-args> == '' | call SingleCompile#CompileRun() | else | call SingleCompile#CompileRun(<q-args>) | endif
 " }}}
 
+" menu {{{1
 
+if has('gui_running') && has('menu')
+    noremenu Plugin.SingleCompile.Compile<tab>:SingleCompile :SingleCompile<cr>
+    noremenu Plugin.SingleCompile.Compile\ and\ run<tab>:SingleCompileRun :SingleCompileRun<cr>
+    inoremenu Plugin.SingleCompile.Compile<tab>:SingleCompile <C-O>:SingleCompile<cr>
+    inoremenu Plugin.SingleCompile.Compile\ and\ run<tab>:SingleCompileRun <C-O>:SingleCompileRun<cr>
+endif
+
+" }}}
 
 
 " vim-addon-actions support (activate this addon after vim-addon-actions) {{{
