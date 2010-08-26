@@ -13,13 +13,13 @@ CONTENTS~
                                             *SingleCompile-contents*
 ----------------------------------------------------------------------------
 1. Overview                                 |SingleCompile-overview|
-1. Commands                                 |SingleCompile-commands|
-2. Settings                                 |SingleCompile-settings|
-3. Key-mappings                             |SingleCompile-key-mapping|
-4. Langage template                         |SingleCompile-language-template|
-5. Supporting plugins                       |SingleCompile-supporting-plugins|
-6. Installation                             |SingleCompile-installation|
-7. Thanks                                   |SingleCompile-thanks|
+2. Commands                                 |SingleCompile-commands|
+3. Settings                                 |SingleCompile-settings|
+4. Key-mappings                             |SingleCompile-key-mapping|
+5. Langage template                         |SingleCompile-language-template|
+6. Supporting plugins                       |SingleCompile-supporting-plugins|
+7. Installation                             |SingleCompile-installation|
+8. Thanks                                   |SingleCompile-thanks|
 
 
 OVERVIEW~
