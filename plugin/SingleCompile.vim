@@ -1,7 +1,7 @@
 " File: plugin/SingleCompile.vim
 " GetLatestVimScripts: 3115 1 :AutoInstall: SingleCompile.zip
 " version 1.1
-" check dos/SingleCompile.txt for more version information
+" check doc/SingleCompile.txt for more version information
 
 if v:version < 700
     finish
@@ -102,13 +102,26 @@ command -nargs=* SingleCompileRun    if <q-args> == '' | call SingleCompile#Comp
 
 " menu {{{1
 
+if !exists('g:SingleCompile_menumode')
+    let g:SingleCompile_menumode = 1
+endif
+
 if has('gui_running') && has('menu')
-    nnoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile :SingleCompile<cr>
-    nnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun :SingleCompileRun<cr>
-    inoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile <C-O>:SingleCompile<cr>
-    inoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <C-O>:SingleCompileRun<cr>
-    vnoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile <Esc>:SingleCompile<cr>
-    vnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <Esc>:SingleCompileRun<cr>
+    if g:SingleCompile_menumode == 1
+        nnoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile :SingleCompile<cr>
+        nnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun :SingleCompileRun<cr>
+        inoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile <C-O>:SingleCompile<cr>
+        inoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <C-O>:SingleCompileRun<cr>
+        vnoremenu Plugin.SingleCompile.&Compile<tab>:SingleCompile <Esc>:SingleCompile<cr>
+        vnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <Esc>:SingleCompileRun<cr>
+    elseif g:SingleCompile_menumode == 2
+        nnoremenu SingleCompile.&Compile<tab>:SingleCompile :SingleCompile<cr>
+        nnoremenu SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun :SingleCompileRun<cr>
+        inoremenu SingleCompile.&Compile<tab>:SingleCompile <C-O>:SingleCompile<cr>
+        inoremenu SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <C-O>:SingleCompileRun<cr>
+        vnoremenu SingleCompile.&Compile<tab>:SingleCompile <Esc>:SingleCompile<cr>
+        vnoremenu SingleCompile.Compile\ and\ &run<tab>:SingleCompileRun <Esc>:SingleCompileRun<cr>
+    endif
 endif
 
 " }}}

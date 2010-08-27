@@ -30,11 +30,14 @@ function! SingleCompile#SetTemplate(langname,stype,string,...) " set the templat
         return
     endif
 
+    " if g:SingleCompile_templates does not exist or it is not a dic, then
+    " make g:SingleCompile_templates a dic
     if !exists('g:SingleCompile_templates') || type(g:SingleCompile_templates) != type({})
         unlet! g:SingleCompile_templates
         let g:SingleCompile_templates={}
     endif
 
+    " if the key a:langname does not exist, create it
     if !has_key(g:SingleCompile_templates,a:langname)
         let g:SingleCompile_templates[a:langname]={}
     elseif type(g:SingleCompile_templates[a:langname]) != type({})
@@ -42,15 +45,14 @@ function! SingleCompile#SetTemplate(langname,stype,string,...) " set the templat
         let g:SingleCompile_templates[a:langname]={}
     endif
 
+    " if a:stype does not exist, create it
     if !has_key(g:SingleCompile_templates[a:langname],a:stype)
         let g:SingleCompile_templates[a:langname][a:stype] = a:string
     elseif type(g:SingleCompile_templates[a:langname][a:stype]) != type('')
         unlet! g:SingleCompile_templates[a:langname][a:stype]
         let g:SingleCompile_templates[a:langname][a:stype] = a:string
-    else
-        if a:0 == 0 || a:1 == 0
-            let g:SingleCompile_templates[a:langname][a:stype] = a:string
-        endif
+    else if a:0 == 0 || a:1 == 0 " if the ... from the argument is 0 or the additional argument does not exist
+        let g:SingleCompile_templates[a:langname][a:stype] = a:string
     endif
 endfunction
 
