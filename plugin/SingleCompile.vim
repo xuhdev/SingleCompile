@@ -85,6 +85,21 @@ call SingleCompile#SetTemplate('python','command','python',1)
 call SingleCompile#SetTemplate('python','flags','',1)
 call SingleCompile#SetTemplate('python','run','',1)
 
+" perl
+call SingleCompile#SetTemplate('perl','command','perl',1)
+call SingleCompile#SetTemplate('perl','flags','',1)
+call SingleCompile#SetTemplate('perl','run','',1)
+
+" ruby
+call SingleCompile#SetTemplate('ruby','command','ruby',1)
+call SingleCompile#SetTemplate('ruby','flags','',1)
+call SingleCompile#SetTemplate('ruby','run','',1)
+
+" lua
+call SingleCompile#SetTemplate('lua','command','lua',1)
+call SingleCompile#SetTemplate('lua','flags','',1)
+call SingleCompile#SetTemplate('lua','run','',1)
+
 " Makefile
 call SingleCompile#SetTemplate('make','command','make',1)
 call SingleCompile#SetTemplate('make','flags','-f',1)
@@ -94,7 +109,7 @@ call SingleCompile#SetTemplate('make','run','',1)
 call SingleCompile#SetTemplate('cmake','command','cmake',1)
 call SingleCompile#SetTemplate('cmake','flags','',1)
 call SingleCompile#SetTemplate('cmake','run','',1)
-    
+
 
 " commands {{{1
 command -nargs=* SingleCompile       if <q-args> == '' | call SingleCompile#Compile() | else | call SingleCompile#Compile(<q-args>) | endif
