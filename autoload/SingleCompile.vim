@@ -51,7 +51,7 @@ function! SingleCompile#SetTemplate(langname,stype,string,...) " set the templat
     elseif type(g:SingleCompile_templates[a:langname][a:stype]) != type('')
         unlet! g:SingleCompile_templates[a:langname][a:stype]
         let g:SingleCompile_templates[a:langname][a:stype] = a:string
-    else if a:0 == 0 || a:1 == 0 " if the ... from the argument is 0 or the additional argument does not exist
+    elseif a:0 == 0 || a:1 == 0 " if the ... from the argument is 0 or the additional argument does not exist
         let g:SingleCompile_templates[a:langname][a:stype] = a:string
     endif
 endfunction
