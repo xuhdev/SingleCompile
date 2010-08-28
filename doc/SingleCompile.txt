@@ -48,8 +48,11 @@ language:
     html
     Java
     LaTeX
+    lua
     Makefile
+    perl
     python
+    ruby
     sh(UNIX shell)
     vb script
     xhtml
@@ -272,8 +275,11 @@ The following languages are built-in in this plugin:
     html
     Java
     LaTeX
+    lua
     Makefile
+    perl
     python
+    ruby
     sh(UNIX shell)
     vb script
     xhtml
