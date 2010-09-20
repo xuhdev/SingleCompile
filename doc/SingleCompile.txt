@@ -171,10 +171,10 @@ LANGUAGE-TEMPLATE~
 ----------------------------------------------------------------------------
                                           *SingleCompile-add-your-language*
 There are only a few built-in support languages. See
-|SingleCompile-built-in-language| for the language list. 
-There are two ways to add a new language.
+|SingleCompile-built-in-language| for the built-in language support list. 
 
-1. (recommended) To add a new language, add the following to your vimrc file:
+To add a new language support by yourself, add the following lines to your
+vimrc file:
 >
  call SingleCompile#SetTemplate('filetype','command','stringA')
  call SingleCompile#SetTemplate('filetype','flags','stringB')
@@ -186,7 +186,7 @@ interpreted languages such as UNIX shell, dos batch, stringA is the command of
 interpreting, stringB is the flags of interpreting, stringC MUST be set to
 be empty. 
 
-The following are some examples:
+Here are some examples:
 >
  " java
  call SingleCompile#SetTemplate('java','command','javac')
@@ -207,9 +207,9 @@ The following are some examples:
      call SingleCompile#SetTemplate('tex','run','dviout %<.dvi')
  endif
 <
-You can also use this method to modify the templates of a built-in language.
-For example, you can change 'dviout' to 'yap' in the example above to modify
-the built-in latex language template.
+You can also use this method to modify the templates of a built-in supported
+language. For example, you can change 'dviout' to 'yap' in the example above
+to modify the built-in latex language template.
 
 Advanced: If you don't want to override the template if there is an existing
 one, but use the new template if there is no corresponding template existing,
@@ -220,50 +220,8 @@ the following:
  call SingleCompile#SetTemplate('java','command','javac',1)
 <
 In this way, if the command of java is already set, this sentence will do
-nothing.  However, if the command of java is not set, it will set the command
-of java to "javac".
-
-2. (not recommended)In this way, to add a language, you should add the 
-following to your vimrc:
->
- let g:SingleCompile_templates={}
- let g:SingleCompile_templates['filetype']={}
- let g:SingleCompile_templates['filetype']['command']='stringA'
- let g:SingleCompile_templates['filetype']['flags']='stringB'
- let g:SingleCompile_templates['filetype']['run']='stringC'
-<
-
-For compiling languages such as C, Java, stringA is the command of compiling,
-stringB is the flags of compiling, stringC is the command of running; For
-interpreted languages such as UNIX shell, dos batch, stringA is the command of
-interpreting, stringB is the flags of interpreting, stringC should be set to
-be empty. 
-
-NOTE: if you want to add more than one language, 
-'let g:SingleCompile_templates={}' can be written for only ONCE!
-
-The following are three examples of adding languages:
->
- let g:SingleCompile_templates={}
-
- let g:SingleCompile_templates['c']={}
- let g:SingleCompile_templates['c']['command']='cc'
- let g:SingleCompile_templates['c']['flags']='-o %<'
- let g:SingleCompile_templates['c']['run']='./%<'
-
- let g:SingleCompile_templates['sh']={}
- let g:SingleCompile_templates['sh']['command']='sh'
- let g:SingleCompile_templates['sh']['flags']=''
- let g:SingleCompile_templates['sh']['run']=''
-
- let g:SingleCompile_templates['dosbatch']={}
- let g:SingleCompile_templates['dosbatch']['command']=''
- let g:SingleCompile_templates['dosbatch']['flags']=''
- let g:SingleCompile_templates['dosbatch']['run']=''
-<
-You can also use this method to modify the templates of a built-in language.
-For example, you can change 'cc' to 'gcc' in the example above to modify the
-built-in c language template.
+nothing. On the contrary, if the command of java is not set, it will set the
+compilation command of java to "javac".
 
                                             *SingleCompile-built-in-language*
 The following languages are built-in in this plugin:
