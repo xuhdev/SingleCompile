@@ -110,6 +110,18 @@ call SingleCompile#SetTemplate('cmake','command','cmake',1)
 call SingleCompile#SetTemplate('cmake','flags','',1)
 call SingleCompile#SetTemplate('cmake','run','',1)
 
+" fortran
+if executable('gfortran') == 1
+    call SingleCompile#SetTemplate('fortran','command','gfortran',1)
+else
+    call SingleCompile#SetTemplate('fortran','command','g77',1)
+endif
+call SingleCompile#SetTemplate('fortran','flags','-o %<',1)
+if has('win32') || has('win64')
+    call SingleCompile#SetTemplate('fortran','run','%<',1)
+else
+    call SingleCompile#SetTemplate('fortran','run','./'.'%<',1)
+endif
 
 " commands {{{1
 command -nargs=* SingleCompile       if <q-args> == '' | call SingleCompile#Compile() | else | call SingleCompile#Compile(<q-args>) | endif
