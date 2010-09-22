@@ -45,6 +45,7 @@ language:
     C++
     cmake
     dos batch
+    Fortran
     html
     Java
     LaTeX
@@ -230,6 +231,7 @@ The following languages are built-in in this plugin:
     C++
     cmake
     dos batch
+    Fortran
     html
     Java
     LaTeX
