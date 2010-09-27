@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 1.2.1
+" Version: 1.2.2
 " check doc/SingleCompile.txt for more information
 
 
@@ -7,7 +7,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 120
+    return 122
 endfunction
 
 function! s:Intialize() "{{{1
