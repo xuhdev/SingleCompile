@@ -44,26 +44,6 @@ function! SingleCompile#SetCompilerTemplate(lang_name, compiler, compiler_name, 
     endif
 endfunction
 
-function! s:DetectCompilerGenerally(compile_command)
-    " the general function of compiler detection. The principle is to search
-    " the environment varible PATH and some special directory
-
-    if executable(a:compile_command) == 1
-        return a:compile_command
-    endif
-
-    if has('unix')
-        if executable('/usr/bin/'.a:compile_command) == 1
-            return '/usr/bin/'.a:compile_command
-        endif
-        if executable('/usr/local/bin/'.a:compile_command) == 1
-            return '/usr/local/bin/'.a:compile_command
-        endif
-        if executable('/bin/'.a:compile_command) == 1
-            return '/bin/'.a:compile_command
-        endif
-    endif
-endfunction
 
 function! s:GetCompilerSingleTemplate(lang_name, compiler_name, key) " {{{1
     return s:CompilerTemplate[a:lang_name][a:compiler_name][a:key]
@@ -155,6 +135,16 @@ function! s:IsLanguageInterpreting(filetype_name) "{{{1 tell if a language is an
     endif
 endfunction
 
+function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
+    if g:SingleCompile_enablequickfix == 0
+                \ || !has('quickfix') 
+                \ || ( s:IsLanguageInterpreting(&filetype) && !has('unix') )
+        return 0
+    else
+        return 1
+    endif
+endfunction
+
 function! SingleCompile#Compile(...) " compile only {{{1
     call s:Intialize()
     let l:toret = 0
@@ -207,9 +197,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = ''
     endif
 
-    if g:SingleCompile_enablequickfix == 0
-                \ || !has('quickfix') 
-                \ || ( s:IsLanguageInterpreting(&filetype) && !has('unix') )
+    if s:ShouldQuickfixBeUsed() == 0
         " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
         exec '!'.l:compile_cmd.' '.l:compile_flags.' %:p'
         if v:shell_error != 0
@@ -220,7 +208,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " change the makeprg and shellpipe temporarily
         let l:old_makeprg = &makeprg
         let l:old_shellpipe = &shellpipe
-        exec 'setlocal makeprg='.l:compile_cmd
+        let &l:makeprg = l:compile_cmd
 
         " change shellpipe according to the shell type
         if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || &shell =~ 'bash'
@@ -242,7 +230,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " change the makeprg and shellpipe temporarily 
         let l:old_makeprg = &makeprg
         let l:old_shellpipe = &shellpipe
-        exec 'setlocal makeprg='.l:compile_cmd
+        let &l:makeprg = l:compile_cmd
         exec 'setlocal shellpipe=>%s\ 2>&1'
         exec 'make'.' '.l:compile_flags.' %:p'
         " check is compiling successful
@@ -319,6 +307,49 @@ function! SingleCompile#CompileRun(...) " compile and run {{{1
     call s:Run()
 endfunction
 
+
+" compiler detect functions {{{1
+function! s:DetectCompilerGenerally(compile_command) " {{{2
+    " the general function of compiler detection. The principle is to search
+    " the environment varible PATH and some special directory
+
+    if executable(a:compile_command) == 1
+        return a:compile_command
+    endif
+
+    if has('unix')
+        if executable('/usr/bin/'.a:compile_command) == 1
+            return '/usr/bin/'.a:compile_command
+        endif
+        if executable('/usr/local/bin/'.a:compile_command) == 1
+            return '/usr/local/bin/'.a:compile_command
+        endif
+        if executable('/bin/'.a:compile_command) == 1
+            return '/bin/'.a:compile_command
+        endif
+    endif
+endfunction
+
+function! s:DetectIe(not_used_arg) " {{{2
+    if executable('iexplore')
+        return 'iexplore'
+    endif
+
+    if has('win32') || has('win64')
+        for iepath in ['C:\Program Files\Internet Explorer\iexplore',
+                    \ 'D:\Program Files\Internet Explorer\iexplore',
+                    \ 'E:\Program Files\Internet Explorer\iexplore',
+                    \ 'F:\Program Files\Internet Explorer\iexplore',
+                    \ 'G:\Program Files\Internet Explorer\iexplore']
+            if executable(iepath)
+                return "\"".iepath."\""
+            endif
+        endfor
+    endif
+endfunction
+
+call s:Intialize() " {{{1 call the initialize function
+
 " templates {{{1
 
 if has('unix')
@@ -327,13 +358,13 @@ elseif has('win32') || has('win64')
     let s:common_run_command = '%<'
 endif
 " c
+call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
 if has('win32') || has('win64')
     call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
     call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
 endif
 call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
 call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
 call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
 call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
 if has('unix')
@@ -371,6 +402,8 @@ call SingleCompile#SetCompilerTemplate('html', 'firefox', 'Mozilla Firefox', 'fi
 call SingleCompile#SetCompilerTemplate('html', 'chrome', 'Google Chrome', 'googlechrome', '', '')
 call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 'opera', '', '')
 if has('win32') || has('win64')
+    call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
+else
     call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
 endif
 
