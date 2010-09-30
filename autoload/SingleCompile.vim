@@ -253,6 +253,9 @@ function! s:DetectCompiler(lang_name) " to detect compilers for one language. Re
 
     " call the compiler detection function to get the compilation command
     for some_compiler in keys(s:CompilerTemplate[&filetype])
+        if some_compiler == 'chosen_compiler'
+            continue
+        endif
         call s:SetCompilerSingleTemplate(a:lang_name, some_compiler, 'command', 
                     \s:CompilerTemplate[a:lang_name][some_compiler]['detect_func'](s:CompilerTemplate[a:lang_name][some_compiler]['detect_func_arg']) )
 
@@ -307,7 +310,60 @@ function! SingleCompile#CompileRun(...) " compile and run {{{1
     call s:Run()
 endfunction
 
+function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
+    if a:0 > 1
+        call s:ShowMessage('Too many argument for ChooseCompiler!')
+        return
+    endif
 
+    if a:0 == 1 " a:0 == 1 means the user has specified a compiler to choose
+        if has_key(s:CompilerTemplate, a:lang_name) && has_key(s:CompilerTemplate[a:lang_name], a:1)
+            let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = a:1
+        endif
+
+        return
+    endif
+
+    if a:0 == 0
+        if !has_key(s:CompilerTemplate, a:lang_name)
+            return
+        endif
+
+        let l:detected_compilers = s:DetectCompiler(&filetype)
+        let l:choose_list = [] " used to remember the compilers
+        let l:choose_list_display = [] " used to filled with compiler names to be displayed in front of user
+        let l:count = 1
+        for some_compiler in keys(s:CompilerTemplate[a:lang_name])
+            if some_compiler == 'chosen_compiler'
+                continue
+            endif
+
+            call add(l:choose_list, some_compiler)
+            if count(l:detected_compilers, some_compiler) > 0
+                call add(l:choose_list_display, l:count.'. '.some_compiler.'('.s:CompilerTemplate[a:lang_name][some_compiler]['name'].')'.'  detected')
+            else
+                call add(l:choose_list_display, l:count.'. '.some_compiler.'('.s:CompilerTemplate[a:lang_name][some_compiler]['name'].')')
+            endif
+            let l:count += 1
+        endfor
+
+        if empty(l:choose_list)
+            call s:ShowMessage('No compiler is available for this language!')
+            return
+        endif
+
+        let l:user_choose = inputlist( extend(['Compilers: '], l:choose_list_display) )
+        
+        " if user does not choose a valid option
+        if l:user_choose <= 0
+            return
+        endif
+
+        let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = get(l:choose_list, l:user_choose-1)
+
+        return
+    endif
+endfunction
 " compiler detect functions {{{1
 function! s:DetectCompilerGenerally(compile_command) " {{{2
     " the general function of compiler detection. The principle is to search
@@ -357,6 +413,7 @@ if has('unix')
 elseif has('win32') || has('win64')
     let s:common_run_command = '%<'
 endif
+
 " c
 call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
 if has('win32') || has('win64')
@@ -368,17 +425,17 @@ call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', 
 call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
 call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
 if has('unix')
-    call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX ANSI C Compiler', 'cc', '-o %<', s:common_run_command)
+    call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o %<', s:common_run_command)
 endif
 
 " cpp
+call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
 if has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
-    call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
+    call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
+    call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
 endif
-call SingleCompile#SetCompilerTemplate('c', 'g++', 'GNU C++ Compiler', 'g++', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
+call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o %<', s:common_run_command)
+call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
 
 " java
 call SingleCompile#SetCompilerTemplate('java', 'java', 'Sun Java Development Kit', 'javac', '', 'java %<')
@@ -412,6 +469,8 @@ call SingleCompile#SetCompilerTemplate('xhtml', 'firefox', 'Mozilla Firefox', 'f
 call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 'Google Chrome', 'googlechrome', '', '')
 call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 'Opera', 'opera', '', '')
 if has('win32') || has('win64')
+    call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
+else
     call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
 endif
 

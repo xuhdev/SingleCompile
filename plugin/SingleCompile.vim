@@ -20,6 +20,7 @@ set cpo&vim
 " commands {{{1
 command -nargs=* SingleCompile       if <q-args> == '' | call SingleCompile#Compile() | else | call SingleCompile#Compile(<q-args>) | endif
 command -nargs=* SingleCompileRun    if <q-args> == '' | call SingleCompile#CompileRun() | else | call SingleCompile#CompileRun(<q-args>) | endif
+command SCChooseCompiler call SingleCompile#ChooseCompiler(&filetype)
 
 " menu {{{1
 
