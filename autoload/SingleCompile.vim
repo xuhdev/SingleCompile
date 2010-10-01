@@ -18,6 +18,62 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     return 201
 endfunction
 
+" compiler detect functions {{{1
+function! s:DetectCompilerGenerally(compile_command) " {{{2
+    " the general function of compiler detection. The principle is to search
+    " the environment varible PATH and some special directory
+
+    if executable(a:compile_command) == 1
+        return a:compile_command
+    endif
+
+    if has('unix')
+        if executable('/usr/bin/'.a:compile_command) == 1
+            return '/usr/bin/'.a:compile_command
+        endif
+        if executable('/usr/local/bin/'.a:compile_command) == 1
+            return '/usr/local/bin/'.a:compile_command
+        endif
+        if executable('/bin/'.a:compile_command) == 1
+            return '/bin/'.a:compile_command
+        endif
+    endif
+
+    return 0
+endfunction
+
+function! s:DetectIe(not_used_arg) " {{{2
+    if executable('iexplore')
+        return 'iexplore'
+    endif
+
+    if has('win32') || has('win64')
+        for iepath in ['C:\Program Files\Internet Explorer\iexplore',
+                    \ 'D:\Program Files\Internet Explorer\iexplore',
+                    \ 'E:\Program Files\Internet Explorer\iexplore',
+                    \ 'F:\Program Files\Internet Explorer\iexplore',
+                    \ 'G:\Program Files\Internet Explorer\iexplore']
+            if executable(iepath)
+                return "\"".iepath."\""
+            endif
+        endfor
+    endif
+endfunction
+
+function! s:DetectGmake(not_used_arg)
+    let l:make_command = s:DetectCompilerGenerally('gmake')
+    if l:make_command != 0
+        return l:make_command
+    endif
+
+    let l:make_command = s:DetectCompilerGenerally('make')
+    if l:make_command != 0
+        return l:make_command
+    endif
+
+    return 0
+endfunction
+
 function! s:Intialize() "{{{1
     if !exists('g:SingleCompile_autowrite')
         let g:SingleCompile_autowrite = 1
@@ -37,7 +93,6 @@ function! s:Intialize() "{{{1
         
         let s:TemplateIntialized = 1
 
-
         if has('unix')
             let s:common_run_command = './'.'%<'
         elseif has('win32') || has('win64')
@@ -54,7 +109,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
-        if has('unix')
+        if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o %<', s:common_run_command)
         endif
 
@@ -72,7 +127,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java %<')
 
         " fortran
-        if has('unix')
+        if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o %<', s:common_run_command)
         endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
@@ -109,7 +164,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('vb', 'vb', 'VB Script Interpreter', 'cscript', '', '')
 
         " latex
-        if has('unix')
+        if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
         elseif has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
@@ -117,7 +172,7 @@ function! s:Intialize() "{{{1
         endif
 
         " plain tex
-        if has('unix')
+        if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
         elseif has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
@@ -140,7 +195,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('lua', 'lua', 'Lua Interpreter', 'lua', '', '')
 
         " Makefile
-        call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '')
+        call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '', function('s:DetectGmake'))
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('make', 'nmake', 'Microsoft Program Maintenance Utility', 'nmake', '-f', '')
         endif
@@ -493,45 +548,6 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = get(l:choose_list, l:user_choose-1)
 
         return
-    endif
-endfunction
-" compiler detect functions {{{1
-function! s:DetectCompilerGenerally(compile_command) " {{{2
-    " the general function of compiler detection. The principle is to search
-    " the environment varible PATH and some special directory
-
-    if executable(a:compile_command) == 1
-        return a:compile_command
-    endif
-
-    if has('unix')
-        if executable('/usr/bin/'.a:compile_command) == 1
-            return '/usr/bin/'.a:compile_command
-        endif
-        if executable('/usr/local/bin/'.a:compile_command) == 1
-            return '/usr/local/bin/'.a:compile_command
-        endif
-        if executable('/bin/'.a:compile_command) == 1
-            return '/bin/'.a:compile_command
-        endif
-    endif
-endfunction
-
-function! s:DetectIe(not_used_arg) " {{{2
-    if executable('iexplore')
-        return 'iexplore'
-    endif
-
-    if has('win32') || has('win64')
-        for iepath in ['C:\Program Files\Internet Explorer\iexplore',
-                    \ 'D:\Program Files\Internet Explorer\iexplore',
-                    \ 'E:\Program Files\Internet Explorer\iexplore',
-                    \ 'F:\Program Files\Internet Explorer\iexplore',
-                    \ 'G:\Program Files\Internet Explorer\iexplore']
-            if executable(iepath)
-                return "\"".iepath."\""
-            endif
-        endfor
     endif
 endfunction
 

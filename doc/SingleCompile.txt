@@ -339,21 +339,21 @@ compilation command of java to "javac".
 The following compilers have built-in support in this plugin:
 
 C:
-    gcc (GNU C Compiler)
-    open-watcom (Open Watcom C/C++32 Compiler)
-    icc (Intel C++ Compiler)
-    pcc (Portable C Compiler)
-    tcc (Tiny C Compiler)
-    msvc (Microsoft Visual C++), Windows only
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX/Linux only
+    gcc (GNU C Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++), Windows only
+    open-watcom (Open Watcom C/C++32 Compiler)
+    pcc (Portable C Compiler)
+    tcc (Tiny C Compiler)
 
 C++:
-    open-watcom (Open Watcom C/C++32 Compiler)
+    bcc (Borland C++ Builder), Windows Only
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
-    bcc (Borland C++ Builder), Windows Only
+    open-watcom (Open Watcom C/C++32 Compiler)
 
 cmake:
     cmake (cmake)
@@ -368,18 +368,18 @@ Fortran:
     open-watcom (Open Watcom Fortran 77/32 Compiler)
 
 html:
-    firefox (Mozilla Firefox)
     chrome (Google Chrome)
-    opera (Opera)
+    firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    opera (Opera)
 
 Java:
-    sunjdk (Sun Java Development Kit)
     gcj (GNU Java Compiler)
+    sunjdk (Sun Java Development Kit)
 
 LaTeX:
-    texlive (Tex Live)
     miktex (MiKTeX), Windows Only
+    texlive (Tex Live)
 
 lua:
     lua (Lua Interpreter)
@@ -392,9 +392,9 @@ perl:
     perl (Perl Interpreter)
 
 python:
-    python (Python Interpreter)
     jython (Jython)
     pypy (PyPy)
+    python (Python Interpreter)
     python3 (Python 3 Interpreter)
     
 ruby:
@@ -407,10 +407,10 @@ vb script:
     vb (VB Script Interpreter)
     
 xhtml:
-    firefox (Mozilla Firefox)
     chrome (Google Chrome)
-    opera (Opera)
+    firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    opera (Opera)
 
 See |SingleCompile-add-your-compiler| to add your compiler support.
 
@@ -432,8 +432,8 @@ use ":helptags ~/.vim/doc" on Linux).
 THANKS~
                                             *SingleCompile-thanks*
 ----------------------------------------------------------------------------
-Marc Weber gives me a lot of help to improve this plugin, so thank him very
-much.
+Marc Weber has given me a lot of help to improve this plugin, so thank him
+very much.
 
 
 
