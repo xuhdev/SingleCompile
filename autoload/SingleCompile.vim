@@ -438,7 +438,8 @@ call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', 
 call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
 
 " java
-call SingleCompile#SetCompilerTemplate('java', 'java', 'Sun Java Development Kit', 'javac', '', 'java %<')
+call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java %<')
+call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java %<')
 
 " fortran
 if has('unix')
@@ -446,7 +447,7 @@ if has('unix')
 endif
 call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
 call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('fortran', 'wfl386', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
+call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
 
 " shell
 call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 'sh', '', '')
@@ -482,6 +483,7 @@ if has('unix')
     call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
 elseif has('win32') || has('win64')
     call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
+    call SingleCompile#SetCompilerTemplate('tex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
 endif
 
 " plain tex
@@ -489,7 +491,7 @@ if has('unix')
     call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
 elseif has('win32') || has('win64')
     call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
-    call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'Tex Live', 'latex', '', 'yap %<.dvi')
+    call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
 endif
 
 " python
@@ -508,7 +510,7 @@ call SingleCompile#SetCompilerTemplate('ruby', 'ruby', 'Ruby Interpreter', 'ruby
 call SingleCompile#SetCompilerTemplate('lua', 'lua', 'Lua Interpreter', 'lua', '', '')
 
 " Makefile
-call SingleCompile#SetCompilerTemplate('make', 'make', 'GNU Make', 'make', '-f', '')
+call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '')
 
 " cmake
 call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')

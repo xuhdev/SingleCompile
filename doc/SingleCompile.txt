@@ -16,7 +16,7 @@ CONTENTS~
 2. Commands                                 |SingleCompile-commands|
 3. Settings                                 |SingleCompile-settings|
 4. Key-mappings                             |SingleCompile-key-mapping|
-5. Language template                        |SingleCompile-language-template|
+5. Compiler template                        |SingleCompile-compiler-template|
 6. Supporting plugins                       |SingleCompile-supporting-plugins|
 7. Installation                             |SingleCompile-installation|
 8. Thanks                                   |SingleCompile-thanks|
@@ -34,38 +34,90 @@ make command only use the "make" command? This plugin will help you out.
 
 add these key-mappings to your vimrc:
 >
- nmap <F9> :SingleCompile<cr> 
- nmap <C-F9> :SingleCompileRun<cr>
+ nmap <F9> :SCCompile<cr> 
+ nmap <C-F9> :SCCompileRun<cr>
 <
 If your file type is supported, then press F9 to compile your source file, and
 press Ctrl-F9 to compile and run your source file. Here is a list of supported
 language:
 
-    C
-    C++
-    cmake
-    dos batch
-    Fortran
-    html
-    Java
-    LaTeX
-    lua
-    Makefile
-    perl
-    python
-    ruby
-    sh(UNIX shell)
-    vb script
-    xhtml
+C:
+    gcc (GNU C Compiler)
+    open-watcom (Open Watcom C/C++32 Compiler)
+    icc (Intel C++ Compiler)
+    pcc (Portable C Compiler)
+    tcc (Tiny C Compiler)
+    msvc (Microsoft Visual C++), Windows only
+    bcc (Borland C++ Builder), Windows only
+    cc (UNIX C Compiler), UNIX/Linux only
 
-NOTE: built-in html and xhtml built-in support requires for firefox on
-UNIX/Linux and IE on Windows. Of course you can define your preferred browser
-if you don't have firefox or IE. LaTeX built-in support is only for tex-live.
+C++:
+    open-watcom (Open Watcom C/C++32 Compiler)
+    g++ (GNU C++ Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++), Windows Only
+    bcc (Borland C++ Builder), Windows Only
 
-You can add your language if your language is not in the list. See details in
-the help file SingleCompile.txt
+cmake:
+    cmake (cmake)
 
-Interpreting language such as vb script can also be supported by this plugin,
+dos batch:
+    dosbatch (DOS Batch)
+    
+Fortran:
+    gfortran (GNU Fortran Compiler), UNIX/Linux only
+    g77 (GNU Fortran 77 Compiler)
+    ifort (Intel Fortran Compiler)
+    open-watcom (Open Watcom Fortran 77/32 Compiler)
+
+html:
+    firefox (Mozilla Firefox)
+    chrome (Google Chrome)
+    opera (Opera)
+    ie (Microsoft Internet Explorer)
+
+Java:
+    sunjdk (Sun Java Development Kit)
+    gcj (GNU Java Compiler)
+
+LaTeX:
+    texlive (Tex Live)
+    miktex (MiKTeX), Windows Only
+
+lua:
+    lua (Lua Interpreter)
+
+Makefile:
+    gmake (GNU Make)
+
+perl:
+    perl (Perl Interpreter)
+
+python:
+    python (Python Interpreter)
+    jython (Jython)
+    pypy (PyPy)
+    python3 (Python 3 Interpreter)
+    
+ruby:
+    ruby (Ruby Interpreter)
+    
+sh(UNIX shell):
+    shell (UNIX Shell)
+
+vb script:
+    vb (VB Script Interpreter)
+    
+xhtml:
+    firefox (Mozilla Firefox)
+    chrome (Google Chrome)
+    opera (Opera)
+    ie (Microsoft Internet Explorer)
+
+You can add your compiler support if your compiler is not in the list. See
+details in the help file SingleCompile.txt
+
+Interpreting language such as python can also be supported by this plugin,
 see details in the help file SingleCompile.txt.
 
 This plugin cannot deal with a project with more than one source file. 
@@ -74,39 +126,57 @@ COMMANDS~
                                             *SingleCompile-commands*
 ----------------------------------------------------------------------------
 
-                                            *SingleCompile*
+                                            *SCCompile*
 Commands:
-    :SingleCompile
+    :SCCompile
 If you are editing a source file of a compiling language such as C, Java, this
 command will compile the file which you are editing now. If you are editing a
 source file of a interpreted language such as shell language, this command
-will run the file which you are editing. See |SingleCompile-language-template|
+will run the file which you are editing. See |SingleCompile-compiler-template|
 about the compilation command.
 
 You can add some arguments after the command. For example, you want to compile
 your c source file with "-g -o %<" flag instead of the "-o %<" flag defined in
-the language template(see |SingleCompile-language-template|) for just this
+the language template(see |SingleCompile-compiler-template|) for just this
 time, just use the following command:
 >
- :SingleCompile -g -o %<
+ :SCCompile -g -o %<
 <
-    "%<" means the current file name without extension.
+"%<" means the current file name without extension.
 
-                                            *SingleCompileRun*
+                                            *SingleCompile*
 Commands:
-    :SingleCompileRun
+    :SingleCompile
+Same as |SCCompile|, only for backward compatible use. Not recommended to use
+any more.
+
+                                            *SCCompileRun*
+Commands:
+    :SCCompileRun
 If you are editing a source file of a compiling language such as C, Java, this
 command will compile the file which you are editing now and run the
 executable; if you are editing a source file of a interpreted language such as
 shell language, this command will run the source file you are editing. That
-means, it is nothing different between :SingleCompile and :SingleCompileRun
-for a interpreted language source file.
+means, it is nothing different between :SCCompile and :SCCompileRun for a
+interpreted language source file.
 
 You can also add some arguments after SingleCompileRun command, the meaning of
 arguments is the same as SingleCompile command above. Here is an example:
 >
- :SingleCompileRun -g -o %<
+ :SCCompileRun -g -o %<
 <
+
+                                            *SingleCompileRun*
+Commands:
+    :SingleCompileRun
+Same as |SCCompileRun|, only for backward compatible use. Not recommended to use
+any more.
+
+                                            *SCChooseCompiler*
+Commands:
+    :SCChooseCompiler
+Choose a compiler to use. This command will give you a list of compilers to
+choose one.
 
 SETTINGS~
                                             *SingleCompile-settings*
@@ -168,14 +238,53 @@ vimrc:
 Then you can press F9 to compile, and Ctrl+F9 to compile and run.
 
 LANGUAGE-TEMPLATE~
-                                            *SingleCompile-language-template*
+                                            *SingleCompile-compiler-template*
 ----------------------------------------------------------------------------
-                                          *SingleCompile-add-your-language*
-There are only a few built-in support languages. See
-|SingleCompile-built-in-language| for the built-in language support list. 
+                                          *SingleCompile-add-your-compiler*
+There are only a few built-in support compilers. See
+|SingleCompile-built-in-compilers| for the built-in compiler support list. 
 
-To add a new language support by yourself, add the following lines to your
-vimrc file:
+To add a new compiler support by yourself, there are two ways:
+1. (Recommended) Add the following lines to your vimrc file:
+>
+ call SingleCompile#SetCompilerTemplate('filetype', 'compiler', 'compiler_name', 'command', 'flag', 'run_command')
+ call SingleCompile#ChooseCompiler('filetype', 'compiler')
+<
+For compiling languages such as C, Java, Fortran, 'compiler' is the short name
+for the compiler, such as "gcc", "icc"; 'command' is the command of compiling,
+such as "gcc", "g++"; 'flag' is the flags of compiling, such as "-O2";
+'run_command' is the command of running, such as "./a.out". For interpreted
+languages such as Python, Ruby, 'command' is the command of interpreting, such
+as "python"; 'flag' is the flags of interpreting; and 'run_command' MUST be
+set to be empty. 
+The first line is to set the template of your compiler, and the second line is
+to tell SingleCompile to use your compiler. If the second line is omitted,
+SingleCompile will detect the compilers available on your system
+automatically, and use the first detected one.
+
+Here are some examples exerpted from built-in compiler templates:
+>
+ " c
+ call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
+
+ call SingleCompile#ChooseCompiler('c', 'gcc')
+
+ " fortran
+ call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
+
+ call SingleCompile#ChooseCompiler('fortran', 'g77')
+
+ " python
+ call SingleCompile#SetCompilerTemplate('python', 'python', 'Python Interpreter', 'python', '', '')
+ call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
+
+ call SingleCompile#ChooseCompiler('python', 'jython')
+<
+
+2. (Deprecated, only kept for backward compatibility use) Add the following lines
+to your vimrc file:
 >
  call SingleCompile#SetTemplate('filetype','command','stringA')
  call SingleCompile#SetTemplate('filetype','flags','stringB')
@@ -183,7 +292,7 @@ vimrc file:
 <
 For compiling languages such as C, Java, stringA is the command of compiling,
 stringB is the flags of compiling, stringC is the command of running; For
-interpreted languages such as UNIX shell, dos batch, stringA is the command of
+interpreted languages such as Python, Ruby, stringA is the command of
 interpreting, stringB is the flags of interpreting, stringC MUST be set to
 be empty. 
 
@@ -224,31 +333,83 @@ In this way, if the command of java is already set, this sentence will do
 nothing. On the contrary, if the command of java is not set, it will set the
 compilation command of java to "javac".
 
-                                            *SingleCompile-built-in-language*
-The following languages are built-in in this plugin:
+                                            *SingleCompile-built-in-compiler*
+The following compilers have built-in support in this plugin:
 
-    C
-    C++
-    cmake
-    dos batch
-    Fortran
-    html
-    Java
-    LaTeX
-    lua
-    Makefile
-    perl
-    python
-    ruby
-    sh(UNIX shell)
-    vb script
-    xhtml
+C:
+    gcc (GNU C Compiler)
+    open-watcom (Open Watcom C/C++32 Compiler)
+    icc (Intel C++ Compiler)
+    pcc (Portable C Compiler)
+    tcc (Tiny C Compiler)
+    msvc (Microsoft Visual C++), Windows only
+    bcc (Borland C++ Builder), Windows only
+    cc (UNIX C Compiler), UNIX/Linux only
 
-NOTE: html and xhtml requires for firefox on UNIX/Linux and IE on Windows, but
-of course you can define your prefered browser if you don't have firefox or
-IE. Built-in latex support is for tex-live only. 
+C++:
+    open-watcom (Open Watcom C/C++32 Compiler)
+    g++ (GNU C++ Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++), Windows Only
+    bcc (Borland C++ Builder), Windows Only
 
-See |SingleCompile-add-your-language| to extend your language.
+cmake:
+    cmake (cmake)
+
+dos batch:
+    dosbatch (DOS Batch)
+    
+Fortran:
+    gfortran (GNU Fortran Compiler), UNIX/Linux only
+    g77 (GNU Fortran 77 Compiler)
+    ifort (Intel Fortran Compiler)
+    open-watcom (Open Watcom Fortran 77/32 Compiler)
+
+html:
+    firefox (Mozilla Firefox)
+    chrome (Google Chrome)
+    opera (Opera)
+    ie (Microsoft Internet Explorer)
+
+Java:
+    sunjdk (Sun Java Development Kit)
+    gcj (GNU Java Compiler)
+
+LaTeX:
+    texlive (Tex Live)
+    miktex (MiKTeX), Windows Only
+
+lua:
+    lua (Lua Interpreter)
+
+Makefile:
+    gmake (GNU Make)
+
+perl:
+    perl (Perl Interpreter)
+
+python:
+    python (Python Interpreter)
+    jython (Jython)
+    pypy (PyPy)
+    python3 (Python 3 Interpreter)
+    
+ruby:
+    ruby (Ruby Interpreter)
+    
+sh(UNIX shell):
+    shell (UNIX Shell)
+
+vb script:
+    vb (VB Script Interpreter)
+    
+xhtml:
+    firefox (Mozilla Firefox)
+    chrome (Google Chrome)
+    opera (Opera)
+    ie (Microsoft Internet Explorer)
+
+See |SingleCompile-add-your-compiler| to add your compiler support.
 
 SUPPORTINGS~
                                             *SingleCompile-supporting-plugins*
@@ -265,13 +426,6 @@ directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
 you'd better then use helptags command to generate the help tag(for example
 use ":helptags ~/.vim/doc" on Linux).
 
-TODO~
-                                            *SingleCompile-todo*
-----------------------------------------------------------------------------
-Add more built-in language support. Since I can't know the compilation command
-and run command for every programming language, help from anyone is welcome. 
-
-
 THANKS~
                                             *SingleCompile-thanks*
 ----------------------------------------------------------------------------
@@ -281,4 +435,4 @@ much.
 
 
 
-vim:ts=4:ft=help:tw=78
+vim:ts=4:ft=help:tw=78:et
