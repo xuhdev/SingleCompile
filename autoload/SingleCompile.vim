@@ -155,7 +155,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     elseif has_key(s:CompilerTemplate, &filetype)
         let l:user_specified = 0
     else
-        echohl Error | echo 'Language template is not defined on your system. Please define the language template.' | echohl None
+        call s:ShowMessage('Language template for'.&filetype.' is not defined on your system.')
         return -1
     endif
 
@@ -171,7 +171,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             let detected_compilers = s:DetectCompiler(&filetype)
             " if detected_compilers is empty, then no compiler is detected
             if empty(detected_compilers)
-                echohl Error | echo 'No compiler is detected on your system!' | echohl None
+                call s:ShowMessage('SingleCompile: No compiler is detected on your system!')
                 return -1
             endif
 
@@ -252,7 +252,7 @@ function! s:DetectCompiler(lang_name) " to detect compilers for one language. Re
     let l:toret = []
 
     " call the compiler detection function to get the compilation command
-    for some_compiler in keys(s:CompilerTemplate[&filetype])
+    for some_compiler in keys(s:CompilerTemplate[a:lang_name])
         if some_compiler == 'chosen_compiler'
             continue
         endif
@@ -278,7 +278,7 @@ function! s:Run() " {{{1
     elseif has_key(s:CompilerTemplate[&filetype][ s:CompilerTemplate[&filetype]['chosen_compiler'] ],'run')
         let l:user_specified = 0
     else
-        call s:ShowMessage('Fail to run!')
+        call s:ShowMessage('SingleCompile: Fail to run!')
     endif
 
     let l:curcwd=getcwd()
@@ -312,12 +312,23 @@ endfunction
 
 function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
     if a:0 > 1
-        call s:ShowMessage('Too many argument for ChooseCompiler!')
+        call s:ShowMessage('SingleCompile: Too many argument for SingleCompile#ChooseCompiler!')
         return
     endif
 
     if a:0 == 1 " a:0 == 1 means the user has specified a compiler to choose
+        if type(a:1) != type('')
+            call s:ShowMessage('SingleCompile: SingleCompile#ChooseCompiler argument error')
+            return
+        endif
         if has_key(s:CompilerTemplate, a:lang_name) && has_key(s:CompilerTemplate[a:lang_name], a:1)
+            let l:detected_compilers = s:DetectCompiler(a:lang_name)
+          
+            if count(l:detected_compilers, a:1) == 0 " if a:1 is not a detected compiler
+                call s:ShowMessage('SingleCompile: '.a:1.' is not available on your system.')
+                return
+            endif
+
             let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = a:1
         endif
 
@@ -329,7 +340,7 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             return
         endif
 
-        let l:detected_compilers = s:DetectCompiler(&filetype)
+        let l:detected_compilers = s:DetectCompiler(a:lang_name)
         let l:choose_list = [] " used to remember the compilers
         let l:choose_list_display = [] " used to filled with compiler names to be displayed in front of user
         let l:count = 1
@@ -338,21 +349,19 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
                 continue
             endif
 
-            call add(l:choose_list, some_compiler)
-            if count(l:detected_compilers, some_compiler) > 0
-                call add(l:choose_list_display, l:count.'. '.some_compiler.'('.s:CompilerTemplate[a:lang_name][some_compiler]['name'].')'.'  detected')
-            else
+            if count(l:detected_compilers, some_compiler) > 0 " if the compiler is detected, then display it
+                call add(l:choose_list, some_compiler)
                 call add(l:choose_list_display, l:count.'. '.some_compiler.'('.s:CompilerTemplate[a:lang_name][some_compiler]['name'].')')
+                let l:count += 1
             endif
-            let l:count += 1
         endfor
 
         if empty(l:choose_list)
-            call s:ShowMessage('No compiler is available for this language!')
+            call s:ShowMessage('SingleCompile: No compiler is available for this language!')
             return
         endif
 
-        let l:user_choose = inputlist( extend(['Compilers: '], l:choose_list_display) )
+        let l:user_choose = inputlist( extend(['Detected compilers: '], l:choose_list_display) )
         
         " if user does not choose a valid option
         if l:user_choose <= 0
