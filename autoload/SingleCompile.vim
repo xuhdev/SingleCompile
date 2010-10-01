@@ -196,6 +196,7 @@ function! s:Intialize() "{{{1
 
         " Makefile
         call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '', function('s:DetectGmake'))
+        call SingleCompile#SetCompilerTemplate('make', 'mingw32-make', 'MinGW32 Make', 'mingw32-make', '-f', '')
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('make', 'nmake', 'Microsoft Program Maintenance Utility', 'nmake', '-f', '')
         endif

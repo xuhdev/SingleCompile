@@ -387,6 +387,7 @@ lua:
 Makefile:
     gmake (GNU Make)
     nmake (Microsoft Program Maintenance Utility)
+    mingw32-make (MinGW32 Make)
 
 perl:
     perl (Perl Interpreter)
