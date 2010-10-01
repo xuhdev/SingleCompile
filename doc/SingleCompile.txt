@@ -1,9 +1,9 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 1.2.2
+Version: 2.0
 Author: H Xu(xuhdev@gmail.com)
-Last Change: 27 September 2010
+Last Change: 1 October 2010
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
          of the GNU General Public License as published by the Free Software 
@@ -25,7 +25,8 @@ CONTENTS~
 OVERVIEW~
                                             *SingleCompile-overview*
 ----------------------------------------------------------------------------
-This plugin aims to let user compile or run a single source file conveniently.
+This plugin aims to make it more convenient to compile or run a single source
+file.
 
 Consider this situation: you have just written a small c source file for a
 small test, but you have to write a Makefile to compile it or exit vim to
@@ -237,7 +238,7 @@ vimrc:
 <
 Then you can press F9 to compile, and Ctrl+F9 to compile and run.
 
-LANGUAGE-TEMPLATE~
+COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
 ----------------------------------------------------------------------------
                                           *SingleCompile-add-your-compiler*
@@ -262,7 +263,7 @@ to tell SingleCompile to use your compiler. If the second line is omitted,
 SingleCompile will detect the compilers available on your system
 automatically, and use the first detected one.
 
-Here are some examples exerpted from built-in compiler templates:
+Here are some examples excerpted from built-in compiler templates:
 >
  " c
  call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
