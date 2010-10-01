@@ -141,6 +141,9 @@ function! s:Intialize() "{{{1
 
         " Makefile
         call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '')
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('make', 'nmake', 'Microsoft Program Maintenance Utility', 'nmake', '-f', '')
+        endif
 
         " cmake
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')

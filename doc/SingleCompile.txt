@@ -90,6 +90,7 @@ lua:
 
 Makefile:
     gmake (GNU Make)
+    nmake (Microsoft Program Maintenance Utility)
 
 perl:
     perl (Perl Interpreter)
@@ -385,6 +386,7 @@ lua:
 
 Makefile:
     gmake (GNU Make)
+    nmake (Microsoft Program Maintenance Utility)
 
 perl:
     perl (Perl Interpreter)

@@ -68,4 +68,4 @@ endif
 
 let &cpo = s:saved_cpo
 
-" vim:fdm=marker
+" vim:fdm=marker et
