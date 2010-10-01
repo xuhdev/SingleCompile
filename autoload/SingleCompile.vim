@@ -10,6 +10,7 @@ set cpo&vim
 " the dic to store the compiler template
 let s:CompilerTemplate = {}
 let g:SingleCompile_templates = {}
+let s:TemplateIntialized = 0
 
 
 
@@ -29,10 +30,128 @@ function! s:Intialize() "{{{1
     if !exists('g:SingleCompile_enablequickfix')
         let g:SingleCompile_enablequickfix = 1
     endif
+
+    " templates {{{2
+
+    if s:TemplateIntialized == 0
+        
+        let s:TemplateIntialized = 1
+
+
+        if has('unix')
+            let s:common_run_command = './'.'%<'
+        elseif has('win32') || has('win64')
+            let s:common_run_command = '%<'
+        endif
+
+        " c
+        call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
+        endif
+        call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o %<', s:common_run_command)
+        endif
+
+        " cpp
+        call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
+        endif
+        call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
+
+        " java
+        call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java %<')
+        call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java %<')
+
+        " fortran
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o %<', s:common_run_command)
+        endif
+        call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
+
+        " shell
+        call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 'sh', '', '')
+
+        " dosbatch
+        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 'DOS Batch', '', '', '')
+
+        " html
+        call SingleCompile#SetCompilerTemplate('html', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
+        call SingleCompile#SetCompilerTemplate('html', 'chrome', 'Google Chrome', 'googlechrome', '', '')
+        call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 'opera', '', '')
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
+        else
+            call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
+        endif
+
+        " xhtml
+        call SingleCompile#SetCompilerTemplate('xhtml', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
+        call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 'Google Chrome', 'googlechrome', '', '')
+        call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 'Opera', 'opera', '', '')
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
+        else
+            call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
+        endif
+
+        " vbs
+        call SingleCompile#SetCompilerTemplate('vb', 'vb', 'VB Script Interpreter', 'cscript', '', '')
+
+        " latex
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
+        elseif has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
+            call SingleCompile#SetCompilerTemplate('tex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
+        endif
+
+        " plain tex
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
+        elseif has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
+        endif
+
+        " python
+        call SingleCompile#SetCompilerTemplate('python', 'python', 'Python Interpreter', 'python', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy', 'pypy', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'python3', 'Python 3 Interpreter', 'python3', '', '')
+
+        " perl
+        call SingleCompile#SetCompilerTemplate('perl', 'perl', 'Perl Interpreter', 'perl', '', '')
+
+        " ruby
+        call SingleCompile#SetCompilerTemplate('ruby', 'ruby', 'Ruby Interpreter', 'ruby', '', '')
+
+        " lua
+        call SingleCompile#SetCompilerTemplate('lua', 'lua', 'Lua Interpreter', 'lua', '', '')
+
+        " Makefile
+        call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '')
+
+        " cmake
+        call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
+    endif
 endfunction
 
 function! SingleCompile#SetCompilerTemplate(lang_name, compiler, compiler_name, detect_func_arg, flags, run_command, ...) " {{{1
     " set compiler's template
+
+    call s:Intialize()
+
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'name', a:compiler_name)
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'detect_func_arg', a:detect_func_arg)
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'flags', a:flags)
@@ -415,114 +534,6 @@ endfunction
 
 call s:Intialize() " {{{1 call the initialize function
 
-" templates {{{1
-
-if has('unix')
-    let s:common_run_command = './'.'%<'
-elseif has('win32') || has('win64')
-    let s:common_run_command = '%<'
-endif
-
-" c
-call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
-if has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
-    call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
-endif
-call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
-if has('unix')
-    call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o %<', s:common_run_command)
-endif
-
-" cpp
-call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
-if has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
-    call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
-endif
-call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
-
-" java
-call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java %<')
-call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java %<')
-
-" fortran
-if has('unix')
-    call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o %<', s:common_run_command)
-endif
-call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
-call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
-
-" shell
-call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 'sh', '', '')
-
-" dosbatch
-call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 'DOS Batch', '', '', '')
-
-" html
-call SingleCompile#SetCompilerTemplate('html', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
-call SingleCompile#SetCompilerTemplate('html', 'chrome', 'Google Chrome', 'googlechrome', '', '')
-call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 'opera', '', '')
-if has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
-else
-    call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
-endif
-
-" xhtml
-call SingleCompile#SetCompilerTemplate('xhtml', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
-call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 'Google Chrome', 'googlechrome', '', '')
-call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 'Opera', 'opera', '', '')
-if has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
-else
-    call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '')
-endif
-
-" vbs
-call SingleCompile#SetCompilerTemplate('vb', 'vb', 'VB Script Interpreter', 'cscript', '', '')
-
-" latex
-if has('unix')
-    call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
-elseif has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
-    call SingleCompile#SetCompilerTemplate('tex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
-endif
-
-" plain tex
-if has('unix')
-    call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
-elseif has('win32') || has('win64')
-    call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
-    call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
-endif
-
-" python
-call SingleCompile#SetCompilerTemplate('python', 'python', 'Python Interpreter', 'python', '', '')
-call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
-call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy', 'pypy', '', '')
-call SingleCompile#SetCompilerTemplate('python', 'python3', 'Python 3 Interpreter', 'python3', '', '')
-
-" perl
-call SingleCompile#SetCompilerTemplate('perl', 'perl', 'Perl Interpreter', 'perl', '', '')
-
-" ruby
-call SingleCompile#SetCompilerTemplate('ruby', 'ruby', 'Ruby Interpreter', 'ruby', '', '')
-
-" lua
-call SingleCompile#SetCompilerTemplate('lua', 'lua', 'Lua Interpreter', 'lua', '', '')
-
-" Makefile
-call SingleCompile#SetCompilerTemplate('make', 'gmake', 'GNU Make', 'gmake', '-f', '')
-
-" cmake
-call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
 
 
 " }}}
