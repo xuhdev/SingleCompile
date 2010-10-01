@@ -161,7 +161,7 @@ shell language, this command will run the source file you are editing. That
 means, it is nothing different between :SCCompile and :SCCompileRun for a
 interpreted language source file.
 
-You can also add some arguments after SingleCompileRun command, the meaning of
+You can also add some arguments after SCCompileRun command, the meaning of
 arguments is the same as SingleCompile command above. Here is an example:
 >
  :SCCompileRun -g -o %<
