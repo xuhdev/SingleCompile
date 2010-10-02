@@ -161,7 +161,7 @@ function! s:Intialize() "{{{1
         endif
 
         " vbs
-        call SingleCompile#SetCompilerTemplate('vb', 'vb', 'VB Script Interpreter', 'cscript', '', '')
+        call SingleCompile#SetCompilerTemplate('vb', 'vbs', 'VB Script Interpreter', 'cscript', '', '')
 
         " latex
         if has('unix') || has('macunix')

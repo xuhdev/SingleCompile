@@ -43,21 +43,21 @@ press Ctrl-F9 to compile and run your source file. Here is a list of supported
 language:
 
 C:
-    gcc (GNU C Compiler)
-    open-watcom (Open Watcom C/C++32 Compiler)
-    icc (Intel C++ Compiler)
-    pcc (Portable C Compiler)
-    tcc (Tiny C Compiler)
-    msvc (Microsoft Visual C++), Windows only
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX/Linux only
+    gcc (GNU C Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++), Windows only
+    open-watcom (Open Watcom C/C++32 Compiler)
+    pcc (Portable C Compiler)
+    tcc (Tiny C Compiler)
 
 C++:
-    open-watcom (Open Watcom C/C++32 Compiler)
+    bcc (Borland C++ Builder), Windows Only
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
-    bcc (Borland C++ Builder), Windows Only
+    open-watcom (Open Watcom C/C++32 Compiler)
 
 cmake:
     cmake (cmake)
@@ -66,24 +66,24 @@ dos batch:
     dosbatch (DOS Batch)
     
 Fortran:
-    gfortran (GNU Fortran Compiler), UNIX/Linux only
     g77 (GNU Fortran 77 Compiler)
+    gfortran (GNU Fortran Compiler), UNIX/Linux only
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
 
 html:
-    firefox (Mozilla Firefox)
     chrome (Google Chrome)
-    opera (Opera)
+    firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    opera (Opera)
 
 Java:
-    sunjdk (Sun Java Development Kit)
     gcj (GNU Java Compiler)
+    sunjdk (Sun Java Development Kit)
 
 LaTeX:
-    texlive (Tex Live)
     miktex (MiKTeX), Windows Only
+    texlive (Tex Live)
 
 lua:
     lua (Lua Interpreter)
@@ -96,10 +96,10 @@ perl:
     perl (Perl Interpreter)
 
 python:
-    python (Python Interpreter)
     jython (Jython)
     pypy (PyPy)
     python3 (Python 3 Interpreter)
+    python (Python Interpreter)
     
 ruby:
     ruby (Ruby Interpreter)
