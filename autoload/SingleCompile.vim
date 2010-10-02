@@ -93,7 +93,7 @@ function! s:Intialize() "{{{1
         
         let s:TemplateIntialized = 1
 
-        if has('win32') || has('win64')
+        if has('win32') || has('win64') || has('os2')
             let s:common_run_command = '%<'
         else
             let s:common_run_command = './'.'%<'

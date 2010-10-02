@@ -243,10 +243,27 @@ Then you can press F9 to compile, and Ctrl+F9 to compile and run.
 COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
 ----------------------------------------------------------------------------
-                                          *SingleCompile-add-your-compiler*
-There are only a few built-in support compilers. See
-|SingleCompile-built-in-compilers| for the built-in compiler support list. 
+                                          *SingleCompile-use-built-in-template*
+To use a built-in compiler, add the following line to your vimrc file:
+>
+ call SingleCompile#ChooseCompiler('filetype', 'compiler')
+<
+'filetype' is the type of file which your compiler is for, such as 'c', 'cpp',
+and 'compiler' is the name of compiler. for example:
+>
+ call SingleCompile#ChooseCompiler('c', 'icc')
+ call SingleCompile#ChooseCompiler('fortran', 'gfortran')
+<
+This will choose icc (short for Intel C++ Compiler) as your current C compiler
+and choose gfortran (GNU Fortran Compiler) as your current Fortran compiler.
+For a list of built-in supported compilers, see
+|SingleCompile-built-in-compilers|.
 
+You can also extend the compiler template if the compiler you want is not in
+the built-in supporting list. Check |SingleCompile-add-your-compiler| for more
+information.
+
+                                          *SingleCompile-add-your-compiler*
 To add a new compiler support by yourself, there are two ways:
 1. (Recommended) Add the following lines to your vimrc file:
 >
