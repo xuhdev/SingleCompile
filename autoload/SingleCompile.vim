@@ -333,7 +333,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     elseif has_key(s:CompilerTemplate, &filetype)
         let l:user_specified = 0
     else
-        call s:ShowMessage('Language template for'.&filetype.' is not defined on your system.')
+        call s:ShowMessage('Language template for "'.&filetype.'" is not defined on your system.')
         return -1
     endif
 
