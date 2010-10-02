@@ -90,6 +90,7 @@ lua:
 
 Makefile:
     gmake (GNU Make)
+    mingw32-make (MinGW32 Make)
     nmake (Microsoft Program Maintenance Utility)
 
 perl:
@@ -108,7 +109,7 @@ sh(UNIX shell):
     shell (UNIX Shell)
 
 vb script:
-    vb (VB Script Interpreter)
+    vbs (VB Script Interpreter)
     
 xhtml:
     firefox (Mozilla Firefox)
