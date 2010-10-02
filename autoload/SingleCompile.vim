@@ -60,7 +60,7 @@ function! s:DetectIe(not_used_arg) " {{{2
     endif
 endfunction
 
-function! s:DetectGmake(not_used_arg)
+function! s:DetectGmake(not_used_arg) " {{{2
     let l:make_command = s:DetectCompilerGenerally('gmake')
     if l:make_command != 0
         return l:make_command
@@ -93,10 +93,10 @@ function! s:Intialize() "{{{1
         
         let s:TemplateIntialized = 1
 
-        if has('unix')
-            let s:common_run_command = './'.'%<'
-        elseif has('win32') || has('win64')
+        if has('win32') || has('win64')
             let s:common_run_command = '%<'
+        else
+            let s:common_run_command = './'.'%<'
         endif
 
         " c
@@ -489,6 +489,9 @@ function! SingleCompile#CompileRun(...) " compile and run {{{1
 endfunction
 
 function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
+
+    call s:Intialize()
+
     if a:0 > 1
         call s:ShowMessage('SingleCompile: Too many argument for SingleCompile#ChooseCompiler!')
         return
