@@ -27,16 +27,17 @@ function! s:DetectCompilerGenerally(compile_command) " {{{2
         return a:compile_command
     endif
 
-    if has('unix')
-        if executable('/usr/bin/'.a:compile_command) == 1
-            return '/usr/bin/'.a:compile_command
-        endif
-        if executable('/usr/local/bin/'.a:compile_command) == 1
-            return '/usr/local/bin/'.a:compile_command
-        endif
-        if executable('/bin/'.a:compile_command) == 1
-            return '/bin/'.a:compile_command
-        endif
+    " unix-like system compiler detection
+    if has('unix') || has('macunix')
+        for cmd in [expand('/usr/bin/'.a:compile_command), 
+                    \expand('/usr/local/bin/'.a:compile_command),
+                    \expand('/bin/'.a:compile_command),
+                    \expand('~/bin/'.a:compile_command)
+                    \]
+            if executable(cmd) == 1
+                return cmd
+            endif
+        endfor
     endif
 
     return 0
@@ -87,11 +88,12 @@ function! s:Intialize() "{{{1
         let g:SingleCompile_enablequickfix = 1
     endif
 
-    " templates {{{2
 
     if s:TemplateIntialized == 0
         
         let s:TemplateIntialized = 1
+
+    " templates {{{2
 
         if has('unix')
             let s:common_run_command = './'.'%<'
@@ -180,10 +182,10 @@ function! s:Intialize() "{{{1
         endif
 
         " python
-        call SingleCompile#SetCompilerTemplate('python', 'python', 'Python Interpreter', 'python', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'cpython', 'CPython', 'python', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy', 'pypy', '', '')
-        call SingleCompile#SetCompilerTemplate('python', 'python3', 'Python 3 Interpreter', 'python3', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'cpython3', 'CPython 3', 'python3', '', '')
 
         " perl
         call SingleCompile#SetCompilerTemplate('perl', 'perl', 'Perl Interpreter', 'perl', '', '')
