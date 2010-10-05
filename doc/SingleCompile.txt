@@ -1,9 +1,9 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.0.1
+Version: 2.0.2
 Author: H Xu(xuhdev@gmail.com)
-Last Change: 1 October 2010
+Last Change: 2 October 2010
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
          of the GNU General Public License as published by the Free Software 
@@ -43,21 +43,21 @@ press Ctrl-F9 to compile and run your source file. Here is a list of supported
 language:
 
 C:
-    gcc (GNU C Compiler)
-    open-watcom (Open Watcom C/C++32 Compiler)
-    icc (Intel C++ Compiler)
-    pcc (Portable C Compiler)
-    tcc (Tiny C Compiler)
-    msvc (Microsoft Visual C++), Windows only
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX/Linux only
+    gcc (GNU C Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++), Windows only
+    open-watcom (Open Watcom C/C++32 Compiler)
+    pcc (Portable C Compiler)
+    tcc (Tiny C Compiler)
 
 C++:
-    open-watcom (Open Watcom C/C++32 Compiler)
+    bcc (Borland C++ Builder), Windows Only
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
-    bcc (Borland C++ Builder), Windows Only
+    open-watcom (Open Watcom C/C++32 Compiler)
 
 cmake:
     cmake (cmake)
@@ -66,40 +66,41 @@ dos batch:
     dosbatch (DOS Batch)
     
 Fortran:
-    gfortran (GNU Fortran Compiler), UNIX/Linux only
     g77 (GNU Fortran 77 Compiler)
+    gfortran (GNU Fortran Compiler), UNIX/Linux only
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
 
 html:
-    firefox (Mozilla Firefox)
     chrome (Google Chrome)
-    opera (Opera)
+    firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    opera (Opera)
 
 Java:
-    sunjdk (Sun Java Development Kit)
     gcj (GNU Java Compiler)
+    sunjdk (Sun Java Development Kit)
 
 LaTeX:
-    texlive (Tex Live)
     miktex (MiKTeX), Windows Only
+    texlive (Tex Live)
 
 lua:
     lua (Lua Interpreter)
 
 Makefile:
     gmake (GNU Make)
+    mingw32-make (MinGW32 Make)
     nmake (Microsoft Program Maintenance Utility)
 
 perl:
     perl (Perl Interpreter)
 
 python:
-    python (Python Interpreter)
     jython (Jython)
     pypy (PyPy)
     python3 (Python 3 Interpreter)
+    python (Python Interpreter)
     
 ruby:
     ruby (Ruby Interpreter)
@@ -108,7 +109,7 @@ sh(UNIX shell):
     shell (UNIX Shell)
 
 vb script:
-    vb (VB Script Interpreter)
+    vbs (VB Script Interpreter)
     
 xhtml:
     firefox (Mozilla Firefox)
@@ -242,10 +243,30 @@ Then you can press F9 to compile, and Ctrl+F9 to compile and run.
 COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
 ----------------------------------------------------------------------------
-                                          *SingleCompile-add-your-compiler*
-There are only a few built-in support compilers. See
-|SingleCompile-built-in-compilers| for the built-in compiler support list. 
+                                          *SingleCompile-use-built-in-template*
+To use a built-in compiler, add the following line to your vimrc file:
+>
+ call SingleCompile#ChooseCompiler('filetype', 'compiler')
+<
+'filetype' is the type of file which your compiler is for, such as 'c', 'cpp',
+and 'compiler' is the short name of the compiler. for example:
+>
+ call SingleCompile#ChooseCompiler('c', 'icc')
+ call SingleCompile#ChooseCompiler('fortran', 'gfortran')
+<
+This will choose icc (short for Intel C++ Compiler) as your current C compiler
+and choose gfortran (GNU Fortran Compiler) as your current Fortran compiler.
+For the list of built-in supported compilers, see
+|SingleCompile-built-in-compilers|.
 
+If you don't choose a compiler by yourself, SingleCompile will automatically
+choose one for you.
+
+You can also extend the compiler template if the compiler you want is not in
+the built-in supporting list. Check |SingleCompile-add-your-compiler| for more
+information.
+
+                                          *SingleCompile-add-your-compiler*
 To add a new compiler support by yourself, there are two ways:
 1. (Recommended) Add the following lines to your vimrc file:
 >

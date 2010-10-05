@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 2.0.1
+" Version: 2.0.2
 " check doc/SingleCompile.txt for more information
 
 
@@ -15,7 +15,7 @@ let s:TemplateIntialized = 0
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 201
+    return 202
 endfunction
 
 " compiler detect functions {{{1
@@ -93,12 +93,10 @@ function! s:Intialize() "{{{1
         
         let s:TemplateIntialized = 1
 
-    " templates {{{2
-
-        if has('unix')
-            let s:common_run_command = './'.'%<'
-        elseif has('win32') || has('win64')
+        if has('win32') || has('win64') || has('os2')
             let s:common_run_command = '%<'
+        else
+            let s:common_run_command = './'.'%<'
         endif
 
         " c
@@ -163,7 +161,7 @@ function! s:Intialize() "{{{1
         endif
 
         " vbs
-        call SingleCompile#SetCompilerTemplate('vb', 'vb', 'VB Script Interpreter', 'cscript', '', '')
+        call SingleCompile#SetCompilerTemplate('vb', 'vbs', 'VB Script Interpreter', 'cscript', '', '')
 
         " latex
         if has('unix') || has('macunix')
@@ -337,7 +335,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     elseif has_key(s:CompilerTemplate, &filetype)
         let l:user_specified = 0
     else
-        call s:ShowMessage('Language template for'.&filetype.' is not defined on your system.')
+        call s:ShowMessage('Language template for "'.&filetype.'" is not defined on your system.')
         return -1
     endif
 
@@ -501,6 +499,9 @@ function! SingleCompile#CompileRun(...) " compile and run {{{1
 endfunction
 
 function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
+
+    call s:Intialize()
+
     if a:0 > 1
         call s:ShowMessage('SingleCompile: Too many argument for SingleCompile#ChooseCompiler!')
         return
