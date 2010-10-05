@@ -60,7 +60,7 @@ function! s:DetectIe(not_used_arg) " {{{2
     endif
 endfunction
 
-function! s:DetectGmake(not_used_arg)
+function! s:DetectGmake(not_used_arg) " {{{2
     let l:make_command = s:DetectCompilerGenerally('gmake')
     if l:make_command != 0
         return l:make_command
@@ -102,36 +102,36 @@ function! s:Intialize() "{{{1
         " c
         call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
         if has('win32') || has('win64')
-            call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
-            call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o "%<"', s:common_run_command)
         endif
-        call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o %<', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o "%<"', s:common_run_command)
         if has('unix') || has('macunix')
-            call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o "%<"', s:common_run_command)
         endif
 
         " cpp
         call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
         if has('win32') || has('win64')
-            call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 'Microsoft Visual C++', 'cl', '-o %<', s:common_run_command)
-            call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 'Microsoft Visual C++', 'cl', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o "%<"', s:common_run_command)
         endif
-        call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o %<', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
 
         " java
-        call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java %<')
-        call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java %<')
+        call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java "%<"')
+        call SingleCompile#SetCompilerTemplate('java', 'gcj', 'GNU Java Compiler', 'gcj', '', 'java "%<"')
 
         " fortran
         if has('unix') || has('macunix')
-            call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o %<', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o "%<"', s:common_run_command)
         endif
-        call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
 
         " shell
@@ -165,18 +165,18 @@ function! s:Intialize() "{{{1
 
         " latex
         if has('unix') || has('macunix')
-            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
+            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'xdvi "%<.dvi"')
         elseif has('win32') || has('win64')
-            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
-            call SingleCompile#SetCompilerTemplate('tex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
+            call SingleCompile#SetCompilerTemplate('tex', 'texlive', 'Tex Live', 'latex', '', 'dviout "%<.dvi"')
+            call SingleCompile#SetCompilerTemplate('tex', 'miktex', 'MiKTeX', 'latex', '', 'yap "%<.dvi"')
         endif
 
         " plain tex
         if has('unix') || has('macunix')
-            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi %<.dvi')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'xdvi "%<.dvi"')
         elseif has('win32') || has('win64')
-            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout %<.dvi')
-            call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'MiKTeX', 'latex', '', 'yap %<.dvi')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 'Tex Live', 'latex', '', 'dviout "%<.dvi"')
+            call SingleCompile#SetCompilerTemplate('plaintex', 'miktex', 'MiKTeX', 'latex', '', 'yap "%<.dvi"')
         endif
 
         " python
@@ -203,6 +203,8 @@ function! s:Intialize() "{{{1
 
         " cmake
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
+
+        " 2}}}
     endif
 endfunction
 
@@ -375,9 +377,15 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = ''
     endif
 
+    " set the file name to be compiled
+    let l:file_to_compile = expand('%:p')
+    if match(l:file_to_compile, ' ') != -1 " if there are spaces in the file name, add quotes to it
+        let l:file_to_compile = '"'.l:file_to_compile.'"'
+    endif
+
     if s:ShouldQuickfixBeUsed() == 0
         " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
-        exec '!'.l:compile_cmd.' '.l:compile_flags.' %:p'
+        exec '!'.l:compile_cmd.' '.l:compile_flags.' '.l:file_to_compile
         if v:shell_error != 0
             let l:toret = 1
         endif
@@ -397,7 +405,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             exec 'setlocal shellpipe=\|\ tee'
         endif
 
-        exec 'make'.' '.l:compile_flags.' %:p'
+        exec 'make'.' '.l:compile_flags.' '.l:file_to_compile
 
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
@@ -410,7 +418,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:old_shellpipe = &shellpipe
         let &l:makeprg = l:compile_cmd
         exec 'setlocal shellpipe=>%s\ 2>&1'
-        exec 'make'.' '.l:compile_flags.' %:p'
+        exec 'make'.' '.l:compile_flags.' '.l:file_to_compile
         " check is compiling successful
         if v:shell_error != 0
             let l:toret = 1
@@ -421,7 +429,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     endif
 
     " switch back to the original directory
-    exec 'cd '.l:curcwd
+    exec 'cd '.'"'.l:curcwd.'"'
     return l:toret
 endfunction
 
@@ -468,9 +476,11 @@ function! s:Run() " {{{1
         let l:run_cmd = s:GetCompilerSingleTemplate(&filetype, s:CompilerTemplate[&filetype]['chosen_compiler'], 'run')
     endif
 
+    let l:run_cmd = '"'.l:run_cmd.'"'
+
     exec '!'.l:run_cmd
 
-    exec 'cd '.l:curcwd
+    exec 'cd '.'"'.l:curcwd.'"'
 
     return
 endfunction
