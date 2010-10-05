@@ -332,7 +332,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " if the following condition is met, then use the user specified command
     if has_key(g:SingleCompile_templates,&filetype) && has_key(g:SingleCompile_templates[&filetype],'command')
         let l:user_specified = 1
-    elseif has_key(s:CompilerTemplate, &filetype)
+    elseif has_key(s:CompilerTemplate, &filetype) && type(s:CompilerTemplate[&filetype]) == type({})
         let l:user_specified = 0
     else
         call s:ShowMessage('Language template for "'.&filetype.'" is not defined on your system.')
