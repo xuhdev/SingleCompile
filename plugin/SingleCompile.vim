@@ -1,6 +1,6 @@
 " File: plugin/SingleCompile.vim
 " GetLatestVimScripts: 3115 1 :AutoInstall: SingleCompile.zip
-" version 2.0.3
+" version 2.0.4
 " check doc/SingleCompile.txt for more version information
 
 if v:version < 700
