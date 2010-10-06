@@ -93,6 +93,7 @@ function! s:Intialize() "{{{1
         
         let s:TemplateIntialized = 1
 
+        " templates {{{2
         if has('win32') || has('win64') || has('os2')
             let s:common_run_command = '%<'
         else
@@ -311,7 +312,7 @@ function! s:IsLanguageInterpreting(filetype_name) "{{{1 tell if a language is an
     else
         let l:chosen_compiler = s:CompilerTemplate[a:filetype_name]['chosen_compiler']
         return (!has_key(s:CompilerTemplate[a:filetype_name][l:chosen_compiler], 'run')
-                    \ || substitute(s:CompilerTemplate[a:filetype_name][l:chosen_compiler]['run'], ' ', '', "g") )
+                    \ || substitute(s:CompilerTemplate[a:filetype_name][l:chosen_compiler]['run'], ' ', '', "g") == '')
     endif
 endfunction
 
