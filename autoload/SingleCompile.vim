@@ -234,7 +234,7 @@ function! s:SetCompilerSingleTemplate(lang_name, compiler_name, key, value, ...)
     " set the template. if the '...' is nonzero, this function will not override the corresponding template if there is an existing template 
 
     if a:0 > 1
-        echohl ErrorMsg | echo 'too many argument for SingleCompile#SetCompilerSingleTemplate function' | echohl None
+        call s:ShowMessage('too many argument for SingleCompile#SetCompilerSingleTemplate function')
         return
     endif
 
@@ -264,7 +264,7 @@ endfunction
 
 function! SingleCompile#SetTemplate(langname,stype,string,...) " set the template. if the '...' is nonzero, this function will not override the corresponding template if there is an existing template {{{1
     if a:0 > 1
-        echohl ErrorMsg | echo 'too many argument for SingleCompile#SetTemplate function' | echohl None
+        call s:ShowMessage('too many argument for SingleCompile#SetTemplate function')
         return
     endif
 
@@ -298,7 +298,7 @@ endfunction
 function! s:ShowMessage(message) "{{{1
 
     if g:SingleCompile_usedialog == 0 || !((has('gui_running') && has('dialog_gui')) || has('dialog_con'))
-        echohl ErrorMsg | echo a:message | echohl None
+        call s:ShowMessage(a:message)
     else
         call confirm(a:message)
     endif
@@ -412,6 +412,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         exec 'setlocal makeprg='.l:old_makeprg
         exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |')
 
+
     else " use quickfix for compiling language
 
         " change the makeprg and shellpipe temporarily 
@@ -427,6 +428,12 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
         exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |')
+    endif
+
+    " if it's interpreting language, then return 2 (means do not call run if
+    " user uses SCCompileRun command
+    if s:IsLanguageInterpreting(&filetype)
+        let l:toret = 2
     endif
 
     " switch back to the original directory
