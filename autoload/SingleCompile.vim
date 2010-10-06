@@ -23,22 +23,22 @@ function! s:DetectCompilerGenerally(compile_command) " {{{2
     " the general function of compiler detection. The principle is to search
     " the environment varible PATH and some special directory
 
-    if executable(a:compile_command) == 1
-        return a:compile_command
-    endif
-
-    " unix-like system compiler detection
     if has('unix') || has('macunix')
-        for cmd in [expand('/usr/bin/'.a:compile_command), 
+        let l:list_to_detect = [expand(a:compile_command),
+                    \expand('/usr/bin/'.a:compile_command), 
                     \expand('/usr/local/bin/'.a:compile_command),
                     \expand('/bin/'.a:compile_command),
                     \expand('~/bin/'.a:compile_command)
                     \]
-            if executable(cmd) == 1
-                return cmd
-            endif
-        endfor
+    else
+        let l:list_to_detect = [expand(a:compile_command)]
     endif
+
+    for cmd in l:list_to_detect
+        if executable(cmd) == 1
+            return cmd
+        endif
+    endfor
 
     return 0
 endfunction
