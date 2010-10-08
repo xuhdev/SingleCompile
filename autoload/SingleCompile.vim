@@ -113,6 +113,9 @@ function! s:Intialize() "{{{1
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o "%<"', s:common_run_command)
         endif
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 'Sun C Compiler (Solaris Studio)', 'suncc', '-o "%<"', s:common_run_command)
+        endif
 
         " cpp
         call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
@@ -122,6 +125,9 @@ function! s:Intialize() "{{{1
         endif
         call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 'Sun C++ Compiler (Solaris Studio)', 'sunCC', '-o "%<"', s:common_run_command)
+        endif
 
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 'Sun Java Development Kit', 'javac', '', 'java "%<"')
@@ -130,6 +136,11 @@ function! s:Intialize() "{{{1
         " fortran
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 'GNU Fortran Compiler', 'gfortran', '-o "%<"', s:common_run_command)
+        endif
+        if has('unix')
+            call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f77', 'Sun Fortran 77 Compiler (Solaris Studio)', 'sunf77', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f90', 'Sun Fortran 90 Compiler (Solaris Studio)', 'sunf90', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f95', 'Sun Fortran 95 Compiler (Solaris Studio)', 'sunf95', '-o "%<"', s:common_run_command)
         endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)

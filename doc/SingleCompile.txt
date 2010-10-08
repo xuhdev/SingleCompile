@@ -50,6 +50,7 @@ C:
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     pcc (Portable C Compiler)
+    sol-studio (Sun C Compiler(Solaris Studio))
     tcc (Tiny C Compiler)
 
 C++:
@@ -58,6 +59,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
+    sol-studio (Sun C++ Compiler(Solaris Studio))
 
 cmake:
     cmake (cmake)
@@ -66,10 +68,13 @@ dos batch:
     dosbatch (DOS Batch)
     
 Fortran:
-    g77 (GNU Fortran 77 Compiler)
     gfortran (GNU Fortran Compiler), UNIX/Linux only
+    g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
+    sol-studio-f77 (Sun Fortran 77 Compiler(Solaris Studio))
+    sol-studio-f90 (Sun Fortran 90 Compiler(Solaris Studio))
+    sol-studio-f95 (Sun Fortran 95 Compiler(Solaris Studio))
 
 html:
     chrome (Google Chrome)
@@ -90,8 +95,8 @@ lua:
 
 Makefile:
     gmake (GNU Make)
-    mingw32-make (MinGW32 Make)
     nmake (Microsoft Program Maintenance Utility)
+    mingw32-make (MinGW32 Make)
 
 perl:
     perl (Perl Interpreter)
@@ -99,8 +104,8 @@ perl:
 python:
     jython (Jython)
     pypy (PyPy)
-    python3 (Python 3 Interpreter)
     python (Python Interpreter)
+    python3 (Python 3 Interpreter)
     
 ruby:
     ruby (Ruby Interpreter)
@@ -109,13 +114,13 @@ sh(UNIX shell):
     shell (UNIX Shell)
 
 vb script:
-    vbs (VB Script Interpreter)
+    vb (VB Script Interpreter)
     
 xhtml:
-    firefox (Mozilla Firefox)
     chrome (Google Chrome)
-    opera (Opera)
+    firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    opera (Opera)
 
 You can add your compiler support if your compiler is not in the list. See
 details in the help file SingleCompile.txt
@@ -288,14 +293,14 @@ automatically, and use the first detected one.
 Here are some examples excerpted from built-in compiler templates:
 >
  " c
- call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o %<', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o %<', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
 
  call SingleCompile#ChooseCompiler('c', 'gcc')
 
  " fortran
- call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o %<', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o %<', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
 
  call SingleCompile#ChooseCompiler('fortran', 'g77')
 
@@ -367,6 +372,7 @@ C:
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     pcc (Portable C Compiler)
+    sol-studio (Sun C Compiler (Solaris Studio))
     tcc (Tiny C Compiler)
 
 C++:
@@ -375,6 +381,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
+    sol-studio (Sun C++ Compiler (Solaris Studio))
 
 cmake:
     cmake (cmake)
@@ -387,6 +394,9 @@ Fortran:
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
+    sol-studio-f77 (Sun Fortran 77 Compiler (Solaris Studio))
+    sol-studio-f90 (Sun Fortran 90 Compiler (Solaris Studio))
+    sol-studio-f95 (Sun Fortran 95 Compiler (Solaris Studio))
 
 html:
     chrome (Google Chrome)
