@@ -143,7 +143,7 @@ function! s:Intialize() "{{{1
 
         " html
         call SingleCompile#SetCompilerTemplate('html', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
-        call SingleCompile#SetCompilerTemplate('html', 'chrome', 'Google Chrome', 'googlechrome', '', '')
+        call SingleCompile#SetCompilerTemplate('html', 'chrome', 'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 'opera', '', '')
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('html', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
@@ -153,7 +153,7 @@ function! s:Intialize() "{{{1
 
         " xhtml
         call SingleCompile#SetCompilerTemplate('xhtml', 'firefox', 'Mozilla Firefox', 'firefox', '', '')
-        call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 'Google Chrome', 'googlechrome', '', '')
+        call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 'Opera', 'opera', '', '')
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 'Microsoft Internet Explorer', 'iexplore', '', '', function('s:DetectIe'))
@@ -206,6 +206,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
 
         " 2}}}
+
     endif
 endfunction
 
