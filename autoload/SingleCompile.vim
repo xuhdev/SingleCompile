@@ -215,6 +215,10 @@ function! s:Intialize() "{{{1
             call SingleCompile#SetCompilerTemplate('make', 'nmake', 'Microsoft Program Maintenance Utility', 'nmake', '-f', '')
         endif
 
+        " javascript
+        call SingleCompile#SetCompilerTemplate('javascript', 'rhino', 'Rhino', 'rhino', '', '')
+
+
         " cmake
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
 

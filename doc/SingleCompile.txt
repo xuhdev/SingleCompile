@@ -45,6 +45,7 @@ language:
 C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX/Linux only
+    ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows only
@@ -85,6 +86,9 @@ html:
 Java:
     gcj (GNU Java Compiler)
     sunjdk (Sun Java Development Kit)
+
+JavaScript:
+    rhino (Rhino)
 
 LaTeX:
     miktex (MiKTeX), Windows Only
@@ -367,6 +371,7 @@ The following compilers have built-in support in this plugin:
 C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX/Linux only
+    ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows only
