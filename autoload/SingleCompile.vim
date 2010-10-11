@@ -15,7 +15,7 @@ let s:TemplateIntialized = 0
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 202
+    return 204
 endfunction
 
 " compiler detect functions {{{1

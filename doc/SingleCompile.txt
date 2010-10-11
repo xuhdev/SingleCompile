@@ -50,7 +50,7 @@ C:
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     pcc (Portable C Compiler)
-    sol-studio (Sun C Compiler(Solaris Studio))
+    sol-studio (Sun C Compiler(Sun Solaris Studio))
     tcc (Tiny C Compiler)
 
 C++:
@@ -59,7 +59,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
-    sol-studio (Sun C++ Compiler(Solaris Studio))
+    sol-studio (Sun C++ Compiler(Sun Solaris Studio))
 
 cmake:
     cmake (cmake)
@@ -72,9 +72,9 @@ Fortran:
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
-    sol-studio-f77 (Sun Fortran 77 Compiler(Solaris Studio))
-    sol-studio-f90 (Sun Fortran 90 Compiler(Solaris Studio))
-    sol-studio-f95 (Sun Fortran 95 Compiler(Solaris Studio))
+    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio))
+    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio))
+    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio))
 
 html:
     chrome (Google Chrome)
@@ -372,7 +372,7 @@ C:
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     pcc (Portable C Compiler)
-    sol-studio (Sun C Compiler (Solaris Studio))
+    sol-studio (Sun C Compiler (Sun Solaris Studio))
     tcc (Tiny C Compiler)
 
 C++:
@@ -381,7 +381,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
-    sol-studio (Sun C++ Compiler (Solaris Studio))
+    sol-studio (Sun C++ Compiler (Sun Solaris Studio))
 
 cmake:
     cmake (cmake)
@@ -394,9 +394,9 @@ Fortran:
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
-    sol-studio-f77 (Sun Fortran 77 Compiler (Solaris Studio))
-    sol-studio-f90 (Sun Fortran 90 Compiler (Solaris Studio))
-    sol-studio-f95 (Sun Fortran 95 Compiler (Solaris Studio))
+    sol-studio-f77 (Sun Fortran 77 Compiler (Sun Solaris Studio))
+    sol-studio-f90 (Sun Fortran 90 Compiler (Sun Solaris Studio))
+    sol-studio-f95 (Sun Fortran 95 Compiler (Sun Solaris Studio))
 
 html:
     chrome (Google Chrome)
