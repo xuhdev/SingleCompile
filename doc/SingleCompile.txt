@@ -56,6 +56,7 @@ C:
 
 C++:
     bcc (Borland C++ Builder), Windows Only
+    ch (SoftIntegration Ch)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
@@ -382,6 +383,7 @@ C:
 
 C++:
     bcc (Borland C++ Builder), Windows Only
+    ch (SoftIntegration Ch)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
