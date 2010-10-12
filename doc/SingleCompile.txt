@@ -36,10 +36,10 @@ make command only use the "make" command? This plugin will help you out.
 add these key-mappings to your vimrc:
 >
  nmap <F9> :SCCompile<cr> 
- nmap <C-F9> :SCCompileRun<cr>
+ nmap <F10> :SCCompileRun<cr>
 <
 If your file type is supported, then press F9 to compile your source file, and
-press Ctrl-F9 to compile and run your source file. Here is a list of supported
+press F10 to compile and run your source file. Here is a list of supported
 language:
 
 C:
@@ -412,6 +412,9 @@ html:
 Java:
     gcj (GNU Java Compiler)
     sunjdk (Sun Java Development Kit)
+
+JavaScript:
+    rhino (Rhino)
 
 LaTeX:
     miktex (MiKTeX), Windows Only
