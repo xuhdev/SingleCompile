@@ -144,6 +144,9 @@ function! s:Intialize() "{{{1
             call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f90', 'Sun Fortran 90 Compiler (Sun Solaris Studio)', 'sunf90', '-o "%<"', s:common_run_command)
             call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f95', 'Sun Fortran 95 Compiler (Sun Solaris Studio)', 'sunf95', '-o "%<"', s:common_run_command)
         endif
+        if has('win32') || has('win64')
+            call SingleCompile#SetCompilerTemplate('fortran', 'ftn95', 'Silverfrost FTN95', 'ftn95', '$source_file$ /LINK', s:common_run_command)
+        endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
@@ -398,13 +401,25 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
     " set the file name to be compiled
     let l:file_to_compile = expand('%:p')
-    if match(l:file_to_compile, ' ') != -1 " if there are spaces in the file name, add quotes to it
+
+    " on win32, win64, and os2, replace the backslash in l:file_to_compile
+    " with '/'
+    if has('win32') || has('win64') || has('os2')
+        let l:file_to_compile = substitute(l:file_to_compile, '/', '\\', 'g')
+    endif
+
+    if match(l:file_to_compile, ' ') != -1 " if there are spaces in the file name, surround it with quotes
         let l:file_to_compile = '"'.l:file_to_compile.'"'
     endif
+    
+    if match(l:compile_flags, '\$source_file\$') == -1
+        let l:compile_flags = l:compile_flags.' $source_file$'
+    endif
+    let l:compile_args = substitute(l:compile_flags, '\$source_file\$', escape(l:file_to_compile,'\'), 'g')
 
     if s:ShouldQuickfixBeUsed() == 0
         " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
-        exec '!'.l:compile_cmd.' '.l:compile_flags.' '.l:file_to_compile
+        exec '!'.l:compile_cmd.' '.l:compile_args
         if v:shell_error != 0
             let l:toret = 1
         endif
@@ -424,7 +439,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             exec 'setlocal shellpipe=\|\ tee'
         endif
 
-        exec 'make'.' '.l:compile_flags.' '.l:file_to_compile
+        exec 'make'.' '.l:compile_args
 
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
@@ -438,7 +453,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:old_shellpipe = &shellpipe
         let &l:makeprg = l:compile_cmd
         exec 'setlocal shellpipe=>%s\ 2>&1'
-        exec 'make'.' '.l:compile_flags.' '.l:file_to_compile
+        exec 'make'.' '.l:compile_args
         " check is compiling successful
         if v:shell_error != 0
             let l:toret = 1
