@@ -164,6 +164,29 @@ Commands:
 Same as |SCCompile|, only for backward compatible use. Not recommended to use
 any more.
 
+                                            *SCCompileAF*
+Commands:
+    :SCCompileAF
+This command is also used for compiling your source file, but it allows you to
+append some additional compilation or interpretion flags other than the flags
+already defined in the compiler and interpreter template. The "AF" is short
+for "Addtional Flags". For example, GCC compiler for C has already been
+defined some flags: "-o "%<"". But sometimes you also want to use "-O2" flag
+to optimize your code, then you can use the following commands to compile your
+file:
+>
+ :SCCompileAF -O2
+<
+:SCCompile can also be used with some arguments, but there are some
+differences. :SCCompileAF use your arguments as "additional" compilation
+flags, which means the flags defined in the original templates are also valid,
+while :SCCompile use you arguments as compilation flags only, which means the
+flags defined in the original templates are not used. For example, the
+templates of GCC defined 'flags' as '-o "%<"', "%<" stands for the output file
+name. ":SCCompile -O2" will use "gcc -O2 some_file.c" to compile your source
+file, while ":SCCompileAF -O2" will use "gcc -o some_file -O2 some_file.c" to
+compile your source file. 
+
                                             *SCCompileRun*
 Commands:
     :SCCompileRun
@@ -185,6 +208,16 @@ Commands:
     :SingleCompileRun
 Same as |SCCompileRun|, only for backward compatible use. Not recommended to use
 any more.
+
+                                            *SCCompileRunAF*
+Commands:
+    :SCCompileRunAF
+Same as |SCCompileAF|, but also run the binary file after compilation. For
+example, the following command is going to compile your source file with an
+additional "-O2" flag and run the output binary file:
+>
+ :SCCompileRunAF -O2
+<
 
                                             *SCChooseCompiler*
 Commands:
@@ -471,13 +504,13 @@ INSTALLATION~
 Download the SingleCompile.zip file and extract it to your vim runtime
 directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
 you'd better then use helptags command to generate the help tag(for example
-use ":helptags ~/.vim/doc" on Linux).
+use ":helptags ~/.vim/doc" on UNIX/Linux).
 
 THANKS~
                                             *SingleCompile-thanks*
 ----------------------------------------------------------------------------
-Marc Weber has given me a lot of help to improve this plugin, so thank him
-very much.
+Marc Weber has offered me a lot of help to improve this plugin, thank him very
+much.
 
 
 

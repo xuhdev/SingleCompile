@@ -388,14 +388,18 @@ function! SingleCompile#Compile(...) " compile only {{{1
     let l:curcwd=getcwd()
     cd %:p:h
 
-    " if a:0 is zero and 'flags' is not defined, assign '' to let l:compile_flags
-    if a:0 == 1
+    if a:0 == 1 " if there is only one argument, it means use this argument as the compilation flag
         let l:compile_flags = a:1
-    elseif l:user_specified == 1 && has_key(g:SingleCompile_templates[&filetype],'flags')
+    elseif a:0 == 2 && l:user_specified == 1 && has_key(g:SingleCompile_templates[&filetype],'flags') " if there is two arguments, it means append the provided argument to the flag defined in the template
+        let l:compile_flags = g:SingleCompile_templates[&filetype]['flags'].' '.a:2
+    elseif a:0 == 0 && l:user_specified == 1 && has_key(g:SingleCompile_templates[&filetype],'flags')
         let l:compile_flags = g:SingleCompile_templates[&filetype]['flags']
-    elseif l:user_specified == 0 && has_key(s:CompilerTemplate[&filetype][ s:CompilerTemplate[&filetype]['chosen_compiler'] ], 'flags')
+    elseif a:0 == 2 && l:user_specified == 0 && has_key(s:CompilerTemplate[&filetype][ s:CompilerTemplate[&filetype]['chosen_compiler'] ], 'flags') " if there is two arguments, it means append the provided argument to the flag defined in the template
+
+        let l:compile_flags = s:GetCompilerSingleTemplate(&filetype, s:CompilerTemplate[&filetype]['chosen_compiler'], 'flags').' '.a:2
+    elseif a:0 == 0 && l:user_specified == 0 && has_key(s:CompilerTemplate[&filetype][ s:CompilerTemplate[&filetype]['chosen_compiler'] ], 'flags')
         let l:compile_flags = s:GetCompilerSingleTemplate(&filetype, s:CompilerTemplate[&filetype]['chosen_compiler'], 'flags')
-    else
+    else  " if a:0 is zero and 'flags' is not defined, assign '' to let l:compile_flags
         let l:compile_flags = ''
     endif
 
@@ -527,8 +531,10 @@ function! s:Run() " {{{1
 endfunction
 
 function! SingleCompile#CompileRun(...) " compile and run {{{1
-    if a:0 > 0
+    if a:0 == 1
         let l:compileResult = SingleCompile#Compile(a:1)
+    elseif a:0 == 2
+        let l:compileResult = SingleCompile#Compile(a:1, a:2)
     else
         let l:compileResult = SingleCompile#Compile()
     endif
