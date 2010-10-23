@@ -50,6 +50,7 @@ C:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 Compiler Suite), UNIX/Linux only
     pcc (Portable C Compiler)
     sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX/Linux only
     tcc (Tiny C Compiler)
@@ -61,6 +62,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 Compiler Suite), UNIX/Linux only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX/Linux only
 
 cmake:
@@ -411,6 +413,7 @@ C:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 Compiler Suite), UNIX/Linux only
     pcc (Portable C Compiler)
     sol-studio (Sun C Compiler (Sun Solaris Studio)), UNIX/Linux only
     tcc (Tiny C Compiler)
@@ -422,6 +425,7 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 Compiler Suite), UNIX/Linux only
     sol-studio (Sun C++ Compiler (Sun Solaris Studio)), UNIX/Linux only
 
 cmake:

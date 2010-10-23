@@ -116,6 +116,7 @@ function! s:Intialize() "{{{1
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 'Sun C Compiler (Sun Solaris Studio)', 'suncc', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'open64', 'Open64 Compiler Suite', 'opencc', '-o "%<"', s:common_run_command)
         endif
 
         " cpp
@@ -129,6 +130,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 'SoftIntegration Ch', 'ch', '', '')
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('cpp', 'open64', 'Open64 Compiler Suite', 'openCC', '-o "%<"', s:common_run_command)
         endif
 
         " java
