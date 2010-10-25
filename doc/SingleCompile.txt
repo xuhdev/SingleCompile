@@ -98,6 +98,9 @@ LaTeX:
     miktex (MiKTeX), Windows Only
     texlive (Tex Live)
 
+LISP:
+    ecl (Embeddable Common-Lisp)
+
 lua:
     lua (Lua Interpreter)
 
@@ -460,6 +463,9 @@ JavaScript:
 LaTeX:
     miktex (MiKTeX), Windows Only
     texlive (Tex Live)
+
+LISP:
+    ecl (Embeddable Common-Lisp)
 
 lua:
     lua (Lua Interpreter)

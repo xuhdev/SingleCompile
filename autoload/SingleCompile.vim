@@ -153,6 +153,9 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
 
+        " lisp
+        call SingleCompile#SetCompilerTemplate('lisp', 'ecl', 'Embeddable Common-Lisp', 'ecl', '-shell', '')
+
         " shell
         call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 'sh', '', '')
 
