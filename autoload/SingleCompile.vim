@@ -158,6 +158,7 @@ function! s:Intialize() "{{{1
         " lisp
         call SingleCompile#SetCompilerTemplate('lisp', 'clisp', 'GNU CLISP', 'clisp', '', '')
         call SingleCompile#SetCompilerTemplate('lisp', 'ecl', 'Embeddable Common-Lisp', 'ecl', '-shell', '')
+        call SingleCompile#SetCompilerTemplate('lisp', 'gcl', 'GNU Common Lisp', 'gcl', '-batch -load', '')
 
         " shell
         call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 'sh', '', '')
