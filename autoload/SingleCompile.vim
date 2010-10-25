@@ -116,7 +116,7 @@ function! s:Intialize() "{{{1
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 'Sun C Compiler (Sun Solaris Studio)', 'suncc', '-o "%<"', s:common_run_command)
-            call SingleCompile#SetCompilerTemplate('c', 'open64', 'Open64 Compiler Suite', 'opencc', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('c', 'open64', 'Open64 C Compiler', 'opencc', '-o "%<"', s:common_run_command)
         endif
 
         " cpp
@@ -130,7 +130,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 'SoftIntegration Ch', 'ch', '', '')
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', '-o "%<"', s:common_run_command)
-            call SingleCompile#SetCompilerTemplate('cpp', 'open64', 'Open64 Compiler Suite', 'openCC', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('cpp', 'open64', 'Open64 C++ Compiler', 'openCC', '-o "%<"', s:common_run_command)
         endif
 
         " java
@@ -145,6 +145,8 @@ function! s:Intialize() "{{{1
             call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f77', 'Sun Fortran 77 Compiler (Sun Solaris Studio)', 'sunf77', '-o "%<"', s:common_run_command)
             call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f90', 'Sun Fortran 90 Compiler (Sun Solaris Studio)', 'sunf90', '-o "%<"', s:common_run_command)
             call SingleCompile#SetCompilerTemplate('fortran', 'sol-studio-f95', 'Sun Fortran 95 Compiler (Sun Solaris Studio)', 'sunf95', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('fortran', 'open64-f90', 'Open64 Fortran 90 Compiler', 'openf90', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetCompilerTemplate('fortran', 'open64-f95', 'Open64 Fortran 95 Compiler', 'openf95', '-o "%<"', s:common_run_command)
         endif
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('fortran', 'ftn95', 'Silverfrost FTN95', 'ftn95', '$source_file$ /LINK', s:common_run_command)
