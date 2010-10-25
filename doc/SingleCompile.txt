@@ -101,6 +101,7 @@ LaTeX:
     texlive (Tex Live)
 
 LISP:
+    clisp (GNU CLISP)
     ecl (Embeddable Common-Lisp)
 
 lua:
