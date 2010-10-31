@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 2.1
+" Version: 2.1.1
 " check doc/SingleCompile.txt for more information
 
 
@@ -15,7 +15,7 @@ let s:TemplateIntialized = 0
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 210
+    return 211
 endfunction
 
 " compiler detect functions {{{1
