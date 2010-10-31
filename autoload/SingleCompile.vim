@@ -328,7 +328,7 @@ endfunction
 function! s:ShowMessage(message) "{{{1
 
     if g:SingleCompile_usedialog == 0 || !((has('gui_running') && has('dialog_gui')) || has('dialog_con'))
-        call s:ShowMessage(a:message)
+        echohl Error | echo a:message | echohl None
     else
         call confirm(a:message)
     endif
@@ -360,7 +360,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     call s:Intialize()
     let l:toret = 0
 
-    " record current file type. Don't use &filetype directly because after
+    " save current file type. Don't use &filetype directly because after
     " "make" and quickfix is working and the error is in another file,
     " sometimes the value of &filetype may not be correct.
     let l:cur_filetype = &filetype 
@@ -420,7 +420,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " set the file name to be compiled
     let l:file_to_compile = expand('%:p')
 
-    " on win32, win64, and os2, replace the backslash in l:file_to_compile
+    " on win32, win64 and os2, replace the backslash in l:file_to_compile
     " with '/'
     if has('win32') || has('win64') || has('os2')
         let l:file_to_compile = substitute(l:file_to_compile, '/', '\\', 'g')
