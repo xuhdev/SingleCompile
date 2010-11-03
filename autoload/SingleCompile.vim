@@ -7,9 +7,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 
+" varibles {{{1
 " the dic to store the compiler template
 let s:CompilerTemplate = {}
 let g:SingleCompile_templates = {}
+
 let s:TemplateIntialized = 0
 
 
@@ -260,6 +262,14 @@ function! s:GetCompilerSingleTemplate(lang_name, compiler_name, key) " {{{1
     return s:CompilerTemplate[a:lang_name][a:compiler_name][a:key]
 endfunction
 
+function! SingleCompile#SetPredo( lang_name, compiler_name, predo_func ) " set the pre-do function {{{1
+    call s:SetCompilerSingleTemplate( a:lang_name, a:compiler_name, 'pre-do', a:predo_func )
+endfunction
+
+function! SingleCompile#SetPostdo( lang_name, compiler_name, postdo_func ) " set the post-do function {{{1
+    call s:SetCompilerSingleTemplate( a:lang_name, a:compiler_name, 'post-do', a:postdo_func )
+endfunction
+
 function! s:SetCompilerSingleTemplate(lang_name, compiler_name, key, value, ...) " {{{1
     " set the template. if the '...' is nonzero, this function will not override the corresponding template if there is an existing template 
 
@@ -435,6 +445,13 @@ function! SingleCompile#Compile(...) " compile only {{{1
     endif
     let l:compile_args = substitute(l:compile_flags, '\$source_file\$', escape(l:file_to_compile,'\'), 'g')
 
+    " call the pre-do function if set
+    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype], 'pre-do')
+        let l:command_dic = s:CompilerTemplate[l:cur_filetype]['pre-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
+        let l:compile_cmd = l:command_dic['command']
+        let l:compile_args = l:command_dic['args']
+    endif
+
     if s:ShouldQuickfixBeUsed() == 0
         " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
         exec '!'.l:compile_cmd.' '.l:compile_args
@@ -457,7 +474,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             exec 'setlocal shellpipe=\|\ tee'
         endif
 
-        exec 'make'.' '.l:compile_args
+        exec 'make '.l:compile_args
 
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
@@ -487,6 +504,12 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:toret = 2
     endif
 
+    " call the post-do function if set
+    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype], 'post-do')
+        call s:CompilerTemplate[l:cur_filetype]['post-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
+    endif
+
+
     " switch back to the original directory
     exec 'cd '.'"'.l:curcwd.'"'
     return l:toret
@@ -502,7 +525,8 @@ function! s:DetectCompiler(lang_name) " to detect compilers for one language. Re
             continue
         endif
         call s:SetCompilerSingleTemplate(a:lang_name, some_compiler, 'command', 
-                    \s:CompilerTemplate[a:lang_name][some_compiler]['detect_func'](s:CompilerTemplate[a:lang_name][some_compiler]['detect_func_arg']) )
+                    \s:CompilerTemplate[a:lang_name][some_compiler]['detect_func']
+                    \(s:CompilerTemplate[a:lang_name][some_compiler]['detect_func_arg']) )
 
         " if the type of s:CompilerTemplate[&filetype]['command'] returned
         " by the detection function is not a string, then we may think
