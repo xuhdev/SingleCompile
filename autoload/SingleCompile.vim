@@ -36,11 +36,24 @@ function! s:GetPathSeperator() "get the path seperator {{{2
     endif
 endfunction
 " pre-do functions {{{1
-function s:PredoWatcom(compiling_info) " watcom pre-do {{{2
+function! s:PredoWatcom(compiling_info) " watcom pre-do {{{2
     let s:old_path = $PATH
     let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().
                 \$WATCOM.s:GetPathSeperator().'binw'.s:GetEnvSeperator().
                 \$PATH
+    return a:compiling_info
+endfunction
+
+function! s:PredoGcc(compiling_info) " gcc pre-do {{{2
+    if has('unix')
+        " if we find '#include <math.h>' in the file, then add '-lm' flag
+        if match( getline( 1, '$' ), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$' ) != -1
+            let l:new_comp_info = a:compiling_info
+            let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
+            return l:new_comp_info
+        endif
+    endif
+
     return a:compiling_info
 endfunction
 
@@ -151,6 +164,7 @@ function! s:Intialize() "{{{1
             call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o "%<"', s:common_run_command)
         endif
         call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetPredo('c', 'gcc', function('s:PredoGcc'))
         call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o "%<"', s:common_run_command)
