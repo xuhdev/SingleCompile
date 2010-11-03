@@ -43,19 +43,19 @@ function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
 endfunction
 
 " compiler detect functions {{{1
-function! s:DetectCompilerGenerally(compile_command) " {{{2
+function! s:DetectCompilerGenerally(compiling_command) " {{{2
     " the general function of compiler detection. The principle is to search
     " the environment varible PATH and some special directory
 
     if has('unix') || has('macunix')
-        let l:list_to_detect = [expand(a:compile_command),
-                    \expand('/usr/bin/'.a:compile_command), 
-                    \expand('/usr/local/bin/'.a:compile_command),
-                    \expand('/bin/'.a:compile_command),
-                    \expand('~/bin/'.a:compile_command)
+        let l:list_to_detect = [expand(a:compiling_command),
+                    \expand('/usr/bin/'.a:compiling_command), 
+                    \expand('/usr/local/bin/'.a:compiling_command),
+                    \expand('/bin/'.a:compiling_command),
+                    \expand('~/bin/'.a:compiling_command)
                     \]
     else
-        let l:list_to_detect = [expand(a:compile_command)]
+        let l:list_to_detect = [expand(a:compiling_command)]
     endif
 
     for cmd in l:list_to_detect
@@ -67,14 +67,14 @@ function! s:DetectCompilerGenerally(compile_command) " {{{2
     return 0
 endfunction
 
-function! s:DetectWatcom(not_used_arg) " {{{2
-    let l:watcom_command = s:DetectCompilerGenerally('wcl386')
+function! s:DetectWatcom(compiling_command) " {{{2
+    let l:watcom_command = s:DetectCompilerGenerally(a:compiling_command)
     if l:watcom_command != 0
         return l:watcom_command
     endif
 
     if $WATCOM != ''
-        return $WATCOM.'\binnt\wcl386'
+        return $WATCOM.'\binnt\'.a:compiling_command
     endif
 endfunction
 
@@ -190,7 +190,9 @@ function! s:Intialize() "{{{1
         endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
-        call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 'Open Watcom Fortran 77/32 Compiler', 'wfl386', '', s:common_run_command, function('s:DetectWatcom'))
+        call SingleCompile#SetPredo('fortran', 'open-watcom', function('s:PredoWatcom'))
+        call SingleCompile#SetPostdo('fortran', 'open-watcom', function('s:PostdoWatcom'))
 
         " lisp
         call SingleCompile#SetCompilerTemplate('lisp', 'clisp', 'GNU CLISP', 'clisp', '', '')
