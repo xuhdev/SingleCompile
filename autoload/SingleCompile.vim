@@ -28,11 +28,18 @@ function! s:GetEnvSeperator() " get the seperator among the environment varibles
         return ':'
 endfunction
 
+function! s:GetPathSeperator() "get the path seperator {{{2
+    if has('win32') || has('win64') || has('os2')
+        return '\'
+    else
+        return '/'
+    endif
+endfunction
 " pre-do functions {{{1
 function s:PredoWatcom(compiling_info) " watcom pre-do {{{2
     let s:old_path = $PATH
-    let $PATH = $WATCOM.'\binnt'.s:GetEnvSeperator().
-                \$WATCOM.'\binw'.s:GetEnvSeperator().
+    let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().
+                \$WATCOM.s:GetPathSeperator().'binw'.s:GetEnvSeperator().
                 \$PATH
     return a:compiling_info
 endfunction
