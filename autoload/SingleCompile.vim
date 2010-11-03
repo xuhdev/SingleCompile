@@ -20,6 +20,28 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     return 211
 endfunction
 
+" utils {{{1
+function! s:GetEnvSeperator() " get the seperator among the environment varibles {{{2
+    if has('win32') || has('win64') || has('os2')
+        return ';'
+    else
+        return ':'
+endfunction
+
+" pre-do functions {{{1
+function s:PredoWatcom(compiling_info) " watcom pre-do {{{2
+    let s:old_path = $PATH
+    let $PATH = $WATCOM.'\binnt'.s:GetEnvSeperator().
+                \$WATCOM.'\binw'.s:GetEnvSeperator().
+                \$PATH
+    return a:compiling_info
+endfunction
+
+" post-do functions {{{1
+function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
+    let $PATH = s:old_path
+endfunction
+
 " compiler detect functions {{{1
 function! s:DetectCompilerGenerally(compile_command) " {{{2
     " the general function of compiler detection. The principle is to search
@@ -43,6 +65,17 @@ function! s:DetectCompilerGenerally(compile_command) " {{{2
     endfor
 
     return 0
+endfunction
+
+function! s:DetectWatcom(not_used_arg) " {{{2
+    let l:watcom_command = s:DetectCompilerGenerally('wcl386')
+    if l:watcom_command != 0
+        return l:watcom_command
+    endif
+
+    if $WATCOM != ''
+        return $WATCOM.'\binnt\wcl386'
+    endif
 endfunction
 
 function! s:DetectIe(not_used_arg) " {{{2
@@ -103,7 +136,9 @@ function! s:Intialize() "{{{1
         endif
 
         " c
-        call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 'Open Watcom C/C++32 Compiler', 'wcl386', '', s:common_run_command, function('s:DetectWatcom'))
+        call SingleCompile#SetPredo('c', 'open-watcom', function('s:PredoWatcom'))
+        call SingleCompile#SetPostdo('c', 'open-watcom', function('s:PostdoWatcom'))
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('c', 'msvc', 'Microsoft Visual C++', 'cl', '-o "%<"', s:common_run_command)
             call SingleCompile#SetCompilerTemplate('c', 'bcc', 'Borland C++ Builder', 'bcc32', '-o "%<"', s:common_run_command)
@@ -403,7 +438,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
             let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] = get(detected_compilers, 0)
         endif
-        let l:compile_cmd = s:GetCompilerSingleTemplate(l:cur_filetype, s:CompilerTemplate[l:cur_filetype]['chosen_compiler'], 'command')
+        let l:chosen_compiler = s:CompilerTemplate[l:cur_filetype]['chosen_compiler']
+        let l:compile_cmd = s:GetCompilerSingleTemplate(l:cur_filetype, l:chosen_compiler, 'command')
     elseif l:user_specified == 1
         let l:compile_cmd = g:SingleCompile_templates[l:cur_filetype]['command']
     endif
@@ -446,11 +482,13 @@ function! SingleCompile#Compile(...) " compile only {{{1
     let l:compile_args = substitute(l:compile_flags, '\$source_file\$', escape(l:file_to_compile,'\'), 'g')
 
     " call the pre-do function if set
-    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype], 'pre-do')
-        let l:command_dic = s:CompilerTemplate[l:cur_filetype]['pre-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
+    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 'pre-do')
+        let l:command_dic = s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]['pre-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
         let l:compile_cmd = l:command_dic['command']
         let l:compile_args = l:command_dic['args']
     endif
+
+
 
     if s:ShouldQuickfixBeUsed() == 0
         " if quickfix is not enabled for this plugin or the language is an interpreting language not in unix, then don't use quickfix
@@ -505,8 +543,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
     endif
 
     " call the post-do function if set
-    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype], 'post-do')
-        call s:CompilerTemplate[l:cur_filetype]['post-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
+    if l:user_specified == 0 && has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 'post-do')
+        call s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]['post-do']({ 'command': l:compile_cmd, 'args': l:compile_args })
     endif
 
 
