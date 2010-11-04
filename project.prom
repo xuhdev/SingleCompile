@@ -1,0 +1,2 @@
+[general]
+sources=plugin/SingleCompile.vim, autoload/SingleCompile.vim
