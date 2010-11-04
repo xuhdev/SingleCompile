@@ -184,6 +184,7 @@ function! s:Intialize() "{{{1
             call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 'Borland C++ Builder', 'bcc32', '-o "%<"', s:common_run_command)
         endif
         call SingleCompile#SetCompilerTemplate('cpp', 'g++', 'GNU C++ Compiler', 'g++', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetPredo('cpp', 'g++', function('s:PredoGcc'))
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 'SoftIntegration Ch', 'ch', '', '')
         if has('unix')
