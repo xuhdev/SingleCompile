@@ -69,5 +69,6 @@ endif
 "}}}
 
 let &cpo = s:saved_cpo
+unlet! s:saved_cpo
 
 " vim:fdm=marker et

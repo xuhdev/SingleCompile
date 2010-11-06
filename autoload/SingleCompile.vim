@@ -3,7 +3,7 @@
 " check doc/SingleCompile.txt for more information
 
 
-let s:save_cpo = &cpo
+let s:saved_cpo = &cpo
 set cpo&vim
 
 
@@ -739,5 +739,6 @@ call s:Intialize() " {{{1 call the initialize function
 " }}}
 
 
-let &cpo = s:save_cpo
+let &cpo = s:saved_cpo
+unlet! s:saved_cpo
 " vim: fdm=marker et
