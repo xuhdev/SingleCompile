@@ -709,6 +709,8 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             endif
         endfor
 
+        " if l:choose_list is empty, it means no compiler is available for
+        " this language
         if empty(l:choose_list)
             call s:ShowMessage('SingleCompile: No compiler is available for this language!')
             return
@@ -717,7 +719,10 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         let l:user_choose = inputlist( extend(['Detected compilers: '], l:choose_list_display) )
         
         " if user does not choose a valid option
-        if l:user_choose <= 0
+        if l:user_choose <= 0 || l:user_choose > len(l:choose_list_display)
+            " echo an empty line first and then show an error message
+            echo ' ' 
+            call s:ShowMessage( 'The number you have chosen is invalid.' )
             return
         endif
 
