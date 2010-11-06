@@ -57,6 +57,19 @@ function! s:PredoGcc(compiling_info) " gcc pre-do {{{2
     return a:compiling_info
 endfunction
 
+function! s:PredoSolStudioC(compiling_info) " solaris studio C/C++ pre-do {{{2
+    if has('unix')
+        " if we find '#include <math.h>' in the file, then add '-lm' flag
+        if match( getline( 1, '$' ), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$' ) != -1
+            let l:new_comp_info = a:compiling_info
+            let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
+            return l:new_comp_info
+        endif
+    endif
+
+    return a:compiling_info
+endfunction
+
 " post-do functions {{{1
 function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
     let $PATH = s:old_path
@@ -174,6 +187,7 @@ function! s:Intialize() "{{{1
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 'Sun C Compiler (Sun Solaris Studio)', 'suncc', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetPredo('c', 'sol-studio', function('s:PredoSolStudioC'))
             call SingleCompile#SetCompilerTemplate('c', 'open64', 'Open64 C Compiler', 'opencc', '-o "%<"', s:common_run_command)
         endif
 
@@ -189,6 +203,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 'SoftIntegration Ch', 'ch', '', '')
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', '-o "%<"', s:common_run_command)
+            call SingleCompile#SetPredo('cpp', 'sol-studio', function('s:PredoSolStudioC'))
             call SingleCompile#SetCompilerTemplate('cpp', 'open64', 'Open64 C++ Compiler', 'openCC', '-o "%<"', s:common_run_command)
         endif
 

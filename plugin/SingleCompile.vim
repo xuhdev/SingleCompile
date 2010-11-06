@@ -26,7 +26,7 @@ command -nargs=+ SCCompileAF    call SingleCompile#Compile('AdditionalFlags', <q
 command -nargs=+ SCCompileRunAF    call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
 command SCChooseCompiler call SingleCompile#ChooseCompiler(&filetype)
 
-" menu {{{1
+" menus {{{1
 
 if !exists('g:SingleCompile_menumode')
     let g:SingleCompile_menumode = 1
@@ -35,24 +35,24 @@ endif
 if has('gui_running') && has('menu')
     if g:SingleCompile_menumode == 1
         nnoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile :SCCompile<cr>
-        nnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SCCompileRun :SCCompileRun<cr>
-        nnoremenu Plugin.SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler :SCChooseCompiler<cr>
+        nnoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun :SCCompileRun<cr>
+        nnoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler :SCChooseCompiler<cr>
         inoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile <C-O>:SCCompile<cr>
-        inoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SCCompileRun <C-O>:SCCompileRun<cr>
-        inoremenu Plugin.SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler <C-O>:SCChooseCompiler<cr>
+        inoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun <C-O>:SCCompileRun<cr>
+        inoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler <C-O>:SCChooseCompiler<cr>
         vnoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile <Esc>:SCCompile<cr>
-        vnoremenu Plugin.SingleCompile.Compile\ and\ &run<tab>:SCCompileRun <Esc>:SCCompileRun<cr>
-        vnoremenu Plugin.SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler <Esc>:SCChooseCompiler<cr>
+        vnoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun <Esc>:SCCompileRun<cr>
+        vnoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler <Esc>:SCChooseCompiler<cr>
     elseif g:SingleCompile_menumode == 2
         nnoremenu SingleCompile.&Compile<tab>:SCCompile :SCCompile<cr>
-        nnoremenu SingleCompile.Compile\ and\ &run<tab>:SCCompileRun :SCCompileRun<cr>
-        nnoremenu SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler :SCChooseCompiler<cr>
+        nnoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun :SCCompileRun<cr>
+        nnoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler :SCChooseCompiler<cr>
         inoremenu SingleCompile.&Compile<tab>:SCCompile <C-O>:SCCompile<cr>
-        inoremenu SingleCompile.Compile\ and\ &run<tab>:SCCompileRun <C-O>:SCCompileRun<cr>
-        inoremenu SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler <C-O>:SCChooseCompiler<cr>
+        inoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun <C-O>:SCCompileRun<cr>
+        inoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler <C-O>:SCChooseCompiler<cr>
         vnoremenu SingleCompile.&Compile<tab>:SCCompile <Esc>:SCCompile<cr>
-        vnoremenu SingleCompile.Compile\ and\ &run<tab>:SCCompileRun <Esc>:SCCompileRun<cr>
-        vnoremenu SingleCompile.C&hoose\ compiler<tab>:SCChooseCompiler <Esc>:SCChooseCompiler<cr>
+        vnoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun <Esc>:SCCompileRun<cr>
+        vnoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler <Esc>:SCChooseCompiler<cr>
     endif
 endif
 
