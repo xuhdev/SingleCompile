@@ -39,8 +39,10 @@ add these key-mappings to your vimrc:
  nmap <F10> :SCCompileRun<cr>
 <
 If your file type is supported, then press F9 to compile your source file, and
-press F10 to compile and run your source file. Here is a list of built-in
-supported compilers:
+press F10 to compile and run your source file. You may also use
+":SCChooseCompiler" command to choose a compiler if you have more than one
+kind of compiler available on you system. Here is a list of built-in supported
+compilers:
 
 C:
     bcc (Borland C++ Builder), Windows only
