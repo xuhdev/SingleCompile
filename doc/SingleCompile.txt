@@ -57,6 +57,7 @@ C:
     pcc (Portable C Compiler)
     sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX/Linux only
     tcc (Tiny C Compiler)
+    tcc-run (Tiny C Compiler with "-run" Flag)
 
 C++:
     bcc (Borland C++ Builder), Windows Only
@@ -425,6 +426,7 @@ C:
     pcc (Portable C Compiler)
     sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX/Linux only
     tcc (Tiny C Compiler)
+    tcc-run (Tiny C Compiler with "-run" Flag)
 
 C++:
     bcc (Borland C++ Builder), Windows Only

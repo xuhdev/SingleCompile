@@ -181,6 +181,7 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')
         call SingleCompile#SetCompilerTemplate('c', 'ch', 'SoftIntegration Ch', 'ch', '', '')
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o "%<"', s:common_run_command)
@@ -718,9 +719,12 @@ function! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         let l:user_choose = inputlist( extend(['Detected compilers: '], l:choose_list_display) )
         
-        " if user does not choose a valid option
-        if l:user_choose <= 0 || l:user_choose > len(l:choose_list_display)
-            " echo an empty line first and then show an error message
+        " If user cancels the choosing, then return directly; if user chooses
+        " a number which is too big, then echo an empty line first and then
+        " show an error message, then return
+        if l:user_choose <= 0
+            return
+        elseif l:user_choose > len(l:choose_list_display) 
             echo ' ' 
             call s:ShowMessage( 'The number you have chosen is invalid.' )
             return
