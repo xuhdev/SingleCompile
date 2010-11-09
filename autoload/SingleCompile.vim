@@ -284,6 +284,7 @@ function! s:Intialize() "{{{1
 
         " python
         call SingleCompile#SetCompilerTemplate('python', 'cpython', 'CPython', 'python', '', '')
+        call SingleCompile#SetCompilerTemplate('python', 'ironpython', 'IronPython', 'ipy', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy', 'pypy', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'cpython3', 'CPython 3', 'python3', '', '')

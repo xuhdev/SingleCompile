@@ -43,7 +43,8 @@ If your file type is supported, then press F9 to compile your source file, and
 press F10 to compile and run your source file. You may also use
 ":SCChooseCompiler" command to choose a compiler if you have more than one
 kind of compiler available on you system. Here is a list of built-in supported
-compilers:
+compilers (For some compilers, you need to set the environment varibles
+correctly to make them available for SingleCompile):
 
 C:
     bcc (Borland C++ Builder), Windows only
@@ -121,6 +122,7 @@ perl:
     perl (Perl Interpreter)
 
 python:
+    ironpython (IronPython)
     jython (Jython)
     pypy (PyPy)
     python (Python Interpreter)
@@ -412,7 +414,9 @@ nothing. On the contrary, if the command of java is not set, it will set the
 compilation command of java to "javac".
 
                                             *SingleCompile-built-in-compiler*
-The following compilers have built-in support in this plugin:
+The following compilers have built-in support in this plugin (For some
+compilers, you need to set the environment varibles correctly to make them
+available for SingleCompile):
 
 C:
     bcc (Borland C++ Builder), Windows only
@@ -490,6 +494,7 @@ perl:
     perl (Perl Interpreter)
 
 python:
+    ironpython (IronPython)
     jython (Jython)
     pypy (PyPy)
     python (Python Interpreter)
