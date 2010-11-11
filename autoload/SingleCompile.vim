@@ -179,6 +179,11 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetPredo('c', 'gcc', function('s:PredoGcc'))
         call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
+        if has('win32') || has('win64') || has('os2')
+            call SingleCompile#SetCompilerTemplate('c', 'lcc', 'Little C Compiler', 'lc', '$source_file$ -o "%<.exe"', s:common_run_command)
+        else
+            call SingleCompile#SetCompilerTemplate('c', 'lcc', 'Little C Compiler', 'lc', '$source_file$ -o "%<"', s:common_run_command)
+        endif
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 'Portable C Compiler', 'pcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')

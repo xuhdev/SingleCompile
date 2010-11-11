@@ -52,6 +52,7 @@ C:
     ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
+    lcc (Little C Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C Compiler), UNIX/Linux only
@@ -424,6 +425,7 @@ C:
     ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
+    lcc (Little C Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C Compiler), UNIX/Linux only
