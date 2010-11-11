@@ -317,6 +317,8 @@ function! s:Intialize() "{{{1
         " cmake
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake', 'cmake', '', '')
 
+        " haskell
+        call SingleCompile#SetCompilerTemplate('haskell', 'ghc', 'Glasgow Haskell Compiler', 'ghc', '-o "%<"', s:common_run_command)
         " 2}}}
 
     endif
@@ -492,7 +494,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
     " switch current work directory to the file's directory
     let l:curcwd=getcwd()
-    cd %:p:h
+    silent cd %:p:h
 
     if a:0 == 1 " if there is only one argument, it means use this argument as the compilation flag
         let l:compile_flags = a:1
@@ -595,7 +597,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
 
     " switch back to the original directory
-    exec 'cd '.'"'.l:curcwd.'"'
+    silent exec 'cd '.'"'.l:curcwd.'"'
     return l:toret
 endfunction
 
@@ -635,7 +637,7 @@ function! s:Run() " {{{1
     endif
 
     let l:curcwd=getcwd()
-    cd %:p:h
+    silent cd %:p:h
 
     if l:user_specified == 1
         let l:run_cmd = g:SingleCompile_templates[&filetype]['run']
@@ -647,7 +649,7 @@ function! s:Run() " {{{1
 
     exec '!'.l:run_cmd
 
-    exec 'cd '.'"'.l:curcwd.'"'
+    silent exec 'cd '.'"'.l:curcwd.'"'
 
     return
 endfunction

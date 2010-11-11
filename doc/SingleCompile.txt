@@ -89,6 +89,9 @@ Fortran:
     sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX/Linux only
     sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX/Linux only
 
+Haskell:
+    ghc (Glasgow Haskell Compiler)
+
 html:
     chrome (Google Chrome)
     firefox (Mozilla Firefox)
@@ -461,6 +464,9 @@ Fortran:
     sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX/Linux only
     sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX/Linux only
     sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX/Linux only
+
+Haskell:
+    ghc (Glasgow Haskell Compiler)
 
 html:
     chrome (Google Chrome)
