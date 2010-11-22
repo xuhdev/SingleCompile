@@ -73,6 +73,7 @@ endfunction
 " post-do functions {{{1
 function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
     let $PATH = s:old_path
+    return a:compiling_info
 endfunction
 
 " compiler detect functions {{{1
@@ -82,10 +83,10 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
 
     if has('unix') || has('macunix')
         let l:list_to_detect = [expand(a:compiling_command),
-                    \expand('/usr/bin/'.a:compiling_command), 
-                    \expand('/usr/local/bin/'.a:compiling_command),
-                    \expand('/bin/'.a:compiling_command),
                     \expand('~/bin/'.a:compiling_command)
+                    \expand('/usr/local/bin/'.a:compiling_command),
+                    \expand('/usr/bin/'.a:compiling_command), 
+                    \expand('/bin/'.a:compiling_command),
                     \]
     else
         let l:list_to_detect = [expand(a:compiling_command)]
@@ -100,8 +101,13 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
     return 0
 endfunction
 
+function! SingleCompile#DetectCompilerGenerally(compiling_command)
+    call s:DetectCompilerGenerally(a:compiling_command)
+endfunction
+
 function! s:DetectWatcom(compiling_command) " {{{2
-    let l:watcom_command = s:DetectCompilerGenerally(a:compiling_command)
+    let l:watcom_command =
+                \SingleCompile#DetectCompilerGenerally(a:compiling_command)
     if l:watcom_command != 0
         return l:watcom_command
     endif

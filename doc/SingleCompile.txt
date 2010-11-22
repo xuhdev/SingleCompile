@@ -14,13 +14,14 @@ CONTENTS~
                                             *SingleCompile-contents*
 ----------------------------------------------------------------------------
 1. Overview                                 |SingleCompile-overview|
-2. Commands                                 |SingleCompile-commands|
-3. Settings                                 |SingleCompile-settings|
-4. Key-mappings                             |SingleCompile-key-mapping|
-5. Compiler template                        |SingleCompile-compiler-template|
-6. Supporting plugins                       |SingleCompile-supporting-plugins|
-7. Installation                             |SingleCompile-installation|
-8. Thanks                                   |SingleCompile-thanks|
+2. Installation                             |SingleCompile-installation|
+3. Commands                                 |SingleCompile-commands|
+4. Settings                                 |SingleCompile-settings|
+5. Key-mappings                             |SingleCompile-key-mapping|
+6. Compiler template                        |SingleCompile-compiler-template|
+7. Supporting plugins                       |SingleCompile-supporting-plugins|
+8. Advanced                                 |SingleCompile-advanced|
+9. Thanks                                   |SingleCompile-thanks|
 
 
 OVERVIEW~
@@ -48,16 +49,16 @@ correctly to make them available for SingleCompile):
 
 C:
     bcc (Borland C++ Builder), Windows only
-    cc (UNIX C Compiler), UNIX/Linux only
+    cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
-    open64 (Open64 C Compiler), UNIX/Linux only
+    open64 (Open64 C Compiler), UNIX only
     pcc (Portable C Compiler)
-    sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX/Linux only
+    sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX only
     tcc (Tiny C Compiler)
     tcc-run (Tiny C Compiler with "-run" Flag)
 
@@ -68,8 +69,8 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
-    open64 (Open64 C++ Compiler), UNIX/Linux only
-    sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX/Linux only
+    open64 (Open64 C++ Compiler), UNIX only
+    sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
 
 cmake:
     cmake (cmake)
@@ -79,15 +80,15 @@ dos batch:
     
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
-    gfortran (GNU Fortran Compiler), UNIX/Linux only
+    gfortran (GNU Fortran Compiler), UNIX only
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
-    open64-f90 (Open64 Fortran 90 Compiler), UNIX/Linux only
-    open64-f95 (Open64 Fortran 95 Compiler), UNIX/Linux only
-    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX/Linux only
-    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX/Linux only
-    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX/Linux only
+    open64-f90 (Open64 Fortran 90 Compiler), UNIX only
+    open64-f95 (Open64 Fortran 95 Compiler), UNIX only
+    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX only
 
 Haskell:
     ghc (Glasgow Haskell Compiler)
@@ -152,6 +153,14 @@ details in the help file SingleCompile.txt
 
 Interpreting language such as python can also be supported by this plugin,
 see details in the help file.
+
+INSTALLATION~
+                                            *SingleCompile-installation*
+----------------------------------------------------------------------------
+Download the SingleCompile.zip file and extract it to your vim runtime
+directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
+you'd better then use helptags command to generate the help tag(for example
+use ":helptags ~/.vim/doc" on UNIX/Linux).
 
 COMMANDS~
                                             *SingleCompile-commands*
@@ -223,8 +232,8 @@ arguments is the same as SingleCompile command above. Here is an example:
                                             *SingleCompileRun*
 Commands:
     :SingleCompileRun
-Same as |SCCompileRun|, only for backward compatible use. Not recommended to use
-any more.
+Same as |SCCompileRun|, only for backward compatible use. Not recommended to
+use any more.
 
                                             *SCCompileRunAF*
 Commands:
@@ -331,15 +340,16 @@ information.
 To add a new compiler support by yourself, there are two ways:
 1. (Recommended) Add the following lines to your vimrc file:
 >
- call SingleCompile#SetCompilerTemplate('filetype', 'compiler', 'compiler_name', 'command', 'flag', 'run_command')
+ call SingleCompile#SetCompilerTemplate('filetype', 'compiler',
+             \'compiler_name', 'command', 'flag', 'run_command')
  call SingleCompile#ChooseCompiler('filetype', 'compiler')
 <
-For compiling languages such as C, Java, Fortran, 'compiler' is the short name
-for the compiler, such as "gcc", "icc"; 'command' is the command of compiling,
-such as "gcc", "g++"; 'flag' is the flags of compiling, such as "-O2";
-'run_command' is the command of running, such as "./a.out". For interpreted
-languages such as Python, Ruby, 'command' is the command of interpreting, such
-as "python"; 'flag' is the flags of interpreting; and 'run_command' MUST be
+For compiling languages such as C, Java, Fortran, "compiler" is the short name
+for the compiler, such as "gcc", "icc"; "command" is the command of compiling,
+such as "gcc", "g++"; "flag" is the flags of compiling, such as "-O2";
+"run_command" is the command of running, such as "./a.out". For interpreted
+languages such as Python, Ruby, "command" is the command of interpreting, such
+as "python"; "flag" is the flags of interpreting; and "run_command" MUST be
 set to be empty. 
 The first line is to set the template of your compiler, and the second line is
 to tell SingleCompile to use your compiler. If the second line is omitted,
@@ -348,27 +358,40 @@ automatically, and use the first detected one.
 
 Here are some examples excerpted from built-in compiler templates:
 >
+ " set the most common used run command
+ if has('win32') || has('win64') || has('os2')
+     let s:common_run_command = '%<'
+ else
+     let s:common_run_command = './'.'%<'
+ endif
+
  " c
- call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc', '-o "%<"', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc',
+             \'-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler',
+             \'icc', '-o "%<"', s:common_run_command)
 
  call SingleCompile#ChooseCompiler('c', 'gcc')
 
  " fortran
- call SingleCompile#SetCompilerTemplate('fortran', 'g77', 'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
+         \'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('fortran', 'ifort',
+         \'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
 
  call SingleCompile#ChooseCompiler('fortran', 'g77')
 
  " python
- call SingleCompile#SetCompilerTemplate('python', 'python', 'Python Interpreter', 'python', '', '')
- call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython', 'jython', '', '')
+ call SingleCompile#SetCompilerTemplate('python', 'python',
+         \'Python Interpreter', 'python', '', '')
+ call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython',
+             \'jython', '', '')
 
  call SingleCompile#ChooseCompiler('python', 'jython')
 <
 
-2. (Deprecated, only kept for backward compatibility use) Add the following lines
-to your vimrc file:
+2. (Deprecated, only kept for backward compatibility use) Add the following
+lines to your vimrc file:
 >
  call SingleCompile#SetTemplate('filetype','command','stringA')
  call SingleCompile#SetTemplate('filetype','flags','stringB')
@@ -424,16 +447,16 @@ available for SingleCompile):
 
 C:
     bcc (Borland C++ Builder), Windows only
-    cc (UNIX C Compiler), UNIX/Linux only
+    cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
     msvc (Microsoft Visual C++), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
-    open64 (Open64 C Compiler), UNIX/Linux only
+    open64 (Open64 C Compiler), UNIX only
     pcc (Portable C Compiler)
-    sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX/Linux only
+    sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX only
     tcc (Tiny C Compiler)
     tcc-run (Tiny C Compiler with "-run" Flag)
 
@@ -444,8 +467,8 @@ C++:
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
     open-watcom (Open Watcom C/C++32 Compiler)
-    open64 (Open64 C++ Compiler), UNIX/Linux only
-    sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX/Linux only
+    open64 (Open64 C++ Compiler), UNIX only
+    sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
 
 cmake:
     cmake (cmake)
@@ -455,15 +478,15 @@ dos batch:
     
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
-    gfortran (GNU Fortran Compiler), UNIX/Linux only
+    gfortran (GNU Fortran Compiler), UNIX only
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
-    open64-f90 (Open64 Fortran 90 Compiler), UNIX/Linux only
-    open64-f95 (Open64 Fortran 95 Compiler), UNIX/Linux only
-    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX/Linux only
-    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX/Linux only
-    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX/Linux only
+    open64-f90 (Open64 Fortran 90 Compiler), UNIX only
+    open64-f95 (Open64 Fortran 95 Compiler), UNIX only
+    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX only
 
 Haskell:
     ghc (Glasgow Haskell Compiler)
@@ -534,13 +557,116 @@ There are some supporting code in this plugin for Marc Weber's
 vim-addon-actions:
     http://github.com/MarcWeber/vim-addon-actions
     
-INSTALLATION~
-                                            *SingleCompile-installation*
+
+ADVANCED~
+                                            *SingleCompile-advanced*
 ----------------------------------------------------------------------------
-Download the SingleCompile.zip file and extract it to your vim runtime
-directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
-you'd better then use helptags command to generate the help tag(for example
-use ":helptags ~/.vim/doc" on UNIX/Linux).
+This chapter is for advanced users.
+
+                                    *SingleCompile-custom-compiler-detecting*
+SingleCompile allows you to custom compiler detecting function by yourself.
+
+In |SingleCompile-compiler-template|, the following function is introduced:
+>
+ call SingleCompile#SetCompilerTemplate('filetype', 'compiler',
+             \'compiler_name', 'command', 'flag', 'run_command')
+<
+
+However, in fact, the function SingleCompile#SetCompilerTemplate could have a
+seventh parameter. The seventh parameter is a |Funcref| which references to a
+compiler detecting function. The compiler detecting function will be called in
+the function SingleCompile#SetCompilerTemplate. The compiler detecting
+function must accept one parameter, which would be passed in the "command"
+parameter in SingleCompile#SetCompilerTemplate, and return a detected compiler
+command if detected, which will be used as the compiling command by
+SingleCompile, or returns 0 if the compiler is not detected. Thus, it is more
+powerful to detect some compilers. If the seventh parameter is omitted, the
+function will use a built-in default compiler detecting function instead. The
+default function would check whether the "command" is in PATH, ~/bin,
+/usr/local/bin, /usr/bin, /bin on UNIX and whether it is in PATH on other
+OSes, and returns the full path of the command if it is not in PATH. If the
+command is not detected, the default function would return 0.  
+
+Here is a short example excerpted from built-in template(OpenWatcom detecting
+function):
+>
+ function! s:DetectWatcom(compiling_command)
+     let l:watcom_command =
+                 \SingleCompile#DetectCompilerGenerally(a:compiling_command)
+     if l:watcom_command != 0
+         return l:watcom_command
+     endif
+
+     if $WATCOM != ''
+         return $WATCOM.'\binnt\'.a:compiling_command
+     endif
+ endfunction
+<
+SingleCompile#DetectCompilerGenerally is the default compiler detecting
+function introduced in the above paragraph. This function first uses a general
+way to detect the compiler. If the general way can not detect it, it check the
+environment varible "$WATCOM" to get the compiler's installation directory and
+get the full path of the compiling program.
+
+                                            *SingleCompile-predo-postdo*
+"Predo" and "Postdo" features allow you to initialize the compiler before
+compiling and clean up after compiling in you own way.
+
+"Predo" feature allows you to define a function, which would be called before
+compiling by SingleCompile, all by yourself. In the same way, "Postdo" feature
+allows you to define a function called by SingleCompile after compiling. Your
+"Predo" or "Postdo" function should accept one parameter, which would be
+passed in a dictionary containing compiling information, and return a new
+compiling information modified in the function by you. SingleCompile will use
+the new compiling information in its following work. The dictionary passed in
+is like this: >
+ {"command": "the-compiling-command", "args": "the-compiling-argument"}
+>
+Then modify the dictionary to meet your need and return the modified
+dictionary. If you don't want to modify the dictionary, please return the
+parameter passed in directly.
+
+The two functions below provide a way to set the "Predo" and "Postdo"
+functions:
+>
+ call SingleCompile#SetPredo('filetype', 'compiler',
+             \function('your_predo_function'))
+ call SingleCompile#SetPostdo('filetype', 'compiler',
+             \function('your_postdo_function'))
+<
+
+Example: OpenWatcom's "Predo" and "Postdo" functions:
+>
+ " pre-do
+ function! s:PredoWatcom(compiling_info)
+     let s:old_path = $PATH
+     let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().
+                 \$WATCOM.s:GetPathSeperator().'binw'.s:GetEnvSeperator().
+                 \$PATH
+     return a:compiling_info
+ endfunction
+
+ " post-do
+ function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
+     let $PATH = s:old_path
+     return a:compiling_info
+ endfunction
+
+ call SingleCompile#SetPredo('c', 'open-watcom', function('s:PredoWatcom'))
+ call SingleCompile#SetPostdo('c', 'open-watcom', function('s:PostdoWatcom'))
+<
+As you see, the OpenWatcom "Predo" function first saves the current PATH
+environment varible, then modifies $PATH to meet the OpenWatcom compiler needs. 
+It returns the original compiling info because it does not need to modify it.
+The OpenWatcom "Postdo" function restores the original $PATH. After defining
+the two functions, the example calls "SetPredo" and "SetPostdo" function to
+set the functions as the "Predo" function and "Postdo" function for
+corresponding language and compiler.
+
+
+To make it less confusing, I better explain the calling order here. The
+calling order is: first the compiler detecting function, then "Predo"
+function, then compile, and the last is the "Postdo" function.
 
 THANKS~
                                             *SingleCompile-thanks*
