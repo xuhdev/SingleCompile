@@ -83,10 +83,10 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
 
     if has('unix') || has('macunix')
         let l:list_to_detect = [expand(a:compiling_command),
-                    \expand('~/bin/'.a:compiling_command)
+                    \expand('~/bin/'.a:compiling_command),
                     \expand('/usr/local/bin/'.a:compiling_command),
                     \expand('/usr/bin/'.a:compiling_command), 
-                    \expand('/bin/'.a:compiling_command),
+                    \expand('/bin/'.a:compiling_command)
                     \]
     else
         let l:list_to_detect = [expand(a:compiling_command)]
