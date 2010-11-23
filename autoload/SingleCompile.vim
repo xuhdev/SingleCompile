@@ -102,12 +102,12 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
 endfunction
 
 function! SingleCompile#DetectCompilerGenerally(compiling_command)
-    call s:DetectCompilerGenerally(a:compiling_command)
+    return s:DetectCompilerGenerally(a:compiling_command)
 endfunction
 
 function! s:DetectWatcom(compiling_command) " {{{2
     let l:watcom_command =
-                \SingleCompile#DetectCompilerGenerally(a:compiling_command)
+                \s:DetectCompilerGenerally(a:compiling_command)
     if l:watcom_command != 0
         return l:watcom_command
     endif

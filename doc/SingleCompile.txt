@@ -27,15 +27,15 @@ CONTENTS~
 OVERVIEW~
                                             *SingleCompile-overview*
 ----------------------------------------------------------------------------
-This plugin aims to make it more convenient to compile or run a single source
-file.
+This plugin is aimed at making it more convenient to compile or run a single
+source file without leaving vim.
 
 Consider this situation: you have just written a small c source file for a
 small test, but you have to write a Makefile to compile it or exit vim to
 compile it or compile it using "!gcc" without quickfix feature because vim's
 make command only use the "make" command? This plugin will help you out.
 
-add these key-mappings to your vimrc:
+Add these key-mappings to your vimrc:
 >
  nmap <F9> :SCCompile<cr> 
  nmap <F10> :SCCompileRun<cr>
@@ -43,9 +43,20 @@ add these key-mappings to your vimrc:
 If your file type is supported, then press F9 to compile your source file, and
 press F10 to compile and run your source file. You may also use
 ":SCChooseCompiler" command to choose a compiler if you have more than one
-kind of compiler available on you system. Here is a list of built-in supported
-compilers (For some compilers, you need to set the environment varibles
-correctly to make them available for SingleCompile):
+kind of compiler available on you system. 
+
+
+Features:
+1. Compile or run the source file quickly using quickfix feature of vim;
+2. Compilers and interpreters auto detecting;
+3. Fast switch between several installed compilers or interpreters;
+4. Multi-language support;
+5. Custom your own compiler/interpreter template.
+
+
+Here is a list of built-in supported compilers or interpreter(For some
+compilers, you need to set the environment varibles correctly to make them
+available for SingleCompile):
 
 C:
     bcc (Borland C++ Builder), Windows only
@@ -148,11 +159,8 @@ xhtml:
     ie (Microsoft Internet Explorer)
     opera (Opera)
 
-You can add your compiler support if your compiler is not in the list. See
-details in the help file SingleCompile.txt
-
-Interpreting language such as python can also be supported by this plugin,
-see details in the help file.
+You can add your compiler or interpreter support if the compiler or
+interpreter you want is not in the list. See details in the help file.
 
 INSTALLATION~
                                             *SingleCompile-installation*
@@ -208,7 +216,7 @@ differences. :SCCompileAF use your arguments as "additional" compilation
 flags, which means the flags defined in the original templates are also valid,
 while :SCCompile use you arguments as compilation flags only, which means the
 flags defined in the original templates are not used. For example, the
-templates of GCC defined 'flags' as '-o "%<"', "%<" stands for the output file
+templates of GCC defined "flags" as '-o "%<"', "%<" stands for the output file
 name. ":SCCompile -O2" will use "gcc -O2 some_file.c" to compile your source
 file, while ":SCCompileAF -O2" will use "gcc -o some_file -O2 some_file.c" to
 compile your source file. 
