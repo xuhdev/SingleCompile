@@ -36,6 +36,19 @@ function! s:GetPathSeperator() "get the path seperator {{{2
     endif
 endfunction
 " pre-do functions {{{1
+
+function! s:AddLmIfMathH(compiling_info) " add -lm flag if math.h is included {{{2
+
+    " if we find '#include <math.h>' in the file, then add '-lm' flag
+    if match( getline( 1, '$' ), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$' ) != -1
+        let l:new_comp_info = a:compiling_info
+        let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
+        return l:new_comp_info
+    endif
+
+    return a:compiling_info
+endfunction
+
 function! s:PredoWatcom(compiling_info) " watcom pre-do {{{2
     let s:old_path = $PATH
     let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().
@@ -46,28 +59,22 @@ endfunction
 
 function! s:PredoGcc(compiling_info) " gcc pre-do {{{2
     if has('unix')
-        " if we find '#include <math.h>' in the file, then add '-lm' flag
-        if match( getline( 1, '$' ), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$' ) != -1
-            let l:new_comp_info = a:compiling_info
-            let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
-            return l:new_comp_info
-        endif
+        return s:AddLmIfMathH(a:compiling_info)
+    else
+        return a:compiling_info
     endif
-
-    return a:compiling_info
 endfunction
 
 function! s:PredoSolStudioC(compiling_info) " solaris studio C/C++ pre-do {{{2
-    if has('unix')
-        " if we find '#include <math.h>' in the file, then add '-lm' flag
-        if match( getline( 1, '$' ), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$' ) != -1
-            let l:new_comp_info = a:compiling_info
-            let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
-            return l:new_comp_info
-        endif
-    endif
+    return s:AddLmIfMathH(a:compiling_info)
+endfunction
 
-    return a:compiling_info
+function! s:PredoClang(compiling_info) " clang Predo {{{2
+    if has('unix')
+        return s:AddLmIfMathH(a:compiling_info)
+    else
+        return a:compiling_info
+    endif
 endfunction
 
 " post-do functions {{{1
@@ -194,6 +201,8 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler', 'tcc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')
         call SingleCompile#SetCompilerTemplate('c', 'ch', 'SoftIntegration Ch', 'ch', '', '')
+        call SingleCompile#SetCompilerTemplate('c', 'clang', 'clang', 'clang', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetPredo('c', 'clang', function('s:PredoClang'))
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 'UNIX C Compiler', 'cc', '-o "%<"', s:common_run_command)
         endif
@@ -213,6 +222,8 @@ function! s:Intialize() "{{{1
         call SingleCompile#SetPredo('cpp', 'g++', function('s:PredoGcc'))
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 'Intel C++ Compiler', 'icc', '-o "%<"', s:common_run_command)
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 'SoftIntegration Ch', 'ch', '', '')
+        call SingleCompile#SetCompilerTemplate('cpp', 'clang++', 'clang', 'clang++', '-o "%<"', s:common_run_command)
+        call SingleCompile#SetPredo('cpp', 'clang++', function('s:PredoClang'))
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', '-o "%<"', s:common_run_command)
             call SingleCompile#SetPredo('cpp', 'sol-studio', function('s:PredoSolStudioC'))

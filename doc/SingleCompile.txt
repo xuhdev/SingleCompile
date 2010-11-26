@@ -62,6 +62,7 @@ C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
+    clang (clang)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
@@ -76,6 +77,7 @@ C:
 C++:
     bcc (Borland C++ Builder), Windows Only
     ch (SoftIntegration Ch)
+    clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
@@ -457,6 +459,7 @@ C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
+    clang (clang)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
@@ -471,6 +474,7 @@ C:
 C++:
     bcc (Borland C++ Builder), Windows Only
     ch (SoftIntegration Ch)
+    clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++), Windows Only
