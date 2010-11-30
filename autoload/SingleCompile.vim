@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 2.2
+" Version: 2.2.1
 " check doc/SingleCompile.txt for more information
 
 
