@@ -735,7 +735,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = l:compile_flags.' $source_file$'
     endif
     let l:compile_args = substitute(l:compile_flags, '\$source_file\$',
-                \escape(l:file_to_compile,'\'), 'g')
+                \escape(l:file_to_compile, '\'), 'g')
 
     " call the pre-do function if set
     if l:user_specified == 0 && 
@@ -782,7 +782,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
-        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |')
+        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |\')
 
 
     else " use quickfix for compiling language
@@ -799,7 +799,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         endif
         " set back makeprg and shellpipe
         exec 'setlocal makeprg='.l:old_makeprg
-        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |')
+        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |\')
     endif
 
     " if it's interpreting language, then return 2 (means do not call run if
