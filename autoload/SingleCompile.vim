@@ -764,32 +764,32 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " use quickfix for interpreting language in unix
 
         " change the makeprg and shellpipe temporarily
-        let l:old_makeprg = &makeprg
-        let l:old_shellpipe = &shellpipe
+        let l:old_makeprg = &l:makeprg
+        let l:old_shellpipe = &l:shellpipe
         let &l:makeprg = l:compile_cmd
 
         " change shellpipe according to the shell type
         if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
                     \&shell =~ 'bash'
-            exec 'setlocal shellpipe=2>&1\|\ tee'
+            setlocal shellpipe=2>&1\|\ tee
         elseif &shell =~ 'csh' || &shell =~ 'tcsh' 
-            exec 'setlocal shellpipe=\|&\ tee'
+            setlocal shellpipe=\|&\ tee
         else
-            exec 'setlocal shellpipe=\|\ tee'
+            setlocal shellpipe=\|\ tee
         endif
 
         exec 'make '.l:compile_args
 
         " set back makeprg and shellpipe
-        exec 'setlocal makeprg='.l:old_makeprg
-        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |\')
+        let &l:makeprg = l:old_makeprg
+        let &l:shellpipe = l:old_shellpipe
 
 
     else " use quickfix for compiling language
 
         " change the makeprg and shellpipe temporarily 
-        let l:old_makeprg = &makeprg
-        let l:old_shellpipe = &shellpipe
+        let l:old_makeprg = &l:makeprg
+        let l:old_shellpipe = &l:shellpipe
         let &l:makeprg = l:compile_cmd
         exec 'setlocal shellpipe=>%s\ 2>&1'
         exec 'make'.' '.l:compile_args
@@ -797,9 +797,10 @@ function! SingleCompile#Compile(...) " compile only {{{1
         if v:shell_error != 0
             let l:toret = 1
         endif
+
         " set back makeprg and shellpipe
-        exec 'setlocal makeprg='.l:old_makeprg
-        exec 'setlocal shellpipe='.escape(l:old_shellpipe,' |\')
+        let &l:makeprg = l:old_makeprg
+        let &l:shellpipe = l:old_shellpipe
     endif
 
     " if it's interpreting language, then return 2 (means do not call run if
