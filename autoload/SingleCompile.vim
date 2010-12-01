@@ -793,7 +793,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let &l:makeprg = l:compile_cmd
         exec 'setlocal shellpipe=>%s\ 2>&1'
         exec 'make'.' '.l:compile_args
-        " check is compiling successful
+        " check whether compiling is successful
         if v:shell_error != 0
             let l:toret = 1
         endif
@@ -820,7 +820,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
 
     " switch back to the original directory
-    silent exec 'cd '.'"'.l:curcwd.'"'
+    silent exec 'cd '.escape(l:curcwd, '| \')
     return l:toret
 endfunction
 
@@ -883,7 +883,7 @@ function! s:Run() " {{{1
 
     exec '!'.l:run_cmd
 
-    silent exec 'cd '.'"'.l:curcwd.'"'
+    silent exec 'cd '.escape(l:curcwd, '| \')
 
     return
 endfunction
