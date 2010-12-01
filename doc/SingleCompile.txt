@@ -1,10 +1,10 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.2.1
+Version: 2.2.2
 Author and Current Maintainer: H Xu <xuhdev@gmail.com>
 Contributers: Marc Weber (Integrate SingleCompile with vim-addon-actions)
-Last Change: 30 November 2010
+Last Change: 2 December 2010
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
          of the GNU General Public License as published by the Free Software 
