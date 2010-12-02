@@ -950,13 +950,20 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         return
     endif
 
+    " when no argument is provided, list all available compilers and
+    " interpreters for user to choose
     if a:0 == 0
+
+        " if the language template is not defined for this language, show an
+        " error message then return
         if !has_key(s:CompilerTemplate, a:lang_name)
+            call s:ShowMessage('SingleCompile: Language template for "'.
+                        \a:lang_name.'" is not defined on your system.')
             return
         endif
 
         let l:detected_compilers = s:DetectCompiler(a:lang_name)
-        " used to remember the compilers
+        " used to store the detected compilers
         let l:choose_list = [] 
         " used to filled with compiler names to be displayed in front of user
         let l:choose_list_display = [] 
@@ -969,7 +976,8 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             endif
 
             if count(l:detected_compilers, some_compiler) > 0 
-                " if the compiler is detected, then display it
+                " if the compiler is detected, then add it to the choose_list,
+                " which would be displayed then
 
                 call add(l:choose_list, some_compiler)
                 call add(l:choose_list_display, 
