@@ -1,7 +1,7 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.2.2
+Version: 2.2.3
 Author and Current Maintainer: H Xu <xuhdev@gmail.com>
 Contributers: Marc Weber (Integrate SingleCompile with vim-addon-actions)
 Last Change: 2 December 2010
