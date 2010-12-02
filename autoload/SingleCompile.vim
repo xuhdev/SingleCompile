@@ -15,7 +15,7 @@ let s:CompilerTemplate = {}
 " is template initialize
 let s:TemplateInitialized = 0
 
-" Chars to escape for ':cd' command
+" Chars to escape for ':lcd' command
 if has('win32') || has('win64')
     let s:CharsEscape = '" '
 else
@@ -685,7 +685,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " save current working directory
     let l:cwd = getcwd()
     " switch current work directory to the file's directory
-    silent cd %:p:h
+    silent lcd %:p:h
 
     if a:0 == 1 
         " if there is only one argument, it means use this argument as the
@@ -830,7 +830,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
 
     " switch back to the original directory
-    exec 'cd '.escape(l:cwd, s:CharsEscape)
+    exec 'lcd '.escape(l:cwd, s:CharsEscape)
 
     return l:toret
 endfunction
@@ -882,7 +882,7 @@ function! s:Run() " {{{1
 
     " save current working directory
     let l:cwd = getcwd()
-    silent cd %:p:h
+    silent lcd %:p:h
 
     if l:user_specified == 1
         let l:run_cmd = g:SingleCompile_templates[&filetype]['run']
@@ -896,7 +896,7 @@ function! s:Run() " {{{1
     exec '!'.l:run_cmd
 
     " switch back to the original directory
-    exec 'cd '.escape(l:cwd, s:CharsEscape)
+    exec 'lcd '.escape(l:cwd, s:CharsEscape)
 
     return
 endfunction
