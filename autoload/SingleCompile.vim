@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 2.2.4
+" Version: 2.2.5
 " check doc/SingleCompile.txt for more information
 
 
@@ -26,7 +26,7 @@ endif
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 224
+    return 225
 endfunction
 
 " utils {{{1
@@ -1028,4 +1028,5 @@ call s:Initialize() " {{{1 call the initialize function
 
 let &cpo = s:saved_cpo
 unlet! s:saved_cpo
+
 " vim: fdm=marker et ts=4 tw=78 sw=4
