@@ -13,7 +13,7 @@ let g:SingleCompile_templates = {}
 let s:CompilerTemplate = {}
 
 " is template initialize
-let s:TemplateIntialized = 0
+let s:TemplateInitialized = 0
 
 " Chars to escape for ':cd' command
 if has('win32') || has('win64')
@@ -169,7 +169,7 @@ function! s:DetectGmake(not_used_arg) " {{{2
     return 0
 endfunction
 
-function! s:Intialize() "{{{1
+function! s:Initialize() "{{{1
     if !exists('g:SingleCompile_autowrite')
         let g:SingleCompile_autowrite = 1
     endif
@@ -183,9 +183,9 @@ function! s:Intialize() "{{{1
     endif
 
 
-    if s:TemplateIntialized == 0
+    if s:TemplateInitialized == 0
         
-        let s:TemplateIntialized = 1
+        let s:TemplateInitialized = 1
 
         " templates {{{2
         if has('win32') || has('win64') || has('os2')
@@ -472,7 +472,7 @@ function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
             \compiler_name, detect_func_arg, flags, run_command, ...) 
     " set compiler's template
 
-    call s:Intialize()
+    call s:Initialize()
 
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'name',
                 \a:compiler_name)
@@ -631,7 +631,7 @@ function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
 endfunction
 
 function! SingleCompile#Compile(...) " compile only {{{1
-    call s:Intialize()
+    call s:Initialize()
     let l:toret = 0
 
     " save current file type. Don't use &filetype directly because after
@@ -867,7 +867,7 @@ function! s:DetectCompiler(lang_name) " {{{1
 endfunction
 
 function! s:Run() " {{{1
-    call s:Intialize()
+    call s:Initialize()
 
     if has_key(g:SingleCompile_templates,&filetype) && 
                 \has_key(g:SingleCompile_templates[&filetype],'run')
@@ -918,7 +918,7 @@ endfunction
 
 fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
-    call s:Intialize()
+    call s:Initialize()
 
     if a:0 > 1
         call s:ShowMessage('SingleCompile: '.
@@ -1011,7 +1011,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
     endif
 endfunction
 
-call s:Intialize() " {{{1 call the initialize function
+call s:Initialize() " {{{1 call the initialize function
 
 
 
