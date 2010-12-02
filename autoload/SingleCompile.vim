@@ -8,11 +8,20 @@ set cpo&vim
 
 
 " varibles {{{1
-" the dic to store the compiler template
-let s:CompilerTemplate = {}
+" the two dicts to store the compiler template
 let g:SingleCompile_templates = {}
+let s:CompilerTemplate = {}
 
+" is template initialize
 let s:TemplateIntialized = 0
+
+" Chars to escape for ':cd' command
+if has('win32') || has('win64')
+    let s:CharsEscape = '" '
+else
+    let s:CharsEscape = '" \'
+endif
+
 
 
 
@@ -673,6 +682,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
                     \g:SingleCompile_templates[l:cur_filetype]['command']
     endif
 
+    " save current working directory
+    let l:cwd = getcwd()
     " switch current work directory to the file's directory
     silent cd %:p:h
 
@@ -819,7 +830,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
 
     " switch back to the original directory
-    silent cd -
+    exec 'cd '.escape(l:cwd, s:CharsEscape)
+
     return l:toret
 endfunction
 
@@ -868,6 +880,8 @@ function! s:Run() " {{{1
         call s:ShowMessage('SingleCompile: Fail to run!')
     endif
 
+    " save current working directory
+    let l:cwd = getcwd()
     silent cd %:p:h
 
     if l:user_specified == 1
@@ -881,7 +895,8 @@ function! s:Run() " {{{1
 
     exec '!'.l:run_cmd
 
-    silent cd -
+    " switch back to the original directory
+    exec 'cd '.escape(l:cwd, s:CharsEscape)
 
     return
 endfunction
