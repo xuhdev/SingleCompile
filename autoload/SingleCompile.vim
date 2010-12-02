@@ -674,7 +674,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
     endif
 
     " switch current work directory to the file's directory
-    let l:curcwd=getcwd()
+    let l:cwd=getcwd()
     silent cd %:p:h
 
     if a:0 == 1 
@@ -820,7 +820,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
 
     " switch back to the original directory
-    silent exec 'cd '.escape(l:curcwd, '| \')
+    silent exec 'cd '.l:cwd
     return l:toret
 endfunction
 
@@ -869,7 +869,7 @@ function! s:Run() " {{{1
         call s:ShowMessage('SingleCompile: Fail to run!')
     endif
 
-    let l:curcwd=getcwd()
+    let l:cwd=getcwd()
     silent cd %:p:h
 
     if l:user_specified == 1
@@ -883,7 +883,7 @@ function! s:Run() " {{{1
 
     exec '!'.l:run_cmd
 
-    silent exec 'cd '.escape(l:curcwd, '| \')
+    silent exec 'cd '.l:cwd
 
     return
 endfunction
