@@ -635,12 +635,25 @@ function! SingleCompile#Compile(...) " compile only {{{1
     let l:toret = 0
 
     " save current file type. Don't use &filetype directly because after
-    " "make" and quickfix is working and the error is in another file,
-    " sometimes the value of &filetype may not be correct.
+    " 'make' and quickfix is working and the error is in another file,
+    " sometimes the value of &filetype may be incorrect.
     let l:cur_filetype = &filetype 
 
-    " if the following condition is met, then use the user specified command
-    if has_key(g:SingleCompile_templates,l:cur_filetype) && 
+    " if current filetype is an empty string, show an error message and
+    " return.
+    if l:cur_filetype == ''
+        call s:ShowMessage("SingleCompile: ".
+                    \"Current buffer's filetype is not specified. ".
+                    \"Use \" :help 'filetype' \" command to see more details ".
+                    \"if you don't know what filetype is.")
+        return -1
+    endif
+
+    " If the following condition is met, then use the user specified command.
+    " The user-specified mode is for backward compatibility, we have to switch
+    " to the old mode(which is user-specified mode) if user has modified
+    " g:SingleCompile_templates for current file type.
+    if has_key(g:SingleCompile_templates, l:cur_filetype) && 
                 \has_key(g:SingleCompile_templates[l:cur_filetype],'command')
         let l:user_specified = 1
     elseif has_key(s:CompilerTemplate, l:cur_filetype) && 
@@ -649,6 +662,16 @@ function! SingleCompile#Compile(...) " compile only {{{1
     else
         call s:ShowMessage('SingleCompile: Language template for "'.
                     \l:cur_filetype.'" is not defined on your system.')
+        return -1
+    endif
+
+    " if current buffer has no name (for example the buffer has never been
+    " saved), don't compile
+    if bufname('%') == ''
+        call s:ShowMessage('SingleCompile: '.
+                    \'Current buffer does not have a file name. '.
+                    \'Please save current buffer first. '.
+                    \'Compilation canceled.')
         return -1
     endif
 
