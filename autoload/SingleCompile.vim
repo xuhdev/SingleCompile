@@ -185,156 +185,208 @@ function! s:Initialize() "{{{1
 
         " templates {{{2
         if has('win32') || has('win64') || has('os2')
-            let s:common_run_command = '%<'
+            let l:common_run_command = '%<'
+            let l:common_out_file = '%<.exe'
         else
-            let s:common_run_command = './'.'%<'
+            let l:common_run_command = './'.'%<'
+            let l:common_out_file = '%<'
         endif
 
         " c
         call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 
                     \'Open Watcom C/C++32 Compiler', 'wcl386', '', 
-                    \s:common_run_command, function('s:DetectWatcom'))
-        call SingleCompile#SetPredo('c', 'open-watcom',
-                    \function('s:PredoWatcom'))
-        call SingleCompile#SetPostdo('c', 'open-watcom',
-                    \function('s:PostdoWatcom'))
+                    \l:common_run_command, function('s:DetectWatcom'))
+        call SingleCompile#SetCompilerTemplateByDict('c', 'open-watcom', {
+                    \ 'pre-do'  : function('s:PredoWatcom'),
+                    \ 'post-do' : function('s:PostdoWatcom'),
+                    \ 'out-file': l:common_out_file
+                    \})
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('c', 'msvc', 
                         \'Microsoft Visual C++', 'cl', '-o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('c', 'msvc', l:common_out_file)
             call SingleCompile#SetCompilerTemplate('c', 'bcc', 
                         \'Borland C++ Builder', 'bcc32', '-o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('c', 'bcc', l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
-                    \'gcc', '-o "%<"', s:common_run_command)
-        call SingleCompile#SetPredo('c', 'gcc', function('s:PredoGcc'))
+                    \'gcc', '-o "%<"', l:common_run_command)
+        call SingleCompile#SetCompilerTemplateByDict('c', 'gcc', {
+                    \ 'pre-do'  : function('s:PredoGcc'),
+                    \ 'out-file': l:common_out_file
+                    \})
         call SingleCompile#SetCompilerTemplate('c', 'icc', 
                     \'Intel C++ Compiler', 'icc', '-o "%<"',
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
         if has('win32') || has('win64') || has('os2')
             call SingleCompile#SetCompilerTemplate('c', 'lcc', 
                         \'Little C Compiler', 'lc', 
-                        \'$source_file$ -o "%<.exe"', s:common_run_command)
+                        \'$source_file$ -o "%<.exe"', l:common_run_command)
         else
             call SingleCompile#SetCompilerTemplate('c', 'lcc',
                         \'Little C Compiler', 'lc', '$source_file$ -o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
         endif
+        call SingleCompile#SetOutfile('c', 'lcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 
                     \'Portable C Compiler', 'pcc', '-o "%<"', 
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('c', 'pcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler',
-                    \'tcc', '-o "%<"', s:common_run_command)
+                    \'tcc', '-o "%<"', l:common_run_command)
+        call SingleCompile#SetOutfile('c', 'tcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 
                     \'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')
         call SingleCompile#SetCompilerTemplate('c', 'ch', 
                     \'SoftIntegration Ch', 'ch', '', '')
         call SingleCompile#SetCompilerTemplate('c', 'clang', 'clang', 'clang',
-                    \'-o "%<"', s:common_run_command)
-        call SingleCompile#SetPredo('c', 'clang', function('s:PredoClang'))
+                    \'-o "%<"', l:common_run_command)
+        call SingleCompile#SetCompilerTemplateByDict('c', 'clang', {
+                    \ 'pre-do'  : function('s:PredoClang'),
+                    \ 'out-file': l:common_out_file
+                    \})
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 
                         \'UNIX C Compiler', 'cc', '-o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('c', 'cc', l:common_out_file)
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 
                         \'Sun C Compiler (Sun Solaris Studio)', 'suncc', 
-                        \'-o "%<"', s:common_run_command)
-            call SingleCompile#SetPredo('c', 'sol-studio',
-                        \function('s:PredoSolStudioC'))
+                        \'-o "%<"', l:common_run_command)
+            call SingleCompile#SetCompilerTemplateByDict('c', 'sol-studio', {
+                        \ 'pre-do'  : function('s:PredoSolStudioC'),
+                        \ 'out-file': l:common_out_file
+                        \})
             call SingleCompile#SetCompilerTemplate('c', 'open64', 
                         \'Open64 C Compiler', 'opencc', '-o "%<"',
-                        \s:common_run_command)
+                        \l:common_run_command)
         endif
 
         " cpp
         call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 
                     \'Open Watcom C/C++32 Compiler', 
-                    \'wcl386', '', s:common_run_command)
+                    \'wcl386', '', l:common_run_command)
+        call SingleCompile#SetCompilerTemplateByDict('cpp', 'open-watcom', {
+                    \ 'pre-do'  : function('s:PredoWatcom'),
+                    \ 'post-do' : function('s:PostdoWatcom'),
+                    \ 'out-file': l:common_out_file
+                    \})
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 
                         \'Microsoft Visual C++', 'cl', '-o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('cpp', 'msvc', l:common_out_file)
             call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
                         \'Borland C++ Builder', 'bcc32', '-o "%<"', 
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('cpp', 'g++', 
                     \'GNU C++ Compiler', 'g++', '-o "%<"', 
-                    \s:common_run_command)
-        call SingleCompile#SetPredo('cpp', 'g++', function('s:PredoGcc'))
+                    \l:common_run_command)
+        call SingleCompile#SetCompilerTemplateByDict('cpp', 'g++', {
+                    \ 'pre-do'  : function('s:PredoGcc'),
+                    \ 'out-file': l:common_out_file
+                    \})
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 
                     \'Intel C++ Compiler', 'icc', '-o "%<"', 
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 
                     \'SoftIntegration Ch', 'ch', '', '')
         call SingleCompile#SetCompilerTemplate('cpp', 'clang++', 'clang', 
-                    \'clang++', '-o "%<"', s:common_run_command)
-        call SingleCompile#SetPredo('cpp', 'clang++',
-                    \function('s:PredoClang'))
+                    \'clang++', '-o "%<"', l:common_run_command)
+        call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang++', {
+                    \ 'pre-do'  : function('s:PredoClang'),
+                    \ 'out-file': l:common_out_file
+                    \})
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 
                         \'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', 
-                        \'-o "%<"', s:common_run_command)
-            call SingleCompile#SetPredo('cpp', 'sol-studio', 
-                        \function('s:PredoSolStudioC'))
+                        \'-o "%<"', l:common_run_command)
+            call SingleCompile#SetCompilerTemplateByDict('cpp', 'sol-studio',{
+                        \ 'pre-do'  : function('s:PredoSolStudioC'),
+                        \ 'out-file': l:common_out_file
+                        \})
             call SingleCompile#SetCompilerTemplate('cpp', 'open64', 
                         \'Open64 C++ Compiler', 'openCC', '-o "%<"',
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('cpp', 'open64', l:common_out_file)
         endif
 
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
                     \ 'Sun Java Development Kit', 'javac', '', 'java "%<"')
+        call SingleCompile#SetOutfile('java', 'sunjdk', '%<'.'class')
         call SingleCompile#SetCompilerTemplate('java', 'gcj', 
                     \'GNU Java Compiler', 'gcj', '', 'java "%<"')
+        call SingleCompile#SetOutfile('java', 'gcj', '%<'.'class')
 
         " fortran
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
                         \'GNU Fortran Compiler', 'gfortran', '-o "%<"',
-                        \s:common_run_command)
+                        \l:common_run_command)
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f77', 
                         \'Sun Fortran 77 Compiler (Sun Solaris Studio)', 
-                        \'sunf77', '-o "%<"', s:common_run_command)
+                        \'sunf77', '-o "%<"', l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'sol-studio-f77', 
+                        \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f90', 
                         \'Sun Fortran 90 Compiler (Sun Solaris Studio)', 
-                        \'sunf90', '-o "%<"', s:common_run_command)
+                        \'sunf90', '-o "%<"', l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'sol-studio-f90', 
+                        \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f95', 
                         \'Sun Fortran 95 Compiler (Sun Solaris Studio)', 
-                        \'sunf95', '-o "%<"', s:common_run_command)
+                        \'sunf95', '-o "%<"', l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'sol-studio-f95', 
+                        \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 'open64-f90',
                         \'Open64 Fortran 90 Compiler', 'openf90', '-o "%<"',
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'open64-f90', 
+                        \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 'open64-f95',
                         \'Open64 Fortran 95 Compiler', 'openf95', '-o "%<"',
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'open64-f95', 
+                        \l:common_out_file)
         endif
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('fortran', 'ftn95',
                         \'Silverfrost FTN95', 'ftn95', '$source_file$ /LINK',
-                        \s:common_run_command)
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('fortran', 'ftn95', 
+                        \l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
                     \'GNU Fortran 77 Compiler', 'g77', '-o "%<"',
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
                     \'Intel Fortran Compiler', 'ifort', '-o "%<"',
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 
                     \'Open Watcom Fortran 77/32 Compiler', 'wfl386', '',
-                    \s:common_run_command, function('s:DetectWatcom'))
-        call SingleCompile#SetPredo('fortran', 'open-watcom',
-                    \function('s:PredoWatcom'))
-        call SingleCompile#SetPostdo('fortran', 'open-watcom',
-                    \function('s:PostdoWatcom'))
+                    \l:common_run_command, function('s:DetectWatcom'))
+        call SingleCompile#SetCompilerTemplateByDict('fortran', 'open-watcom', 
+                    \{
+                    \ 'pre-do'  : function('s:PredoWatcom'),
+                    \ 'post-do' : function('s:PostdoWatcom'),
+                    \ 'out-file': l:common_out_file
+                    \})
 
         " lisp
         call SingleCompile#SetCompilerTemplate('lisp', 'clisp', 'GNU CLISP',
@@ -392,22 +444,28 @@ function! s:Initialize() "{{{1
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
                         \'Tex Live', 'latex', '', 'xdvi "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'texlive', '%<'.'.dvi')
         elseif has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
                         \'Tex Live', 'latex', '', 'dviout "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'texlive', '%<'.'.dvi')
             call SingleCompile#SetCompilerTemplate('tex', 'miktex', 
                         \'MiKTeX', 'latex', '', 'yap "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'miktex', '%<'.'.dvi')
         endif
 
         " plain tex
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
                         \'Tex Live', 'latex', '', 'xdvi "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'texlive', '%<'.'.dvi')
         elseif has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
                         \'Tex Live', 'latex', '', 'dviout "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'texlive', '%<'.'.dvi')
             call SingleCompile#SetCompilerTemplate('plaintex', 'miktex',
                         \'MiKTeX', 'latex', '', 'yap "%<.dvi"')
+            call SingleCompile#SetOutfile('tex', 'miktex', '%<'.'.dvi')
         endif
 
         " python
@@ -457,7 +515,8 @@ function! s:Initialize() "{{{1
         " haskell
         call SingleCompile#SetCompilerTemplate('haskell', 'ghc', 
                     \'Glasgow Haskell Compiler', 'ghc', '-o "%<"',
-                    \s:common_run_command)
+                    \l:common_run_command)
+        call SingleCompile#SetOutfile('haskell', 'ghc', l:common_out_file)
         " 2}}}
 
     endif
@@ -495,11 +554,12 @@ function! SingleCompile#SetCompilerTemplateByDict(
     " settings functions below one by one is not needed.
 
     let l:key_list = ['name', 'detect_func_arg', 'flags', 'run', 
-                \'detect_func', 'pre-do', 'post-do']
+                \'detect_func', 'pre-do', 'post-do', 'out-file']
+
     for key in l:key_list
-        if has_key(a:extra_dic, key)
+        if has_key(a:template_dict, key)
             call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, key,
-                        \get(a:extra_dic, key))
+                        \get(a:template_dict, key))
         endif
     endfor
 endfunction
@@ -519,11 +579,18 @@ function! SingleCompile#SetPredo(lang_name, compiler, predo_func) " {{{2
                 \a:predo_func)
 endfunction
 
-fun! SingleCompile#SetPostdo(lang_name, compiler, postdo_func) " {{{2
+function! SingleCompile#SetPostdo(lang_name, compiler, postdo_func) " {{{2
     " set the post-do function 
 
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
                 \'post-do', a:postdo_func)
+endfunction
+
+function! SingleCompile#SetOutfile(lang_name, compiler, outfile) " {{{2
+    " set out-file
+
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
+                \'out-file', a:outfile)
 endfunction
 
 function! s:GetCompilerSingleTemplate(lang_name, compiler_name, key) " {{{1
@@ -732,6 +799,28 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " switch current work directory to the file's directory
     silent lcd %:p:h
 
+    " If it's not user_specified and current language is not interpreting
+    " language, check the last modification time of the file, whose name is
+    " the value of the 'out-file' key. If the last modification time of that
+    " file is earlier than the last modification time of current buffer's
+    " file, don't compile.
+    if l:user_specified == 0 && !s:IsLanguageInterpreting(l:cur_filetype)
+                \&& has_key(
+                \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
+                \'out-file')
+                \&& getftime(expand(
+                \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]
+                \['out-file'])) 
+                \> getftime(expand('%:p'))
+        " switch back to the original directory
+        exec 'lcd '.escape(l:cwd, s:CharsEscape)
+        echo 'SingleCompile: '.
+                    \'No need to compile. '.
+                    \'No modification to the source file '.
+                    \'is detected since last compilation.'
+        return 0
+    endif
+
     if a:0 == 1 
         " if there is only one argument, it means use this argument as the
         " compilation flag
@@ -742,7 +831,9 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " if there is two arguments, it means append the provided argument to
         " the flag defined in the template
 
-        let l:compile_flags = g:SingleCompile_templates[l:cur_filetype]['flags'].' '.a:2
+        let l:compile_flags = 
+                    \g:SingleCompile_templates[l:cur_filetype]['flags'].
+                    \' '.a:2
     elseif a:0 == 0 && l:user_specified == 1 && 
                 \has_key(g:SingleCompile_templates[l:cur_filetype],'flags')
         let l:compile_flags = 
