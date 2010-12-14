@@ -470,7 +470,9 @@ endfunction
 " SingleCompile#SetCompilerTemplate {{{1
 function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
             \compiler_name, detect_func_arg, flags, run_command, ...) 
-    " set compiler's template
+    " set compiler's template, including compiler, compiler's name, the
+    " detecting function argument, compilation flags, run command and
+    " a compiler detecting function which is optional.
 
     call s:Initialize()
 
@@ -483,33 +485,56 @@ function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'run',
                 \a:run_command)
     if a:0 == 0
-        call s:SetCompilerSingleTemplate(a:lang_name, a:compiler,
-                    \'detect_func', function("s:DetectCompilerGenerally"))
+        call SingleCompile#SetDetectFunc(a:lang_name, a:compiler,
+                    \function("s:DetectCompilerGenerally"))
     else
-        call s:SetCompilerSingleTemplate(a:lang_name, a:compiler,
-                    \'detect_func', a:1)
+        call SingleCompile#SetDetectFunc(a:lang_name, a:compiler, a:1)
     endif
 endfunction
 
+" function! SingleCompile#SetCompilerTemplateExtra {{{1
+function! SingleCompile#SetCompilerTemplateExtra(
+            \lang_name, compiler, extra_dic) 
+    " set extra template which SingleCompile#SetCompilerTemplate cannot set
+    " These extra templates are usually optional
+
+    let l:key_list = ['pre-do', 'post-do', 'detect_func']
+    for key in l:key_list
+        if has_key(a:extra_dic, key)
+            call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, key,
+                        \get(a:extra_dic, key))
+        endif
+    endfor
+endfunction
+
+" extra template settings functions {{{1
+function! SingleCompile#SetDetectFunc(lang_name, compiler, detect_func) " {{{2
+    " set the detect_func function 
+
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'detect_func',
+                \a:detect_func)
+endfunction
+
+function! SingleCompile#SetPredo(lang_name, compiler, predo_func) " {{{2
+    " set the pre-do function 
+
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'pre-do',
+                \a:predo_func)
+endfunction
+
+fun! SingleCompile#SetPostdo(lang_name, compiler, postdo_func) " {{{2
+    " set the post-do function 
+
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
+                \'post-do', a:postdo_func)
+endfunction
 
 function! s:GetCompilerSingleTemplate(lang_name, compiler_name, key) " {{{1
     return s:CompilerTemplate[a:lang_name][a:compiler_name][a:key]
 endfunction
 
-function! SingleCompile#SetPredo(lang_name, compiler_name, predo_func) " {{{1
-    " set the pre-do function 
-    call s:SetCompilerSingleTemplate( a:lang_name, a:compiler_name, 'pre-do',
-                \a:predo_func )
-endfunction
-
-fun! SingleCompile#SetPostdo(lang_name, compiler_name, postdo_func) " {{{1
-    " set the post-do function 
-    call s:SetCompilerSingleTemplate( a:lang_name, a:compiler_name, 
-                \'post-do', a:postdo_func )
-endfunction
-
 " SetCompilerSingleTemplate {{{1
-fun! s:SetCompilerSingleTemplate(lang_name, compiler_name, key, value, ...)
+fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
     " set the template. if the '...' is nonzero, this function will not
     " override the corresponding template if there is an existing template 
 
@@ -528,26 +553,26 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler_name, key, value, ...)
         let s:CompilerTemplate[a:lang_name] = {}
     endif
 
-    " if a:compiler_name does not exist, create it
-    if !has_key(s:CompilerTemplate[a:lang_name],a:compiler_name)
-        let s:CompilerTemplate[a:lang_name][a:compiler_name] = {}
-    elseif type(s:CompilerTemplate[a:lang_name][a:compiler_name]) != type({})
-        unlet! s:CompilerTemplate[a:lang_name][a:compiler_name]
-        let s:CompilerTemplate[a:lang_name][a:compiler_name] = {}
+    " if a:compiler does not exist, create it
+    if !has_key(s:CompilerTemplate[a:lang_name],a:compiler)
+        let s:CompilerTemplate[a:lang_name][a:compiler] = {}
+    elseif type(s:CompilerTemplate[a:lang_name][a:compiler]) != type({})
+        unlet! s:CompilerTemplate[a:lang_name][a:compiler]
+        let s:CompilerTemplate[a:lang_name][a:compiler] = {}
     endif
 
     " if a:key does not exist, create it
-    if !has_key(s:CompilerTemplate[a:lang_name][a:compiler_name], a:key)
-        let s:CompilerTemplate[a:lang_name][a:compiler_name][a:key] = a:value
+    if !has_key(s:CompilerTemplate[a:lang_name][a:compiler], a:key)
+        let s:CompilerTemplate[a:lang_name][a:compiler][a:key] = a:value
     elseif a:0 == 0 || a:1 == 0 
         " if the ... from the argument is 0 or the additional argument does
         " not exist
 
-        let s:CompilerTemplate[a:lang_name][a:compiler_name][a:key] = a:value
+        let s:CompilerTemplate[a:lang_name][a:compiler][a:key] = a:value
     endif
 endfunction
 
-function! SingleCompile#SetTemplate(langname,stype,string,...) " {{{1
+function! SingleCompile#SetTemplate(langname, stype, string,...) " {{{1
     " set the template. if the '...' is nonzero, this function will not
     " override the corresponding template if there is an existing template
     
@@ -1052,4 +1077,4 @@ call s:Initialize() " {{{1 call the initialize function
 let &cpo = s:saved_cpo
 unlet! s:saved_cpo
 
-" vim: fdm=marker et ts=4 tw=78 sw=4
+" vim: fdm=marker et ts=4 tw=78 sw=4 fdc=1
