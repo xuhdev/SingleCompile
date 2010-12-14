@@ -488,13 +488,14 @@ function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
     endif
 endfunction
 
-" function! SingleCompile#SetCompilerTemplateExtra {{{1
-function! SingleCompile#SetCompilerTemplateExtra(
-            \lang_name, compiler, extra_dic) 
-    " set extra template which SingleCompile#SetCompilerTemplate cannot set
-    " These extra templates are usually optional
+" function! SingleCompile#SetCompilerTemplateByDict {{{1
+function! SingleCompile#SetCompilerTemplateByDict(
+            \lang_name, compiler, template_dict) 
+    " set templates by using a dict(template_dict), thus calling the template
+    " settings functions below one by one is not needed.
 
-    let l:key_list = ['pre-do', 'post-do', 'detect_func']
+    let l:key_list = ['name', 'detect_func_arg', 'flags', 'run', 
+                \'detect_func', 'pre-do', 'post-do']
     for key in l:key_list
         if has_key(a:extra_dic, key)
             call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, key,
