@@ -16,10 +16,23 @@ let s:CompilerTemplate = {}
 let s:TemplateInitialized = 0
 
 " Chars to escape for ':lcd' command
-if has('win32') || has('win64')
+if has('win32') || has('win64') || has('os2')
     let s:CharsEscape = '" '
 else
     let s:CharsEscape = '" \'
+endif
+
+" seperator in the environment varibles
+if has('win32') || has('win64') || has('os2')
+    let s:EnvSeperator = ';'
+else
+    let s:EnvSeperator = ':'
+endif
+
+if has('win32') || has('win64') || has('os2')
+    let s:PathSeperator = '\'
+else
+    let s:PathSeperator = '/'
 endif
 
 
@@ -29,23 +42,6 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     return 226
 endfunction
 
-" utils {{{1
-function! s:GetEnvSeperator() " {{{2
-    " get the seperator among the environment varibles
-
-    if has('win32') || has('win64') || has('os2')
-        return ';'
-    else
-        return ':'
-endfunction
-
-function! s:GetPathSeperator() "get the path seperator {{{2
-    if has('win32') || has('win64') || has('os2')
-        return '\'
-    else
-        return '/'
-    endif
-endfunction
 " pre-do functions {{{1
 
 function! s:AddLmIfMathH(compiling_info) " {{{2 
@@ -64,8 +60,8 @@ endfunction
 
 function! s:PredoWatcom(compiling_info) " watcom pre-do {{{2
     let s:old_path = $PATH
-    let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().
-                \$WATCOM.s:GetPathSeperator().'binw'.s:GetEnvSeperator().
+    let $PATH = $WATCOM.s:PathSeperator.'binnt'.s:EnvSeperator.
+                \$WATCOM.s:PathSeperator.'binw'.s:EnvSeperator.
                 \$PATH
     return a:compiling_info
 endfunction
