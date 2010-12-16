@@ -296,7 +296,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 
                     \'Intel C++ Compiler', 'icc', '-o "%<"', 
                     \l:common_run_command)
-        call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
+        call SingleCompile#SetOutfile('cpp', 'icc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 
                     \'SoftIntegration Ch', 'ch', '', '')
         call SingleCompile#SetCompilerTemplate('cpp', 'clang++', 'clang', 
@@ -733,8 +733,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
     if l:cur_filetype == ''
         call s:ShowMessage("SingleCompile: ".
                     \"Current buffer's filetype is not specified. ".
-                    \"Use \" :help 'filetype' \" command to see more details ".
-                    \"if you don't know what filetype is.")
+                    \"Use \" :help 'filetype' \" command to see more details".
+                    \" if you don't know what filetype is.")
         return -1
     endif
 
@@ -773,9 +773,9 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " if user specified is zero, then detect compilers
     if l:user_specified == 0
         if !has_key(s:CompilerTemplate[l:cur_filetype], 'chosen_compiler')
-            let detected_compilers = s:DetectCompiler(l:cur_filetype)
-            " if detected_compilers is empty, then no compiler is detected
-            if empty(detected_compilers)
+            let l:detected_compilers = s:DetectCompiler(l:cur_filetype)
+            " if l:detected_compilers is empty, then no compiler is detected
+            if empty(l:detected_compilers)
                 call s:ShowMessage(
                             \'SingleCompile: '.
                             \'No compiler is detected on your system!')
@@ -783,7 +783,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
             endif
 
             let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] = 
-                        \get(detected_compilers, 0)
+                        \get(l:detected_compilers, 0)
         endif
         let l:chosen_compiler = 
                     \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']
@@ -981,6 +981,7 @@ function! s:DetectCompiler(lang_name) " {{{1
         if some_compiler == 'chosen_compiler'
             continue
         endif
+
         call s:SetCompilerSingleTemplate(
                     \a:lang_name, 
                     \some_compiler,
