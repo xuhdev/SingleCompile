@@ -73,7 +73,7 @@ function! s:AddLmIfMathH(compiling_info) " {{{2
     " add -lm flag if math.h is included
 
     " if we find '#include <math.h>' in the file, then add '-lm' flag
-    if match(getline(1, '$'), '^[ \t]*#include[ \t]*["<]math.h[">][ \t]*$') 
+    if match(getline(1, '$'), '^[ \t]*#[ \t]*include[ \t]*["<]math.h[">][ \t]*$') 
                 \!= -1
         let l:new_comp_info = a:compiling_info
         let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
