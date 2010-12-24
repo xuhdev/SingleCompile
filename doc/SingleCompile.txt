@@ -2,9 +2,7 @@
 
 File: SingleCompile.txt
 Version: 2.2.6
-Author and Current Maintainer: H Xu <xuhdev@gmail.com>
-Contributers: Marc Weber (Integrate SingleCompile with vim-addon-actions)
-              Darek (Fix a directory switching bug)
+Author and Current Main Maintainer: H Xu <xuhdev@gmail.com>
 Last Change: 8 December 2010
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
@@ -22,7 +20,7 @@ CONTENTS~
 6. Compiler template                        |SingleCompile-compiler-template|
 7. Supporting plugins                       |SingleCompile-supporting-plugins|
 8. Advanced                                 |SingleCompile-advanced|
-9. Thanks                                   |SingleCompile-thanks|
+9. Credits                                  |SingleCompile-credits|
 
 
 OVERVIEW~
@@ -88,6 +86,9 @@ C++:
 
 cmake:
     cmake (cmake)
+
+D:
+    dmd (DMD Compiler)
 
 dos batch:
     dosbatch (DOS Batch)
@@ -486,6 +487,9 @@ C++:
 cmake:
     cmake (cmake)
 
+D:
+    dmd (DMD Compiler)
+
 dos batch:
     dosbatch (DOS Batch)
     
@@ -681,13 +685,13 @@ To make it less confusing, I better explain the calling order here. The
 calling order is: first the compiler detecting function, then "Predo"
 function, then compile, and the last is the "Postdo" function.
 
-THANKS~
-                                            *SingleCompile-thanks*
+CREDITS~
+                                            *SingleCompile-credits*
 ----------------------------------------------------------------------------
-Marc Weber has offered me a lot of help to improve this plugin, thank him very
-much.
-
-
+Marc Weber  Integrate SingleCompile with vim-addon-actions, and some other
+            improvements
+Darek       Fix a directory switching bug
+sky hi      DMD compiler for D language built-in template
 
 
 vim:ts=4:ft=help:tw=78:et

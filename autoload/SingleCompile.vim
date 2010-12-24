@@ -346,6 +346,10 @@ function! s:Initialize() "{{{1
             call SingleCompile#SetOutfile('cpp', 'open64', l:common_out_file)
         endif
 
+        " d
+        call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler', '',
+                    \s:common_run_command)
+
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
                     \ 'Sun Java Development Kit', 'javac', '', 
