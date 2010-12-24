@@ -289,6 +289,10 @@ function! s:Initialize() "{{{1
                         \s:common_run_command)
         endif
 
+        " d
+        call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler', '',
+                    \s:common_run_command)
+
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
                     \ 'Sun Java Development Kit', 'javac', '', 'java "%<"')
