@@ -1,9 +1,9 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.2.7
+Version: 2.2.8
 Author and Current Main Maintainer: H Xu <xuhdev@gmail.com>
-Last Change: 24 December 2010
+Last Change: 27 December 2010
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
          of the GNU General Public License as published by the Free Software 
