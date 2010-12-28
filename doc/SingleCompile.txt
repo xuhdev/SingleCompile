@@ -178,7 +178,7 @@ COMMANDS~
                                             *SingleCompile-commands*
 ----------------------------------------------------------------------------
 
-                                            *SCCompile*
+                                            *:SCCompile*
 Commands:
     :SCCompile
 If you are editing a source file of a compiling language such as C, Java, this
@@ -195,14 +195,15 @@ time, just use the following command:
  :SCCompile -g -o %<
 <
 "%<" means the current file name without extension.
+Also see |:SCCompileAF|.
 
-                                            *SingleCompile*
+                                            *:SingleCompile*
 Commands:
     :SingleCompile
 Same as |SCCompile|, only for backward compatible use. Not recommended to use
 any more.
 
-                                            *SCCompileAF*
+                                            *:SCCompileAF*
 Commands:
     :SCCompileAF
 This command is also used for compiling your source file, but it allows you to
@@ -225,7 +226,7 @@ name. ":SCCompile -O2" will use "gcc -O2 some_file.c" to compile your source
 file, while ":SCCompileAF -O2" will use "gcc -o some_file -O2 some_file.c" to
 compile your source file. 
 
-                                            *SCCompileRun*
+                                            *:SCCompileRun*
 Commands:
     :SCCompileRun
 If you are editing a source file of a compiling language such as C, Java, this
@@ -241,13 +242,13 @@ arguments is the same as SingleCompile command above. Here is an example:
  :SCCompileRun -g -o %<
 <
 
-                                            *SingleCompileRun*
+                                            *:SingleCompileRun*
 Commands:
     :SingleCompileRun
 Same as |SCCompileRun|, only for backward compatible use. Not recommended to
 use any more.
 
-                                            *SCCompileRunAF*
+                                            *:SCCompileRunAF*
 Commands:
     :SCCompileRunAF
 Same as |SCCompileAF|, but also run the binary file after compilation. For
@@ -257,7 +258,7 @@ additional "-O2" flag and run the output binary file:
  :SCCompileRunAF -O2
 <
 
-                                            *SCChooseCompiler*
+                                            *:SCChooseCompiler*
 Commands:
     :SCChooseCompiler
 Choose a compiler to use. This command will give you a list of compilers to
