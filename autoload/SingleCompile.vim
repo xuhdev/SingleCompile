@@ -199,8 +199,8 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_usedialog = 0
     endif
 
-    if !exists('g:SingleCompile_enablequickfix')
-        let g:SingleCompile_enablequickfix = 1
+    if !exists('g:SingleCompile_usequickfix')
+        let g:SingleCompile_usequickfix = 1
     endif
 
 
@@ -752,7 +752,7 @@ function! s:IsLanguageInterpreting(filetype_name) "{{{1
 endfunction
 
 function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
-    if g:SingleCompile_enablequickfix == 0
+    if g:SingleCompile_usequickfix == 0
                 \ || !has('quickfix') 
                 \ || ( s:IsLanguageInterpreting(&filetype) && !has('unix') )
         return 0
@@ -1196,4 +1196,4 @@ call s:Initialize() " {{{1 call the initialize function
 let &cpo = s:saved_cpo
 unlet! s:saved_cpo
 
-" vim: fdm=marker et ts=4 tw=78 sw=4 fdc=1
+" vim: fdm=marker et ts=4 tw=78 sw=4 fdc=2
