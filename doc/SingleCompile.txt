@@ -200,7 +200,7 @@ Also see |:SCCompileAF|.
                                             *:SingleCompile*
 Commands:
     :SingleCompile
-Same as |SCCompile|, only for backward compatible use. Not recommended to use
+Same as |:SCCompile|, only for backward compatible use. Not recommended to use
 any more.
 
                                             *:SCCompileAF*
@@ -245,13 +245,13 @@ arguments is the same as SingleCompile command above. Here is an example:
                                             *:SingleCompileRun*
 Commands:
     :SingleCompileRun
-Same as |SCCompileRun|, only for backward compatible use. Not recommended to
+Same as |:SCCompileRun|, only for backward compatible use. Not recommended to
 use any more.
 
                                             *:SCCompileRunAF*
 Commands:
     :SCCompileRunAF
-Same as |SCCompileAF|, but also run the binary file after compilation. For
+Same as |:SCCompileAF|, but also run the binary file after compilation. For
 example, the following command is going to compile your source file with an
 additional "-O2" flag and run the output binary file:
 >
