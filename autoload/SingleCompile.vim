@@ -126,7 +126,7 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
         let l:list_to_detect = [s:Expand(expand(a:compiling_command)),
                     \s:Expand(expand('~/bin/'.a:compiling_command)),
                     \s:Expand(expand('/usr/local/bin/'.a:compiling_command)),
-                    \s:Expand(expand(('/usr/bin/'.a:compiling_command)),
+                    \s:Expand(expand('/usr/bin/'.a:compiling_command)),
                     \s:Expand(expand('/bin/'.a:compiling_command))
                     \]
     else
@@ -348,7 +348,7 @@ function! s:Initialize() "{{{1
 
         " d
         call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler',
-                    \'dmd', '', s:common_run_command)
+                    \'dmd', '', l:common_run_command)
 
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
