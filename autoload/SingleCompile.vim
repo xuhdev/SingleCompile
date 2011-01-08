@@ -519,8 +519,8 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler_name, key, value, ...)
 
     if a:0 > 1
         call s:ShowMessage(
-                    \'SingleCompile: Too many argument for'
-                    \ 'SingleCompile#SetCompilerSingleTemplate function!')
+                    \'SingleCompile: Too many argument for'.
+                    \' SingleCompile#SetCompilerSingleTemplate function!')
         return
     endif
 
@@ -851,8 +851,9 @@ function! SingleCompile#Compile(...) " compile only {{{1
                 \has_key(s:CompilerTemplate[l:cur_filetype][
                 \l:chosen_compiler], 
                 \'post-do')
-        call s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]['post-do'](
-                    \{'command': l:compile_cmd, 'args': l:compile_args})
+        let l:TmpFunc = s:CompilerTemplate[l:cur_filetype][l:chosen_compiler][
+                    \'post-do']
+        call l:TmpFunc({'command': l:compile_cmd, 'args': l:compile_args})
     endif
 
 
@@ -872,13 +873,15 @@ function! s:DetectCompiler(lang_name) " {{{1
         if some_compiler == 'chosen_compiler'
             continue
         endif
+
+        let l:DetectFunc = s:CompilerTemplate[a:lang_name][some_compiler][
+                    \'detect_func']
         call s:SetCompilerSingleTemplate(
                     \a:lang_name, 
                     \some_compiler,
                     \'command', 
+                    \l:DetectFunc(
                     \s:CompilerTemplate[a:lang_name][some_compiler][
-                    \'detect_func']
-                    \(s:CompilerTemplate[a:lang_name][some_compiler][
                     \'detect_func_arg']))
 
         " if the type of s:CompilerTemplate[&filetype]['command'] returned
