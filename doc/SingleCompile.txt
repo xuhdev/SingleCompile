@@ -95,7 +95,7 @@ dos batch:
     
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
-    gfortran (GNU Fortran Compiler), UNIX only
+    gfortran (GNU Fortran Compiler)
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)
@@ -496,7 +496,7 @@ dos batch:
     
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
-    gfortran (GNU Fortran Compiler), UNIX only
+    gfortran (GNU Fortran Compiler)
     g77 (GNU Fortran 77 Compiler)
     ifort (Intel Fortran Compiler)
     open-watcom (Open Watcom Fortran 77/32 Compiler)

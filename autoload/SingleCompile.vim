@@ -361,11 +361,9 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 
         " fortran
-        if has('unix') || has('macunix')
-            call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
-                        \'GNU Fortran Compiler', 'gfortran', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
-        endif
+        call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
+                    \'GNU Fortran Compiler', 'gfortran', 
+                    \'-o "$(FILE_TITLE)$"', l:common_run_command)
         if has('unix')
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f77', 
