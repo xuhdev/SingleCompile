@@ -294,6 +294,16 @@ line to your vimrc:
  let g:SingleCompile_usequickfix = 0
 <
 
+                                            *SingleCompile-alwayscompile*
+If g:SingleCompile_alwayscompile is set to 0, when using |:SCCompileRun|
+command, SingleCompile may run the output of the compilation directly if the
+modification time of the source file is earlier than the output file. If you
+want to enable this feature, add the following line to your vimrc:
+>
+ let g:SingleCompile_alwayscompile = 0
+<
+The default value of g:SingleCompile_alwayscompile is 1.
+
                                             *SingleCompile-menumode*
 If you don't want the menus of SingleCompile to show, copy the following line
 to your vimrc:

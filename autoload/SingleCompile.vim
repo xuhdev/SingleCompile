@@ -203,6 +203,10 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_usequickfix = 1
     endif
 
+    if !exists('g:SingleCompile_alwayscompile')
+        let g:SingleCompile_alwayscompile = 1
+    endif
+
 
     if s:TemplateInitialized == 0
         
@@ -844,7 +848,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
     " the value of the 'out-file' key. If the last modification time of that
     " file is earlier than the last modification time of current buffer's
     " file, don't compile.
-    if l:user_specified == 0 && !s:IsLanguageInterpreting(l:cur_filetype)
+    if !g:SingleCompile_alwayscompile && l:user_specified == 0 
+                \&& !s:IsLanguageInterpreting(l:cur_filetype)
                 \&& has_key(
                 \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
                 \'out-file')
@@ -1197,4 +1202,4 @@ call s:Initialize() " {{{1 call the initialize function
 let &cpo = s:saved_cpo
 unlet! s:saved_cpo
 
-" vim: fdm=marker et ts=4 tw=78 sw=4 fdc=2
+" vim: fdm=marker et ts=4 tw=78 sw=4 fdc=3
