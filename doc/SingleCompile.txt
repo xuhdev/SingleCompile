@@ -341,8 +341,10 @@ To use a built-in compiler, add the following line to your vimrc file:
 >
  call SingleCompile#ChooseCompiler('filetype', 'compiler')
 <
-'filetype' is the type of file which your compiler is for, such as 'c', 'cpp',
-and 'compiler' is the short name of the compiler. for example:
+"filetype" is the type of file which your compiler is for, such as "c",
+"python", and "compiler" is the short name of the compiler. "filetype" is a
+terminology of vim. See |filetype| if you don't know what is "filetype". For
+example:
 >
  call SingleCompile#ChooseCompiler('c', 'icc')
  call SingleCompile#ChooseCompiler('fortran', 'gfortran')
@@ -365,48 +367,67 @@ To add a new compiler support by yourself, there are two ways:
 >
  call SingleCompile#SetCompilerTemplate('filetype', 'compiler',
              \'compiler_name', 'command', 'flag', 'run_command')
+ call SingleCompile#SetOutfile('filetype', 'compiler', 'out_file')
  call SingleCompile#ChooseCompiler('filetype', 'compiler')
 <
-For compiling languages such as C, Java, Fortran, "compiler" is the short name
-for the compiler, such as "gcc", "icc"; "command" is the command of compiling,
-such as "gcc", "g++"; "flag" is the flags of compiling, such as "-O2";
-"run_command" is the command of running, such as "./a.out". For interpreted
-languages such as Python, Ruby, "command" is the command of interpreting, such
-as "python"; "flag" is the flags of interpreting; and "run_command" MUST be
-set to be empty. 
-The first line is to set the template of your compiler, and the second line is
-to tell SingleCompile to use your compiler. If the second line is omitted,
-SingleCompile will detect the compilers available on your system
+Check the first line first. "filetype" is the source file type, such as "c",
+"cpp", "python", etc. It is a terminology of vim. See |filetype| if you don't
+know what is "filetype". For compiling languages such as C, Java, Fortran,
+"compiler" is the short name for the compiler, such as "gcc", "icc"; "command"
+is the command of compiling, such as "gcc", "g++"; "flag" is the flags of
+compiling, such as "-O2"; "run_command" is the command of running, such as
+"./a.out". For interpreted languages such as Python, Ruby, "command" is the
+command of interpreting, such as "python"; "flag" is the flags of
+interpreting; and "run_command" MUST be set to be empty. 
+
+For the second line, "filetype" and  "compiler" has the same meanings with the
+first line. "out_file" is the output file of the compilation, such as
+"./a.out", "./a.exe", etc. This line could be omitted if you don't want
+SingleCompile to check whether compilation is needed. See
+|SingleCompile-alwayscompile| for more information.
+
+The first two lines are to set the template of your compiler, while the third
+line is to tell SingleCompile to use your compiler. If the second line is
+omitted, SingleCompile will detect the compilers available on your system
 automatically, and use the first detected one.
 
-Here are some examples excerpted from built-in compiler templates:
+Here are some examples modified from built-in compiler templates:
 >
  " set the most common used run command
  if has('win32') || has('win64') || has('os2')
-     let s:common_run_command = '%<'
+     let l:common_run_command = '$(FILE_TITLE)$'
+     let l:common_out_file = '$(FILE_TITLE)$.exe'
  else
-     let s:common_run_command = './'.'%<'
+     let l:common_run_command = './$(FILE_TITLE)$'
+     let l:common_out_file = '$(FILE_TITLE)$'
  endif
 
  " c
- call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler', 'gcc',
-             \'-o "%<"', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('c', 'icc', 'Intel C++ Compiler',
-             \'icc', '-o "%<"', s:common_run_command)
+ call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
+             \'gcc', '-o "$(FILE_TITLE)$"', l:common_run_command)
+ call SingleCompile#SetOutfile('c', 'gcc', l:common_out_file)
+ call SingleCompile#SetCompilerTemplate('c', 'icc', 
+             \'Intel C++ Compiler', 'icc', '-o "$(FILE_TITLE)$"',
+             \l:common_run_command)
+ call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
 
  call SingleCompile#ChooseCompiler('c', 'gcc')
 
  " fortran
  call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
-         \'GNU Fortran 77 Compiler', 'g77', '-o "%<"', s:common_run_command)
- call SingleCompile#SetCompilerTemplate('fortran', 'ifort',
-         \'Intel Fortran Compiler', 'ifort', '-o "%<"', s:common_run_command)
+             \'GNU Fortran 77 Compiler', 'g77', '-o "$(FILE_TITLE)$"',
+             \l:common_run_command)
+ call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
+ call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
+             \'Intel Fortran Compiler', 'ifort', '-o "$(FILE_TITLE)$"',
+             \l:common_run_command)
+ call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
 
  call SingleCompile#ChooseCompiler('fortran', 'g77')
 
  " python
- call SingleCompile#SetCompilerTemplate('python', 'python',
-         \'Python Interpreter', 'python', '', '')
+ call SingleCompile#SetCompilerTemplate('python', 'cpython', 'CPython',
+             \'python', '', '')
  call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython',
              \'jython', '', '')
 
