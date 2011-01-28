@@ -448,6 +448,16 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('sh', 'dash', 
                     \'Debian Almquist Shell', 'dash', '', '')
 
+        " csh
+        call SingleCompile#SetCompilerTemplate('csh', 'csh',
+                    \'C Shell', 'csh', '', '')
+        call SingleCompile#SetCompilerTemplate('csh', 'tcsh',
+                    \'TENEX C shell', 'tcsh', '', '')
+
+        " tcsh
+        call SingleCompile#SetCompilerTemplate('tcsh', 'tcsh',
+                    \'TENEX C Shell', 'tcsh', '', '')
+
         " dosbatch
         call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 
                     \'DOS Batch', '', '', '')

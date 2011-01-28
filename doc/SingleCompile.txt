@@ -87,6 +87,10 @@ C++:
 cmake:
     cmake (cmake)
 
+csh:
+    csh (C Shell)
+    tcsh (TENEX C Shell)
+
 D:
     dmd (DMD Compiler)
 
@@ -523,6 +527,10 @@ C++:
 
 cmake:
     cmake (cmake)
+
+csh:
+    csh (C Shell)
+    tcsh (TENEX C Shell)
 
 D:
     dmd (DMD Compiler)
