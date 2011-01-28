@@ -163,6 +163,9 @@ sh:
     sh (Bourne Shell)
     zsh (Z Shell)
 
+tcsh:
+    tcsh (TENEX C Shell)
+
 vb script:
     vb (VB Script Interpreter)
     
@@ -603,6 +606,9 @@ sh:
     ksh (Korn Shell)
     sh (Bourne Shell)
     zsh (Z Shell)
+
+tcsh:
+    tcsh (TENEX C Shell)
 
 vb script:
     vb (VB Script Interpreter)
