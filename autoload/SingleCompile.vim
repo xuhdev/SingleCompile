@@ -970,7 +970,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:old_makeprg = &l:makeprg
         let l:old_shellpipe = &l:shellpipe
         let &l:makeprg = l:compile_cmd
-        exec 'setlocal shellpipe=>%s\ 2>&1'
+        setlocal shellpipe=>%s\ 2>&1
         exec 'make'.' '.l:compile_args
         " check whether compiling is successful
         if v:shell_error != 0
@@ -1008,6 +1008,7 @@ endfunction
 
 function! s:DetectCompiler(lang_name) " {{{1
     " to detect compilers for one language. Return available compilers
+
     let l:toret = []
 
     " call the compiler detection function to get the compilation command
@@ -1105,19 +1106,31 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
                         \'SingleCompile#ChooseCompiler argument error')
             return
         endif
+
+        " If the current langauge template is set, then we check whether it is
+        " available on the system; If not, then an error message is given.  If
+        " the current langauge template is not set, then we give an error
+        " message directly.
         if has_key(s:CompilerTemplate, a:lang_name) && 
                     \has_key(s:CompilerTemplate[a:lang_name], a:1)
+            " current language template is set
+
             let l:detected_compilers = s:DetectCompiler(a:lang_name)
-          
+
             if count(l:detected_compilers, a:1) == 0 
                 " if a:1 is not a detected compiler
 
-                call s:ShowMessage('SingleCompile: '.
-                            \a:1.' is not available on your system.')
+                call s:ShowMessage('SingleCompile: "'.
+                            \a:1.'" is not available on your system.')
                 return
             endif
 
             let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = a:1
+        else
+            " current language template is not set
+            call s:ShowMessage('SingleCompile: '.
+                        \'The template of the compiler/interpreter "'.
+                        \a:1.'" is not set.')
         endif
 
         return
