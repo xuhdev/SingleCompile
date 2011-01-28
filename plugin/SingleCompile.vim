@@ -35,6 +35,7 @@ command -nargs=+ SCCompileAF
 command -nargs=+ SCCompileRunAF    
             \call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
 command SCChooseCompiler call SingleCompile#ChooseCompiler(&filetype)
+command SCChooseInterpreter call SingleCompile#ChooseCompiler(&filetype)
 
 " menus {{{1
 

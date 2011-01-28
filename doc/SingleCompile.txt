@@ -273,8 +273,13 @@ additional "-O2" flag and run the output binary file:
                                             *:SCChooseCompiler*
 Commands:
     :SCChooseCompiler
-Choose a compiler to use. This command will give you a list of compilers to
-choose one.
+Choose a compiler to use. This command will display a list of compilers for
+you to choose one.
+
+                                            *:SCChooseInterpreter*
+Commands:
+    :SCChooseInterpreter
+Same as |:SCChooseCompiler|.
 
 SETTINGS~
                                             *SingleCompile-settings*
