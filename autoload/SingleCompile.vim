@@ -434,9 +434,19 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('lisp', 'gcl', 
                     \'GNU Common Lisp', 'gcl', '-batch -load', '')
 
-        " shell
-        call SingleCompile#SetCompilerTemplate('sh', 'shell', 'UNIX Shell', 
-                    \'sh', '', '')
+        " sh
+        call SingleCompile#SetCompilerTemplate('sh', 'sh', 
+                    \'Bourne Shell', 'sh', '', '')
+        call SingleCompile#SetCompilerTemplate('sh', 'bash', 
+                    \'Bourne-Again Shell', 'bash', '', '')
+        call SingleCompile#SetCompilerTemplate('sh', 'ksh', 
+                    \'Korn Shell', 'ksh', '', '')
+        call SingleCompile#SetCompilerTemplate('sh', 'zsh', 
+                    \'Z Shell', 'zsh', '', '')
+        call SingleCompile#SetCompilerTemplate('sh', 'ash', 
+                    \'Almquist Shell', 'ash', '', '')
+        call SingleCompile#SetCompilerTemplate('sh', 'dash', 
+                    \'Debian Almquist Shell', 'dash', '', '')
 
         " dosbatch
         call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 
