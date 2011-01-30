@@ -583,6 +583,8 @@ function! s:Initialize() "{{{1
                     \'Glasgow Haskell Compiler', 'ghc', '-o "$(FILE_TITLE)$"',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('haskell', 'ghc', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('haskell', 'runhaskell', 
+                    \'runhaskell', 'runhaskell', '', '')
         " 2}}}
 
     endif
