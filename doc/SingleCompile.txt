@@ -111,6 +111,7 @@ Fortran:
 
 Haskell:
     ghc (Glasgow Haskell Compiler)
+    runhaskell (runhaskell)
 
 html:
     chrome (Google Chrome)
@@ -560,6 +561,7 @@ Fortran:
 
 Haskell:
     ghc (Glasgow Haskell Compiler)
+    runhaskell (runhaskell)
 
 html:
     chrome (Google Chrome)
