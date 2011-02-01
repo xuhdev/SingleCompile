@@ -35,6 +35,8 @@ else
     let s:PathSeperator = '/'
 endif
 
+" the path of file where the output running result is stored
+let s:run_result_tempfile = ''
 
 
 
@@ -991,6 +993,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " change the makeprg and shellpipe temporarily 
         let l:old_makeprg = &l:makeprg
         let l:old_shellpipe = &l:shellpipe
+
         let &l:makeprg = l:compile_cmd
         setlocal shellpipe=>%s\ 2>&1
         exec 'make'.' '.l:compile_args
@@ -1088,6 +1091,13 @@ function! s:Run() " {{{1
     endif
 
     let l:run_cmd = '"'.l:run_cmd.'"'
+
+    if executable('tee')
+        " if tee is available, then redirect the result to a temp file
+
+        let s:run_result_tempfile = tempname()
+        let l:run_cmd = l:run_cmd.' | tee '.s:run_result_tempfile
+    endif
 
     exec '!'.l:run_cmd
 
@@ -1225,6 +1235,30 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         return
     endif
+endfunction
+
+function! SingleCompile#ViewResult() " view the running result {{{1
+    " split a window below and put the result there
+
+    if empty(s:run_result_tempfile)
+        return
+    endif
+
+    " if the __SINGLE_COMPILE_RUN_RESULT__ buffer has already existed, delete
+    " it first
+    let l:result_bufnr = bufnr('__SINGLE_COMPILE_RUN_RESULT__') 
+    if l:result_bufnr != -1
+        exec l:result_bufnr.'bdelete'
+    endif
+
+    rightbelow 5split __SINGLE_COMPILE_RUN_RESULT__
+
+    setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
+
+    setl modifiable
+    call append(0, readfile(s:run_result_tempfile))
+    setl nomodifiable
+
 endfunction
 
 call s:Initialize() " {{{1 call the initialize function
