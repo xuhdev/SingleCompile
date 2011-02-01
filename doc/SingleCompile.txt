@@ -422,10 +422,10 @@ Here are some examples modified from built-in compiler templates:
 
  " c
  call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
-             \'gcc', '-o "$(FILE_TITLE)$"', l:common_run_command)
+             \'gcc', '-o $(FILE_TITLE)$', l:common_run_command)
  call SingleCompile#SetOutfile('c', 'gcc', l:common_out_file)
  call SingleCompile#SetCompilerTemplate('c', 'icc', 
-             \'Intel C++ Compiler', 'icc', '-o "$(FILE_TITLE)$"',
+             \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
 
@@ -433,11 +433,11 @@ Here are some examples modified from built-in compiler templates:
 
  " fortran
  call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
-             \'GNU Fortran 77 Compiler', 'g77', '-o "$(FILE_TITLE)$"',
+             \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
  call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
-             \'Intel Fortran Compiler', 'ifort', '-o "$(FILE_TITLE)$"',
+             \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
 

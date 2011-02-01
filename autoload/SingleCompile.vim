@@ -234,22 +234,22 @@ function! s:Initialize() "{{{1
                     \})
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('c', 'msvc', 
-                        \'Microsoft Visual C++', 'cl', '-o "$(FILE_TITLE)$"', 
+                        \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('c', 'msvc', l:common_out_file)
             call SingleCompile#SetCompilerTemplate('c', 'bcc', 
                         \'Borland C++ Builder', 'bcc32', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetOutfile('c', 'bcc', l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
-                    \'gcc', '-o "$(FILE_TITLE)$"', l:common_run_command)
+                    \'gcc', '-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('c', 'gcc', {
                     \ 'pre-do'  : function('s:PredoGcc'),
                     \ 'out-file': l:common_out_file
                     \})
         call SingleCompile#SetCompilerTemplate('c', 'icc', 
-                    \'Intel C++ Compiler', 'icc', '-o "$(FILE_TITLE)$"',
+                    \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
         if has('win32') || has('win64') || has('os2')
@@ -260,43 +260,43 @@ function! s:Initialize() "{{{1
         else
             call SingleCompile#SetCompilerTemplate('c', 'lcc',
                         \'Little C Compiler', 'lc', 
-                        \'$(FILE_TITLE)$ -o "$(FILE_TITLE)$"', 
+                        \'$(FILE_TITLE)$ -o $(FILE_TITLE)$', 
                         \l:common_run_command)
         endif
         call SingleCompile#SetOutfile('c', 'lcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'pcc', 
-                    \'Portable C Compiler', 'pcc', '-o "$(FILE_TITLE)$"', 
+                    \'Portable C Compiler', 'pcc', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetOutfile('c', 'pcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler',
-                    \'tcc', '-o "$(FILE_TITLE)$"', l:common_run_command)
+                    \'tcc', '-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('c', 'tcc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 
                     \'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')
         call SingleCompile#SetCompilerTemplate('c', 'ch', 
                     \'SoftIntegration Ch', 'ch', '', '')
         call SingleCompile#SetCompilerTemplate('c', 'clang', 'clang', 'clang',
-                    \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                    \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('c', 'clang', {
                     \ 'pre-do'  : function('s:PredoClang'),
                     \ 'out-file': l:common_out_file
                     \})
         if has('unix') || has('macunix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 
-                        \'UNIX C Compiler', 'cc', '-o "$(FILE_TITLE)$"', 
+                        \'UNIX C Compiler', 'cc', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('c', 'cc', l:common_out_file)
         endif
         if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 
                         \'Sun C Compiler (Sun Solaris Studio)', 'suncc', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetCompilerTemplateByDict('c', 'sol-studio', {
                         \ 'pre-do'  : function('s:PredoSolStudioC'),
                         \ 'out-file': l:common_out_file
                         \})
             call SingleCompile#SetCompilerTemplate('c', 'open64', 
-                        \'Open64 C Compiler', 'opencc', '-o "$(FILE_TITLE)$"',
+                        \'Open64 C Compiler', 'opencc', '-o $(FILE_TITLE)$',
                         \l:common_run_command)
         endif
 
@@ -311,29 +311,29 @@ function! s:Initialize() "{{{1
                     \})
         if has('win32') || has('win64')
             call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 
-                        \'Microsoft Visual C++', 'cl', '-o "$(FILE_TITLE)$"', 
+                        \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('cpp', 'msvc', l:common_out_file)
             call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
-                        \'Borland C++ Builder','bcc32', '-o "$(FILE_TITLE)$"', 
+                        \'Borland C++ Builder','bcc32', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('cpp', 'g++', 
-                    \'GNU C++ Compiler', 'g++', '-o "$(FILE_TITLE)$"', 
+                    \'GNU C++ Compiler', 'g++', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('cpp', 'g++', {
                     \ 'pre-do'  : function('s:PredoGcc'),
                     \ 'out-file': l:common_out_file
                     \})
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 
-                    \'Intel C++ Compiler', 'icc', '-o "$(FILE_TITLE)$"', 
+                    \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'icc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('cpp', 'ch', 
                     \'SoftIntegration Ch', 'ch', '', '')
         call SingleCompile#SetCompilerTemplate('cpp', 'clang++', 'clang', 
-                    \'clang++', '-o "$(FILE_TITLE)$"', l:common_run_command)
+                    \'clang++', '-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang++', {
                     \ 'pre-do'  : function('s:PredoClang'),
                     \ 'out-file': l:common_out_file
@@ -341,14 +341,14 @@ function! s:Initialize() "{{{1
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 
                         \'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetCompilerTemplateByDict('cpp', 'sol-studio',{
                         \ 'pre-do'  : function('s:PredoSolStudioC'),
                         \ 'out-file': l:common_out_file
                         \})
             call SingleCompile#SetCompilerTemplate('cpp', 'open64', 
                         \'Open64 C++ Compiler', 'openCC', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetOutfile('cpp', 'open64', l:common_out_file)
         endif
 
@@ -359,47 +359,47 @@ function! s:Initialize() "{{{1
         " java
         call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
                     \ 'Sun Java Development Kit', 'javac', '', 
-                    \'java "$(FILE_TITLE)$"')
+                    \'java $(FILE_TITLE)$')
         call SingleCompile#SetOutfile('java', 'sunjdk', 
                     \'$(FILE_TITLE)$'.'.class')
         call SingleCompile#SetCompilerTemplate('java', 'gcj', 
-                    \'GNU Java Compiler', 'gcj', '', 'java "$(FILE_TITLE)$"')
+                    \'GNU Java Compiler', 'gcj', '', 'java $(FILE_TITLE)$')
         call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 
         " fortran
         call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
                     \'GNU Fortran Compiler', 'gfortran', 
-                    \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                    \'-o $(FILE_TITLE)$', l:common_run_command)
         if has('unix')
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f77', 
                         \'Sun Fortran 77 Compiler (Sun Solaris Studio)', 
-                        \'sunf77', '-o "$(FILE_TITLE)$"', 
+                        \'sunf77', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('fortran', 'sol-studio-f77', 
                         \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f90', 
                         \'Sun Fortran 90 Compiler (Sun Solaris Studio)', 
-                        \'sunf90', '-o "$(FILE_TITLE)$"', 
+                        \'sunf90', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('fortran', 'sol-studio-f90', 
                         \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 
                         \'sol-studio-f95', 
                         \'Sun Fortran 95 Compiler (Sun Solaris Studio)', 
-                        \'sunf95', '-o "$(FILE_TITLE)$"', 
+                        \'sunf95', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('fortran', 'sol-studio-f95', 
                         \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 'open64-f90',
                         \'Open64 Fortran 90 Compiler', 'openf90', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetOutfile('fortran', 'open64-f90', 
                         \l:common_out_file)
             call SingleCompile#SetCompilerTemplate('fortran', 'open64-f95',
                         \'Open64 Fortran 95 Compiler', 'openf95', 
-                        \'-o "$(FILE_TITLE)$"', l:common_run_command)
+                        \'-o $(FILE_TITLE)$', l:common_run_command)
             call SingleCompile#SetOutfile('fortran', 'open64-f95', 
                         \l:common_out_file)
         endif
@@ -411,11 +411,11 @@ function! s:Initialize() "{{{1
                         \l:common_out_file)
         endif
         call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
-                    \'GNU Fortran 77 Compiler', 'g77', '-o "$(FILE_TITLE)$"',
+                    \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
-                    \'Intel Fortran Compiler', 'ifort', '-o "$(FILE_TITLE)$"',
+                    \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 
@@ -582,7 +582,7 @@ function! s:Initialize() "{{{1
 
         " haskell
         call SingleCompile#SetCompilerTemplate('haskell', 'ghc', 
-                    \'Glasgow Haskell Compiler', 'ghc', '-o "$(FILE_TITLE)$"',
+                    \'Glasgow Haskell Compiler', 'ghc', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('haskell', 'ghc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('haskell', 'runhaskell', 
