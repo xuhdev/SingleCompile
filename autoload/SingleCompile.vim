@@ -43,7 +43,21 @@ function! SingleCompile#GetVersion() " get the script version {{{1
 endfunction
 
 " util {{{1
-function! s:Expand(str) " expand the string{{{2
+function! s:Expand(str, ...) " expand the string{{{2
+    " the second argument is optional. If it is given and it is nonzero, then
+    " we thought 
+
+    let l:double_quote_needed = 1
+    if a:0 > 1
+        call s:ShowMessage('SingleCompile: '.
+                    \'s:Expand argument error.')
+        return ''
+    elseif a:0 == 1
+        if !a:1
+            let l:double_quote_needed = 0
+        endif
+    endif
+
     let l:rep_dict = {
                 \'\$(FILE_NAME)\$': '%',
                 \'\$(FILE_TITLE)\$': '%:r',
@@ -58,7 +72,7 @@ function! s:Expand(str) " expand the string{{{2
         endif
 
         let l:rep_string = escape(l:rep_string, '\')
-        if match(l:rep_string, ' ') != -1
+        if l:double_quote_needed && match(l:rep_string, ' ') != -1
             let l:rep_string = '"'.l:rep_string.'"'
         endif
         let l:str = substitute(l:str, one_key, l:rep_string, 'g')
@@ -1081,10 +1095,10 @@ function! s:Run() " {{{1
     silent lcd %:p:h
 
     if l:user_specified == 1
-        let l:run_cmd = s:Expand(g:SingleCompile_templates[&filetype]['run'])
+        let l:run_cmd = s:Expand(g:SingleCompile_templates[&filetype]['run'], 0)
     elseif l:user_specified == 0
         let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype, 
-                    \s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'))
+                    \s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'), 0)
     endif
 
     let l:run_cmd = '"'.l:run_cmd.'"'
