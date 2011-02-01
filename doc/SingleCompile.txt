@@ -179,6 +179,22 @@ xhtml:
 You can add your compiler or interpreter support if the compiler or
 interpreter you want is not in the list. See details in the help file.
 
+There are some supporting code in this plugin for Marc Weber's
+vim-addon-actions:
+     http://github.com/MarcWeber/vim-addon-actions
+
+If you find any bug, please report it to xuhdev@gmail.com or submit it on
+the issue tracker:
+https://bitbucket.org/xuhdev/singlecompile/issues
+
+
+Repository:
+https://bitbucket.org/xuhdev/singlecompile
+
+Follow xuhdev on twitter if you are interested in my development:
+http://twitter.com/xuhdev
+
+
 INSTALLATION~
                                             *SingleCompile-installation*
 ----------------------------------------------------------------------------
