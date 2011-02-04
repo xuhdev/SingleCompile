@@ -45,6 +45,25 @@ function! SingleCompile#GetVersion() " get the script version {{{1
 endfunction
 
 " util {{{1
+function! s:GetShellPipe()  " get the shell pipe command according to it's platform
+    if has('unix')
+        if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
+                    \&shell =~ 'bash'
+            return '2>&1| tee'
+        elseif &shell =~ 'csh' || &shell =~ 'tcsh' 
+            return '|& tee'
+        else
+            return '| tee'
+        endif
+    elseif has('win32') || has('win64')
+        if executable('tee')
+            return '2>&1 | tee'
+        else
+            return '>'
+        endif
+    endif
+
+endfunction
 function! s:Expand(str, ...) " expand the string{{{2
     " the second argument is optional. If it is given and it is nonzero, then
     " we thought 
@@ -992,14 +1011,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let &l:makeprg = l:compile_cmd
 
         " change shellpipe according to the shell type
-        if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
-                    \&shell =~ 'bash'
-            setlocal shellpipe=2>&1\|\ tee
-        elseif &shell =~ 'csh' || &shell =~ 'tcsh' 
-            setlocal shellpipe=\|&\ tee
-        else
-            setlocal shellpipe=\|\ tee
-        endif
+        let &l:shellpipe = s:GetShellPipe()
 
         exec 'make '.l:compile_args
 
@@ -1018,6 +1030,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
         setlocal shellpipe=>%s\ 2>&1
         exec 'make'.' '.l:compile_args
 
+        " check whether compiling is successful, if not, show the return value
+        " with error message highlighting and set the return value to 1
         if v:shell_error != 0
             echo ' '
             echohl ErrorMsg | echo 'Return value is '.v:shell_error 
@@ -1119,7 +1133,7 @@ function! s:Run() " {{{1
         " if tee is available, then redirect the result to a temp file
 
         let s:run_result_tempfile = tempname()
-        let l:run_cmd = l:run_cmd.' | tee '.s:run_result_tempfile
+        let l:run_cmd = l:run_cmd.' '.s:GetShellPipe().' '.s:run_result_tempfile
     endif
 
     exec '!'.l:run_cmd
