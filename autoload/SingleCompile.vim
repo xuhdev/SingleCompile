@@ -911,7 +911,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:compile_flags = a:1
     elseif a:0 == 2 && l:user_specified == 1 && 
                 \has_key(g:SingleCompile_templates[l:cur_filetype],'flags') 
-        " if there is two arguments, it means append the provided argument to
+        " if there are two arguments, it means append the provided argument to
         " the flag defined in the template
 
         let l:compile_flags = 
@@ -925,7 +925,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
                 \s:CompilerTemplate[l:cur_filetype][ 
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
                 \'flags')
-        " if there is two arguments, it means append the provided argument to
+        " if there are two arguments, it means append the provided argument to
         " the flag defined in the template
 
         let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype, 
@@ -973,7 +973,13 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " interpreting language not in unix, then don't use quickfix
 
         exec '!'.l:compile_cmd.' '.l:compile_args
+
+        " check whether compiling is successful, if not, show the return value
+        " with error message highlighting and set the return value to 1
         if v:shell_error != 0
+            echo ' '
+            echohl ErrorMsg | echo 'Return value is '.v:shell_error 
+                        \| echohl None
             let l:toret = 1
         endif
 
@@ -1011,8 +1017,11 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let &l:makeprg = l:compile_cmd
         setlocal shellpipe=>%s\ 2>&1
         exec 'make'.' '.l:compile_args
-        " check whether compiling is successful
+
         if v:shell_error != 0
+            echo ' '
+            echohl ErrorMsg | echo 'Return value is '.v:shell_error 
+                        \| echohl None
             let l:toret = 1
         endif
 
