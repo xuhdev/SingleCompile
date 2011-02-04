@@ -298,6 +298,15 @@ Commands:
     :SCChooseInterpreter
 Same as |:SCChooseCompiler|.
 
+                                            *:SCViewResult*
+Commands:
+    :SCViewResult 
+View the result of the last run command. Only valid when "tee" command is
+available.  "tee" is usually available on a UNIX system. If you are under
+Windows, install cygwin or visit the following link to download a "tee"
+command for Windows:
+http://gnuwin32.sourceforge.net/packages/coreutils.htm
+
 SETTINGS~
                                             *SingleCompile-settings*
 ----------------------------------------------------------------------------
