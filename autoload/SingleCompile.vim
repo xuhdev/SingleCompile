@@ -483,6 +483,10 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('sh', 'dash', 
                     \'Debian Almquist Shell', 'dash', '', '')
 
+        " zsh
+        call SingleCompile#SetCompilerTemplate('zsh', 'zsh', 
+                    \'Z Shell', 'zsh', '', '')
+
         " csh
         call SingleCompile#SetCompilerTemplate('csh', 'csh',
                     \'C Shell', 'csh', '', '')

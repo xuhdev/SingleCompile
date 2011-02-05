@@ -176,6 +176,9 @@ xhtml:
     ie (Microsoft Internet Explorer)
     opera (Opera)
 
+zsh:
+    zsh (Z Shell)
+
 You can add your compiler or interpreter support if the compiler or
 interpreter you want is not in the list. See details in the help file.
 
@@ -651,6 +654,8 @@ xhtml:
     ie (Microsoft Internet Explorer)
     opera (Opera)
 
+zsh:
+    zsh (Z Shell)
 
 
 See |SingleCompile-add-your-compiler| to add your compiler support.
