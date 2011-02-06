@@ -612,6 +612,9 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('javascript', 'rhino', 'Rhino',
                     \'rhino', '', '')
 
+        " r
+        call SingleCompile#SetCompilerTemplate('r', 'R', 'R', 'R',
+                    \'CMD BATCH', '')
 
         " cmake
         call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake',

@@ -153,6 +153,9 @@ python:
     python (Python Interpreter)
     python3 (Python 3 Interpreter)
     
+R:
+    R (R)
+
 ruby:
     ruby (Ruby Interpreter)
     
@@ -630,6 +633,9 @@ python:
     pypy (PyPy)
     python (Python Interpreter)
     python3 (Python 3 Interpreter)
+
+R:
+    R (R)
     
 ruby:
     ruby (Ruby Interpreter)
