@@ -157,7 +157,7 @@ function! s:DetectCompilerGenerally(compiling_command) " {{{2
     " the general function of compiler detection. The principle is to search
     " the environment varible PATH and some special directory
 
-    if has('unix') || has('macunix')
+    if has('unix')
         let l:list_to_detect = [s:Expand(expand(a:compiling_command)),
                     \s:Expand(expand('~/bin/'.a:compiling_command)),
                     \s:Expand(expand('/usr/local/bin/'.a:compiling_command)),
@@ -314,13 +314,11 @@ function! s:Initialize() "{{{1
                     \ 'pre-do'  : function('s:PredoClang'),
                     \ 'out-file': l:common_out_file
                     \})
-        if has('unix') || has('macunix')
+        if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'cc', 
                         \'UNIX C Compiler', 'cc', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
             call SingleCompile#SetOutfile('c', 'cc', l:common_out_file)
-        endif
-        if has('unix')
             call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 
                         \'Sun C Compiler (Sun Solaris Studio)', 'suncc', 
                         \'-o $(FILE_TITLE)$', l:common_run_command)
@@ -538,7 +536,7 @@ function! s:Initialize() "{{{1
                     \'VB Script Interpreter', 'cscript', '', '')
 
         " latex
-        if has('unix') || has('macunix')
+        if has('unix')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
                         \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
             call SingleCompile#SetOutfile('tex', 'texlive', 
@@ -556,7 +554,7 @@ function! s:Initialize() "{{{1
         endif
 
         " plain tex
-        if has('unix') || has('macunix')
+        if has('unix')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
                         \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
             call SingleCompile#SetOutfile('tex', 'texlive', 
