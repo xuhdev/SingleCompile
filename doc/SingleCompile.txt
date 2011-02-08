@@ -42,7 +42,8 @@ Add these key-mappings to your vimrc:
 If your file type is supported, then press F9 to compile your source file, and
 press F10 to compile and run your source file. You may also use
 ":SCChooseCompiler" command to choose a compiler if you have more than one
-kind of compiler available on you system. 
+kind of compiler available on you system. ":SCViewResult" will show you the
+last run result.
 
 
 Features:
@@ -50,7 +51,8 @@ Features:
 2. Compilers and interpreters auto detecting;
 3. Fast switch between several installed compilers or interpreters;
 4. Multi-language support;
-5. Custom your own compiler/interpreter template.
+5. Custom your own compiler/interpreter template;
+6. View the result of last run command at any time(requires "tee" command).
 
 
 Here is a list of built-in supported compilers or interpreter(For some
