@@ -16,20 +16,20 @@ let s:CompilerTemplate = {}
 let s:TemplateInitialized = 0
 
 " Chars to escape for ':lcd' command
-if has('win32') || has('win64') || has('os2')
+if has('win32') || has('os2')
     let s:CharsEscape = '" '
 else
     let s:CharsEscape = '" \'
 endif
 
 " seperator in the environment varibles
-if has('win32') || has('win64') || has('os2')
+if has('win32') || has('os2')
     let s:EnvSeperator = ';'
 else
     let s:EnvSeperator = ':'
 endif
 
-if has('win32') || has('win64') || has('os2')
+if has('win32') || has('os2')
     let s:PathSeperator = '\'
 else
     let s:PathSeperator = '/'
@@ -55,7 +55,7 @@ function! s:GetShellPipe()  " get the shell pipe command according to it's platf
         else
             return '| tee'
         endif
-    elseif has('win32') || has('win64')
+    elseif has('win32')
         if executable('tee')
             return '2>&1 | tee'
         else
@@ -88,7 +88,7 @@ function! s:Expand(str, ...) " expand the string{{{2
     for one_key in keys(l:rep_dict)
         let l:rep_string = expand(l:rep_dict[one_key])
         " on win32, win64 and os2, replace the backslash with '/'
-        if has('win32') || has('win64') || has('os2')
+        if has('win32') || has('os2')
             let l:rep_string = substitute(l:rep_string, '/', '\\', 'g')
         endif
 
@@ -198,7 +198,7 @@ function! s:DetectIe(not_used_arg) " {{{2
         return 'iexplore'
     endif
 
-    if has('win32') || has('win64')
+    if has('win32')
         for iepath in ['C:\Program Files\Internet Explorer\iexplore',
                     \ 'D:\Program Files\Internet Explorer\iexplore',
                     \ 'E:\Program Files\Internet Explorer\iexplore',
@@ -248,7 +248,7 @@ function! s:Initialize() "{{{1
         let s:TemplateInitialized = 1
 
         " templates {{{2
-        if has('win32') || has('win64') || has('os2')
+        if has('win32') || has('os2')
             let l:common_run_command = '$(FILE_TITLE)$'
             let l:common_out_file = '$(FILE_TITLE)$.exe'
         else
@@ -265,7 +265,7 @@ function! s:Initialize() "{{{1
                     \ 'post-do' : function('s:PostdoWatcom'),
                     \ 'out-file': l:common_out_file
                     \})
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('c', 'msvc', 
                         \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
@@ -285,7 +285,7 @@ function! s:Initialize() "{{{1
                     \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
-        if has('win32') || has('win64') || has('os2')
+        if has('win32') || has('os2')
             call SingleCompile#SetCompilerTemplate('c', 'lcc', 
                         \'Little C Compiler', 'lc', 
                         \'$(FILE_TITLE)$ -o "$(FILE_TITLE)$.exe"', 
@@ -340,7 +340,7 @@ function! s:Initialize() "{{{1
                     \ 'post-do' : function('s:PostdoWatcom'),
                     \ 'out-file': l:common_out_file
                     \})
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 
                         \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                         \l:common_run_command)
@@ -434,7 +434,7 @@ function! s:Initialize() "{{{1
             call SingleCompile#SetOutfile('fortran', 'open64-f95', 
                         \l:common_out_file)
         endif
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('fortran', 'ftn95',
                         \'Silverfrost FTN95', 'ftn95', '$(FILE_NAME)$ /LINK',
                         \l:common_run_command)
@@ -506,7 +506,7 @@ function! s:Initialize() "{{{1
                     \'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 
                     \'opera', '', '')
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('html', 'ie', 
                         \'Microsoft Internet Explorer', 'iexplore', '', '',
                         \function('s:DetectIe'))
@@ -522,7 +522,7 @@ function! s:Initialize() "{{{1
                     \'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 
                     \'Opera', 'opera', '', '')
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
                         \'Microsoft Internet Explorer', 'iexplore', '', '',
                         \function('s:DetectIe'))
@@ -541,7 +541,7 @@ function! s:Initialize() "{{{1
                         \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
             call SingleCompile#SetOutfile('tex', 'texlive', 
                         \'$(FILE_TITLE)$'.'.dvi')
-        elseif has('win32') || has('win64')
+        elseif has('win32')
             call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
                         \'Tex Live', 'latex', '', 
                         \'dviout "$(FILE_TITLE)$.dvi"')
@@ -559,7 +559,7 @@ function! s:Initialize() "{{{1
                         \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
             call SingleCompile#SetOutfile('tex', 'texlive', 
                         \'$(FILE_TITLE)$'.'.dvi')
-        elseif has('win32') || has('win64')
+        elseif has('win32')
             call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
                         \'Tex Live', 'latex', '', 
                         \'dviout "$(FILE_TITLE)$.dvi"')
@@ -600,7 +600,7 @@ function! s:Initialize() "{{{1
                     \'gmake', '-f', '', function('s:DetectGmake'))
         call SingleCompile#SetCompilerTemplate('make', 'mingw32-make',
                     \'MinGW32 Make', 'mingw32-make', '-f', '')
-        if has('win32') || has('win64')
+        if has('win32')
             call SingleCompile#SetCompilerTemplate('make', 'nmake', 
                         \'Microsoft Program Maintenance Utility', 'nmake',
                         \'-f', '')
