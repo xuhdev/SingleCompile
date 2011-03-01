@@ -485,6 +485,10 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('zsh', 'zsh', 
                     \'Z Shell', 'zsh', '', '')
 
+        " bash
+        call SingleCompile#SetCompilerTemplate('bash', 'bash',
+                    \'Bourne-Again Shell', 'bash', '', '')
+
         " csh
         call SingleCompile#SetCompilerTemplate('csh', 'csh',
                     \'C Shell', 'csh', '', '')

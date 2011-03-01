@@ -59,6 +59,9 @@ Here is a list of built-in supported compilers or interpreter(For some
 compilers, you need to set the environment varibles correctly to make them
 available for SingleCompile):
 
+bash:
+    bash (Bourne-Again Shell)
+
 C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX only
@@ -539,6 +542,9 @@ compilation command of java to "javac".
 The following compilers have built-in support in this plugin (For some
 compilers, you need to set the environment varibles correctly to make them
 available for SingleCompile):
+
+bash:
+    bash (Bourne-Again Shell)
 
 C:
     bcc (Borland C++ Builder), Windows only
