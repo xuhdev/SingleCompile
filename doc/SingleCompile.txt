@@ -175,6 +175,9 @@ sh:
     sh (Bourne Shell)
     zsh (Z Shell)
 
+tcl:
+    tclsh (Simple shell containing Tcl interpreter)
+
 tcsh:
     tcsh (TENEX C Shell)
 
@@ -661,6 +664,9 @@ sh:
     ksh (Korn Shell)
     sh (Bourne Shell)
     zsh (Z Shell)
+
+tcl:
+    tclsh (Simple shell containing Tcl interpreter)
 
 tcsh:
     tcsh (TENEX C Shell)

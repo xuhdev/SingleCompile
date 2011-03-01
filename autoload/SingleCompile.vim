@@ -633,6 +633,11 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('haskell', 'ghc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('haskell', 'runhaskell', 
                     \'runhaskell', 'runhaskell', '', '')
+
+        " tcl
+        call SingleCompile#SetCompilerTemplate('tcl', 'tclsh', 
+                    \'Simple shell containing Tcl interpreter', 'tclsh', 
+                    \'', '')
         " 2}}}
 
     endif
