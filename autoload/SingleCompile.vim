@@ -489,6 +489,10 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('bash', 'bash',
                     \'Bourne-Again Shell', 'bash', '', '')
 
+        " ksh
+        call SingleCompile#SetCompilerTemplate('ksh', 'ksh',
+                    \'Korn Shell', 'ksh', '', '')
+
         " csh
         call SingleCompile#SetCompilerTemplate('csh', 'csh',
                     \'C Shell', 'csh', '', '')

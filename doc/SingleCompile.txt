@@ -131,6 +131,9 @@ Java:
 JavaScript:
     rhino (Rhino)
 
+ksh:
+    ksh (Korn Shell)
+
 LaTeX:
     miktex (MiKTeX), Windows Only
     texlive (Tex Live)
@@ -614,6 +617,9 @@ Java:
 
 JavaScript:
     rhino (Rhino)
+
+ksh:
+    ksh (Korn Shell)
 
 LaTeX:
     miktex (MiKTeX), Windows Only
