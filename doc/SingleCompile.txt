@@ -56,8 +56,8 @@ Features:
 
 
 Here is a list of built-in supported compilers or interpreter(For some
-compilers, you need to set the environment varibles correctly to make them
-available for SingleCompile):
+compilers/interpreters, you need to set the environment varibles correctly to
+make them available for SingleCompile):
 
 bash:
     bash (Bourne-Again Shell)
@@ -540,8 +540,8 @@ compilation command of java to "javac".
 
                                             *SingleCompile-built-in-compiler*
 The following compilers have built-in support in this plugin (For some
-compilers, you need to set the environment varibles correctly to make them
-available for SingleCompile):
+compilers/interpreters, you need to set the environment varibles correctly to
+make them available for SingleCompile):
 
 bash:
     bash (Bourne-Again Shell)
