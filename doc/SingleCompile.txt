@@ -364,6 +364,16 @@ want to enable this feature, add the following line to your vimrc:
 <
 The default value of g:SingleCompile_alwayscompile is 1.
 
+                                            *SingleCompile-resultheight*
+g:SingleCompile_resultheight is the height of the result displaying window
+triggered by |:SCViewResult| command. To set the value, add the following line
+to your vimrc file:
+>
+ let g:SingleCompile_resultheight = a_number
+<
+Replace a_number to any number you want, such as "10", "4". The default value
+of g:SingleCompile_resultheight is 5.
+
                                             *SingleCompile-menumode*
 If you don't want the menus of SingleCompile to show, copy the following line
 to your vimrc:
