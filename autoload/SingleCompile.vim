@@ -1038,20 +1038,11 @@ function! SingleCompile#Compile(...) " compile only {{{1
     elseif has('unix') && s:IsLanguageInterpreting(l:cur_filetype) 
         " use quickfix for interpreting language in unix
 
-        " change the makeprg and shellpipe temporarily
-        let l:old_makeprg = &l:makeprg
-        let l:old_shellpipe = &l:shellpipe
-        let &l:makeprg = l:compile_cmd
+        let s:run_result_tempfile = tempname()
+        exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe().
+                    \' '.s:run_result_tempfile
 
-        " change shellpipe according to the shell type
-        let &l:shellpipe = s:GetShellPipe()
-
-        exec 'make '.l:compile_args
-
-        " set back makeprg and shellpipe
-        let &l:makeprg = l:old_makeprg
-        let &l:shellpipe = l:old_shellpipe
-
+        cgetexpr readfile(s:run_result_tempfile)
 
     else " use quickfix for compiling language
 
