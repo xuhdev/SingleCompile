@@ -226,19 +226,27 @@ function! s:DetectGmake(not_used_arg) " {{{2
 endfunction
 
 function! s:Initialize() "{{{1
-    if !exists('g:SingleCompile_autowrite')
+    if !exists('g:SingleCompile_autowrite') ||
+                \type(g:SingleCompile_autowrite) != type(0)
+        unlet! g:SingleCompile_autowrite
         let g:SingleCompile_autowrite = 1
     endif
 
-    if !exists('g:SingleCompile_usedialog')
+    if !exists('g:SingleCompile_usedialog') ||
+                \type(g:SingleCompile_usedialog) != type(0)
+        unlet! g:SingleCompile_usedialog
         let g:SingleCompile_usedialog = 0
     endif
 
-    if !exists('g:SingleCompile_usequickfix')
+    if !exists('g:SingleCompile_usequickfix') ||
+                \type(g:SingleCompile_usequickfix) != type(0)
+        unlet! g:SingleCompile_usequickfix
         let g:SingleCompile_usequickfix = 1
     endif
 
-    if !exists('g:SingleCompile_alwayscompile')
+    if !exists('g:SingleCompile_alwayscompile') ||
+                \type(g:SingleCompile_alwayscompile) != type(0)
+        unlet! g:SingleCompile_alwayscompile
         let g:SingleCompile_alwayscompile = 1
     endif
 
