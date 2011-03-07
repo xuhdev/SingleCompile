@@ -952,7 +952,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
                 \'out-file')
                 \&& getftime(s:Expand(
                 \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]
-                \['out-file']))
+                \['out-file'], 0))
                 \> getftime(expand('%:p'))
         " switch back to the original directory
         exec 'lcd '.escape(l:cwd, s:CharsEscape)
