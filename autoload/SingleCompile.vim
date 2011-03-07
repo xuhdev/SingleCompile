@@ -65,8 +65,8 @@ function! s:GetShellPipe()  " get the shell pipe command according to it's platf
 
 endfunction
 function! s:Expand(str, ...) " expand the string{{{2
-    " the second argument is optional. If it is given and it is nonzero, then
-    " we thought 
+    " the second argument is optional. If it is given and it is zero, then
+    " we thought we don't need double quote.
 
     let l:double_quote_needed = 1
     if a:0 > 1
@@ -1145,13 +1145,11 @@ function! s:Run() " {{{1
     silent lcd %:p:h
 
     if l:user_specified == 1
-        let l:run_cmd = s:Expand(g:SingleCompile_templates[&filetype]['run'], 0)
+        let l:run_cmd = s:Expand(g:SingleCompile_templates[&filetype]['run'], 1)
     elseif l:user_specified == 0
         let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype, 
-                    \s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'), 0)
+                    \s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'), 1)
     endif
-
-    let l:run_cmd = '"'.l:run_cmd.'"'
 
     if executable('tee')
         " if tee is available, then redirect the result to a temp file
