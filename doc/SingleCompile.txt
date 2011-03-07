@@ -90,6 +90,7 @@ C++:
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
 
 C#:
+    msvcs(Microsoft Visual C#)
     mono (Mono C# compiler)
 
 cmake:
@@ -593,6 +594,7 @@ C++:
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
 
 C#:
+    msvcs(Microsoft Visual C#)
     mono (Mono C# compiler)
 
 cmake:
