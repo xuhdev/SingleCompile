@@ -399,11 +399,13 @@ function! s:Initialize() "{{{1
         endif
 
         " c#
-        call SingleCompile#SetCompilerTemplate('cs', 'msvcs',
-                    \'Microsoft Visual C#', 'csc', '',
-                    \l:common_run_command)
-        call SingleCompile#SetOutfile('cs', 'msvcs',
-                    \l:common_out_file)
+        if has('win32')
+            call SingleCompile#SetCompilerTemplate('cs', 'msvcs',
+                        \'Microsoft Visual C#', 'csc', '',
+                        \l:common_run_command)
+            call SingleCompile#SetOutfile('cs', 'msvcs',
+                        \l:common_out_file)
+        endif
         call SingleCompile#SetCompilerTemplate('cs', 'mono',
                     \'Mono C# compiler', 'mcs', '',
                     \'mono $(FILE_TITLE)$'.'.exe')
