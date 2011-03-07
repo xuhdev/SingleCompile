@@ -398,6 +398,13 @@ function! s:Initialize() "{{{1
             call SingleCompile#SetOutfile('cpp', 'open64', l:common_out_file)
         endif
 
+        " c#
+        call SingleCompile#SetCompilerTemplate('cs', 'mono',
+                    \'Mono C# compiler', 'mcs', '',
+                    \'mono $(FILE_TITLE)$'.'.exe')
+        call SingleCompile#SetOutfile('cs', 'mono',
+                    \'$(FILE_TITLE)$'.'.exe')
+
         " d
         call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler',
                     \'dmd', '', l:common_run_command)

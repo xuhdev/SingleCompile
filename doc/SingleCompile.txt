@@ -89,6 +89,9 @@ C++:
     open64 (Open64 C++ Compiler), UNIX only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
 
+C#:
+    mono (Mono C# compiler)
+
 cmake:
     cmake (cmake)
 
@@ -588,6 +591,9 @@ C++:
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C++ Compiler), UNIX only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
+
+C#:
+    mono (Mono C# compiler)
 
 cmake:
     cmake (cmake)
