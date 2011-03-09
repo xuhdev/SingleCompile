@@ -430,6 +430,8 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
                     \'GNU Fortran Compiler', 'gfortran', 
                     \'-o $(FILE_TITLE)$', l:common_run_command)
+        call SingleCompile#SetOutfile('fortran', 'gfortran',
+                    \l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'g95',
                     \'G95', 'g95', '-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('fortran', 'g95', l:common_out_file)
