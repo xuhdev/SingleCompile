@@ -677,6 +677,17 @@ function! s:Initialize() "{{{1
     endif
 endfunction
 
+function! s:SetVimCompiler(lang_name, compiler) " {{{1
+    " call the :compiler command
+
+    let l:dict_compiler = s:CompilerTemplate[a:lang_name][a:compiler]
+    if has_key(l:dict_compiler, 'vim-compiler')
+        silent! exec 'compiler '.l:dict_compiler['vim-compiler']
+    else
+        silent! exec 'compiler '.a:compiler
+    endif
+endfunction
+
 " SingleCompile#SetCompilerTemplate {{{1
 function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
             \compiler_name, detect_func_arg, flags, run_command, ...) 
@@ -1068,6 +1079,9 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " change the makeprg and shellpipe temporarily 
         let l:old_makeprg = &l:makeprg
         let l:old_shellpipe = &l:shellpipe
+        let l:old_errorformat = &l:errorformat
+
+        call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
 
         let &l:makeprg = l:compile_cmd
         setlocal shellpipe=>%s\ 2>&1
@@ -1085,6 +1099,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " set back makeprg and shellpipe
         let &l:makeprg = l:old_makeprg
         let &l:shellpipe = l:old_shellpipe
+        let &l:errorformat = l:old_errorformat
     endif
 
     " if it's interpreting language, then return 2 (means do not call run if
