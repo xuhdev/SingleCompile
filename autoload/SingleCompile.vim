@@ -719,8 +719,9 @@ function! SingleCompile#SetCompilerTemplateByDict(
     " set templates by using a dict(template_dict), thus calling the template
     " settings functions below one by one is not needed.
 
-    let l:key_list = ['name', 'detect_func_arg', 'flags', 'run', 
-                \'detect_func', 'pre-do', 'post-do', 'out-file']
+    let l:key_list = ['name', 'detect_func_arg', 'flags', 'run',
+                \'detect_func', 'pre-do', 'post-do', 'out-file',
+                \'vim-compiler']
 
     for key in l:key_list
         if has_key(a:template_dict, key)
@@ -757,6 +758,13 @@ function! SingleCompile#SetOutfile(lang_name, compiler, outfile) " {{{2
 
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
                 \'out-file', a:outfile)
+endfunction
+
+fun! SingleCompile#SetVimCompiler(lang_name, compiler, vim_compiler) " {{{2
+    " set vim-compiler
+
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler,
+                \'vim-compiler', a:vim_compiler)
 endfunction
 
 function! s:GetCompilerSingleTemplate(lang_name, compiler_name, key) " {{{1
