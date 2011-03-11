@@ -405,12 +405,14 @@ function! s:Initialize() "{{{1
                         \l:common_run_command)
             call SingleCompile#SetOutfile('cs', 'msvcs',
                         \l:common_out_file)
+            call SingleCompile#SetVimCompiler('cs', 'msvcs', 'cs')
         endif
         call SingleCompile#SetCompilerTemplate('cs', 'mono',
                     \'Mono C# compiler', 'mcs', '',
                     \'mono $(FILE_TITLE)$'.'.exe')
         call SingleCompile#SetOutfile('cs', 'mono',
                     \'$(FILE_TITLE)$'.'.exe')
+        call SingleCompile#SetVimCompiler('cs', 'mono', 'mcs')
 
         " d
         call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler',
@@ -422,6 +424,7 @@ function! s:Initialize() "{{{1
                     \'java $(FILE_TITLE)$')
         call SingleCompile#SetOutfile('java', 'sunjdk', 
                     \'$(FILE_TITLE)$'.'.class')
+        call SingleCompile#SetVimCompiler('java', 'sunjdk', 'javac')
         call SingleCompile#SetCompilerTemplate('java', 'gcj', 
                     \'GNU Java Compiler', 'gcj', '', 'java $(FILE_TITLE)$')
         call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
@@ -479,6 +482,7 @@ function! s:Initialize() "{{{1
                     \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
+        call SingleCompile#SetVimCompiler('fortran', 'g77', 'fortran_g77')
         call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
                     \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
@@ -672,6 +676,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('tcl', 'tclsh', 
                     \'Simple shell containing Tcl interpreter', 'tclsh', 
                     \'', '')
+        call SingleCompile#SetVimCompiler('tcl', 'tclsh', 'tcl')
         " 2}}}
 
     endif
