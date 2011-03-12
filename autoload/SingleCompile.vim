@@ -626,7 +626,7 @@ function! s:Initialize() "{{{1
         endif
 
         " python
-        call SingleCompile#SetCompilerTemplate('python', 'cpython', 'CPython',
+        call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython',
                     \'python', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'ironpython',
                     \'IronPython', 'ipy', '', '')
@@ -634,7 +634,7 @@ function! s:Initialize() "{{{1
                     \'jython', '', '')
         call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy',
                     \'pypy', '', '')
-        call SingleCompile#SetCompilerTemplate('python', 'cpython3', 
+        call SingleCompile#SetCompilerTemplate('python', 'python3', 
                     \'CPython 3', 'python3', '', '')
 
         " perl
