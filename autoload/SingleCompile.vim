@@ -22,6 +22,13 @@ else
     let s:CharsEscape = '" \'
 endif
 
+" executable suffix
+if has('win32') || has('os2')
+    let s:ExecutableSuffix = '.exe'
+else
+    let s:ExecutableSuffix = ''
+endif
+
 " seperator in the environment varibles
 if has('win32') || has('os2')
     let s:EnvSeperator = ';'
@@ -436,7 +443,8 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('fortran', 'gfortran',
                     \l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'g95',
-                    \'G95', 'g95', '-o $(FILE_TITLE)$', l:common_run_command)
+                    \'G95', 'g95', '-o $(FILE_TITLE)$'.s:ExecutableSuffix,
+                    \l:common_run_command)
         call SingleCompile#SetOutfile('fortran', 'g95', l:common_out_file)
         if has('unix')
             call SingleCompile#SetCompilerTemplate('fortran', 
