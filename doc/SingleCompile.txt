@@ -824,6 +824,21 @@ To make it less confusing, I better explain the calling order here. The
 calling order is: first the compiler detecting function, then "Predo"
 function, then compile, and the last is the "Postdo" function.
 
+                                            *SingleCompile-vim-compiler*
+SingleCompile can work with the compiler feature of vim(see |:compiler|). To
+set the compiler file in the compiler direcotry for a compiler, use
+SingleCompile#SetVimCompiler function. For example, for g77, the GNU Fortran
+77 compiler, use the following line to set the compiler file for g77:
+>
+ call SingleCompile#SetVimCompiler('fortran', 'g77', 'fortran_g77')
+<
+(This line is excerpted from the built-in templates.)
+
+Then if we are using g77 as our compiler, SingleCompile will first execute
+":compiler fortran_g77" before compiling the source file. This will give us
+the advantage that vim's quickfix will recognize the messages output by g77
+and help us locate these errors quickly.
+
 CREDITS~
                                             *SingleCompile-credits*
 ----------------------------------------------------------------------------
