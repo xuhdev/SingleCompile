@@ -1,5 +1,5 @@
 " File: autoload/SingleCompile.vim
-" Version: 2.4.2
+" Version: 2.5
 " check doc/SingleCompile.txt for more information
 
 
@@ -48,7 +48,7 @@ let s:run_result_tempfile = ''
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 242
+    return 250
 endfunction
 
 " util {{{1
