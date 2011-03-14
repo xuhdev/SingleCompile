@@ -47,7 +47,8 @@ last run result.
 
 
 Features:
-1. Compile or run the source file quickly using quickfix feature of vim;
+1. Compile or run the source file quickly using quickfix feature and compiler
+   feature of vim;
 2. Compilers and interpreters auto detecting;
 3. Fast switch between several installed compilers or interpreters;
 4. Multi-language support;
