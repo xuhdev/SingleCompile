@@ -383,7 +383,8 @@ function! s:Initialize() "{{{1
                     \l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('cpp', 'g++', {
                     \ 'pre-do'  : function('s:PredoGcc'),
-                    \ 'out-file': l:common_out_file
+                    \ 'out-file': l:common_out_file,
+                    \ 'vim-compiler': 'gcc'
                     \})
         call SingleCompile#SetCompilerTemplate('cpp', 'icc', 
                     \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$', 
