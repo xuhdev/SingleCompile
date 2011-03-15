@@ -218,6 +218,12 @@ function! s:DetectIe(not_used_arg) " {{{2
     endif
 endfunction
 
+function! s:DetectDosbatch(not_used_arg) " {{{2
+    " always return an empty string, because dosbatch is always available on
+    " Windows.
+    return ''
+endfunction
+
 function! s:DetectGmake(not_used_arg) " {{{2
     let l:make_command = s:DetectCompilerGenerally('gmake')
     if l:make_command != 0
@@ -550,8 +556,11 @@ function! s:Initialize() "{{{1
                     \'TENEX C Shell', 'tcsh', '', '')
 
         " dosbatch
-        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 
-                    \'DOS Batch', '', '', '')
+        if has('win32')
+            call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 
+                        \'DOS Batch', '', '', '',
+                        \function('s:DetectDosbatch'))
+        endif
 
         " html
         call SingleCompile#SetCompilerTemplate('html', 'firefox', 
