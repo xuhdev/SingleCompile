@@ -396,7 +396,8 @@ function! s:Initialize() "{{{1
                     \'clang++', '-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang++', {
                     \ 'pre-do'  : function('s:PredoClang'),
-                    \ 'out-file': l:common_out_file
+                    \ 'out-file': l:common_out_file,
+                    \ 'vim-compiler': 'clang'
                     \})
         if has('unix')
             call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 
