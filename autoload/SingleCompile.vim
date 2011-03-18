@@ -53,7 +53,7 @@ endfunction
 
 " util {{{1
 function! s:GetShellPipe()  " get the shell pipe command according to it's platform
-    if has('unix') || has('macunix')
+    if has('unix')
         if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
                     \&shell =~ 'bash'
             return '2>&1| tee'
