@@ -314,7 +314,9 @@ additional "-O2" flag and run the output binary file:
 Commands:
     :SCChooseCompiler
 Choose a compiler to use. This command will display a list of compilers for
-you to choose one.
+you to choose one. If you want to set a default compiler in your vimrc, please
+use the function SingleCompile#ChooseCompiler. See
+|SingleCompile-use-built-in-template|.
 
                                             *:SCChooseInterpreter*
 Commands:
