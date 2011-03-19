@@ -270,6 +270,11 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_resultheight = 5
     endif
 
+    if !exists('g:SingleCompile_showquickfixiferror') ||
+                \type(g:SingleCompile_showquickfixiferror) != type(0)
+        unlet! g:SingleCompile_showquickfixiferror
+        let g:SingleCompile_showquickfixiferror = 0
+    endif
 
     if s:TemplateInitialized == 0
         
@@ -1153,6 +1158,13 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
     " switch back to the original directory
     exec 'lcd '.escape(l:cwd, s:CharsEscape)
+
+    " show the quickfix window if error occurs, quickfix is used and 
+    " g:SingleCompile_showquickfixiferror is set to nonzero
+    if l:toret == 1 && g:SingleCompile_showquickfixiferror &&
+                \s:ShouldQuickfixBeUsed()
+        cope
+    endif
 
     return l:toret
 endfunction

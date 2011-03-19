@@ -382,6 +382,14 @@ to your vimrc file:
 Replace a_number to any number you want, such as "10", "4". The default value
 of g:SingleCompile_resultheight is 5.
 
+                                            *SingleCompile-showquickfixiferror*
+If |quickfix| is enabled and used, and you want the quickfix window to show
+automatically if there is a compilation error, then add the following line to
+your vimrc file:
+>
+ let g:SingleCompile_showquickfixiferror = 1
+<
+
                                             *SingleCompile-menumode*
 If you don't want the menus of SingleCompile to show, copy the following line
 to your vimrc:
