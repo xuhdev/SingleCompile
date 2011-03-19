@@ -47,8 +47,8 @@ last run result.
 
 
 Features:
-1. Compile or run the source file quickly using quickfix feature and compiler
-   feature of vim;
+1. Compile or run the source file quickly using |quickfix| feature and
+   |compiler| feature of vim;
 2. Compilers and interpreters auto detecting;
 3. Fast switch between several installed compilers or interpreters;
 4. Multi-language support;
@@ -336,32 +336,6 @@ SETTINGS~
                                             *SingleCompile-settings*
 ----------------------------------------------------------------------------
 
-                                            *SingleCompile-autowrite*
-If you don't want to save your file automatically when you use "SingleCompile"
-command or "SingleCompileRun" command, add the following line to your vimrc:
->
- let g:SingleCompile_autowrite = 0
-<
-NOTE: If you let g:SingleCompile_usequickfix=1, this option will take no
-effect, the running result will depend on the vim's option 'autowrite'. See
-'autowrite' for more information.
-
-                                            *SingleCompile-usedialog*
-If you want SingleCompile to show message in a dialog, add the
-following line to your vimrc:
->
- let g:SingleCompile_usedialog = 1
-<
-This setting will take no effect if your vim is not compiled with
-'+dialog_con' and '+dialog_gui'.
-
-                                            *SingleCompile-usequickfix*
-If you don't want SingleCompile to use quickfix feature, add the following
-line to your vimrc:
->
- let g:SingleCompile_usequickfix = 0
-<
-
                                             *SingleCompile-alwayscompile*
 If g:SingleCompile_alwayscompile is set to 0, when using |:SCCompileRun|
 command, SingleCompile may run the output of the compilation directly if the
@@ -372,23 +346,15 @@ want to enable this feature, add the following line to your vimrc:
 <
 The default value of g:SingleCompile_alwayscompile is 1.
 
-                                            *SingleCompile-resultheight*
-g:SingleCompile_resultheight is the height of the result displaying window
-triggered by |:SCViewResult| command. To set the value, add the following line
-to your vimrc file:
+                                            *SingleCompile-autowrite*
+If you don't want to save your file automatically when you use "SingleCompile"
+command or "SingleCompileRun" command, add the following line to your vimrc:
 >
- let g:SingleCompile_resultheight = a_number
+ let g:SingleCompile_autowrite = 0
 <
-Replace a_number to any number you want, such as "10", "4". The default value
-of g:SingleCompile_resultheight is 5.
-
-                                            *SingleCompile-showquickfixiferror*
-If |quickfix| is enabled and used, and you want the quickfix window to show
-automatically if there is a compilation error, then add the following line to
-your vimrc file:
->
- let g:SingleCompile_showquickfixiferror = 1
-<
+NOTE: If you let g:SingleCompile_usequickfix=1, this option will take no
+effect, the running result will depend on the vim's option 'autowrite'. See
+'autowrite' for more information.
 
                                             *SingleCompile-menumode*
 If you don't want the menus of SingleCompile to show, copy the following line
@@ -407,6 +373,41 @@ following line to your vimrc:
  let g:SingleCompile_menumode = 2
 <
 The default value is 1.
+
+                                            *SingleCompile-resultheight*
+g:SingleCompile_resultheight is the height of the result displaying window
+triggered by |:SCViewResult| command. To set the value, add the following line
+to your vimrc file:
+>
+ let g:SingleCompile_resultheight = a_number
+<
+Replace a_number to any number you want, such as "10", "4". The default value
+of g:SingleCompile_resultheight is 5.
+
+                                            *SingleCompile-showquickfixiferror*
+If |quickfix| is enabled and used, and you want the quickfix window to show
+automatically if there is a compilation error, then add the following line to
+your vimrc file:
+>
+ let g:SingleCompile_showquickfixiferror = 1
+<
+The default value of g:SingleCompile_showquickfixiferror is 0.
+
+                                            *SingleCompile-usedialog*
+If you want SingleCompile to show message in a dialog, add the
+following line to your vimrc:
+>
+ let g:SingleCompile_usedialog = 1
+<
+This setting will take no effect if your vim is not compiled with
+'+dialog_con' and '+dialog_gui'.
+
+                                            *SingleCompile-usequickfix*
+If you don't want SingleCompile to use quickfix feature, add the following
+line to your vimrc:
+>
+ let g:SingleCompile_usequickfix = 0
+<
 
 KEY-MAPPING~
                                             *SingleCompile-key-mapping*
