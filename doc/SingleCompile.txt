@@ -211,6 +211,11 @@ If you find any bug, please report it to xuhdev@gmail.com or submit it on
 the issue tracker:
 https://bitbucket.org/xuhdev/singlecompile/issues
 
+If you've written some templates for some compilers or interpreters which are
+not included as built-in template, and you think they are useful for other
+people, you could send me an email to inform me, and I'll put them in the
+built-in templates.
+
 
 Repository:
 https://bitbucket.org/xuhdev/singlecompile
