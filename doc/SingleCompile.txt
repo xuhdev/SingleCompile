@@ -399,6 +399,16 @@ your vimrc file:
 <
 The default value of g:SingleCompile_showquickfixiferror is 0.
 
+                                            *SingleCompile-showresultafterrun*
+If "tee" command is available on your system, copy the following line to your
+vimrc file will make vim show the result of the run automatically after you
+run the program:
+>
+ let g:SingleCompile_showresultafterrun = 1
+<
+The default value of g:SingleCompile_showresultafterrun is 0. Also see
+|:SCViewResult|.
+
                                             *SingleCompile-usedialog*
 If you want SingleCompile to show message in a dialog, add the
 following line to your vimrc:

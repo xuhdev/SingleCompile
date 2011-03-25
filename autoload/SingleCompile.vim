@@ -276,6 +276,12 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_showquickfixiferror = 0
     endif
 
+    if !exists('g:SingleCompile_showresultafterrun') ||
+                \type(g:SingleCompile_showresultafterrun) != type(0)
+        unlet! g:SingleCompile_showresultafterrun
+        let g:SingleCompile_showresultafterrun = 0
+    endif
+
     if s:TemplateInitialized == 0
         
         let s:TemplateInitialized = 1
@@ -1166,6 +1172,14 @@ function! SingleCompile#Compile(...) " compile only {{{1
         cope
     endif
 
+    " if tee is available, and we are running an interpreting language source
+    " file, and we want to show the result window right after the run, then we
+    " call SingleCompile#ViewResult
+    if executable('tee') && l:toret == 2
+                \&& g:SingleCompile_showresultafterrun == 1
+        call SingleCompile#ViewResult()
+    endif
+
     return l:toret
 endfunction
 
@@ -1240,6 +1254,12 @@ function! s:Run() " {{{1
 
     " switch back to the original directory
     exec 'lcd '.escape(l:cwd, s:CharsEscape)
+
+    " if tee is available, and we want to show the result window right after
+    " the run, then we call SingleCompile#ViewResult
+    if executable('tee') && g:SingleCompile_showresultafterrun == 1
+        call SingleCompile#ViewResult()
+    endif
 
     return
 endfunction
