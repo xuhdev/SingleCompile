@@ -69,7 +69,7 @@ function! s:GetShellPipe(tee_used) " {{{2
                 if a:tee_used
                     return '2>&1| tee'
                 else
-                    return '2>&1 >'
+                    return '>%s 2>&1'
                 endif
             else
                 if a:tee_used
@@ -82,7 +82,7 @@ function! s:GetShellPipe(tee_used) " {{{2
             if executable('tee') && a:tee_used
                 return '2>&1 | tee'
             else
-                return '>'
+                return '>%s 2>&1'
             endif
         endif
     endif
@@ -1144,7 +1144,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
 
         let &l:makeprg = l:compile_cmd
-        let &l:shellpipe = s:GetShellPipe(0).' %s'
+        let &l:shellpipe = s:GetShellPipe(0)
         exec 'make'.' '.l:compile_args
 
         " check whether compiling is successful, if not, show the return value
