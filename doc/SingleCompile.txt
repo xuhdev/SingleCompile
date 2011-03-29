@@ -1,7 +1,7 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.7
+Version: 2.7.1
 Author and Current Main Maintainer: H Xu <xuhdev@gmail.com>
 Last Change: 29 March 2011
 Description: Make it more convenient to compile or run a single source file.
