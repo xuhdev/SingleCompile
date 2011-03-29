@@ -1144,7 +1144,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
 
         let &l:makeprg = l:compile_cmd
-        let &l:shellpipe = s:GetShellPipe(0).' %s';
+        let &l:shellpipe = s:GetShellPipe(0).' %s'
         exec 'make'.' '.l:compile_args
 
         " check whether compiling is successful, if not, show the return value
