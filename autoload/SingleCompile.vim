@@ -52,21 +52,38 @@ function! SingleCompile#GetVersion() " get the script version {{{1
 endfunction
 
 " util {{{1
-function! s:GetShellPipe()  " get the shell pipe command according to it's platform
+function! s:GetShellPipe(tee_used) " {{{2
+    " get the shell pipe command according to it's platform. If a:tee_used is
+    " set to nonzero, then the shell pipe contains "tee", otherwise "tee"
+    " wouldn't be contained in the return value.
+
     if has('unix')
-        if &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
-                    \&shell =~ 'bash'
-            return '2>&1| tee'
-        elseif &shell =~ 'csh' || &shell =~ 'tcsh' 
-            return '|& tee'
-        else
-            return '| tee'
-        endif
-    elseif has('win32')
-        if executable('tee')
-            return '2>&1 | tee'
-        else
-            return '>'
+            if &shell =~ 'csh' || &shell =~ 'tcsh' 
+                if a:tee_used
+                    return '|& tee'
+                else
+                    return '>&'
+                endif
+            elseif &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
+                        \&shell =~ 'bash'
+                if a:tee_used
+                    return '2>&1| tee'
+                else
+                    return '2>&1 >'
+                endif
+            else
+                if a:tee_used
+                    return '| tee'
+                else
+                    return '>'
+                endif
+            endif
+        elseif has('win32')
+            if executable('tee') && a:tee_used
+                return '2>&1 | tee'
+            else
+                return '>'
+            endif
         endif
     endif
 
@@ -1112,7 +1129,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " use quickfix for interpreting language in unix
 
         let s:run_result_tempfile = tempname()
-        exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe().
+        exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
                     \' '.s:run_result_tempfile
 
         cgetexpr readfile(s:run_result_tempfile)
@@ -1127,7 +1144,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
 
         let &l:makeprg = l:compile_cmd
-        setlocal shellpipe=>%s\ 2>&1
+        let &l:shellpipe = s:GetShellPipe(0).' %s';
         exec 'make'.' '.l:compile_args
 
         " check whether compiling is successful, if not, show the return value
@@ -1247,7 +1264,7 @@ function! s:Run() " {{{1
         " if tee is available, then redirect the result to a temp file
 
         let s:run_result_tempfile = tempname()
-        let l:run_cmd = l:run_cmd.' '.s:GetShellPipe().' '.s:run_result_tempfile
+        let l:run_cmd = l:run_cmd.' '.s:GetShellPipe(1).' '.s:run_result_tempfile
     endif
 
     exec '!'.l:run_cmd
