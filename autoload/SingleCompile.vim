@@ -741,6 +741,11 @@ function! s:Initialize() "{{{1
                     \'Interactive Data Language', 'idl', '-quiet', '')
         call SingleCompile#SetPredo('idlang', 'idl',
                     \function('s:PredoIdlang'))
+        call SingleCompile#SetCompilerTemplate('idlang', 'gdl',
+                    \'GNU Data Language incremental compiler',
+                    \'gdl', '-quiet', '')
+        call SingleCompile#SetPredo('idlang', 'gdl',
+                    \function('s:PredoIdlang'))
         " 2}}}
 
     endif

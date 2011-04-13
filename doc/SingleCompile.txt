@@ -133,6 +133,7 @@ html:
 
 IDL(Interactive Data Language):
     idl (ITT Visual Information Solutions Interactive Data Language)
+    gdl (GNU Data Language incremental compiler)
 
 Java:
     gcj (GNU Java Compiler)
@@ -667,6 +668,7 @@ html:
 
 IDL(Interactive Data Language):
     idl (ITT Visual Information Solutions Interactive Data Language)
+    gdl (GNU Data Language incremental compiler)
 
 Java:
     gcj (GNU Java Compiler)
