@@ -170,6 +170,16 @@ function! s:PredoClang(compiling_info) " clang Predo {{{2
     endif
 endfunction
 
+function! s:PredoIdlang(compiling_info) " Interactive Data Language Predo {{{2
+
+    " For IDL, there is no batch mode, so we use pipe to redirect the string 
+    " 'exit' to the interpreter to exit the interpter after everything's done.
+    let l:new_compiling_info = a:compiling_info
+    let l:new_compiling_info['command'] = 'echo "exit" | '.
+                \a:compiling_info['command']
+    return l:new_compiling_info
+endfunction
+
 " post-do functions {{{1
 function! s:PostdoWatcom(compiling_info) " watcom pre-do {{{2
     let $PATH = s:old_path
@@ -724,6 +734,13 @@ function! s:Initialize() "{{{1
                     \'Simple shell containing Tcl interpreter', 'tclsh', 
                     \'', '')
         call SingleCompile#SetVimCompiler('tcl', 'tclsh', 'tcl')
+
+        " idlang (Interactive Data Language)
+        call SingleCompile#SetCompilerTemplate('idlang', 'idl',
+                    \'ITT Visual Information Solutions '.
+                    \'Interactive Data Language', 'idl', '-quiet', '')
+        call SingleCompile#SetPredo('idlang', 'idl',
+                    \function('s:PredoIdlang'))
         " 2}}}
 
     endif

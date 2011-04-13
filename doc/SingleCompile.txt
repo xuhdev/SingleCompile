@@ -131,6 +131,9 @@ html:
     ie (Microsoft Internet Explorer)
     opera (Opera)
 
+IDL(Interactive Data Language):
+    idl (ITT Visual Information Solutions Interactive Data Language)
+
 Java:
     gcj (GNU Java Compiler)
     sunjdk (Sun Java Development Kit)
@@ -661,6 +664,9 @@ html:
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
     opera (Opera)
+
+IDL(Interactive Data Language):
+    idl (ITT Visual Information Solutions Interactive Data Language)
 
 Java:
     gcj (GNU Java Compiler)
