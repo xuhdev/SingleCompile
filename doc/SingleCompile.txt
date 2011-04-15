@@ -436,9 +436,9 @@ I recommend you to copy the following two lines about key mapping to your
 vimrc:
 >
  nmap <F9> :SingleCompile<cr>
- nmap <C-F9> :SingleCompileRun<cr>
+ nmap <F10> :SingleCompileRun<cr>
 <
-Then you can press F9 to compile, and Ctrl+F9 to compile and run.
+Then you can press F9 to compile, and F10 to compile and run.
 
 COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
@@ -472,12 +472,11 @@ information.
 To add a new compiler support by yourself, there are two ways:
 1. (Recommended) Add the following lines to your vimrc file:
 >
- call SingleCompile#SetCompilerTemplate('filetype', 'compiler',
-             \'compiler_name', 'command', 'flag', 'run_command')
+ call SingleCompile#SetCompilerTemplate('filetype', 'compiler', 'compiler_name', 'command', 'flag', 'run_command')
  call SingleCompile#SetOutfile('filetype', 'compiler', 'out_file')
  call SingleCompile#ChooseCompiler('filetype', 'compiler')
 <
-Check the first line first. "filetype" is the source file type, such as "c",
+Now Let's see the first line. "filetype" is the source file type, such as "c",
 "cpp", "python", etc. It is a terminology of vim. See |filetype| if you don't
 know what is "filetype". For compiling languages such as C, Java, Fortran,
 "compiler" is the short name for the compiler, such as "gcc", "icc"; "command"
@@ -541,8 +540,13 @@ Here are some examples modified from built-in compiler templates:
  call SingleCompile#ChooseCompiler('python', 'jython')
 <
 
-2. (Deprecated, only kept for backward compatibility use) Add the following
-lines to your vimrc file:
+2. (Deprecated, only kept for backward compatibility use) 
+If you use this method to add a language template, many features of 
+SingleCompile will be unavailable. For example, ":SCChooseCompiler" command 
+will not be available. So I don't recommend you to use this method, and this 
+method is kept ONLY for backward compatibility.
+
+Add the following lines to your vimrc file:
 >
  call SingleCompile#SetTemplate('filetype','command','stringA')
  call SingleCompile#SetTemplate('filetype','flags','stringB')
