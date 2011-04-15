@@ -1163,7 +1163,11 @@ function! SingleCompile#Compile(...) " compile only {{{1
         let l:old_shellpipe = &l:shellpipe
         let l:old_errorformat = &l:errorformat
 
-        call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
+        " if we are not in user-specified mode, then call :compiler command to 
+        " set vim compiler
+        if l:user_specified == 0
+            call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
+        endif
 
         let &l:makeprg = l:compile_cmd
         let &l:shellpipe = s:GetShellPipe(0)
