@@ -12,15 +12,16 @@ License: You can redistribute this plugin and/or modify it under the terms
 CONTENTS~
                                             *SingleCompile-contents*
 ----------------------------------------------------------------------------
-1. Overview                                 |SingleCompile-overview|
-2. Installation                             |SingleCompile-installation|
-3. Commands                                 |SingleCompile-commands|
-4. Settings                                 |SingleCompile-settings|
-5. Key-mappings                             |SingleCompile-key-mapping|
-6. Compiler template                        |SingleCompile-compiler-template|
-7. Supporting plugins                       |SingleCompile-supporting-plugins|
-8. Advanced                                 |SingleCompile-advanced|
-9. Credits                                  |SingleCompile-credits|
+1.  Overview                                 |SingleCompile-overview|
+2.  Installation                             |SingleCompile-installation|
+3.  Commands                                 |SingleCompile-commands|
+4.  Settings                                 |SingleCompile-settings|
+5.  Key-mappings                             |SingleCompile-key-mapping|
+6.  Compiler template                        |SingleCompile-compiler-template|
+7.  Supporting plugins                       |SingleCompile-supporting-plugins|
+8.  Advanced                                 |SingleCompile-advanced|
+9.  Credits                                  |SingleCompile-credits|
+10. Todo                                     |SingleCompile-todo|
 
 
 OVERVIEW~
@@ -236,6 +237,7 @@ directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
 you'd better then use helptags command to generate the help tag(for example
 use ":helptags ~/.vim/doc" on UNIX/Linux).
 
+
 COMMANDS~
                                             *SingleCompile-commands*
 ----------------------------------------------------------------------------
@@ -342,6 +344,7 @@ Windows, install cygwin or visit the following link to download a "tee"
 command for Windows:
 http://gnuwin32.sourceforge.net/packages/coreutils.htm
 
+
 SETTINGS~
                                             *SingleCompile-settings*
 ----------------------------------------------------------------------------
@@ -429,6 +432,7 @@ line to your vimrc:
  let g:SingleCompile_usequickfix = 0
 <
 
+
 KEY-MAPPING~
                                             *SingleCompile-key-mapping*
 ----------------------------------------------------------------------------
@@ -439,6 +443,7 @@ vimrc:
  nmap <F10> :SingleCompileRun<cr>
 <
 Then you can press F9 to compile, and F10 to compile and run.
+
 
 COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
@@ -746,6 +751,7 @@ zsh:
 
 See |SingleCompile-add-your-compiler| to add your compiler support.
 
+
 SUPPORTINGS~
                                             *SingleCompile-supporting-plugins*
 ----------------------------------------------------------------------------
@@ -879,6 +885,7 @@ Then if we are using g77 as our compiler, SingleCompile will first execute
 the advantage that vim's quickfix will recognize the messages output by g77
 and help us locate these errors quickly.
 
+
 CREDITS~
                                             *SingleCompile-credits*
 ----------------------------------------------------------------------------
@@ -887,5 +894,15 @@ Marc Weber  Integrate SingleCompile with vim-addon-actions, and some other
 Darek       Fix a directory switching bug
 sky hi      DMD compiler for D language built-in template
 
+
+TODO~
+                                            *SingleCompile-todo*
+----------------------------------------------------------------------------
+Add asynchronous compilation and run support.
+
+Add matlab built-in template.
+
+Make it possible to store compiler template in config files, such as ini 
+files.
 
 vim:ts=4:ft=help:tw=78:et
