@@ -68,24 +68,23 @@ function! s:GetShellPipe(tee_used) " {{{2
             endif
         elseif l:cur_shell =~ '^sh' || l:cur_shell =~ '^ksh' ||
                     \l:cur_shell =~ '^zsh' || l:cur_shell =~ '^bash'
-                if a:tee_used
-                    return '2>&1| tee'
-                else
-                    return '>%s 2>&1'
-                endif
-            else
-                if a:tee_used
-                    return '| tee'
-                else
-                    return '>'
-                endif
-            endif
-        elseif has('win32')
-            if executable('tee') && a:tee_used
-                return '2>&1 | tee'
+            if a:tee_used
+                return '2>&1| tee'
             else
                 return '>%s 2>&1'
             endif
+        else
+            if a:tee_used
+                return '| tee'
+            else
+                return '>'
+            endif
+        endif
+    elseif has('win32')
+        if executable('tee') && a:tee_used
+            return '2>&1 | tee'
+        else
+            return '>%s 2>&1'
         endif
     endif
 
