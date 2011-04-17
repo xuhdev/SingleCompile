@@ -58,14 +58,16 @@ function! s:GetShellPipe(tee_used) " {{{2
     " wouldn't be contained in the return value.
 
     if has('unix')
-            if &shell =~ 'csh' || &shell =~ 'tcsh' 
-                if a:tee_used
-                    return '|& tee'
-                else
-                    return '>&'
-                endif
-            elseif &shell =~ 'sh' || &shell =~ 'ksh' || &shell =~ 'zsh' || 
-                        \&shell =~ 'bash'
+        let l:cur_shell = strpart(&shell, strridx(&shell, '/') + 1)
+
+        if l:cur_shell =~ '^csh' || l:cur_shell =~ '^tcsh' 
+            if a:tee_used
+                return '|& tee'
+            else
+                return '>&'
+            endif
+        elseif l:cur_shell =~ '^sh' || l:cur_shell =~ '^ksh' ||
+                    \l:cur_shell =~ '^zsh' || l:cur_shell =~ '^bash'
                 if a:tee_used
                     return '2>&1| tee'
                 else
