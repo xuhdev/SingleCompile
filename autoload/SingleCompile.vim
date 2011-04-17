@@ -66,8 +66,12 @@ function! s:GetShellPipe(tee_used) " {{{2
             else
                 return '>&'
             endif
-        elseif l:cur_shell =~ '^sh' || l:cur_shell =~ '^ksh' ||
-                    \l:cur_shell =~ '^zsh' || l:cur_shell =~ '^bash'
+        elseif l:cur_shell =~ '^sh' ||
+                    \l:cur_shell =~ '^bash' ||
+                    \l:cur_shell =~ '^ksh' ||
+                    \l:cur_shell =~ '^mksh' ||
+                    \l:cur_shell =~ '^pdksh' ||
+                    \l:cur_shell =~ '^zsh'
             if a:tee_used
                 return '2>&1| tee'
             else
