@@ -163,6 +163,10 @@ Makefile:
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
 
+Pascal:
+    fpc (Free Pascal Compiler)
+    gpc (GNU Pascal Compiler)
+
 perl:
     perl (Perl Interpreter)
 
@@ -706,6 +710,10 @@ Makefile:
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
 
+Pascal:
+    fpc (Free Pascal Compiler)
+    gpc (GNU Pascal Compiler)
+
 perl:
     perl (Perl Interpreter)
 
@@ -893,6 +901,8 @@ Marc Weber  Integrate SingleCompile with vim-addon-actions, and some other
             improvements
 Darek       Fix a directory switching bug
 sky hi      DMD compiler for D language built-in template
+Zhou Yichao Free Pascal Compiler and GNU Pascal Compiler built-in template for 
+            Pascal
 
 
 TODO~

@@ -662,6 +662,19 @@ function! s:Initialize() "{{{1
                         \'-f', '')
         endif
 
+        " Pascal
+        call SingleCompile#SetCompilerTemplate('pascal', 'fpc', 
+                    \'Free Pascal Compiler', 'fpc', 
+                    \'', l:common_run_command)
+        call SingleCompile#SetOutfile('pascal', 'fpc',
+                    \l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('pascal', 'gpc', 
+                    \'GNU Pascal Compiler', 'gpc', 
+                    \'-o $(FILE_TITLE)$', l:common_run_command)
+        call SingleCompile#SetOutfile('pascal', 'gpc',
+                    \l:common_out_file)
+
+
         " perl
         call SingleCompile#SetCompilerTemplate('perl', 'perl', 
                     \'Perl Interpreter', 'perl', '', '')
