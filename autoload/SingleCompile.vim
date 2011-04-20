@@ -868,6 +868,10 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
     " set the template. if the '...' is nonzero, this function will not
     " override the corresponding template if there is an existing template 
 
+    " Set the default template first so that we could let this override the 
+    " default compile template.
+    call s:Initialize()
+
     if a:0 > 1
         call s:ShowMessage(
                     \'SingleCompile: Too many argument for'.
