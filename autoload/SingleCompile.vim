@@ -111,11 +111,26 @@ function! s:Expand(str, ...) " expand the string{{{2
     let l:rep_dict = {
                 \'\$(FILE_NAME)\$': '%',
                 \'\$(FILE_TITLE)\$': '%:r',
-                \'\$(FILE_PATH)\$': '%:p' }
+                \'\$(FILE_PATH)\$': '%:p',
+                \'\$(FILE_EXEC)\$': '%:p'}
+
+    let l:rep_dict_suffix = {
+                \'\$(FILE_NAME)\$': '',
+                \'\$(FILE_TITLE)\$': '',
+                \'\$(FILE_PATH)\$': ''}
+
+    if has('win32') || has('os2')
+        let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = '.exe'
+    elseif has('unix')
+        let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = ''
+    endif
+
 
     let l:str = a:str
     for one_key in keys(l:rep_dict)
-        let l:rep_string = expand(l:rep_dict[one_key])
+        let l:rep_string = expand(l:rep_dict[one_key]).
+                    \l:rep_dict_suffix[one_key]
+
         " on win32, win64 and os2, replace the backslash with '/'
         if has('win32') || has('os2')
             let l:rep_string = substitute(l:rep_string, '/', '\\', 'g')
