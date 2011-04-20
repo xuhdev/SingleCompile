@@ -320,7 +320,7 @@ function! s:Initialize() "{{{1
 
         " templates {{{2
         if has('win32') || has('os2')
-            let l:common_run_command = '$(FILE_TITLE)$'
+            let l:common_run_command = '$(FILE_TITLE)$.exe'
             let l:common_out_file = '$(FILE_TITLE)$.exe'
         else
             let l:common_run_command = './$(FILE_TITLE)$'
