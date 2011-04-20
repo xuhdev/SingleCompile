@@ -1081,8 +1081,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         exec 'lcd '.escape(l:cwd, s:CharsEscape)
         echo 'SingleCompile: '.
                     \'No need to compile. '.
-                    \'No modification to the source file '.
-                    \'is detected since last compilation.'
+                    \'No modification is detected.'
         return 0
     endif
 
