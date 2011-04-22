@@ -1178,7 +1178,7 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " with error message highlighting and set the return value to 1
         if v:shell_error != 0
             echo ' '
-            echohl ErrorMsg | echo 'Return value is '.v:shell_error 
+            echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error 
                         \| echohl None
             let l:toret = 1
         endif
