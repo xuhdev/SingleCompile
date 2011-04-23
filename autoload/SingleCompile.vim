@@ -596,6 +596,8 @@ function! s:Initialize() "{{{1
                     \'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 
                     \'opera', '', '')
+        call SingleCompile#SetCompilerTemplate('html', 'konqueror',
+                    \'Konqueror', 'konqueror', '', '')
         if has('win32')
             call SingleCompile#SetCompilerTemplate('html', 'ie', 
                         \'Microsoft Internet Explorer', 'iexplore', '', '',
@@ -767,6 +769,8 @@ function! s:Initialize() "{{{1
                     \'Google Chrome', 'google-chrome', '', '')
         call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 
                     \'Opera', 'opera', '', '')
+        call SingleCompile#SetCompilerTemplate('xhtml', 'konqueror',
+                    \'Konqueror', 'konqueror', '', '')
         if has('win32')
             call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
                         \'Microsoft Internet Explorer', 'iexplore', '', '',
