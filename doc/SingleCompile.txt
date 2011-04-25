@@ -914,6 +914,8 @@ Add asynchronous compilation and run support.
 
 Add matlab built-in template.
 
+Add php built-in template.
+
 Make it possible to store compiler template in config files, such as ini 
 files.
 

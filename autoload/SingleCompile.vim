@@ -610,12 +610,13 @@ function! s:Initialize() "{{{1
         " idlang (Interactive Data Language)
         call SingleCompile#SetCompilerTemplate('idlang', 'idl',
                     \'ITT Visual Information Solutions '.
-                    \'Interactive Data Language', 'idl', '-quiet', '')
+                    \'Interactive Data Language', 'idl',
+                    \"-quiet -e '@$(FILE_NAME)$'", '')
         call SingleCompile#SetPredo('idlang', 'idl',
                     \function('s:PredoIdlang'))
         call SingleCompile#SetCompilerTemplate('idlang', 'gdl',
                     \'GNU Data Language incremental compiler',
-                    \'gdl', '-quiet', '')
+                    \'gdl', "-quiet -e '@$(FILE_NAME)$'", '')
         call SingleCompile#SetPredo('idlang', 'gdl',
                     \function('s:PredoIdlang'))
 
