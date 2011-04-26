@@ -95,7 +95,7 @@ function! s:GetShellPipe(tee_used) " {{{2
 endfunction
 function! s:Expand(str, ...) " expand the string{{{2
     " the second argument is optional. If it is given and it is zero, then
-    " we thought we don't need double quote.
+    " we thought we don't need single quote.
 
     let l:double_quote_needed = 1
     if a:0 > 1
@@ -138,7 +138,7 @@ function! s:Expand(str, ...) " expand the string{{{2
 
         let l:rep_string = escape(l:rep_string, '\')
         if l:double_quote_needed && match(l:rep_string, ' ') != -1
-            let l:rep_string = '"'.l:rep_string.'"'
+            let l:rep_string = "'".l:rep_string."'"
         endif
         let l:str = substitute(l:str, one_key, l:rep_string, 'g')
     endfor
