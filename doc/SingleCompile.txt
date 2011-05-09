@@ -110,7 +110,10 @@ D:
 
 dos batch:
     dosbatch (DOS Batch)
-    
+
+erlang:
+    escript (Erlang Scripting Support)
+
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
     g77 (GNU Fortran 77 Compiler)
@@ -659,7 +662,10 @@ D:
 
 dos batch:
     dosbatch (DOS Batch)
-    
+
+erlang:
+    escript (Erlang Scripting Support)
+
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
     g77 (GNU Fortran 77 Compiler)

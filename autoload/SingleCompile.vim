@@ -502,6 +502,10 @@ function! s:Initialize() "{{{1
                         \function('s:DetectDosbatch'))
         endif
 
+        " erlang
+        call SingleCompile#SetCompilerTemplate('erlang', 'escript',
+                    \'Erlang Scripting Support', 'escript', '', '')
+
         " fortran
         call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
                     \'GNU Fortran Compiler', 'gfortran', 
