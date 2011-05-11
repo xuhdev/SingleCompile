@@ -282,6 +282,12 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_alwayscompile = 1
     endif
 
+    if !exists('g:SingleCompile_asyncrunmode') ||
+                \type(g:SingleCompile_asyncrunmode) != type('')
+        unlet! g:SingleCompile_asyncrunmode
+        let g:SingleCompile_asyncrunmode = 'none'
+    endif
+
     if !exists('g:SingleCompile_autowrite') ||
                 \type(g:SingleCompile_autowrite) != type(0)
         unlet! g:SingleCompile_autowrite
