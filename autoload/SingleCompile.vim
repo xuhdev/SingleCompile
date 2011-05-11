@@ -790,6 +790,17 @@ function! s:SetVimCompiler(lang_name, compiler) " {{{1
     endif
 endfunction
 
+function! s:SetGlobalVimCompiler(lang_name, compiler) " {{{1
+    "call the :compiler! command
+
+    let l:dict_compiler = s:CompilerTemplate[a:lang_name][a:compiler]
+    if has_key(l:dict_compiler, 'vim-compiler')
+        silent! exec 'compiler! '.l:dict_compiler['vim-compiler']
+    else
+        silent! exec 'compiler! '.a:compiler
+    endif
+endfunction
+
 " SingleCompile#SetCompilerTemplate {{{1
 function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
             \compiler_name, detect_func_arg, flags, run_command, ...) 
@@ -1181,12 +1192,26 @@ function! SingleCompile#Compile(...) " compile only {{{1
     elseif has('unix') && s:IsLanguageInterpreting(l:cur_filetype) 
         " use quickfix for interpreting language in unix
 
+        " save old values of makeprg and errorformat which :compiler! command 
+        " may change
+        let l:old_makeprg = &g:makeprg
+        let l:old_errorformat = &g:errorformat
+
+        " if we are not in user-specified mode, then call :compiler command to 
+        " set vim compiler
+        if l:user_specified == 0
+            call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
+        endif
+
         let s:run_result_tempfile = tempname()
         exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
                     \' '.s:run_result_tempfile
 
         cgetexpr readfile(s:run_result_tempfile)
 
+        " recover the old makeprg and errorformat value
+        let &g:makeprg = l:old_makeprg
+        let &g:errorformat = l:old_errorformat
     else " use quickfix for compiling language
 
         " change the makeprg and shellpipe temporarily 
