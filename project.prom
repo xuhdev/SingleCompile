@@ -3,4 +3,4 @@
 ; Main page of ProjectTag: http://www.vim.org/scripts/script.php?script_id=3219
 
 [general]
-sources=plugin/SingleCompile.vim, autoload/SingleCompile.vim
+sources=plugin/SingleCompile.vim, autoload/SingleCompile.vim, autoload/SingleCompileAsync.vim
