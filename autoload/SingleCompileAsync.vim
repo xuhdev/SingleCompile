@@ -23,7 +23,7 @@ python << EEOOFF
 try:
     import vim
     import subprocess
-except ImportError:
+except:
     vim.command("return ''")
 
 class SingleCompileAsync:
@@ -57,8 +57,9 @@ python << EEOOFF
 
 try:
     SingleCompileAsync.sub_proc = subprocess.Popen(vim.eval('a:run_command'),
-        shell = True, stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
-except OSError, ValueError:
+            shell = True,
+            stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+except:
     vim.command('let l:ret_val = 2')
 
 EEOOFF
@@ -75,7 +76,7 @@ python << EEOOFF
 
 try:
     SingleCompileAsync.sub_proc.terminate()
-except OSError:
+except:
     vim.command('let l:ret_val = 2')
 
 EEOOFF
@@ -89,7 +90,7 @@ function! s:GetOutputPython() " {{{2
 python << EEOOFF
 try:
     SingleCompileAsync.out = SingleCompileAsync.sub_proc.communicate()[0]
-except OSError, ValueError:
+except:
     vim.command('let l:ret_val = 2')
 else:
     vim.command("let l:ret_val = '" +
