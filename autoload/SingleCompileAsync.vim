@@ -92,7 +92,8 @@ try:
 except OSError, ValueError:
     vim.command('let l:ret_val = 2')
 else:
-    vim.command("let l:ret_val = '" + SingleCompileAsync.out + "'")
+    vim.command("let l:ret_val = '" +
+            SingleCompileAsync.out.replace("'", "''") + "'")
 EEOOFF
 
     if type(l:ret_val) == type('')
