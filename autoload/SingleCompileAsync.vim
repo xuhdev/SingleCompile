@@ -110,14 +110,20 @@ EEOOFF
     return l:ret_val
 endfunction
 
+function! SingleCompileAsync#GetMode() " {{{1
+    return s:cur_mode
+endfunction
+
 function! SingleCompileAsync#Initialize(mode) " {{{1
+    " return 1 if failed to initialize the mode;
+    " return 2 if mode has been set;
+    " return 3 if the specific mode doesn't exist;
+    " return 0 if succeed.
 
     " only set to the new mode if no mode is set before.
     if !empty(s:cur_mode)
         return 2
     endif
-
-    let s:cur_mode = a:mode
 
     " set function refs to dict
     if a:mode == 'python'
@@ -126,6 +132,8 @@ function! SingleCompileAsync#Initialize(mode) " {{{1
         let s:mode_dict['Run'] = function('s:RunPython')
         let s:mode_dict['Terminate'] = function('s:TerminatePython')
         let s:mode_dict['GetOutput'] = function('s:GetOutputPython')
+    else
+        return 3
     endif
 
     " call the initialization function
@@ -139,6 +147,8 @@ function! SingleCompileAsync#Initialize(mode) " {{{1
                     \| echohl None
         return 1
     endif
+
+    let s:cur_mode = a:mode
 
     return 0
 endfunction
