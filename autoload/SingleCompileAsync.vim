@@ -22,7 +22,6 @@ python << EEOOFF
 
 try:
     import vim
-    import threading
     import subprocess
 except ImportError:
     vim.command("return ''")
