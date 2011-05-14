@@ -79,7 +79,7 @@ function! s:TerminatePython() " {{{2
 python << EEOOFF
 
 try:
-    SingleCompileAsync.sub_proc.terminate()
+    SingleCompileAsync.sub_proc.kill()
 except:
     vim.command('let l:ret_val = 2')
 
