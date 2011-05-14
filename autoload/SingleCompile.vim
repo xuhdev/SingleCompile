@@ -399,7 +399,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('c', 'bcc', l:common_out_file)
     endif
     call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
-                \'gcc', '-o $(FILE_TITLE)$', l:common_run_command)
+                \'gcc', '-g -o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('c', 'gcc', {
                 \ 'pre-do'  : function('s:PredoGcc'),
                 \ 'out-file': l:common_out_file
@@ -474,7 +474,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
     endif
     call SingleCompile#SetCompilerTemplate('cpp', 'g++', 
-                \'GNU C++ Compiler', 'g++', '-o $(FILE_TITLE)$', 
+                \'GNU C++ Compiler', 'g++', '-g -o $(FILE_TITLE)$', 
                 \l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('cpp', 'g++', {
                 \ 'pre-do'  : function('s:PredoGcc'),
