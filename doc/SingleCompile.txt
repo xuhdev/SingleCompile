@@ -310,7 +310,7 @@ If you are editing a source file of a compiling language such as C, Java, this
 command will compile the file which you are editing now and run the
 executable; if you are editing a source file of a interpreted language such as
 python, ruby, this command will run the source file you are editing. That
-means, it is nothing different between :SCCompile and :SCCompileRun for a
+means, there is nothing different between |:SCCompile| and |:SCCompileRun| for an
 interpreted language source file.
 
 You can also add some arguments after SCCompileRun command, the meaning of
@@ -318,6 +318,11 @@ arguments is the same as SingleCompile command above. Here is an example:
 >
  :SCCompileRun -g -o %<
 <
+
+When the program you've just compiled (or the script you've just written)
+runs, vim will hang up to wait for the program to terminate. If you do not
+want vim to hang up when running the program, use |:SCCompileRunAsync|
+instead. See |:SCCompileRunAsync| for further information.
 
                                             *:SingleCompileRun*
 Command:
@@ -338,10 +343,13 @@ additional "-O2" flag and run the output binary file:
                                             *:SCCompileRunAsync*
 Command:
     :SCCompileRunAsync
-Same as |:SCCompileRun|, but compile the source and run asynchronously. The
-result of the run could be viewed by |:SCViewResultAsync| command. This
-command is disabled by default, to enable it, see
-|SingleCompile-asyncrunmode|.
+Same as |:SCCompileRun|, but compile the source and run asynchronously. That
+is to say, after the program starts to run, you are still able to edit the
+source file, because vim does not hang up waiting for the program to
+terminate. The result of the run could be viewed by |:SCViewResultAsync|
+command. This command is disabled by default, to enable it, see
+|SingleCompile-asyncrunmode|. This command is useful when the program takes a
+long time to run or you are developing a GUI program.
 
                                             *:SCCompileRunAsyncAF*
 Command:
@@ -349,7 +357,7 @@ Command:
 Same as |:SCCompileRunAF|, but compile the source and run asynchronously. The
 result of the run could be viewed by |:SCViewResultAsync| command. This
 command is disabled by default, to enable it, see
-|SingleCompile-asyncrunmode|.
+|SingleCompile-asyncrunmode|. Also see |:SCCompileRunAsync|.
 
                                             *:SCChooseCompiler*
 Command:
@@ -458,8 +466,9 @@ run the program:
 >
  let g:SingleCompile_showresultafterrun = 1
 <
-The default value of g:SingleCompile_showresultafterrun is 0. Also see
-|:SCViewResult|.
+This option is only valid for synchronous run. That is to say, asynchronous
+run is not affected by this option. The default value of
+g:SingleCompile_showresultafterrun is 0. Also see |:SCViewResult|.
 
                                             *SingleCompile-usedialog*
 If you want SingleCompile to show message in a dialog, add the
