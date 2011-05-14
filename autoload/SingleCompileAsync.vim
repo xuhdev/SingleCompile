@@ -32,6 +32,7 @@ if sys.version_info[0] < 2 or sys.version_info[1] < 6:
 
 class SingleCompileAsync:
     sub_proc = None
+    output = None
 
 EEOOFF
 endfunction
@@ -93,12 +94,16 @@ function! s:GetOutputPython() " {{{2
 
 python << EEOOFF
 try:
-    SingleCompileAsync.out = SingleCompileAsync.sub_proc.communicate()[0]
+    SingleCompileAsync.tmpout = SingleCompileAsync.sub_proc.communicate()[0]
 except:
-    vim.command('let l:ret_val = 2')
+    if SingleCompileAsync.output == None:
+        vim.command('let l:ret_val = 2')
 else:
-    vim.command("let l:ret_val = '" +
-            SingleCompileAsync.out.replace("'", "''") + "'")
+    SingleCompileAsync.output = SingleCompileAsync.tmpout
+    del SingleCompileAsync.tmpout
+
+vim.command("let l:ret_val = '" +
+        SingleCompileAsync.output.replace("'", "''") + "'")
 EEOOFF
 
     if type(l:ret_val) == type('')
