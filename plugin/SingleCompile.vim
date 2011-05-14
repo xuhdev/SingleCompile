@@ -18,25 +18,31 @@ set cpo&vim
 
 
 " commands {{{1
-command -nargs=* SCCompile       
-            \if <q-args> == '' | call SingleCompile#Compile() | 
-            \else | call SingleCompile#Compile(<q-args>) | endif
-command -nargs=* SCCompileRun    
-            \if <q-args> == '' | call SingleCompile#CompileRun() | 
-            \else | call SingleCompile#CompileRun(<q-args>) | endif
-command -nargs=* SingleCompile       
-            \if <q-args> == '' | call SingleCompile#Compile() |
-            \else | call SingleCompile#Compile(<q-args>) | endif
-command -nargs=* SingleCompileRun    
-            \if <q-args> == '' | call SingleCompile#CompileRun() | 
-            \else | call SingleCompile#CompileRun(<q-args>) | endif
-command -nargs=+ SCCompileAF    
-            \call SingleCompile#Compile('AdditionalFlags', <q-args>)
-command -nargs=+ SCCompileRunAF    
-            \call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
+command -nargs=* SCCompile
+            \ if <q-args> == '' | call SingleCompile#Compile() |
+            \ else | call SingleCompile#Compile(<q-args>) | endif
+command -nargs=* SCCompileRun
+            \ if <q-args> == '' | call SingleCompile#CompileRun() |
+            \ else | call SingleCompile#CompileRun(<q-args>) | endif
+command -nargs=* SCCompileRunAsync
+            \ if <q-args> == '' | call SingleCompile#CompileRunAsync() |
+            \ else | call SingleCompile#CompileRunAsync(<q-args>) | endif
+command -nargs=* SingleCompile
+            \ if <q-args> == '' | call SingleCompile#Compile() |
+            \ else | call SingleCompile#Compile(<q-args>) | endif
+command -nargs=* SingleCompileRun
+            \ if <q-args> == '' | call SingleCompile#CompileRun() |
+            \ else | call SingleCompile#CompileRun(<q-args>) | endif
+command -nargs=+ SCCompileAF
+            \ call SingleCompile#Compile('AdditionalFlags', <q-args>)
+command -nargs=+ SCCompileRunAF
+            \ call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
+command -nargs=+ SCCompileRunAsyncAF
+            \ call SingleCompile#CompileRunAsync('AdditionalFlags', <q-args>)
 command SCChooseCompiler call SingleCompile#ChooseCompiler(&filetype)
 command SCChooseInterpreter call SingleCompile#ChooseCompiler(&filetype)
-command SCViewResult call SingleCompile#ViewResult()
+command SCViewResult call SingleCompile#ViewResult(0)
+command SCViewResultAsync call SingleCompile#ViewResult(1)
 
 " menus {{{1
 
