@@ -1617,7 +1617,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
         if type(l:async_out) == type(0)
             call s:ShowMessage('SingleCompile: '.
                         \'Failed to get the output of the '.
-                        \'process run asynchronously.')
+                        \'process running asynchronously.')
             return
         endif
     endif
