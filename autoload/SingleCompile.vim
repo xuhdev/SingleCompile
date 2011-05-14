@@ -146,6 +146,24 @@ function! s:Expand(str, ...) " expand the string{{{2
     return l:str
 endfunction
 
+function! s:RunAsyncWithMessage(run_cmd) " {{{2
+    " run a command and display messages that we need to
+
+    let l:async_run_res = SingleCompileAsync#Run(a:run_cmd)
+
+    if l:async_run_res != 0
+        call s:ShowMessage(
+                    \"SingleCompile: Fail to run the command '".
+                    \a:run_cmd."'.")
+
+        if l:async_run_res == 1
+            call s:ShowMessage('SingleCompile: '.
+                        \'There is already an existing process '.
+                        \'running in background.')
+        endif
+    endif
+endfunction
+
 " pre-do functions {{{1
 
 function! s:AddLmIfMathH(compiling_info) " {{{2 
@@ -1031,9 +1049,21 @@ function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
     endif
 endfunction
 
-function! SingleCompile#Compile(...) " compile only {{{1
+function! SingleCompile#Compile(...) " compile synchronously {{{1
+    return s:CompileInternal(a:000, 0)
+endfunction
+
+function! SingleCompile#CompileAsync(...) " compile asynchronously {{{1
+    return s:CompileInternal(a:000, 1)
+endfunction
+
+function! s:CompileInternal(arg_list, async) " compile only {{{1
     call s:Initialize()
     let l:toret = 0
+
+    " whether we should run asynchronously if we are working with an
+    " interpreting language
+    let l:async = a:async && !empty(SingleCompileAsync#GetMode())
 
     " save current file type. Don't use &filetype directly because after
     " 'make' and quickfix is working and the error is in another file,
@@ -1133,24 +1163,24 @@ function! SingleCompile#Compile(...) " compile only {{{1
         return 0
     endif
 
-    if a:0 == 1 
+    if len(a:arg_list) == 1 
         " if there is only one argument, it means use this argument as the
         " compilation flag
  
-        let l:compile_flags = a:1
-    elseif a:0 == 2 && l:user_specified == 1 && 
+        let l:compile_flags = a:arg_list[0]
+    elseif len(a:arg_list) == 2 && l:user_specified == 1 && 
                 \has_key(g:SingleCompile_templates[l:cur_filetype],'flags') 
         " if there are two arguments, it means append the provided argument to
         " the flag defined in the template
 
         let l:compile_flags = 
                     \g:SingleCompile_templates[l:cur_filetype]['flags'].
-                    \' '.a:2
-    elseif a:0 == 0 && l:user_specified == 1 && 
+                    \' '.a:arg_list[1]
+    elseif len(a:arg_list) == 0 && l:user_specified == 1 && 
                 \has_key(g:SingleCompile_templates[l:cur_filetype],'flags')
         let l:compile_flags = 
                     \g:SingleCompile_templates[l:cur_filetype]['flags']
-    elseif a:0 == 2 && l:user_specified == 0 && has_key(
+    elseif len(a:arg_list) == 2 && l:user_specified == 0 && has_key(
                 \s:CompilerTemplate[l:cur_filetype][ 
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
                 \'flags')
@@ -1159,8 +1189,8 @@ function! SingleCompile#Compile(...) " compile only {{{1
 
         let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype, 
                     \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'], 
-                    \'flags').' '.a:2
-    elseif a:0 == 0 && l:user_specified == 0 && has_key(
+                    \'flags').' '.a:arg_list[1]
+    elseif len(a:arg_list) == 0 && l:user_specified == 0 && has_key(
                 \s:CompilerTemplate[l:cur_filetype][ 
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
                 \'flags')
@@ -1201,40 +1231,52 @@ function! SingleCompile#Compile(...) " compile only {{{1
         " if quickfix is not enabled for this plugin or the language is an
         " interpreting language not in unix, then don't use quickfix
 
-        exec '!'.l:compile_cmd.' '.l:compile_args
+        if l:async && s:IsLanguageInterpreting(l:cur_filetype)
 
-        " check whether compiling is successful, if not, show the return value
-        " with error message highlighting and set the return value to 1
-        if v:shell_error != 0
-            echo ' '
-            echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error 
-                        \| echohl None
-            let l:toret = 1
+            call s:RunAsyncWithMessage(l:compile_cmd.' '.l:compile_args)
+        else
+            exec '!'.l:compile_cmd.' '.l:compile_args
+
+            " check whether compiling is successful, if not, show the return value
+            " with error message highlighting and set the return value to 1
+            if v:shell_error != 0
+                echo ' '
+                echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error 
+                            \| echohl None
+                let l:toret = 1
+            endif
         endif
 
     elseif has('unix') && s:IsLanguageInterpreting(l:cur_filetype) 
         " use quickfix for interpreting language in unix
 
-        " save old values of makeprg and errorformat which :compiler! command 
-        " may change
-        let l:old_makeprg = &g:makeprg
-        let l:old_errorformat = &g:errorformat
+        if l:async
+            " run the interpreter asynchronously
 
-        " if we are not in user-specified mode, then call :compiler command to 
-        " set vim compiler
-        if l:user_specified == 0
-            call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
+            call s:RunAsyncWithMessage(l:compile_cmd.' '.l:compile_args)
+        else
+            " save old values of makeprg and errorformat which :compiler!
+            " command may change
+            let l:old_makeprg = &g:makeprg
+            let l:old_errorformat = &g:errorformat
+
+            " if we are not in user-specified mode, then call :compiler
+            " command to set vim compiler
+            if l:user_specified == 0
+                call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
+            endif
+
+            let s:run_result_tempfile = tempname()
+            exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
+                        \' '.s:run_result_tempfile
+
+            cgetexpr readfile(s:run_result_tempfile)
+
+            " recover the old makeprg and errorformat value
+            let &g:makeprg = l:old_makeprg
+            let &g:errorformat = l:old_errorformat
         endif
 
-        let s:run_result_tempfile = tempname()
-        exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
-                    \' '.s:run_result_tempfile
-
-        cgetexpr readfile(s:run_result_tempfile)
-
-        " recover the old makeprg and errorformat value
-        let &g:makeprg = l:old_makeprg
-        let &g:errorformat = l:old_errorformat
     else " use quickfix for compiling language
 
         " change the makeprg and shellpipe temporarily 
@@ -1295,9 +1337,9 @@ function! SingleCompile#Compile(...) " compile only {{{1
     endif
 
     " if tee is available, and we are running an interpreting language source
-    " file, and we want to show the result window right after the run, then we
-    " call SingleCompile#ViewResult
-    if executable('tee') && l:toret == 2
+    " file, and we want to show the result window right after the run, and we
+    " are not running it asynchronously, then we call SingleCompile#ViewResult
+    if executable('tee') && l:toret == 2 && !l:async
                 \&& g:SingleCompile_showresultafterrun == 1
         call SingleCompile#ViewResult()
     endif
@@ -1409,13 +1451,21 @@ function! s:Run(async) " {{{1
 endfunction
 
 function! s:CompileRunInternal(comp_param, async) " {{{1
+
+    " call different functions according to a:async
+    if a:async
+        let l:CompileFunc = function('SingleCompile#CompileAsync')
+    else
+        let l:CompileFunc = function('SingleCompile#Compile')
+    endif
+
     if len(a:comp_param) == 1
-        let l:compile_result = SingleCompile#Compile(a:comp_param[0])
+        let l:compile_result = l:CompileFunc(a:comp_param[0])
     elseif len(a:comp_param) == 2
-        let l:compile_result = SingleCompile#Compile(
+        let l:compile_result = l:CompileFunc(
                     \a:comp_param[0], a:comp_param[1])
     else
-        let l:compile_result = SingleCompile#Compile()
+        let l:compile_result = l:CompileFunc()
     endif
 
     if l:compile_result != 0
