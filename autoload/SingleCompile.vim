@@ -154,7 +154,7 @@ function! s:RunAsyncWithMessage(run_cmd) " {{{2
     if l:async_run_res != 0
         call s:ShowMessage(
                     \"SingleCompile: Fail to run the command '".
-                    \a:run_cmd."'.")
+                    \a:run_cmd."'. Error code: ".l:async_run_res)
 
         if l:async_run_res == 1
             call s:ShowMessage('SingleCompile: '.
@@ -1414,16 +1414,7 @@ function! s:Run(async) " {{{1
     endif
 
     if l:async
-        let l:async_run_res = SingleCompileAsync#Run(l:run_cmd)
-
-        if l:async_run_res == 1
-            call s:ShowMessage(
-                        \"SingleCompile: '".l:run_cmd."' is still running.")
-        elseif l:async_run_res != 0
-            call s:ShowMessage(
-                        \"SingleCompile: Fail to run the command '".
-                        \l:run_cmd."'")
-        endif
+        call s:RunAsyncWithMessage(l:run_cmd)
     else
         if executable('tee')
             " if tee is available, then redirect the result to a temp file
