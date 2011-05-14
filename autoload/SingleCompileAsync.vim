@@ -126,7 +126,7 @@ function! SingleCompileAsync#Initialize(mode) " {{{1
     endif
 
     " set function refs to dict
-    if a:mode == 'python'
+    if a:mode ==? 'python'
         let s:mode_dict['Initialize'] = function('s:InitializePython')
         let s:mode_dict['IsRunning'] = function('s:IsRunningPython')
         let s:mode_dict['Run'] = function('s:RunPython')
