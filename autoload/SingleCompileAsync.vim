@@ -105,14 +105,17 @@ python << EEOOFF
 try:
     SingleCompileAsync.tmpout = SingleCompileAsync.sub_proc.communicate()[0]
 except:
-    if SingleCompileAsync.output == None:
-        vim.command('let l:ret_val = 2')
+    pass
 else:
     SingleCompileAsync.output = SingleCompileAsync.tmpout
     del SingleCompileAsync.tmpout
 
-vim.command("let l:ret_val = '" +
-        SingleCompileAsync.output.replace("'", "''") + "'")
+try:
+    vim.command("let l:ret_val = '" +
+            SingleCompileAsync.output.replace("'", "''") + "'")
+except:
+    vim.command('let l:ret_val = 2')
+
 EEOOFF
 
     if type(l:ret_val) == type('')
