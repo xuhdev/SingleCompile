@@ -57,7 +57,9 @@ Features:
 3. Fast switch between several installed compilers or interpreters;
 4. Multi-language support;
 5. Custom your own compiler/interpreter template;
-6. View the result of last run command at any time(requires "tee" command).
+6. View the result of last run command at any time(requires "tee" command);
+7. Run the compiled program asynchronously and view the result at any time
+   (see |:SCCompileRunAsync|).
 
 
 Here is a list of built-in supported compilers or interpreter(For some
@@ -254,7 +256,7 @@ COMMANDS~
 ----------------------------------------------------------------------------
 
                                             *:SCCompile*
-Commands:
+Command:
     :SCCompile
 If you are editing a source file of a compiling language such as C, Java, this
 command will compile the file which you are editing now. If you are editing a
@@ -273,13 +275,13 @@ time, just use the following command:
 Also see |:SCCompileAF|.
 
                                             *:SingleCompile*
-Commands:
+Command:
     :SingleCompile
 Same as |:SCCompile|, only for backward compatibility use. Not recommended to 
 use any more.
 
                                             *:SCCompileAF*
-Commands:
+Command:
     :SCCompileAF
 This command is also used for compiling your source file, but it allows you to
 append some additional compilation or interpretion flags other than the flags
@@ -302,7 +304,7 @@ file, while ":SCCompileAF -O2" will use "gcc -o some_file -O2 some_file.c" to
 compile your source file. 
 
                                             *:SCCompileRun*
-Commands:
+Command:
     :SCCompileRun
 If you are editing a source file of a compiling language such as C, Java, this
 command will compile the file which you are editing now and run the
@@ -318,13 +320,13 @@ arguments is the same as SingleCompile command above. Here is an example:
 <
 
                                             *:SingleCompileRun*
-Commands:
+Command:
     :SingleCompileRun
 Same as |:SCCompileRun|, only for backward compatibility use. Not recommended 
 to use any more.
 
                                             *:SCCompileRunAF*
-Commands:
+Command:
     :SCCompileRunAF
 Same as |:SCCompileAF|, but also run the binary file after compilation. For
 example, the following command is going to compile your source file with an
@@ -334,7 +336,7 @@ additional "-O2" flag and run the output binary file:
 <
 
                                             *:SCCompileRunAsync*
-Commands:
+Command:
     :SCCompileRunAsync
 Same as |:SCCompileRun|, but compile the source and run asynchronously. The
 result of the run could be viewed by |:SCViewResultAsync| command. This
@@ -342,7 +344,7 @@ command is disabled by default, to enable it, see
 |SingleCompile-asyncrunmode|.
 
                                             *:SCCompileRunAsyncAF*
-Commands:
+Command:
     :SCCompileRunAsyncAF
 Same as |:SCCompileRunAF|, but compile the source and run asynchronously. The
 result of the run could be viewed by |:SCViewResultAsync| command. This
@@ -350,7 +352,7 @@ command is disabled by default, to enable it, see
 |SingleCompile-asyncrunmode|.
 
                                             *:SCChooseCompiler*
-Commands:
+Command:
     :SCChooseCompiler
 Choose a compiler to use. This command will display a list of compilers for
 you to choose one. If you want to set a default compiler in your vimrc, please
@@ -358,12 +360,12 @@ use the function SingleCompile#ChooseCompiler. See
 |SingleCompile-use-built-in-template|.
 
                                             *:SCChooseInterpreter*
-Commands:
+Command:
     :SCChooseInterpreter
 Same as |:SCChooseCompiler|.
 
                                             *:SCViewResult*
-Commands:
+Command:
     :SCViewResult 
 View the result of the last run command. Only valid when "tee" command is
 available.  "tee" is usually available on a UNIX system. If you are under
@@ -372,7 +374,7 @@ command for Windows:
 http://gnuwin32.sourceforge.net/packages/coreutils.htm
 
                                             *:SCViewResultAsync*
-Commands:
+Command:
     :SCViewResultAsync
 Same as |:SCViewResult|, but the result displayed is the result of the process
 run by |:SCCompileRunAsync| or |:SCCompileRunAsyncAF|.
