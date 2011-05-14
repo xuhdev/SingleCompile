@@ -333,6 +333,22 @@ additional "-O2" flag and run the output binary file:
  :SCCompileRunAF -O2
 <
 
+                                            *:SCCompileRunAsync*
+Commands:
+    :SCCompileRunAsync
+Same as |:SCCompileRun|, but compile the source and run asynchronously. The
+result of the run could be viewed by |:SCViewResultAsync| command. This
+command is disabled by default, to enable it, see
+|SingleCompile-asyncrunmode|.
+
+                                            *:SCCompileRunAsyncAF*
+Commands:
+    :SCCompileRunAsyncAF
+Same as |:SCCompileRunAF|, but compile the source and run asynchronously. The
+result of the run could be viewed by |:SCViewResultAsync| command. This
+command is disabled by default, to enable it, see
+|SingleCompile-asyncrunmode|.
+
                                             *:SCChooseCompiler*
 Commands:
     :SCChooseCompiler
@@ -355,6 +371,12 @@ Windows, install cygwin or visit the following link to download a "tee"
 command for Windows:
 http://gnuwin32.sourceforge.net/packages/coreutils.htm
 
+                                            *:SCViewResultAsync*
+Commands:
+    :SCViewResultAsync
+Same as |:SCViewResult|, but the result displayed is the result of the process
+run by |:SCCompileRunAsync| or |:SCCompileRunAsyncAF|.
+
 
 SETTINGS~
                                             *SingleCompile-settings*
@@ -369,6 +391,16 @@ want to enable this feature, add the following line to your vimrc:
  let g:SingleCompile_alwayscompile = 0
 <
 The default value of g:SingleCompile_alwayscompile is 1.
+
+                                            *SingleCompile-asyncrunmode*
+This option specifies the asynchronous mode for |:SCCompileRunAsync| and
+|:SCCompileRunAsyncAF|. The default value is "none", which means the
+asynchronous run command is disabled. Currently only python mode is
+available (vim compiled with python 2.6.* or 2.7.* inteface is required).
+To enable it, add the following line to your vimrc file:
+>
+ let g:SingleCompile_asyncrunmode = 'python'
+<
 
                                             *SingleCompile-autowrite*
 If you don't want to save your file automatically when you use "SingleCompile"
@@ -916,7 +948,7 @@ sky hi      DMD compiler for D language built-in template
 TODO~
                                             *SingleCompile-todo*
 ----------------------------------------------------------------------------
-Add asynchronous compilation and run support.
+Add asynchronous compilation support.
 
 Add matlab built-in template.
 
