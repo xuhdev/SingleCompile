@@ -1471,6 +1471,13 @@ function! s:CompileRunInternal(comp_param, async) " {{{1
     if l:compile_result != 0
         return
     endif
+
+    if a:async
+        echo 'SingleCompile: Now the program is running in background.'
+        echo 'SingleCompile: you could use :SCViewResultAsync to see the '
+                    \.'output if the program has terminated.'
+    endif
+
     call s:Run(a:async)
 endfunction
 
