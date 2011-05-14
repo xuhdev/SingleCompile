@@ -1,7 +1,7 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.8beta
+Version: 2.8.1beta
 Original Author: H Xu <xuhdev@gmail.com>
 Current Main Maintainers: H Xu <xuhdev@gmail.com>
                           Zhou Yichao <broken.zhou@gmail.com>
