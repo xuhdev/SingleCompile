@@ -275,8 +275,8 @@ Also see |:SCCompileAF|.
                                             *:SingleCompile*
 Commands:
     :SingleCompile
-Same as |:SCCompile|, only for backward compatible use. Not recommended to use
-any more.
+Same as |:SCCompile|, only for backward compatibility use. Not recommended to 
+use any more.
 
                                             *:SCCompileAF*
 Commands:
@@ -320,8 +320,8 @@ arguments is the same as SingleCompile command above. Here is an example:
                                             *:SingleCompileRun*
 Commands:
     :SingleCompileRun
-Same as |:SCCompileRun|, only for backward compatible use. Not recommended to
-use any more.
+Same as |:SCCompileRun|, only for backward compatibility use. Not recommended 
+to use any more.
 
                                             *:SCCompileRunAF*
 Commands:
