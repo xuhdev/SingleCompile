@@ -28,7 +28,7 @@ except:
     vim.command("return 'Library import error.'")
 
 if sys.version_info[0] < 2 or sys.version_info[1] < 6:
-    vim.command("return 'At least python 2.6 is required.")
+    vim.command("return 'At least python 2.6 is required.'")
 
 class SingleCompileAsync:
     sub_proc = None
