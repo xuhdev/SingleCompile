@@ -372,6 +372,12 @@ Command:
     :SCChooseInterpreter
 Same as |:SCChooseCompiler|.
 
+                                            *:SCTerminateAsync*
+Command:
+    :SCTerminateAsync
+Terminate the process which is running asynchronously if exists. Also see
+|:SCCompileRunAsync|.
+
                                             *:SCViewResult*
 Command:
     :SCViewResult 

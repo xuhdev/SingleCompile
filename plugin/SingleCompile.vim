@@ -39,6 +39,14 @@ command -nargs=+ SCCompileRunAF
             \ call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
 command -nargs=+ SCCompileRunAsyncAF
             \ call SingleCompile#CompileRunAsync('AdditionalFlags', <q-args>)
+command SCTerminateAsync
+            \ if SingleCompileAsync#Terminate() |
+            \ echohl ErrorMsg |
+            \ echo 'Failed to terminate the background process!' |
+            \ echohl None |
+            \ else |
+            \ echo 'Background process terminated.' |
+            \ endif
 command SCChooseCompiler call SingleCompile#ChooseCompiler(&filetype)
 command SCChooseInterpreter call SingleCompile#ChooseCompiler(&filetype)
 command SCViewResult call SingleCompile#ViewResult(0)
