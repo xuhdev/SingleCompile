@@ -410,13 +410,34 @@ The default value of g:SingleCompile_alwayscompile is 1.
 
                                             *SingleCompile-asyncrunmode*
 This option specifies the asynchronous mode for |:SCCompileRunAsync| and
-|:SCCompileRunAsyncAF|. The default value is "none", which means the
-asynchronous run command is disabled. Currently only python mode is
-available (vim compiled with python 2.6.* or 2.7.* inteface is required).
-To enable it, add the following line to your vimrc file:
+|:SCCompileRunAsyncAF|. The default value is "auto", which means SingleCompile
+will automatically detect whether you are able to enable async run mode and
+select one mode for you. Use the following line, replace modename with the
+mode you want to change mode:
+>
+ let g:SingleCompile_asyncrunmode = 'modename'
+<
+
+Here is a list of available mode:
+
+auto        This is the default value. SingleCompile automatically selects one
+            mode for you.
+>
+ let g:SingleCompile_asyncrunmode = 'auto'
+<
+
+none        Disable asynchronous mode, which means |:SCCompileRunAsync| and
+            |:SCCompileRunAsyncAF| and related commands are disabled.
+>
+ let g:SingleCompile_asyncrunmode = 'none'
+<
+
+python      Use python interface when running asynchronously. Required vim
+            compiled with python interface 2.6+. See |+python|.
 >
  let g:SingleCompile_asyncrunmode = 'python'
 <
+
 
                                             *SingleCompile-autowrite*
 If you don't want to save your file automatically when you use "SingleCompile"

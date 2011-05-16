@@ -310,7 +310,7 @@ function! s:Initialize() "{{{1
     if !exists('g:SingleCompile_asyncrunmode') ||
                 \type(g:SingleCompile_asyncrunmode) != type('')
         unlet! g:SingleCompile_asyncrunmode
-        let g:SingleCompile_asyncrunmode = 'none'
+        let g:SingleCompile_asyncrunmode = 'auto'
     endif
 
     if !exists('g:SingleCompile_autowrite') ||
