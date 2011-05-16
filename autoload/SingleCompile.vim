@@ -1448,6 +1448,12 @@ endfunction
 
 function! s:CompileRunInternal(comp_param, async) " {{{1
 
+    " if async run is not available, give an error message and stop here.
+    if a:async && empty(SingleCompileAsync#GetMode())
+        call s:ShowMessage('Async mode is not available for your vim.')
+        return
+    endif
+
     " call different functions according to a:async
     if a:async
         let l:CompileFunc = function('SingleCompile#CompileAsync')
