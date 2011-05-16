@@ -372,6 +372,12 @@ Command:
     :SCChooseInterpreter
 Same as |:SCChooseCompiler|.
 
+                                            *:SCIsRunningAsync*
+Command:
+    :SCIsRunningAsync
+Check whether the asynchronously run process is still running. Also see
+|:SCCompileRunAsync|.
+
                                             *:SCTerminateAsync*
 Command:
     :SCTerminateAsync

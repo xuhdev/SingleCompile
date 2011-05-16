@@ -39,6 +39,12 @@ command -nargs=+ SCCompileRunAF
             \ call SingleCompile#CompileRun('AdditionalFlags', <q-args>)
 command -nargs=+ SCCompileRunAsyncAF
             \ call SingleCompile#CompileRunAsync('AdditionalFlags', <q-args>)
+command SCIsRunningAsync
+            \ if SingleCompileAsync#IsRunning() == 1 |
+            \ echo 'The background process is running.' |
+            \ else |
+            \ echo 'The background process is not running.' |
+            \ endif
 command SCTerminateAsync
             \ if SingleCompileAsync#Terminate() |
             \ echohl ErrorMsg |
