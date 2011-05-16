@@ -366,6 +366,11 @@ function! s:Initialize() "{{{1
         endif
     endif
 
+    " terminate the background process before existing vim
+    if has('autocmd')
+        autocmd VimLeave * call SingleCompileAsync#Terminate()
+    endif
+
     " templates {{{2
     if has('win32') || has('os2')
         let l:common_run_command = '$(FILE_TITLE)$.exe'
