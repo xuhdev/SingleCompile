@@ -99,8 +99,7 @@ function! s:Expand(str, ...) " expand the string{{{2
 
     let l:double_quote_needed = 1
     if a:0 > 1
-        call s:ShowMessage('SingleCompile: '.
-                    \'s:Expand argument error.')
+        call s:ShowMessage('s:Expand argument error.')
         return ''
     elseif a:0 == 1
         if !a:1
@@ -153,11 +152,11 @@ function! s:RunAsyncWithMessage(run_cmd) " {{{2
 
     if l:async_run_res != 0
         call s:ShowMessage(
-                    \"SingleCompile: Fail to run the command '".
+                    \"Fail to run the command '".
                     \a:run_cmd."'. Error code: ".l:async_run_res)
 
         if l:async_run_res == 1
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'There is already an existing process '.
                         \'running in background.')
         endif
@@ -357,10 +356,10 @@ function! s:Initialize() "{{{1
                     \g:SingleCompile_asyncrunmode)
 
         if l:async_init_res == 3
-            call s:ShowMessage("SingleCompile: The specified async mode '".
+            call s:ShowMessage("The specified async mode '".
                         \g:SingleCompile_asyncrunmode."' doesn't exist.")
         elseif l:async_init_res != 0
-            call s:ShowMessage("SingleCompile: ".
+            call s:ShowMessage(
                         \"Failed to initialize the async mode'".
                         \g:SingleCompile_asyncrunmode."'.")
         endif
@@ -941,7 +940,7 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
 
     if a:0 > 1
         call s:ShowMessage(
-                    \'SingleCompile: Too many argument for'.
+                    \'Too many argument for'.
                     \' SingleCompile#SetCompilerSingleTemplate function!')
         return
     endif
@@ -976,7 +975,7 @@ function! SingleCompile#SetTemplate(langname, stype, string,...) " {{{1
     " override the corresponding template if there is an existing template
     
     if a:0 > 1
-        call s:ShowMessage('SingleCompile: Too many argument for '.
+        call s:ShowMessage('Too many argument for '.
                     \'SingleCompile#SetTemplate function')
         return
     endif
@@ -1015,9 +1014,9 @@ function! s:ShowMessage(message) "{{{1
 
     if g:SingleCompile_usedialog == 0 || !((has('gui_running') &&
                 \has('dialog_gui')) || has('dialog_con'))
-        echohl Error | echo a:message | echohl None
+        echohl Error | echo 'SingleCompile: '.a:message | echohl None
     else
-        call confirm(a:message)
+        call confirm('SingleCompile: '.a:message)
     endif
 
 endfunction
@@ -1078,7 +1077,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " if current filetype is an empty string, show an error message and
     " return.
     if l:cur_filetype == ''
-        call s:ShowMessage("SingleCompile: ".
+        call s:ShowMessage(
                     \"Current buffer's filetype is not specified. ".
                     \"Use \" :help 'filetype' \" command to see more details".
                     \" if you don't know what filetype is.")
@@ -1096,7 +1095,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
                 \type(s:CompilerTemplate[l:cur_filetype]) == type({})
         let l:user_specified = 0
     else
-        call s:ShowMessage('SingleCompile: Language template for "'.
+        call s:ShowMessage('Language template for "'.
                     \l:cur_filetype.'" is not defined on your system.')
         return -1
     endif
@@ -1104,7 +1103,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " if current buffer has no name (for example the buffer has never been
     " saved), don't compile
     if bufname('%') == ''
-        call s:ShowMessage('SingleCompile: '.
+        call s:ShowMessage(
                     \'Current buffer does not have a file name. '.
                     \'Please save current buffer first. '.
                     \'Compilation canceled.')
@@ -1124,7 +1123,6 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             " if l:detected_compilers is empty, then no compiler is detected
             if empty(l:detected_compilers)
                 call s:ShowMessage(
-                            \'SingleCompile: '.
                             \'No compiler is detected on your system!')
                 return -1
             endif
@@ -1402,7 +1400,7 @@ function! s:Run(async) " {{{1
                 \'run')
         let l:user_specified = 0
     else
-        call s:ShowMessage('SingleCompile: Fail to run!')
+        call s:ShowMessage('Fail to run!')
     endif
 
     " save current working directory
@@ -1498,14 +1496,14 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
     call s:Initialize()
 
     if a:0 > 1
-        call s:ShowMessage('SingleCompile: '.
+        call s:ShowMessage(
                     \'Too many argument for SingleCompile#ChooseCompiler!')
         return
     endif
 
     if a:0 == 1 " a:0 == 1 means the user has specified a compiler to choose
         if type(a:1) != type('')
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'SingleCompile#ChooseCompiler argument error')
             return
         endif
@@ -1523,7 +1521,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             if count(l:detected_compilers, a:1) == 0 
                 " if a:1 is not a detected compiler
 
-                call s:ShowMessage('SingleCompile: "'.
+                call s:ShowMessage('"'.
                             \a:1.'" is not available on your system.')
                 return
             endif
@@ -1531,7 +1529,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = a:1
         else
             " current language template is not set
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'The template of the compiler/interpreter "'.
                         \a:1.'" is not set.')
         endif
@@ -1546,7 +1544,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         " if the language template is not defined for this language, show an
         " error message then return
         if !has_key(s:CompilerTemplate, a:lang_name)
-            call s:ShowMessage('SingleCompile: Language template for "'.
+            call s:ShowMessage('Language template for "'.
                         \a:lang_name.'" is not defined on your system.')
             return
         endif
@@ -1581,7 +1579,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         " if l:choose_list is empty, it means no compiler is available for
         " this language
         if empty(l:choose_list)
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'No compiler is available for this language!')
             return
         endif
@@ -1596,7 +1594,7 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             return
         elseif l:user_choose > len(l:choose_list_display) 
             echo ' ' 
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'The number you have chosen is invalid.')
             return
         endif
@@ -1626,7 +1624,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
     if a:async
         let l:async_out = SingleCompileAsync#GetOutput()
         if type(l:async_out) == type(0)
-            call s:ShowMessage('SingleCompile: '.
+            call s:ShowMessage(
                         \'Failed to get the output of the '.
                         \'process running asynchronously.')
             return
