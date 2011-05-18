@@ -349,7 +349,8 @@ source file, because vim does not hang up waiting for the program to
 terminate. The result of the run could be viewed by |:SCViewResultAsync|
 command. This command is disabled by default, to enable it, see
 |SingleCompile-asyncrunmode|. This command is useful when the program takes a
-long time to run or you are developing a GUI program.
+long time to run or you are developing a GUI program. Also see
+|:SCViewResultAsync|, |:SCTerminateAsync| and |:SCIsRunningAsync|.
 
                                             *:SCCompileRunAsyncAF*
 Command:
@@ -997,6 +998,8 @@ Add asynchronous compilation support.
 Add matlab built-in template.
 
 Add php built-in template.
+
+Improve the detection of MSVC on Windows.
 
 Make it possible to store compiler template in config files, such as ini 
 files.
