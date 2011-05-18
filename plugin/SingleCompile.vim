@@ -66,51 +66,48 @@ endif
 
 if has('gui_running') && has('menu')
     if g:SingleCompile_menumode == 1
-        nnoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile :SCCompile<cr>
-        nnoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ :SCCompileRun<cr>
-        nnoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ :SCChooseCompiler<cr>
-        nnoremenu Plugin.SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
-        inoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile
-                    \ <C-O>:SCCompile<cr>
-        inoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ <C-O>:SCCompileRun<cr>
-        inoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ <C-O>:SCChooseCompiler<cr>
-        inoremenu Plugin.SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
-        vnoremenu Plugin.SingleCompile.&Compile<tab>:SCCompile
-                    \ <Esc>:SCCompile<cr>
-        vnoremenu Plugin.SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ <Esc>:SCCompileRun<cr>
-        vnoremenu Plugin.SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ <Esc>:SCChooseCompiler<cr>
-        vnoremenu Plugin.SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
+        let s:menu_root = 'Plugin.SingleCompile'
     elseif g:SingleCompile_menumode == 2
-        nnoremenu SingleCompile.&Compile<tab>:SCCompile :SCCompile<cr>
-        nnoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ :SCCompileRun<cr>
-        nnoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ :SCChooseCompiler<cr>
-        nnoremenu SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
-        inoremenu SingleCompile.&Compile<tab>:SCCompile <C-O>:SCCompile<cr>
-        inoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ <C-O>:SCCompileRun<cr>
-        inoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ <C-O>:SCChooseCompiler<cr>
-        inoremenu SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
-        vnoremenu SingleCompile.&Compile<tab>:SCCompile <Esc>:SCCompile<cr>
-        vnoremenu SingleCompile.Compile\ and\ &Run<tab>:SCCompileRun
-                    \ <Esc>:SCCompileRun<cr>
-        vnoremenu SingleCompile.C&hoose\ Compiler<tab>:SCChooseCompiler
-                    \ <Esc>:SCChooseCompiler<cr>
-        vnoremenu SingleCompile.&View\ Result<tab>:SCViewResult
-                    \ :SCViewResult<cr>
+        let s:menu_root = 'SingleCompile'
+    endif
+
+    " if g:SingleCompile_menumode is not 1 or 2, then we don't need to create
+    " menu
+    if g:SingleCompile_menumode == 1 || g:SingleCompile_menumode == 2
+        for s:menu_textcmd in [
+                    \ '&Compile<tab>:SCCompile '.
+                    \ ':SCCompile<cr>',
+                    \
+                    \ 'Compile\ and\ &Run<tab>:SCCompileRun '.
+                    \ ':SCCompileRun<cr>',
+                    \
+                    \ 'Compile\ and\ Run &Asynchronously'.
+                    \ '<tab>:SCCompileRunAsync'.
+                    \ ':SCCompileRunAsync<cr>',
+                    \
+                    \ 'C&hoose\ Compiler<tab>:SCChooseCompiler '.
+                    \ ':SCChooseCompiler<cr>',
+                    \
+                    \ '&View\ Result<tab>:SCViewResult '.
+                    \ ':SCViewResult<cr>',
+                    \
+                    \ 'V&iew\ Result\ of\ Asynchronous\ Running'.
+                    \ '<tab>:SCViewResultAsync '.
+                    \ ':SCViewResultAsync<cr>',
+                    \
+                    \ '&Terminate\ the\ Background\ Asynchronous\ Process'.
+                    \ '<tab>:SCTerminateAsync '.
+                    \ ':SCTerminateAsync<cr>'
+                    \ ]
+
+            for s:menu_type in ['nnoremenu', 'inoremenu', 'vnoremenu']
+                exec s:menu_type.' '.s:menu_root.'.'.s:menu_textcmd
+            endfor
+        endfor
+
+        unlet! s:menu_root
+        unlet! s:menu_type
+        unlet! s:menu_textcmd
     endif
 endif
 
