@@ -34,6 +34,22 @@ if sys.version_info[0] < 2 or sys.version_info[1] < 6:
 class SingleCompileAsync:
     sub_proc = None
     output = None
+    # This value will be set below if we are on win32. For other systems,
+    # leave this as None
+    startupinfo = None  
+
+# if we are on win32, we need to set STARTUPINFO before calling
+# subprocess.Popen() to make the console of the subprocess show minimized and
+# not actived.
+if sys.platform == 'win32':
+
+    # set subprocess constants
+    subprocess.STARTF_USESHOWWINDOW = 1
+    subprocess.SW_SHOWMINNOACTIVE = 7
+
+    SingleCompileAsync.startupinfo = subprocess.STARTUPINFO()
+    SingleCompileAsync.startupinfo.dwFlags = subprocess.STARTF_USESHOWWINDOW
+    SingleCompileAsync.startupinfo.wShowWindow = subprocess.SW_SHOWMINNOACTIVE
 
 EEOOFF
 endfunction
@@ -66,7 +82,9 @@ try:
             shlex.split(vim.eval('a:run_command')),
             shell = False,
             universal_newlines = True,
+            startupinfo = SingleCompileAsync.startupinfo,
             stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+
 except:
     vim.command('let l:ret_val = 2')
 
