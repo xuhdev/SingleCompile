@@ -21,9 +21,10 @@ function! s:InitializePython() " {{{2
 python << EEOOFF
 
 try:
-    import vim
+    import shlex
     import subprocess
     import sys
+    import vim
 except:
     vim.command("return 'Library import error.'")
 
@@ -61,18 +62,11 @@ function! s:RunPython(run_command) " {{{2
 python << EEOOFF
 
 try:
-    if sys.platform == 'win32':
-        # for win32, 'stderr = subprocess.STDOUT' will cause problems, so we
-        # use shell style stderr redirect for win32
-        SingleCompileAsync.sub_proc = subprocess.Popen(
-                vim.eval('a:run_command') + ' 2>&1',
-                shell = True,
-                stdout = subprocess.PIPE)
-    else:
-        SingleCompileAsync.sub_proc = subprocess.Popen(
-                vim.eval('a:run_command'),
-                shell = True,
-                stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
+    SingleCompileAsync.sub_proc = subprocess.Popen(
+            shlex.split(vim.eval('a:run_command')),
+            shell = False,
+            universal_newlines = True,
+            stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
 except:
     vim.command('let l:ret_val = 2')
 
