@@ -347,10 +347,10 @@ Same as |:SCCompileRun|, but compile the source and run asynchronously. That
 is to say, after the program starts to run, you are still able to edit the
 source file, because vim does not hang up waiting for the program to
 terminate. The result of the run could be viewed by |:SCViewResultAsync|
-command. This command is disabled by default, to enable it, see
-|SingleCompile-asyncrunmode|. This command is useful when the program takes a
-long time to run or you are developing a GUI program. Also see
-|:SCViewResultAsync|, |:SCTerminateAsync| and |:SCIsRunningAsync|.
+command. This command might not be available on your vim, see
+|SingleCompile-asyncrunmode| for more information. This command is useful when
+the program takes a long time to run or you are developing a GUI program. Also
+see |:SCViewResultAsync|, |:SCTerminateAsync| and |:SCIsRunningAsync|.
 
                                             *:SCCompileRunAsyncAF*
 Command:
