@@ -359,7 +359,11 @@ function! s:Initialize() "{{{1
         let l:async_init_res = SingleCompileAsync#Initialize(
                     \g:SingleCompile_asyncrunmode)
 
-        if l:async_init_res == 3
+        if type(l:async_init_res) == type('')
+            call s:ShowMessage(
+                        \"Failed to initialize the async mode '".
+                        \g:SingleCompile_asyncrunmode."'.\n".l:async_init_res)
+        elseif l:async_init_res == 3
             call s:ShowMessage("The specified async mode '".
                         \g:SingleCompile_asyncrunmode."' doesn't exist.")
         elseif l:async_init_res != 0
