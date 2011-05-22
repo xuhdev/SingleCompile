@@ -1,5 +1,5 @@
 " File: autoload/SingleCompileAsync.vim
-" Version: 2.8.3beta
+" Version: 2.8.4beta
 " check doc/SingleCompile.txt for more information
 
 
@@ -159,7 +159,9 @@ function! SingleCompileAsync#Initialize(mode) " {{{1
         " autodetect for an appropriate mode
 
         for l:one_mode in ['python']
-            if SingleCompileAsync#Initialize(l:one_mode) == 0
+
+            let l:init_result = SingleCompileAsync#Initialize(l:one_mode)
+            if type(l:init_result) == type(0) && l:init_result == 0
                 return 0
             endif
         endfor
@@ -179,13 +181,9 @@ function! SingleCompileAsync#Initialize(mode) " {{{1
     " call the initialization function
     let l:init_result = s:mode_dict['Initialize']()
 
-    if type(l:init_result) == type('')
-        echohl ErrorMsg | echo l:init_result | echohl None
-        return 1
-    elseif type(l:init_result) == type(0) && l:init_result != 0
-        echohl ErrorMsg | echo 'SingleCompileAsnyc initialization error.'
-                    \| echohl None
-        return 1
+    if type(l:init_result) == type('') ||
+                \ (type(l:init_result) == type(0) && l:init_result != 0)
+        return l:init_result
     endif
 
     let s:cur_mode = a:mode

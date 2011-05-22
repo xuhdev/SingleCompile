@@ -1,11 +1,11 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.8.3beta
+Version: 2.8.4beta
 Original Author: H Xu <xuhdev@gmail.com>
 Current Main Maintainers: H Xu <xuhdev@gmail.com>
                           Zhou Yichao <broken.zhou@gmail.com>
-Last Change: 21 May 2011
+Last Change: 22 May 2011
 Description: Make it more convenient to compile or run a single source file.
 License: You can redistribute this plugin and/or modify it under the terms 
          of the GNU General Public License as published by the Free Software 
