@@ -742,6 +742,10 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('perl', 'perl', 
                 \'Perl Interpreter', 'perl', '', '')
 
+    " php
+    call SingleCompile#SetCompilerTemplate('php', 'php',
+                \"PHP Command Line Interface 'CLI'", 'php', '-f', '')
+
     " plain tex
     if has('unix')
         call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 

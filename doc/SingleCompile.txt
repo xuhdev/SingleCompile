@@ -178,6 +178,9 @@ Pascal:
 perl:
     perl (Perl Interpreter)
 
+PHP:
+    php (PHP Command Line Interface 'CLI')
+
 python:
     ironpython (IronPython)
     jython (Jython)
@@ -804,6 +807,9 @@ Pascal:
 perl:
     perl (Perl Interpreter)
 
+PHP:
+    php (PHP Command Line Interface 'CLI')
+
 python:
     ironpython (IronPython)
     jython (Jython)
@@ -996,8 +1002,6 @@ TODO~
 Add asynchronous compilation support.
 
 Add matlab built-in template.
-
-Add php built-in template.
 
 Improve the detection of MSVC on Windows.
 
