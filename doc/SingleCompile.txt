@@ -239,7 +239,7 @@ built-in templates.
 
 
 Repository:
-https://bitbucket.org/xuhdev/singlecompile
+https://bitbucket.org/xuhdev/singlecompile/src
 
 Follow xuhdev on twitter if you are interested in my development:
 http://twitter.com/xuhdev
@@ -250,7 +250,7 @@ INSTALLATION~
 ----------------------------------------------------------------------------
 Download the SingleCompile.zip file and extract it to your vim runtime
 directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
-you'd better then use helptags command to generate the help tag(for example
+you'd better then use ":helptags" command to generate the help tag(for example
 use ":helptags ~/.vim/doc" on UNIX/Linux).
 
 
@@ -628,7 +628,7 @@ Here are some examples modified from built-in compiler templates:
  call SingleCompile#ChooseCompiler('fortran', 'g77')
 
  " python
- call SingleCompile#SetCompilerTemplate('python', 'cpython', 'CPython',
+ call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython',
              \'python', '', '')
  call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython',
              \'jython', '', '')
@@ -644,9 +644,9 @@ method is kept ONLY for backward compatibility.
 
 Add the following lines to your vimrc file:
 >
- call SingleCompile#SetTemplate('filetype','command','stringA')
- call SingleCompile#SetTemplate('filetype','flags','stringB')
- call SingleCompile#SetTemplate('filetype','run','stringC')
+ call SingleCompile#SetTemplate('filetype', 'command', 'stringA')
+ call SingleCompile#SetTemplate('filetype', 'flags', 'stringB')
+ call SingleCompile#SetTemplate('filetype', 'run', 'stringC')
 <
 For compiling languages such as C, Java, stringA is the command of compiling,
 stringB is the flags of compiling, stringC is the command of running; For
@@ -657,22 +657,22 @@ be empty.
 Here are some examples:
 >
  " java
- call SingleCompile#SetTemplate('java','command','javac')
- call SingleCompile#SetTemplate('java','flags','')
- call SingleCompile#SetTemplate('java','run','java %<')
+ call SingleCompile#SetTemplate('java', 'command', 'javac')
+ call SingleCompile#SetTemplate('java', 'flags', '')
+ call SingleCompile#SetTemplate('java', 'run', 'java %<')
 
  " python
- call SingleCompile#SetTemplate('python','command','python')
- call SingleCompile#SetTemplate('python','flags','')
- call SingleCompile#SetTemplate('python','run','')
+ call SingleCompile#SetTemplate('python', 'command', 'python')
+ call SingleCompile#SetTemplate('python', 'flags', '')
+ call SingleCompile#SetTemplate('python', 'run', '')
 
  " latex
- call SingleCompile#SetTemplate('tex','command','latex')
- call SingleCompile#SetTemplate('tex','flags','')
+ call SingleCompile#SetTemplate('tex', 'command', 'latex')
+ call SingleCompile#SetTemplate('tex', 'flags', '')
  if has('unix')
-     call SingleCompile#SetTemplate('tex','run','xdvi %<.dvi')
+     call SingleCompile#SetTemplate('tex', 'run', 'xdvi %<.dvi')
  elseif has('win32')
-     call SingleCompile#SetTemplate('tex','run','dviout %<.dvi')
+     call SingleCompile#SetTemplate('tex', 'run', 'dviout %<.dvi')
  endif
 <
 You can also use this method to modify the templates of a built-in supported
@@ -685,7 +685,7 @@ for example, you want to set the "command" of java language to javac if no
 command is set for java, but do nothing if the command of java is not set, use
 the following:
 >
- call SingleCompile#SetTemplate('java','command','javac',1)
+ call SingleCompile#SetTemplate('java', 'command', 'javac', 1)
 <
 In this way, if the command of java is already set, this sentence will do
 nothing. On the contrary, if the command of java is not set, it will set the
@@ -1004,6 +1004,13 @@ Add asynchronous compilation support.
 Add matlab built-in template.
 
 Improve the detection of MSVC on Windows.
+
+If "tee" is used when we are executing ":make" command, currently we can't get
+the exit code of the compiler. We need to fix this.
+
+When running compiled program, if "tee" is used for redirecting, things
+written to stdout are not printed as if what happens when stdout is a tty.
+This need to be fixed.
 
 Make it possible to store compiler template in config files, such as ini 
 files.
