@@ -45,11 +45,11 @@ if sys.platform == 'win32':
 
     # set subprocess constants
     subprocess.STARTF_USESHOWWINDOW = 1
-    subprocess.SW_SHOWMINNOACTIVE = 7
+    subprocess.SW_HIDE = 0
 
     SingleCompileAsync.startupinfo = subprocess.STARTUPINFO()
     SingleCompileAsync.startupinfo.dwFlags = subprocess.STARTF_USESHOWWINDOW
-    SingleCompileAsync.startupinfo.wShowWindow = subprocess.SW_SHOWMINNOACTIVE
+    SingleCompileAsync.startupinfo.wShowWindow = subprocess.SW_HIDE
 
 EEOOFF
 endfunction
