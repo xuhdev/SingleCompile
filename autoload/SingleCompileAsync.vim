@@ -1,5 +1,5 @@
 " File: autoload/SingleCompileAsync.vim
-" Version: 2.8.3beta
+" Version: 2.8.4beta
 " check doc/SingleCompile.txt for more information
 
 
