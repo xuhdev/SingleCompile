@@ -687,12 +687,13 @@ function! s:Initialize() "{{{1
     " latex
     if has('unix')
         call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
-                    \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
+                    \'Tex Live', 'latex', '-interaction=nonstopmode',
+                    \'xdvi "$(FILE_TITLE)$.dvi"')
         call SingleCompile#SetOutfile('tex', 'texlive', 
                     \'$(FILE_TITLE)$'.'.dvi')
     elseif has('win32')
         call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
-                    \'Tex Live', 'latex', '', 
+                    \'Tex Live', 'latex', '-interaction=nonstopmode', 
                     \'dviout "$(FILE_TITLE)$.dvi"')
         call SingleCompile#SetOutfile('tex', 'texlive', 
                     \'$(FILE_TITLE)$'.'.dvi')
