@@ -677,6 +677,8 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 
     " javascript
+    call SingleCompile#SetCompilerTemplate('javascript', 'js',
+                \'JavaScript Interpreter', 'js', '', '')
     call SingleCompile#SetCompilerTemplate('javascript', 'rhino', 'Rhino',
                 \'rhino', '', '')
 
