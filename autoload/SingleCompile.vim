@@ -678,8 +678,10 @@ function! s:Initialize() "{{{1
 
     " javascript
     call SingleCompile#SetCompilerTemplate('javascript', 'js',
-                \'JavaScript Interpreter', 'js', '', '')
-    call SingleCompile#SetCompilerTemplate('javascript', 'rhino', 'Rhino',
+                \'SpiderMonkey, a JavaScript engine written in C',
+                \'js', '', '')
+    call SingleCompile#SetCompilerTemplate('javascript', 'rhino',
+                \'Rhino, a JavaScript engine written in Java',
                 \'rhino', '', '')
 
     " ksh

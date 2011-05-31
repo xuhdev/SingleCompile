@@ -149,8 +149,8 @@ Java:
     sunjdk (Sun Java Development Kit)
 
 JavaScript:
-    js (JavaScript Interpreter)
-    rhino (Rhino)
+    js (SpiderMonkey, a JavaScript engine written in C)
+    rhino (Rhino, a JavaScript engine written in Java)
 
 ksh:
     ksh (Korn Shell)
@@ -779,8 +779,8 @@ Java:
     sunjdk (Sun Java Development Kit)
 
 JavaScript:
-    js (JavaScript Interpreter)
-    rhino (Rhino)
+    js (SpiderMonkey, a JavaScript engine written in C)
+    rhino (Rhino, a JavaScript engine written in Java)
 
 ksh:
     ksh (Korn Shell)
