@@ -690,21 +690,19 @@ function! s:Initialize() "{{{1
 
     " latex
     if has('unix')
-        call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
-                    \'Tex Live', 'latex', '-interaction=nonstopmode',
-                    \'xdvi "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'texlive', 
-                    \'$(FILE_TITLE)$'.'.dvi')
+        call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
+                    \'pdflatex', '-interaction=nonstopmode',
+                    \'xdg-open "$(FILE_TITLE)$.pdf"')
+        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
+                    \'latex', '-interaction=nonstopmode',
+                    \'xdg-open "$(FILE_TITLE)$.dvi"')
     elseif has('win32')
-        call SingleCompile#SetCompilerTemplate('tex', 'texlive', 
-                    \'Tex Live', 'latex', '-interaction=nonstopmode', 
-                    \'dviout "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'texlive', 
-                    \'$(FILE_TITLE)$'.'.dvi')
-        call SingleCompile#SetCompilerTemplate('tex', 'miktex', 
-                    \'MiKTeX', 'latex', '', 'yap "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'miktex', 
-                    \'$(FILE_TITLE)$'.'.dvi')
+        call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
+                    \'pdflatex', '-interaction=nonstopmode',
+                    \'start "$(FILE_TITLE)$.pdf"')
+        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
+                    \'latex', '-interaction=nonstopmode',
+                    \'start "$(FILE_TITLE)$.dvi"')
     endif
 
     " lisp
@@ -750,24 +748,6 @@ function! s:Initialize() "{{{1
     " php
     call SingleCompile#SetCompilerTemplate('php', 'php',
                 \"PHP Command Line Interface 'CLI'", 'php', '-f', '')
-
-    " plain tex
-    if has('unix')
-        call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
-                    \'Tex Live', 'latex', '', 'xdvi "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'texlive', 
-                    \'$(FILE_TITLE)$'.'.dvi')
-    elseif has('win32')
-        call SingleCompile#SetCompilerTemplate('plaintex', 'texlive', 
-                    \'Tex Live', 'latex', '', 
-                    \'dviout "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'texlive', 
-                    \'$(FILE_TITLE)$'.'.dvi')
-        call SingleCompile#SetCompilerTemplate('plaintex', 'miktex',
-                    \'MiKTeX', 'latex', '', 'yap "$(FILE_TITLE)$.dvi"')
-        call SingleCompile#SetOutfile('tex', 'miktex', 
-                    \'$(FILE_TITLE)$'.'.dvi')
-    endif
 
     " python
     call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython',

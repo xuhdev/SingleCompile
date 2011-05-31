@@ -156,8 +156,8 @@ ksh:
     ksh (Korn Shell)
 
 LaTeX:
-    miktex (MiKTeX), Windows Only
-    texlive (Tex Live)
+    latex (LaTeX)
+    pdflatex (pdfLaTeX)
 
 LISP:
     clisp (GNU CLISP)
@@ -786,8 +786,8 @@ ksh:
     ksh (Korn Shell)
 
 LaTeX:
-    miktex (MiKTeX), Windows Only
-    texlive (Tex Live)
+    latex (LaTeX)
+    pdflatex (pdfLaTeX)
 
 LISP:
     clisp (GNU CLISP)
