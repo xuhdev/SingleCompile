@@ -1428,7 +1428,11 @@ function! s:Run(async) " {{{1
                         \' '.s:GetShellPipe(1).' '.s:run_result_tempfile
         endif
 
-        exec '!'.l:run_cmd
+        try
+            exec '!'.l:run_cmd
+        catch
+            call s:ShowMessage('Failed to execute "'.l:run_cmd.'"')
+        endtry
     endif
 
     " switch back to the original directory
