@@ -699,10 +699,10 @@ function! s:Initialize() "{{{1
     elseif has('win32')
         call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
                     \'pdflatex', '-interaction=nonstopmode',
-                    \'start "$(FILE_TITLE)$.pdf"')
+                    \'open "$(FILE_TITLE)$.pdf"')
         call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
                     \'latex', '-interaction=nonstopmode',
-                    \'start "$(FILE_TITLE)$.dvi"')
+                    \'open "$(FILE_TITLE)$.dvi"')
     endif
 
     " lisp
