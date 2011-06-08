@@ -660,10 +660,10 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('idlang', 'idl',
                 \'ITT Visual Information Solutions '.
                 \'Interactive Data Language', 'idl',
-                \"-quiet -e '@$(FILE_NAME)$'", '')
+                \"-quiet -e '.run $(FILE_NAME)$'", '')
     call SingleCompile#SetCompilerTemplate('idlang', 'gdl',
                 \'GNU Data Language incremental compiler',
-                \'gdl', "-quiet -e '@$(FILE_NAME)$'", '')
+                \'gdl', "-quiet -e '.run $(FILE_NAME)$'", '')
 
     " java
     call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
