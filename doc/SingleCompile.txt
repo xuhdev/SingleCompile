@@ -172,6 +172,9 @@ Makefile:
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
 
+Object-C:
+    gcc (GNU Object-C Compiler)
+
 Pascal:
     fpc (Free Pascal Compiler)
     gpc (GNU Pascal Compiler)
@@ -801,6 +804,9 @@ Makefile:
     gmake (GNU Make)
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
+
+Object-C:
+    gcc (GNU Object-C Compiler)
 
 Pascal:
     fpc (Free Pascal Compiler)

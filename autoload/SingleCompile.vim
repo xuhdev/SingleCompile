@@ -728,6 +728,12 @@ function! s:Initialize() "{{{1
                     \'-f', '')
     endif
 
+    " Object-C
+    call SingleCompile#SetCompilerTemplate('objc', 'gcc',
+                \'GNU Object-C Compiler', 'gcc', '-g -o $(FILE_TITLE)$',
+                \l:common_run_command)
+    call SingleCompile#SetOutfile('objc', 'gcc', l:common_out_file)
+
     " Pascal
     call SingleCompile#SetCompilerTemplate('pascal', 'fpc', 
                 \'Free Pascal Compiler', 'fpc', 
