@@ -66,6 +66,9 @@ Here is a list of built-in supported compilers or interpreter(For some
 compilers/interpreters, you need to set the environment varibles correctly to
 make them available for SingleCompile):
 
+Ada:
+    gnat (GNAT)
+
 bash:
     bash (Bourne-Again Shell)
 
@@ -699,6 +702,9 @@ compilation command of java to "javac".
 The following compilers have built-in support in this plugin (For some
 compilers/interpreters, you need to set the environment varibles correctly to
 make them available for SingleCompile):
+
+Ada:
+    gnat (GNAT)
 
 bash:
     bash (Bourne-Again Shell)

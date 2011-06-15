@@ -387,6 +387,11 @@ function! s:Initialize() "{{{1
         let l:common_out_file = '$(FILE_TITLE)$'
     endif
 
+    " ada
+    call SingleCompile#SetCompilerTemplate('ada', 'gnat', 'GNAT', 'gnat',
+                \'make', l:common_run_command)
+    call SingleCompile#SetOutfile('ada', 'gnat', l:common_out_file)
+
     " bash
     call SingleCompile#SetCompilerTemplate('bash', 'bash',
                 \'Bourne-Again Shell', 'bash', '', '')
