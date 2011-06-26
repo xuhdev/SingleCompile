@@ -31,13 +31,20 @@ except:
     vim.command("let l:ret = 'Library import error.'")
 EEOOFF
 
-    if l:ret != ''
+    if !empty(l:ret)
         return l:ret
     endif
 
 python << EEOOFF
 if sys.version_info[0] < 2 or sys.version_info[1] < 6:
-    vim.command("return 'At least python 2.6 is required.'")
+    vim.command("let l:ret = 'At least python 2.6 is required.'")
+EEOOFF
+
+    if !empty(l:ret)
+        return l:ret
+    endif
+
+python << EEOOFF
 
 class SingleCompileAsync:
     sub_proc = None
