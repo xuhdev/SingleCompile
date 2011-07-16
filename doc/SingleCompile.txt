@@ -137,6 +137,7 @@ Haskell:
     runhaskell (runhaskell)
 
 html:
+    arora (Arora)
     chrome (Google Chrome)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
@@ -219,6 +220,7 @@ vb script:
     vb (VB Script Interpreter)
     
 xhtml:
+    arora (Arora)
     chrome (Google Chrome)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
@@ -774,6 +776,7 @@ Haskell:
     runhaskell (runhaskell)
 
 html:
+    arora (Arora)
     chrome (Google Chrome)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
@@ -855,6 +858,7 @@ vb script:
     vb (VB Script Interpreter)
     
 xhtml:
+    arora (Arora)
     chrome (Google Chrome)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
