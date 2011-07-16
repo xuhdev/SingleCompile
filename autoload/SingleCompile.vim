@@ -654,6 +654,8 @@ function! s:Initialize() "{{{1
                 \'Konqueror', 'konqueror', '', '')
     call SingleCompile#SetCompilerTemplate('html', 'arora',
                 \'Arora', 'arora', '', '')
+    call SingleCompile#SetCompilerTemplate('html', 'epiphany',
+                \'Epiphany', 'epiphany', '', '')
     if has('win32')
         call SingleCompile#SetCompilerTemplate('html', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '',
@@ -821,6 +823,8 @@ function! s:Initialize() "{{{1
                 \'Konqueror', 'konqueror', '', '')
     call SingleCompile#SetCompilerTemplate('xhtml', 'arora',
                 \'Arora', 'arora', '', '')
+    call SingleCompile#SetCompilerTemplate('xhtml', 'epiphany',
+                \'Epiphany', 'epiphany', '', '')
     if has('win32')
         call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '',

@@ -139,10 +139,11 @@ Haskell:
 html:
     arora (Arora)
     chrome (Google Chrome)
+    epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
-    opera (Opera)
     konqueror (Konqueror)
+    opera (Opera)
 
 IDL(Interactive Data Language):
     idl (ITT Visual Information Solutions Interactive Data Language)
@@ -222,10 +223,11 @@ vb script:
 xhtml:
     arora (Arora)
     chrome (Google Chrome)
+    epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
-    opera (Opera)
     konqueror (Konqueror)
+    opera (Opera)
 
 zsh:
     zsh (Z Shell)
@@ -778,8 +780,10 @@ Haskell:
 html:
     arora (Arora)
     chrome (Google Chrome)
+    epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    konqueror (Konqueror)
     opera (Opera)
 
 IDL(Interactive Data Language):
@@ -860,8 +864,10 @@ vb script:
 xhtml:
     arora (Arora)
     chrome (Google Chrome)
+    epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
+    konqueror (Konqueror)
     opera (Opera)
 
 zsh:
