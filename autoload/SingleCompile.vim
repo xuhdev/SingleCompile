@@ -264,15 +264,10 @@ function! s:DetectIe(not_used_arg) " {{{2
     endif
 
     if has('win32')
-        for iepath in ['C:\Program Files\Internet Explorer\iexplore',
-                    \ 'D:\Program Files\Internet Explorer\iexplore',
-                    \ 'E:\Program Files\Internet Explorer\iexplore',
-                    \ 'F:\Program Files\Internet Explorer\iexplore',
-                    \ 'G:\Program Files\Internet Explorer\iexplore']
-            if executable(iepath)
-                return "\"".iepath."\""
-            endif
-        endfor
+        let iepath = $PROGRAMFILES . '\Internet Explorer\iexplore.exe'
+        if executable(iepath)
+            return "\"".iepath."\""
+        endif
     endif
 endfunction
 
