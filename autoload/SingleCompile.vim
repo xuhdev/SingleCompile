@@ -445,16 +445,19 @@ function! s:Initialize() "{{{1
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('c', 'msvc80', l:common_out_file)
+        call SingleCompile#SetVimCompiler('c', 'msvc80', 'msvc')
         call SingleCompile#SetCompilerTemplate('c', 'msvc90',
                     \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('c', 'msvc90', l:common_out_file)
+        call SingleCompile#SetVimCompiler('c', 'msvc90', 'msvc')
         call SingleCompile#SetCompilerTemplate('c', 'msvc100',
                     \ 'Microsoft Visual C++ 2010 (10.0)', 'cl100',
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('c', 'msvc100', l:common_out_file)
+        call SingleCompile#SetVimCompiler('c', 'msvc100', 'msvc')
         call SingleCompile#SetCompilerTemplate('c', 'bcc', 
                     \'Borland C++ Builder', 'bcc32', 
                     \'-o $(FILE_TITLE)$', l:common_run_command)
@@ -535,16 +538,19 @@ function! s:Initialize() "{{{1
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('cpp', 'msvc80', l:common_out_file)
+        call SingleCompile#SetVimCompiler('cpp', 'msvc80', 'msvc')
         call SingleCompile#SetCompilerTemplate('cpp', 'msvc90',
                     \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('cpp', 'msvc90', l:common_out_file)
+        call SingleCompile#SetVimCompiler('cpp', 'msvc90', 'msvc')
         call SingleCompile#SetCompilerTemplate('cpp', 'msvc100',
                     \ 'Microsoft Visual C++ 2010 (10.0)', 'cl100',
                     \ '-o $(FILE_TITLE)', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetOutfile('cpp', 'msvc100', l:common_out_file)
+        call SingleCompile#SetVimCompiler('cpp', 'msvc100', 'msvc')
         call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
                     \'Borland C++ Builder','bcc32', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
