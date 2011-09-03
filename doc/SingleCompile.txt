@@ -80,7 +80,10 @@ C:
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
-    msvc (Microsoft Visual C++), Windows only
+    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C Compiler), UNIX only
     pcc (Portable C Compiler)
@@ -94,7 +97,10 @@ C++:
     clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
-    msvc (Microsoft Visual C++), Windows Only
+    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C++ Compiler), UNIX only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
@@ -721,7 +727,10 @@ C:
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
-    msvc (Microsoft Visual C++), Windows only
+    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C Compiler), UNIX only
     pcc (Portable C Compiler)
@@ -735,7 +744,10 @@ C++:
     clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
-    msvc (Microsoft Visual C++), Windows Only
+    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C++ Compiler), UNIX only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only

@@ -258,6 +258,41 @@ function! s:DetectWatcom(compiling_command) " {{{2
     endif
 endfunction
 
+function! s:DetectMicrosoftVC(compiling_command) " {{{2
+    " the compiling_command should be cl_vcversion, such as cl80, cl100, etc.
+
+    " return 0 if not starting with 'cl'
+    if strpart(a:compiling_command, 0, 2) != 'cl'
+        return 0
+    endif
+
+    " get the version of vc
+    let l:vc_version = strpart(a:compiling_command, 2)
+
+    " if we have VSXXCOMNTOOLS environment variable, MSVC is detected
+    exec 'let l:vs_common_tools = $VS'.l:vc_version.'COMNTOOLS'
+    let l:toret = 0
+    if !empty(l:vs_common_tools)
+
+        " search for msvccl.bat
+        for a_path in split(&runtimepath, ',')
+            let l:msvccl_bat_path = a_path
+            if strpart(a_path, strlen(a_path) - 1) != s:PathSeperator
+                let l:msvccl_bat_path .= s:PathSeperator
+            endif
+            let l:msvccl_bat_path .= 'plugin'.s:PathSeperator.
+                        \'SingleCompile'.s:PathSeperator.
+                        \'msvccl'.l:vc_version.'.bat'
+            if executable(l:msvccl_bat_path)
+                unlet! l:toret
+                let l:toret = l:msvccl_bat_path
+                break
+            endif
+        endfor
+    endif
+    return l:toret
+endfunction
+
 function! s:DetectIe(not_used_arg) " {{{2
     if executable('iexplore')
         return 'iexplore'
@@ -405,6 +440,21 @@ function! s:Initialize() "{{{1
                     \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetOutfile('c', 'msvc', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('c', 'msvc80',
+                    \ 'Microsoft Visual C++ 2005 (8.0)', 'cl80',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('c', 'msvc80', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('c', 'msvc90',
+                    \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('c', 'msvc90', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('c', 'msvc100',
+                    \ 'Microsoft Visual C++ 2010 (10.0)', 'cl100',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('c', 'msvc100', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'bcc', 
                     \'Borland C++ Builder', 'bcc32', 
                     \'-o $(FILE_TITLE)$', l:common_run_command)
@@ -480,6 +530,21 @@ function! s:Initialize() "{{{1
                     \'Microsoft Visual C++', 'cl', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'msvc', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('cpp', 'msvc80',
+                    \ 'Microsoft Visual C++ 2005 (8.0)', 'cl80',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('cpp', 'msvc80', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('cpp', 'msvc90',
+                    \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('cpp', 'msvc90', l:common_out_file)
+        call SingleCompile#SetCompilerTemplate('cpp', 'msvc100',
+                    \ 'Microsoft Visual C++ 2010 (10.0)', 'cl100',
+                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ function('s:DetectMicrosoftVC'))
+        call SingleCompile#SetOutfile('cpp', 'msvc100', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
                     \'Borland C++ Builder','bcc32', '-o $(FILE_TITLE)$', 
                     \l:common_run_command)
