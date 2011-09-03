@@ -1,3 +1,3 @@
 @echo off
-call "%VS100COMNTOOLS%\..\..\VC\vcvarsall.bat"
+call "%VS100COMNTOOLS%..\..\VC\vcvarsall.bat"
 cl %*
