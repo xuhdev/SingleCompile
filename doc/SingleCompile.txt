@@ -80,7 +80,7 @@ C:
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
-    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
@@ -97,7 +97,7 @@ C++:
     clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
-    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
@@ -727,7 +727,7 @@ C:
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
-    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
@@ -744,7 +744,7 @@ C++:
     clang++ (clang)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
-    msvc (Microsoft Visual C++ Version Unknown), Windows only
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
@@ -1038,8 +1038,6 @@ TODO~
 Add asynchronous compilation support.
 
 Add matlab built-in template.
-
-Improve the detection of MSVC on Windows.
 
 If "tee" is used when we are executing ":make" command, currently we can't get
 the exit code of the compiler. We need to fix this.
