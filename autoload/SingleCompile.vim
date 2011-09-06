@@ -356,11 +356,13 @@ function! s:DetectMicrosoftVC(compiling_command) " {{{2
     let l:vc_version = strpart(a:compiling_command, 2)
 
     " if we have VSXXCOMNTOOLS environment variable, and
-    " %VSXXCOMNTOOLS%\..\..\VC\BIN\cl.exe is executable, MSVC is detected
+    " %VSXXCOMNTOOLS%\..\..\VC\BIN\cl.exe is executable, and
+    " %VSXXCOMNTOOLS%\..\..\VC\vcvarsall.bat is executable, MSVC is detected
     exec 'let l:vs_common_tools = $VS'.l:vc_version.'COMNTOOLS'
 
     if !empty(l:vs_common_tools) &&
-                \ executable(l:vs_common_tools.'..\..\VC\BIN\cl.exe')
+                \ executable(l:vs_common_tools.'..\..\VC\BIN\cl.exe') &&
+                \ executable(l:vs_common_tools.'..\..\VC\vcvarsall.bat')
         return a:compiling_command
     else
         return 0
