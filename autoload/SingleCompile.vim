@@ -516,7 +516,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetOutfile('c', 'msvc', l:common_out_file)
         call SingleCompile#SetCompilerTemplate('c', 'msvc80',
                     \ 'Microsoft Visual C++ 2005 (8.0)', 'cl80',
-                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ '-o $(FILE_TITLE)$', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetCompilerTemplateByDict('c', 'msvc80', {
                     \ 'pre-do' : function('s:PredoMicrosoftVC'),
@@ -525,7 +525,7 @@ function! s:Initialize() "{{{1
                     \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('c', 'msvc90',
                     \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
-                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ '-o $(FILE_TITLE)$', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetCompilerTemplateByDict('c', 'msvc90', {
                     \ 'pre-do' : function('s:PredoMicrosoftVC'),
@@ -534,7 +534,7 @@ function! s:Initialize() "{{{1
                     \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('c', 'msvc100',
                     \ 'Microsoft Visual C++ 2010 (10.0)', 'cl100',
-                    \ '-o $(FILE_TITLE)', l:common_run_command,
+                    \ '-o $(FILE_TITLE)$', l:common_run_command,
                     \ function('s:DetectMicrosoftVC'))
         call SingleCompile#SetCompilerTemplateByDict('c', 'msvc100', {
                     \ 'pre-do' : function('s:PredoMicrosoftVC'),
