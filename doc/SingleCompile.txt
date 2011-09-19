@@ -76,7 +76,7 @@ C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
-    clang (clang)
+    clang (the Clang C and Objective-C compiler)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
@@ -94,7 +94,7 @@ C:
 C++:
     bcc (Borland C++ Builder), Windows Only
     ch (SoftIntegration Ch)
-    clang++ (clang)
+    clang (the Clang C and Objective-C compiler)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++ (In PATH)), Windows only
@@ -184,7 +184,7 @@ Makefile:
     mingw32-make (MinGW32 Make)
 
 Object-C:
-    clang (the Clang Objective-C compiler)
+    clang (the Clang C and Objective-C compiler)
     gcc (GNU Object-C Compiler)
 
 Pascal:
@@ -724,7 +724,7 @@ C:
     bcc (Borland C++ Builder), Windows only
     cc (UNIX C Compiler), UNIX only
     ch (SoftIntegration Ch)
-    clang (clang)
+    clang (the Clang C and Objective-C compiler)
     gcc (GNU C Compiler)
     icc (Intel C++ Compiler)
     lcc (Little C Compiler)
@@ -742,7 +742,7 @@ C:
 C++:
     bcc (Borland C++ Builder), Windows Only
     ch (SoftIntegration Ch)
-    clang++ (clang)
+    clang (the Clang C and Objective-C compiler)
     g++ (GNU C++ Compiler)
     icc (Intel C++ Compiler)
     msvc (Microsoft Visual C++ (In PATH)), Windows only
@@ -832,7 +832,7 @@ Makefile:
     mingw32-make (MinGW32 Make)
 
 Object-C:
-    clang (the Clang Objective-C compiler)
+    clang (the Clang C and Objective-C compiler)
     gcc (GNU Object-C Compiler)
 
 Pascal:

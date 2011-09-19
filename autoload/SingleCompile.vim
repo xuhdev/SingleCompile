@@ -587,7 +587,8 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('c', 'ch', 
                 \'SoftIntegration Ch', 'ch', '', '')
     call SingleCompile#SetPriority('c', 'ch', 130)
-    call SingleCompile#SetCompilerTemplate('c', 'clang', 'clang', 'clang',
+    call SingleCompile#SetCompilerTemplate('c', 'clang',
+                \ 'the Clang C and Objective-C compiler', 'clang',
                 \'-o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('c', 'clang', {
                 \ 'pre-do'  : function('s:PredoClang'),
@@ -675,9 +676,10 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('cpp', 'ch', 
                 \'SoftIntegration Ch', 'ch', '', '')
     call SingleCompile#SetPriority('cpp', 'ch', 130)
-    call SingleCompile#SetCompilerTemplate('cpp', 'clang++', 'clang', 
+    call SingleCompile#SetCompilerTemplate('cpp', 'clang',
+                \ 'the Clang C and Objective-C compiler', 
                 \'clang++', '-o $(FILE_TITLE)$', l:common_run_command)
-    call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang++', {
+    call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang', {
                 \ 'pre-do'  : function('s:PredoClang'),
                 \ 'out-file': l:common_out_file,
                 \ 'vim-compiler': 'clang'
@@ -920,7 +922,7 @@ function! s:Initialize() "{{{1
 
     " Object-C
     call SingleCompile#SetCompilerTemplate('objc', 'clang',
-                \ 'the Clang Objective-C compiler', 'clang',
+                \ 'the Clang C and Objective-C compiler', 'clang',
                 \ '-g -o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetOutfile('objc', 'clang', l:common_out_file)
     call SingleCompile#SetCompilerTemplate('objc', 'gcc',
