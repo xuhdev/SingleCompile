@@ -1569,7 +1569,6 @@ function! s:CompareCompilerPriority(compiler1, compiler2) " {{{1
 
     if exists('s:lang_name_compare_compiler_priority')
         let l:lang_name = s:lang_name_compare_compiler_priority
-        unlet! s:lang_name_compare_compiler_priority
     else
         let l:lang_name = &filetype
     endif
