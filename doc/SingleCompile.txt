@@ -184,6 +184,7 @@ Makefile:
     mingw32-make (MinGW32 Make)
 
 Object-C:
+    clang (the Clang Objective-C compiler)
     gcc (GNU Object-C Compiler)
 
 Pascal:
@@ -831,6 +832,7 @@ Makefile:
     mingw32-make (MinGW32 Make)
 
 Object-C:
+    clang (the Clang Objective-C compiler)
     gcc (GNU Object-C Compiler)
 
 Pascal:

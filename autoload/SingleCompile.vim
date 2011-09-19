@@ -919,6 +919,10 @@ function! s:Initialize() "{{{1
     endif
 
     " Object-C
+    call SingleCompile#SetCompilerTemplate('objc', 'clang',
+                \ 'the Clang Objective-C compiler', 'clang',
+                \ '-g -o $(FILE_TITLE)$', l:common_run_command)
+    call SingleCompile#SetOutfile('objc', 'clang', l:common_out_file)
     call SingleCompile#SetCompilerTemplate('objc', 'gcc',
                 \'GNU Object-C Compiler', 'gcc', '-g -o $(FILE_TITLE)$',
                 \l:common_run_command)
