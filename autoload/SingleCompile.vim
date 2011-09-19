@@ -927,6 +927,7 @@ function! s:Initialize() "{{{1
                 \'GNU Object-C Compiler', 'gcc', '-g -o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('objc', 'gcc', l:common_out_file)
+    call SingleCompile#SetPriority('objc', 'gcc', 80)
 
     " Pascal
     call SingleCompile#SetCompilerTemplate('pascal', 'fpc', 
