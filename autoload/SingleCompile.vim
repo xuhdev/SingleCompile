@@ -840,7 +840,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('html', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '',
                     \function('s:DetectIe'))
-        call SingleCompile#SetPriority('html', 'firefox', 50)
+        call SingleCompile#SetPriority('html', 'ie', 50)
     else
         call SingleCompile#SetCompilerTemplate('html', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '')
@@ -1025,7 +1025,7 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '',
                     \function('s:DetectIe'))
-        call SingleCompile#SetPriority('xhtml', 'firefox', 50)
+        call SingleCompile#SetPriority('xhtml', 'ie', 50)
     else
         call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
                     \'Microsoft Internet Explorer', 'iexplore', '', '')
