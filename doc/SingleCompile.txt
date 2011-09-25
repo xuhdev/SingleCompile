@@ -230,6 +230,7 @@ vb script:
 xhtml:
     arora (Arora)
     chrome (Google Chrome)
+    chromium (Chromium)
     epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
@@ -793,6 +794,7 @@ Haskell:
 html:
     arora (Arora)
     chrome (Google Chrome)
+    chromium (Chromium)
     epiphany (Epiphany)
     firefox (Mozilla Firefox)
     ie (Microsoft Internet Explorer)
