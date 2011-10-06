@@ -952,6 +952,8 @@ environment varible "$WATCOM" to get the compiler's installation directory and
 get the full path of the compiling program.
 
                                             *SingleCompile-predo-postdo*
+                                            *SingleCompile-predo*
+                                            *SingleCompile-postdo*
 "Predo" and "Postdo" features allow you to initialize the compiler before
 compiling and clean up after compiling in you own way.
 
@@ -1026,14 +1028,35 @@ Then if we are using g77 as our compiler, SingleCompile will first execute
 the advantage that vim's quickfix will recognize the messages output by g77
 and help us locate these errors quickly.
 
+                                            *SingleCompile-priority*
+Since version 2.9, every compiler template could be assigned a priority value.
+This value determines which compiler to use when seversal compilers has been
+detected. Use the following line to set a compiler's priority:
+>
+ call SingleCompile#SetPriority('language_name', 'compiler_name', priority)
+<
+The parameter "priority" is an integer. The less the parameter "priority" is,
+the higher priority the compiler has. For example, the following two lines set
+two Fortran compilers' priorities (The two lines are excerpted from the
+built-in template):
+>
+ call SingleCompile#SetPriority('fortran', 'gfortran', 70)
+ call SingleCompile#SetPriority('fortran', 'ifort', 80)
+<
+After executing the two lines above, if ifort (which is Intel Fortran
+Compiler) and gfortran (GNU fortran compiler) are both detected by
+SingleCompile, and the user does not call |SingleCompile#ChooseCompiler| to
+choose a compiler explicitly, SingleCompile will choose gfortran as the
+current compiler.
 
 CREDITS~
                                             *SingleCompile-credits*
 ----------------------------------------------------------------------------
-Marc Weber  Integrate SingleCompile with vim-addon-actions, and some other
+Marc Weber  Integrated SingleCompile with vim-addon-actions, and some other
             improvements
-Darek       Fix a directory switching bug
-sky hi      DMD compiler for D language built-in template
+Darek       Fixed a directory switching bug
+sky hi      Provided DMD compiler for D language built-in template
+Zhou Yichao Made several improvements and fixed several bugs.
 
 
 TODO~
@@ -1052,5 +1075,7 @@ This need to be fixed.
 
 Make it possible to store compiler template in config files, such as ini 
 files.
+
+Reduce startup time and shrink memory use.
 
 vim:ts=4:ft=help:tw=78:et
