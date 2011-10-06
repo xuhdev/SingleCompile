@@ -559,6 +559,7 @@ COMPILER-TEMPLATE~
                                             *SingleCompile-compiler-template*
 ----------------------------------------------------------------------------
                                           *SingleCompile-use-built-in-template*
+                                          *SingleCompile#ChooseCompiler*
 To use a built-in compiler, add the following line to your vimrc file:
 >
  call SingleCompile#ChooseCompiler('filetype', 'compiler')
@@ -577,13 +578,16 @@ For the list of built-in supported compilers, see
 |SingleCompile-built-in-compilers|.
 
 If you don't choose a compiler by yourself, SingleCompile will automatically
-choose one for you.
+choose one for you according to the compiler's priority value (See
+|SingleCompile-priority|).
 
 You can also extend the compiler template if the compiler you want is not in
-the built-in supporting list. Check |SingleCompile-add-your-compiler| for more
-information.
+the built-in supporting list. SingleCompile#ChooseCompiler could also be used
+to choose a user defined compiler. Check |SingleCompile-add-your-compiler| for
+more information.
 
                                           *SingleCompile-add-your-compiler*
+                                          *SingleCompile#SetCompilerTemplate*
 To add a new compiler support by yourself, there are two ways:
 1. (Recommended) Add the following lines to your vimrc file:
 >
@@ -954,6 +958,8 @@ get the full path of the compiling program.
                                             *SingleCompile-predo-postdo*
                                             *SingleCompile-predo*
                                             *SingleCompile-postdo*
+                                            *SingleCompile#SetPredo*
+                                            *SingleCompile#SetPostdo*
 "Predo" and "Postdo" features allow you to initialize the compiler before
 compiling and clean up after compiling in you own way.
 
@@ -1014,6 +1020,7 @@ calling order is: first the compiler detecting function, then "Predo"
 function, then compile, and the last is the "Postdo" function.
 
                                             *SingleCompile-vim-compiler*
+                                            *SingleCompile#SetVimCompiler*
 SingleCompile can work with the compiler feature of vim(see |:compiler|). To
 set the compiler file in the compiler direcotry for a compiler, use
 SingleCompile#SetVimCompiler function. For example, for g77, the GNU Fortran
@@ -1029,6 +1036,7 @@ the advantage that vim's quickfix will recognize the messages output by g77
 and help us locate these errors quickly.
 
                                             *SingleCompile-priority*
+                                            *SingleCompile#SetPriority*
 Since version 2.9, every compiler template could be assigned a priority value.
 This value determines which compiler to use when seversal compilers has been
 detected. Use the following line to set a compiler's priority:
