@@ -888,17 +888,22 @@ function! s:Initialize() "{{{1
         call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
                     \'pdflatex', '-interaction=nonstopmode',
                     \'xdg-open "$(FILE_TITLE)$.pdf"')
-        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
-                    \'latex', '-interaction=nonstopmode',
-                    \'xdg-open "$(FILE_TITLE)$.dvi"')
     elseif has('win32')
         call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
                     \'pdflatex', '-interaction=nonstopmode',
                     \'open "$(FILE_TITLE)$.pdf"')
+    endif
+    call SingleCompile#SetPriority('tex', 'pdflatex', 50)
+    if has('unix')
+        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
+                    \'latex', '-interaction=nonstopmode',
+                    \'xdg-open "$(FILE_TITLE)$.dvi"')
+    elseif has('win32')
         call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
                     \'latex', '-interaction=nonstopmode',
                     \'open "$(FILE_TITLE)$.dvi"')
     endif
+    call SingleCompile#SetPriority('tex', 'latex', 80)
 
     " lisp
     call SingleCompile#SetCompilerTemplate('lisp', 'clisp', 'GNU CLISP',
