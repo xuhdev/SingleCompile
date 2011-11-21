@@ -1102,7 +1102,7 @@ function! SingleCompile#SetCompilerTemplateByDict(
     " settings functions below one by one is not needed.
 
     let l:key_list = ['name', 'detect_func_arg', 'flags', 'run',
-                \'detect_func', 'pre-do', 'post-do', 'out-file',
+                \'detect_func', 'pre-do', 'priority', 'post-do', 'out-file',
                 \'vim-compiler']
 
     for key in l:key_list
