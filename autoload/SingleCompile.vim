@@ -548,7 +548,7 @@ function! s:Initialize() "{{{1
                     \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('c', 'bcc', 
                     \'Borland C++ Builder', 'bcc32', 
-                    \'-o $(FILE_TITLE)$', l:common_run_command)
+                    \'-o$(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('c', 'bcc', l:common_out_file)
     endif
     call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
@@ -656,7 +656,7 @@ function! s:Initialize() "{{{1
                     \ 'priority' : 13,
                     \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
-                    \'Borland C++ Builder','bcc32', '-o $(FILE_TITLE)$', 
+                    \'Borland C++ Builder','bcc32', '-o$(FILE_TITLE)$', 
                     \l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
     endif
