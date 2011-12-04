@@ -167,6 +167,7 @@ Java:
     sunjdk (Sun Java Development Kit)
 
 JavaScript:
+    gjs (Javascript Bindings for GNOME)
     js (SpiderMonkey, a JavaScript engine written in C)
     rhino (Rhino, a JavaScript engine written in Java)
 
@@ -821,6 +822,7 @@ Java:
     sunjdk (Sun Java Development Kit)
 
 JavaScript:
+    gjs (Javascript Bindings for GNOME)
     js (SpiderMonkey, a JavaScript engine written in C)
     rhino (Rhino, a JavaScript engine written in Java)
 

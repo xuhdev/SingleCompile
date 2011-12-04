@@ -872,6 +872,9 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 
     " javascript
+    call SingleCompile#SetCompilerTemplate('javascript', 'gjs',
+                \'Javascript Bindings for GNOME', 'gjs', '', '')
+    call SingleCompile#SetPriority('javascript', 'gjs', 120)
     call SingleCompile#SetCompilerTemplate('javascript', 'js',
                 \'SpiderMonkey, a JavaScript engine written in C',
                 \'js', '', '')
