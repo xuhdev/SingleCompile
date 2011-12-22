@@ -270,8 +270,8 @@ people, you could send me an email to inform me, and I'll put them in the
 built-in templates.
 
 
-Repository:
-https://bitbucket.org/xuhdev/singlecompile/src
+Mercurial repository on bitbucket.org: https://bitbucket.org/xuhdev/singlecompile
+Git repository on github.com: https://github.com/xuhdev/SingleCompile 
 
 Follow xuhdev on twitter if you are interested in my development:
 http://twitter.com/xuhdev
