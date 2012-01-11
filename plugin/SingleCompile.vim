@@ -17,7 +17,7 @@
 
 " File: plugin/SingleCompile.vim
 " GetLatestVimScripts: 3115 1 SingleCompile.zip
-" version 2.9.2
+" version 2.9.3
 " check doc/SingleCompile.txt for more version information
 
 if v:version < 700

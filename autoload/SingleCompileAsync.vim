@@ -16,7 +16,7 @@
 " along with SingleCompile.  If not, see <http://www.gnu.org/licenses/>.
 
 " File: autoload/SingleCompileAsync.vim
-" Version: 2.9.2
+" Version: 2.9.3
 " check doc/SingleCompile.txt for more information
 
 

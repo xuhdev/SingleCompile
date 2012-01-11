@@ -16,7 +16,7 @@
 " along with SingleCompile.  If not, see <http://www.gnu.org/licenses/>.
 
 " File: autoload/SingleCompile.vim
-" Version: 2.9.2
+" Version: 2.9.3
 " check doc/SingleCompile.txt for more information
 
 
@@ -65,7 +65,7 @@ let s:run_result_tempfile = ''
 
 
 function! SingleCompile#GetVersion() " get the script version {{{1
-    return 292
+    return 293
 endfunction
 
 " util {{{1
