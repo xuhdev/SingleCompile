@@ -51,15 +51,16 @@ make command only use the "make" command? This plugin will help you out.
 
 Add these key-mappings to your vimrc:
 >
- nmap <F9> :SCCompile<cr> 
+ nmap <F9> :SCCompile<cr>
  nmap <F10> :SCCompileRun<cr>
 <
-If your file type is supported, then press F9 to compile your source file, and
-press F10 to compile and run your source file. If there is a compilation
-error, and the |quickfix| feature is enabled, then you could use |:cope|
-command to see the error list. You may also use ":SCChooseCompiler" command to
-choose a compiler if you have more than one kind of compiler available on you
-system.  ":SCViewResult" will show you the last run result.
+Note that the two lines here should not have any trailing space. If your file
+type is supported, then press F9 to compile your source file, and press F10 to
+compile and run your source file. If there is a compilation error, and the
+|quickfix| feature is enabled, then you could use |:cope| command to see the
+error list. You may also use ":SCChooseCompiler" command to choose a compiler
+if you have more than one kind of compiler available on you system.
+":SCViewResult" will show you the last run result.
 
 
 Features:
