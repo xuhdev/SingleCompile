@@ -175,6 +175,7 @@ Java:
 JavaScript:
     gjs (Javascript Bindings for GNOME)
     js (SpiderMonkey, a JavaScript engine written in C)
+    node.js (node.js)
     rhino (Rhino, a JavaScript engine written in Java)
 
 ksh:
@@ -830,6 +831,7 @@ Java:
 JavaScript:
     gjs (Javascript Bindings for GNOME)
     js (SpiderMonkey, a JavaScript engine written in C)
+    node.js (node.js)
     rhino (Rhino, a JavaScript engine written in Java)
 
 ksh:

@@ -895,6 +895,8 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('javascript', 'js',
                 \'SpiderMonkey, a JavaScript engine written in C',
                 \'js', '', '')
+    call SingleCompile#SetCompilerTemplate('javascript', 'node.js',
+                \'node.js', 'node', '', '')
     call SingleCompile#SetCompilerTemplate('javascript', 'rhino',
                 \'Rhino, a JavaScript engine written in Java',
                 \'rhino', '', '')
