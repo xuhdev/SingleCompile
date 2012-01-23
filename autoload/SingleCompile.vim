@@ -25,8 +25,7 @@ set cpo&vim
 
 
 " varibles {{{1
-" the two dicts to store the compiler template
-let g:SingleCompile_templates = {}
+" the dict to store the compiler template
 let s:CompilerTemplate = {}
 
 " is template initialize
@@ -1223,7 +1222,7 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
     endif
 endfunction
 
-function! SingleCompile#SetTemplate(langname, stype, string,...) " {{{1
+function! SingleCompile#SetTemplate(lang_name, stype, string,...) " {{{1
     " set the template. if the '...' is nonzero, this function will not
     " override the corresponding template if there is an existing template
     
@@ -1232,33 +1231,46 @@ function! SingleCompile#SetTemplate(langname, stype, string,...) " {{{1
                     \'SingleCompile#SetTemplate function')
         return
     endif
-
-    " if g:SingleCompile_templates does not exist or it is not a dic, then
-    " make g:SingleCompile_templates a dic
-    if !exists('g:SingleCompile_templates') || type(g:SingleCompile_templates)
-                \!= type({})
-        unlet! g:SingleCompile_templates
-        let g:SingleCompile_templates={}
+    
+    if a:0 == 0 || a:1 == 0
+        let l:override = 0
+    else
+        let l:override = 1
     endif
 
-    " if the key a:langname does not exist, create it
-    if !has_key(g:SingleCompile_templates,a:langname)
-        let g:SingleCompile_templates[a:langname]={}
-    elseif type(g:SingleCompile_templates[a:langname]) != type({})
-        unlet! g:SingleCompile_templates[a:langname]
-        let g:SingleCompile_templates[a:langname]={}
+    if a:stype == 'command'
+        let l:stype = 'detect_func_arg'
+    else
+        let l:stype = a:stype
     endif
 
-    " if a:stype does not exist, create it
-    if !has_key(g:SingleCompile_templates[a:langname],a:stype)
-        let g:SingleCompile_templates[a:langname][a:stype] = a:string
-    elseif type(g:SingleCompile_templates[a:langname][a:stype]) != type('')
-        unlet! g:SingleCompile_templates[a:langname][a:stype]
-        let g:SingleCompile_templates[a:langname][a:stype] = a:string
-    elseif a:0 == 0 || a:1 == 0 
-        " if the ... from the argument is 0 or the additional argument does
-        " not exist
-        let g:SingleCompile_templates[a:langname][a:stype] = a:string
+    " Set the name any way
+    call s:SetCompilerSingleTemplate(a:lang_name,
+                \'user_defined_compiler_using_old_style_function',
+                \'name', 'user_defined_compiler_using_old_style_function', 1)
+
+    let l:compiler_dict = s:CompilerTemplate[a:lang_name][
+                \ 'user_defined_compiler_using_old_style_function']
+
+    " Use general detect_func
+    if !has_key(l:compiler_dict, 'detect_func')
+        call SingleCompile#SetDetectFunc(a:lang_name,
+                    \'user_defined_compiler_using_old_style_function',
+                    \function("s:DetectCompilerGenerally"))
+    endif
+
+    " Set the template we want to set
+    call s:SetCompilerSingleTemplate(a:lang_name,
+                \'user_defined_compiler_using_old_style_function',
+                \l:stype, a:string, l:override)
+
+    if has_key(l:compiler_dict, 'name') &&
+                \ has_key(l:compiler_dict, 'detect_func') &&
+                \ has_key(l:compiler_dict, 'detect_func_arg') &&
+                \ has_key(l:compiler_dict, 'flags') &&
+                \ has_key(l:compiler_dict, 'run')
+        call SingleCompile#ChooseCompiler(a:lang_name,
+                    \ 'user_defined_compiler_using_old_style_function')
     endif
 endfunction
 
@@ -1277,23 +1289,15 @@ endfunction
 function! s:IsLanguageInterpreting(filetype_name) "{{{1 
     "tell if a language is an interpreting language, reutrn 1 if yes, 0 if no
 
-    if has_key(g:SingleCompile_templates, a:filetype_name)
-        return (!has_key(g:SingleCompile_templates[a:filetype_name],'run') ||
-                    \substitute(
-                    \g:SingleCompile_templates[a:filetype_name]['run'], ' ',
-                    \'',"g") 
-                    \== '')
-    else
-        let l:chosen_compiler =
-                    \s:CompilerTemplate[a:filetype_name]['chosen_compiler']
-        return (!has_key(
-                    \s:CompilerTemplate[a:filetype_name][l:chosen_compiler], 
-                    \'run')
-                    \ || substitute(
-                    \s:CompilerTemplate[a:filetype_name][l:chosen_compiler]
-                    \['run'], 
-                    \' ', '', "g") == '')
-    endif
+    let l:chosen_compiler =
+                \s:CompilerTemplate[a:filetype_name]['chosen_compiler']
+    return (!has_key(
+                \s:CompilerTemplate[a:filetype_name][l:chosen_compiler], 
+                \'run')
+                \ || substitute(
+                \s:CompilerTemplate[a:filetype_name][l:chosen_compiler]
+                \['run'], 
+                \' ', '', "g") == '')
 endfunction
 
 function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
@@ -1337,17 +1341,9 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         return -1
     endif
 
-    " If the following condition is met, then use the user specified command.
-    " The user-specified mode is for backward compatibility, we have to switch
-    " to the old mode(which is user-specified mode) if user has modified
-    " g:SingleCompile_templates for current file type.
-    if has_key(g:SingleCompile_templates, l:cur_filetype) && 
-                \has_key(g:SingleCompile_templates[l:cur_filetype], 'command')
-        let l:user_specified = 1
-    elseif has_key(s:CompilerTemplate, l:cur_filetype) && 
-                \type(s:CompilerTemplate[l:cur_filetype]) == type({})
-        let l:user_specified = 0
-    else
+    " Check whether the language template is available
+    if !(has_key(s:CompilerTemplate, l:cur_filetype) && 
+                \type(s:CompilerTemplate[l:cur_filetype]) == type({}))
         call s:ShowMessage('Language template for "'.
                     \l:cur_filetype.'" is not defined on your system.')
         return -1
@@ -1369,40 +1365,34 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         write
     endif
 
-    " if user specified is zero, then detect compilers
-    if l:user_specified == 0
-        if !has_key(s:CompilerTemplate[l:cur_filetype], 'chosen_compiler')
-            let l:detected_compilers = s:DetectCompiler(l:cur_filetype)
-            " if l:detected_compilers is empty, then no compiler is detected
-            if empty(l:detected_compilers)
-                call s:ShowMessage(
-                            \'No compiler is detected on your system!')
-                return -1
-            endif
-
-            let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] = 
-                        \get(l:detected_compilers, 0)
+    " detect compilers
+    if !has_key(s:CompilerTemplate[l:cur_filetype], 'chosen_compiler')
+        let l:detected_compilers = s:DetectCompiler(l:cur_filetype)
+        " if l:detected_compilers is empty, then no compiler is detected
+        if empty(l:detected_compilers)
+            call s:ShowMessage(
+                        \'No compiler is detected on your system!')
+            return -1
         endif
-        let l:chosen_compiler = 
-                    \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']
-        let l:compile_cmd = s:GetCompilerSingleTemplate(
-                    \l:cur_filetype, l:chosen_compiler, 'command')
-    elseif l:user_specified == 1
-        let l:compile_cmd = 
-                    \g:SingleCompile_templates[l:cur_filetype]['command']
+
+        let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] = 
+                    \get(l:detected_compilers, 0)
     endif
+    let l:chosen_compiler = 
+                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']
+    let l:compile_cmd = s:GetCompilerSingleTemplate(
+                \l:cur_filetype, l:chosen_compiler, 'command')
 
     " save current working directory
     let l:cwd = getcwd()
     " switch current work directory to the file's directory
     silent lcd %:p:h
 
-    " If it's not user_specified and current language is not interpreting
-    " language, check the last modification time of the file, whose name is
-    " the value of the 'out-file' key. If the last modification time of that
-    " file is earlier than the last modification time of current buffer's
-    " file, don't compile.
-    if !g:SingleCompile_alwayscompile && l:user_specified == 0 
+    " If current language is not interpreting language, check the last
+    " modification time of the file, whose name is the value of the 'out-file'
+    " key. If the last modification time of that file is earlier than the last
+    " modification time of current buffer's file, don't compile.
+    if !g:SingleCompile_alwayscompile
                 \&& !s:IsLanguageInterpreting(l:cur_filetype)
                 \&& has_key(
                 \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
@@ -1424,19 +1414,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         " compilation flag
  
         let l:compile_flags = a:arg_list[0]
-    elseif len(a:arg_list) == 2 && l:user_specified == 1 && 
-                \has_key(g:SingleCompile_templates[l:cur_filetype],'flags') 
-        " if there are two arguments, it means append the provided argument to
-        " the flag defined in the template
-
-        let l:compile_flags = 
-                    \g:SingleCompile_templates[l:cur_filetype]['flags'].
-                    \' '.a:arg_list[1]
-    elseif len(a:arg_list) == 0 && l:user_specified == 1 && 
-                \has_key(g:SingleCompile_templates[l:cur_filetype],'flags')
-        let l:compile_flags = 
-                    \g:SingleCompile_templates[l:cur_filetype]['flags']
-    elseif len(a:arg_list) == 2 && l:user_specified == 0 && has_key(
+    elseif len(a:arg_list) == 2 && has_key(
                 \s:CompilerTemplate[l:cur_filetype][ 
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
                 \'flags')
@@ -1446,7 +1424,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype, 
                     \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'], 
                     \'flags').' '.a:arg_list[1]
-    elseif len(a:arg_list) == 0 && l:user_specified == 0 && has_key(
+    elseif len(a:arg_list) == 0 && has_key(
                 \s:CompilerTemplate[l:cur_filetype][ 
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
                 \'flags')
@@ -1454,8 +1432,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
                     \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'],
                     \'flags')
     else  
-        " if a:0 is zero and 'flags' is not defined, assign '' to let
-        " l:compile_flags
+        " if len(a:arg_list) is zero and 'flags' is not defined, assign '' to
+        " let l:compile_flags
 
         let l:compile_flags = ''
     endif
@@ -1468,10 +1446,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     let l:compile_args = s:Expand(l:compile_flags)
 
     " call the pre-do function if set
-    if l:user_specified == 0 && 
-                \has_key(
-                \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
-                \'pre-do')
+    if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
+                \ 'pre-do')
         let l:command_dic = 
                     \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler][
                     \'pre-do'](
@@ -1516,11 +1492,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             let l:old_makeprg = &g:makeprg
             let l:old_errorformat = &g:errorformat
 
-            " if we are not in user-specified mode, then call :compiler
-            " command to set vim compiler
-            if l:user_specified == 0
-                call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
-            endif
+            " call :compiler command to set vim compiler
+            call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
 
             let s:run_result_tempfile = tempname()
             exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
@@ -1540,11 +1513,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         let l:old_shellpipe = &l:shellpipe
         let l:old_errorformat = &l:errorformat
 
-        " if we are not in user-specified mode, then call :compiler command to 
-        " set vim compiler
-        if l:user_specified == 0
-            call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
-        endif
+        " call :compiler command to set vim compiler
+        call s:SetVimCompiler(l:cur_filetype, l:chosen_compiler)
 
         let &l:makeprg = l:compile_cmd
         let &l:shellpipe = s:GetShellPipe(0)
@@ -1572,9 +1542,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     endif
 
     " call the post-do function if set
-    if l:user_specified == 0 && 
-                \has_key(s:CompilerTemplate[l:cur_filetype][
-                \l:chosen_compiler], 
+    if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
                 \'post-do')
         let l:TmpFunc = s:CompilerTemplate[l:cur_filetype][l:chosen_compiler][
                     \'post-do']
@@ -1643,6 +1611,17 @@ function! s:DetectCompiler(lang_name) " {{{1
             continue
         endif
 
+        " ignore this compiler if things are not all available (name,
+        " detect_func, detect_func_arg, flags, run)
+        let l:compiler_dict = s:CompilerTemplate[a:lang_name][some_compiler]
+        if !(has_key(l:compiler_dict, 'name') &&
+                    \ has_key(l:compiler_dict, 'detect_func') &&
+                    \ has_key(l:compiler_dict, 'detect_func_arg') &&
+                    \ has_key(l:compiler_dict, 'flags') &&
+                    \ has_key(l:compiler_dict, 'run'))
+            continue
+        endif
+
         let l:DetectFunc = s:CompilerTemplate[a:lang_name][some_compiler][
                     \'detect_func']
 
@@ -1680,14 +1659,9 @@ function! s:Run(async) " {{{1
     " whether we should use async mode
     let l:async = a:async && !empty(SingleCompileAsync#GetMode())
 
-    if has_key(g:SingleCompile_templates,&filetype) && 
-                \has_key(g:SingleCompile_templates[&filetype],'run')
-        let l:user_specified = 1
-    elseif has_key(s:CompilerTemplate[&filetype][ 
+    if !(has_key(s:CompilerTemplate[&filetype][ 
                 \s:CompilerTemplate[&filetype]['chosen_compiler']],
-                \'run')
-        let l:user_specified = 0
-    else
+                \'run'))
         call s:ShowMessage('Fail to run!')
         return 1
     endif
@@ -1696,14 +1670,9 @@ function! s:Run(async) " {{{1
     let l:cwd = getcwd()
     silent lcd %:p:h
 
-    if l:user_specified == 1
-        let l:run_cmd =
-                    \s:Expand(g:SingleCompile_templates[&filetype]['run'], 1)
-    elseif l:user_specified == 0
-        let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype, 
-                    \ s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'),
-                    \ 1)
-    endif
+    let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype, 
+                \ s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'),
+                \ 1)
 
     if l:async
         let l:ret_val = s:RunAsyncWithMessage(l:run_cmd)
