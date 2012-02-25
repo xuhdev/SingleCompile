@@ -1569,7 +1569,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " are not running it asynchronously, then we call SingleCompile#ViewResult
     if executable('tee') && l:toret == 2 && !l:async
                 \&& g:SingleCompile_showresultafterrun == 1
-        call SingleCompile#ViewResult()
+        call SingleCompile#ViewResult(0)
     endif
 
     return l:toret
