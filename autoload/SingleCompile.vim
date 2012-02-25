@@ -1900,17 +1900,24 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
 
     call s:Initialize()
 
-    " if the __SINGLE_COMPILE_RUN_RESULT__ buffer has already existed, delete
-    " it first
     let l:result_bufnr = bufnr('__SINGLE_COMPILE_RUN_RESULT__')
-    if l:result_bufnr != -1
-        exec l:result_bufnr.'bdelete'
+
+    " if the __SINGLE_COMPILE_RUN_RESULT__ buffer doesn't exist, make one
+    " else clear it, but leave it there to be refilled
+    if l:result_bufnr == -1
+        exec 'rightbelow '.g:SingleCompile_resultheight.
+                    \'split __SINGLE_COMPILE_RUN_RESULT__'
+        let l:save_cursor = getpos(".")
+        setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
+    else
+        let l:result_bufwinnr = bufwinnr(l:result_bufnr)
+        exec l:result_bufwinnr.'wincmd w'
+        let l:save_cursor = getpos(".")
+        setl modifiable
+            exec "g//d"
+        setl nomodifiable
     endif
 
-    exec 'rightbelow '.g:SingleCompile_resultheight.
-                \'split __SINGLE_COMPILE_RUN_RESULT__'
-
-    setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
 
     setl modifiable
     if a:async
@@ -1919,6 +1926,10 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
         call append(0, readfile(s:run_result_tempfile))
     endif
     setl nomodifiable
+
+    call setpos('.', l:save_cursor)
+
+    exec 'wincmd p'
 
 endfunction
 
