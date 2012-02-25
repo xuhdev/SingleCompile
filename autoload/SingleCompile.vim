@@ -80,7 +80,7 @@ function! s:GetShellPipe(tee_used) " {{{2
     if has('unix')
         let l:cur_shell = strpart(&shell, strridx(&shell, '/') + 1)
 
-        if l:cur_shell =~ '^csh' || l:cur_shell =~ '^tcsh' 
+        if l:cur_shell =~ '^csh' || l:cur_shell =~ '^tcsh'
             if a:tee_used
                 return '|& tee'
             else
@@ -226,25 +226,25 @@ function! s:PopEnvironmentVaribles() " {{{2
                 \ empty(s:environment_varibles_list)
         return 0
     endif
-    
+
     let l:environment_varibles_dic = remove(
                 \ s:environment_varibles_list,
                 \ len(s:environment_varibles_list) - 1)
 
     for l:key in keys(l:environment_varibles_dic)
         silent! exec 'let $' . l:key . "='" .
-                    \ substitute(l:environment_varibles_dic[l:key], 
+                    \ substitute(l:environment_varibles_dic[l:key],
                     \ "'", "''", 'g') . "'"
     endfor
 endfunction
 
 " pre-do functions {{{1
 
-function! s:AddLmIfMathH(compiling_info) " {{{2 
+function! s:AddLmIfMathH(compiling_info) " {{{2
     " add -lm flag if math.h is included
 
     " if we find '#include <math.h>' in the file, then add '-lm' flag
-    if match(getline(1, '$'), '^[ \t]*#[ \t]*include[ \t]*["<]math.h[">][ \t]*$') 
+    if match(getline(1, '$'), '^[ \t]*#[ \t]*include[ \t]*["<]math.h[">][ \t]*$')
                 \!= -1
         let l:new_comp_info = a:compiling_info
         let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
@@ -523,8 +523,8 @@ function! s:Initialize() "{{{1
                 \'Bourne-Again Shell', 'bash', '', '')
 
     " c
-    call SingleCompile#SetCompilerTemplate('c', 'open-watcom', 
-                \'Open Watcom C/C++32 Compiler', 'wcl386', '', 
+    call SingleCompile#SetCompilerTemplate('c', 'open-watcom',
+                \'Open Watcom C/C++32 Compiler', 'wcl386', '',
                 \l:common_run_command, function('s:DetectWatcom'))
     call SingleCompile#SetCompilerTemplateByDict('c', 'open-watcom', {
                 \ 'pre-do'  : function('s:PredoWatcom'),
@@ -532,7 +532,7 @@ function! s:Initialize() "{{{1
                 \ 'out-file': l:common_out_file
                 \})
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('c', 'msvc', 
+        call SingleCompile#SetCompilerTemplate('c', 'msvc',
                     \'Microsoft Visual C++ (In PATH)', 'cl',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('c', 'msvc', l:common_out_file)
@@ -566,8 +566,8 @@ function! s:Initialize() "{{{1
                     \ 'out-file' : l:common_out_file,
                     \ 'priority' : 13,
                     \ 'vim-compiler' : 'msvc'})
-        call SingleCompile#SetCompilerTemplate('c', 'bcc', 
-                    \'Borland C++ Builder', 'bcc32', 
+        call SingleCompile#SetCompilerTemplate('c', 'bcc',
+                    \'Borland C++ Builder', 'bcc32',
                     \'-o$(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('c', 'bcc', l:common_out_file)
     endif
@@ -578,33 +578,33 @@ function! s:Initialize() "{{{1
                 \ 'priority' : 20,
                 \ 'out-file': l:common_out_file
                 \})
-    call SingleCompile#SetCompilerTemplate('c', 'icc', 
+    call SingleCompile#SetCompilerTemplate('c', 'icc',
                 \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('c', 'lcc', 
-                    \'Little C Compiler', 'lc', 
-                    \'$(FILE_TITLE)$ -o "$(FILE_TITLE)$.exe"', 
+        call SingleCompile#SetCompilerTemplate('c', 'lcc',
+                    \'Little C Compiler', 'lc',
+                    \'$(FILE_TITLE)$ -o "$(FILE_TITLE)$.exe"',
                     \l:common_run_command)
     else
         call SingleCompile#SetCompilerTemplate('c', 'lcc',
-                    \'Little C Compiler', 'lc', 
-                    \'$(FILE_TITLE)$ -o $(FILE_TITLE)$', 
+                    \'Little C Compiler', 'lc',
+                    \'$(FILE_TITLE)$ -o $(FILE_TITLE)$',
                     \l:common_run_command)
     endif
     call SingleCompile#SetOutfile('c', 'lcc', l:common_out_file)
-    call SingleCompile#SetCompilerTemplate('c', 'pcc', 
-                \'Portable C Compiler', 'pcc', '-o $(FILE_TITLE)$', 
+    call SingleCompile#SetCompilerTemplate('c', 'pcc',
+                \'Portable C Compiler', 'pcc', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('c', 'pcc', l:common_out_file)
     call SingleCompile#SetCompilerTemplate('c', 'tcc', 'Tiny C Compiler',
                 \'tcc', '-o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetOutfile('c', 'tcc', l:common_out_file)
-    call SingleCompile#SetCompilerTemplate('c', 'tcc-run', 
+    call SingleCompile#SetCompilerTemplate('c', 'tcc-run',
                 \'Tiny C Compiler with "-run" Flag', 'tcc', '-run', '')
     call SingleCompile#SetPriority('c', 'tcc-run', 140)
-    call SingleCompile#SetCompilerTemplate('c', 'ch', 
+    call SingleCompile#SetCompilerTemplate('c', 'ch',
                 \'SoftIntegration Ch', 'ch', '', '')
     call SingleCompile#SetPriority('c', 'ch', 130)
     call SingleCompile#SetCompilerTemplate('c', 'clang',
@@ -615,25 +615,25 @@ function! s:Initialize() "{{{1
                 \ 'out-file': l:common_out_file
                 \})
     if has('unix')
-        call SingleCompile#SetCompilerTemplate('c', 'cc', 
-                    \'UNIX C Compiler', 'cc', '-o $(FILE_TITLE)$', 
+        call SingleCompile#SetCompilerTemplate('c', 'cc',
+                    \'UNIX C Compiler', 'cc', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('c', 'cc', l:common_out_file)
-        call SingleCompile#SetCompilerTemplate('c', 'sol-studio', 
-                    \'Sun C Compiler (Sun Solaris Studio)', 'suncc', 
+        call SingleCompile#SetCompilerTemplate('c', 'sol-studio',
+                    \'Sun C Compiler (Sun Solaris Studio)', 'suncc',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('c', 'sol-studio', {
                     \ 'pre-do'  : function('s:PredoSolStudioC'),
                     \ 'out-file': l:common_out_file
                     \})
-        call SingleCompile#SetCompilerTemplate('c', 'open64', 
+        call SingleCompile#SetCompilerTemplate('c', 'open64',
                     \'Open64 C Compiler', 'opencc', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
     endif
 
     " cpp
-    call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom', 
-                \'Open Watcom C/C++32 Compiler', 
+    call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom',
+                \'Open Watcom C/C++32 Compiler',
                 \'wcl386', '', l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('cpp', 'open-watcom', {
                 \ 'pre-do'  : function('s:PredoWatcom'),
@@ -641,7 +641,7 @@ function! s:Initialize() "{{{1
                 \ 'out-file': l:common_out_file
                 \})
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('cpp', 'msvc', 
+        call SingleCompile#SetCompilerTemplate('cpp', 'msvc',
                     \'Microsoft Visual C++ (In PATH)', 'cl',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'msvc', l:common_out_file)
@@ -675,13 +675,13 @@ function! s:Initialize() "{{{1
                     \ 'out-file' : l:common_out_file,
                     \ 'priority' : 13,
                     \ 'vim-compiler' : 'msvc'})
-        call SingleCompile#SetCompilerTemplate('cpp', 'bcc', 
-                    \'Borland C++ Builder','bcc32', '-o$(FILE_TITLE)$', 
+        call SingleCompile#SetCompilerTemplate('cpp', 'bcc',
+                    \'Borland C++ Builder','bcc32', '-o$(FILE_TITLE)$',
                     \l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'bcc', l:common_out_file)
     endif
-    call SingleCompile#SetCompilerTemplate('cpp', 'g++', 
-                \'GNU C++ Compiler', 'g++', '-g -o $(FILE_TITLE)$', 
+    call SingleCompile#SetCompilerTemplate('cpp', 'g++',
+                \'GNU C++ Compiler', 'g++', '-g -o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('cpp', 'g++', {
                 \ 'pre-do'  : function('s:PredoGcc'),
@@ -689,15 +689,15 @@ function! s:Initialize() "{{{1
                 \ 'priority' : 20,
                 \ 'vim-compiler': 'gcc'
                 \})
-    call SingleCompile#SetCompilerTemplate('cpp', 'icc', 
-                \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$', 
+    call SingleCompile#SetCompilerTemplate('cpp', 'icc',
+                \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('cpp', 'icc', l:common_out_file)
-    call SingleCompile#SetCompilerTemplate('cpp', 'ch', 
+    call SingleCompile#SetCompilerTemplate('cpp', 'ch',
                 \'SoftIntegration Ch', 'ch', '', '')
     call SingleCompile#SetPriority('cpp', 'ch', 130)
     call SingleCompile#SetCompilerTemplate('cpp', 'clang',
-                \ 'the Clang C and Objective-C compiler', 
+                \ 'the Clang C and Objective-C compiler',
                 \'clang++', '-o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetCompilerTemplateByDict('cpp', 'clang', {
                 \ 'pre-do'  : function('s:PredoClang'),
@@ -705,15 +705,15 @@ function! s:Initialize() "{{{1
                 \ 'vim-compiler': 'clang'
                 \})
     if has('unix')
-        call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio', 
-                    \'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC', 
+        call SingleCompile#SetCompilerTemplate('cpp', 'sol-studio',
+                    \'Sun C++ Compiler (Sun Solaris Studio)', 'sunCC',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetCompilerTemplateByDict('cpp', 'sol-studio',{
                     \ 'pre-do'  : function('s:PredoSolStudioC'),
                     \ 'out-file': l:common_out_file
                     \})
-        call SingleCompile#SetCompilerTemplate('cpp', 'open64', 
-                    \'Open64 C++ Compiler', 'openCC', 
+        call SingleCompile#SetCompilerTemplate('cpp', 'open64',
+                    \'Open64 C++ Compiler', 'openCC',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
         call SingleCompile#SetOutfile('cpp', 'open64', l:common_out_file)
     endif
@@ -752,7 +752,7 @@ function! s:Initialize() "{{{1
 
     " dosbatch
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch', 
+        call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch',
                     \'DOS Batch', '', '', '',
                     \function('s:DetectDosbatch'))
     endif
@@ -762,8 +762,8 @@ function! s:Initialize() "{{{1
                 \'Erlang Scripting Support', 'escript', '', '')
 
     " fortran
-    call SingleCompile#SetCompilerTemplate('fortran', 'gfortran', 
-                \'GNU Fortran Compiler', 'gfortran', 
+    call SingleCompile#SetCompilerTemplate('fortran', 'gfortran',
+                \'GNU Fortran Compiler', 'gfortran',
                 \'-o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetOutfile('fortran', 'gfortran',
                 \l:common_out_file)
@@ -773,59 +773,59 @@ function! s:Initialize() "{{{1
                 \l:common_run_command)
     call SingleCompile#SetOutfile('fortran', 'g95', l:common_out_file)
     if has('unix')
-        call SingleCompile#SetCompilerTemplate('fortran', 
-                    \'sol-studio-f77', 
-                    \'Sun Fortran 77 Compiler (Sun Solaris Studio)', 
-                    \'sunf77', '-o $(FILE_TITLE)$', 
+        call SingleCompile#SetCompilerTemplate('fortran',
+                    \'sol-studio-f77',
+                    \'Sun Fortran 77 Compiler (Sun Solaris Studio)',
+                    \'sunf77', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'sol-studio-f77', 
+        call SingleCompile#SetOutfile('fortran', 'sol-studio-f77',
                     \l:common_out_file)
-        call SingleCompile#SetCompilerTemplate('fortran', 
-                    \'sol-studio-f90', 
-                    \'Sun Fortran 90 Compiler (Sun Solaris Studio)', 
-                    \'sunf90', '-o $(FILE_TITLE)$', 
+        call SingleCompile#SetCompilerTemplate('fortran',
+                    \'sol-studio-f90',
+                    \'Sun Fortran 90 Compiler (Sun Solaris Studio)',
+                    \'sunf90', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'sol-studio-f90', 
+        call SingleCompile#SetOutfile('fortran', 'sol-studio-f90',
                     \l:common_out_file)
-        call SingleCompile#SetCompilerTemplate('fortran', 
-                    \'sol-studio-f95', 
-                    \'Sun Fortran 95 Compiler (Sun Solaris Studio)', 
-                    \'sunf95', '-o $(FILE_TITLE)$', 
+        call SingleCompile#SetCompilerTemplate('fortran',
+                    \'sol-studio-f95',
+                    \'Sun Fortran 95 Compiler (Sun Solaris Studio)',
+                    \'sunf95', '-o $(FILE_TITLE)$',
                     \l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'sol-studio-f95', 
+        call SingleCompile#SetOutfile('fortran', 'sol-studio-f95',
                     \l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'open64-f90',
-                    \'Open64 Fortran 90 Compiler', 'openf90', 
+                    \'Open64 Fortran 90 Compiler', 'openf90',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'open64-f90', 
+        call SingleCompile#SetOutfile('fortran', 'open64-f90',
                     \l:common_out_file)
         call SingleCompile#SetCompilerTemplate('fortran', 'open64-f95',
-                    \'Open64 Fortran 95 Compiler', 'openf95', 
+                    \'Open64 Fortran 95 Compiler', 'openf95',
                     \'-o $(FILE_TITLE)$', l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'open64-f95', 
+        call SingleCompile#SetOutfile('fortran', 'open64-f95',
                     \l:common_out_file)
     endif
     if has('win32')
         call SingleCompile#SetCompilerTemplate('fortran', 'ftn95',
                     \'Silverfrost FTN95', 'ftn95', '$(FILE_NAME)$ /LINK',
                     \l:common_run_command)
-        call SingleCompile#SetOutfile('fortran', 'ftn95', 
+        call SingleCompile#SetOutfile('fortran', 'ftn95',
                     \l:common_out_file)
     endif
-    call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
+    call SingleCompile#SetCompilerTemplate('fortran', 'g77',
                 \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
     call SingleCompile#SetVimCompiler('fortran', 'g77', 'fortran_g77')
-    call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
+    call SingleCompile#SetCompilerTemplate('fortran', 'ifort',
                 \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
     call SingleCompile#SetPriority('fortran', 'ifort', 80)
-    call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom', 
+    call SingleCompile#SetCompilerTemplate('fortran', 'open-watcom',
                 \'Open Watcom Fortran 77/32 Compiler', 'wfl386', '',
                 \l:common_run_command, function('s:DetectWatcom'))
-    call SingleCompile#SetCompilerTemplateByDict('fortran', 'open-watcom', 
+    call SingleCompile#SetCompilerTemplateByDict('fortran', 'open-watcom',
                 \{
                 \ 'pre-do'  : function('s:PredoWatcom'),
                 \ 'post-do' : function('s:PostdoWatcom'),
@@ -833,24 +833,24 @@ function! s:Initialize() "{{{1
                 \})
 
     " haskell
-    call SingleCompile#SetCompilerTemplate('haskell', 'ghc', 
+    call SingleCompile#SetCompilerTemplate('haskell', 'ghc',
                 \'Glasgow Haskell Compiler', 'ghc', '-o $(FILE_TITLE)$',
                 \l:common_run_command)
     call SingleCompile#SetOutfile('haskell', 'ghc', l:common_out_file)
-    call SingleCompile#SetCompilerTemplate('haskell', 'runhaskell', 
+    call SingleCompile#SetCompilerTemplate('haskell', 'runhaskell',
                 \'runhaskell', 'runhaskell', '', '')
 
     " html
-    call SingleCompile#SetCompilerTemplate('html', 'firefox', 
+    call SingleCompile#SetCompilerTemplate('html', 'firefox',
                 \'Mozilla Firefox', 'firefox', '', '')
     call SingleCompile#SetPriority('html', 'firefox', 60)
-    call SingleCompile#SetCompilerTemplate('html', 'chrome', 
+    call SingleCompile#SetCompilerTemplate('html', 'chrome',
                 \'Google Chrome', 'google-chrome', '', '')
     call SingleCompile#SetPriority('html', 'chrome', 70)
     call SingleCompile#SetCompilerTemplate('html', 'chromium',
                 \'Chromium', 'chromium', '', '')
     call SingleCompile#SetPriority('html', 'chromium', 71)
-    call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera', 
+    call SingleCompile#SetCompilerTemplate('html', 'opera', 'Opera',
                 \'opera', '', '')
     call SingleCompile#SetPriority('html', 'opera', 80)
     call SingleCompile#SetCompilerTemplate('html', 'konqueror',
@@ -860,12 +860,12 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('html', 'epiphany',
                 \'Epiphany', 'epiphany', '', '')
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('html', 'ie', 
+        call SingleCompile#SetCompilerTemplate('html', 'ie',
                     \'Microsoft Internet Explorer', 'iexplore', '', '',
                     \function('s:DetectIe'))
         call SingleCompile#SetPriority('html', 'ie', 50)
     else
-        call SingleCompile#SetCompilerTemplate('html', 'ie', 
+        call SingleCompile#SetCompilerTemplate('html', 'ie',
                     \'Microsoft Internet Explorer', 'iexplore', '', '')
     endif
 
@@ -880,14 +880,14 @@ function! s:Initialize() "{{{1
                 \'gdl', "-quiet -e '.run $(FILE_NAME)$'", '')
 
     " java
-    call SingleCompile#SetCompilerTemplate('java', 'sunjdk', 
-                \ 'Sun Java Development Kit', 'javac', '', 
+    call SingleCompile#SetCompilerTemplate('java', 'sunjdk',
+                \ 'Sun Java Development Kit', 'javac', '',
                 \'java $(FILE_TITLE)$')
-    call SingleCompile#SetOutfile('java', 'sunjdk', 
+    call SingleCompile#SetOutfile('java', 'sunjdk',
                 \'$(FILE_TITLE)$'.'.class')
     call SingleCompile#SetVimCompiler('java', 'sunjdk', 'javac')
     call SingleCompile#SetPriority('java', 'sunjdk', 70)
-    call SingleCompile#SetCompilerTemplate('java', 'gcj', 
+    call SingleCompile#SetCompilerTemplate('java', 'gcj',
                 \'GNU Java Compiler', 'gcj', '', 'java $(FILE_TITLE)$')
     call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 
@@ -933,13 +933,13 @@ function! s:Initialize() "{{{1
     " lisp
     call SingleCompile#SetCompilerTemplate('lisp', 'clisp', 'GNU CLISP',
                 \'clisp', '', '')
-    call SingleCompile#SetCompilerTemplate('lisp', 'ecl', 
+    call SingleCompile#SetCompilerTemplate('lisp', 'ecl',
                 \'Embeddable Common-Lisp', 'ecl', '-shell', '')
-    call SingleCompile#SetCompilerTemplate('lisp', 'gcl', 
+    call SingleCompile#SetCompilerTemplate('lisp', 'gcl',
                 \'GNU Common Lisp', 'gcl', '-batch -load', '')
 
     " lua
-    call SingleCompile#SetCompilerTemplate('lua', 'lua', 
+    call SingleCompile#SetCompilerTemplate('lua', 'lua',
                 \'Lua Interpreter', 'lua', '', '')
 
     " Makefile
@@ -948,7 +948,7 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('make', 'mingw32-make',
                 \'MinGW32 Make', 'mingw32-make', '-f', '')
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('make', 'nmake', 
+        call SingleCompile#SetCompilerTemplate('make', 'nmake',
                     \'Microsoft Program Maintenance Utility', 'nmake',
                     \'-f', '')
     endif
@@ -965,20 +965,20 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetPriority('objc', 'gcc', 80)
 
     " Pascal
-    call SingleCompile#SetCompilerTemplate('pascal', 'fpc', 
-                \'Free Pascal Compiler', 'fpc', 
+    call SingleCompile#SetCompilerTemplate('pascal', 'fpc',
+                \'Free Pascal Compiler', 'fpc',
                 \'', l:common_run_command)
     call SingleCompile#SetOutfile('pascal', 'fpc',
                 \l:common_out_file)
-    call SingleCompile#SetCompilerTemplate('pascal', 'gpc', 
-                \'GNU Pascal Compiler', 'gpc', 
+    call SingleCompile#SetCompilerTemplate('pascal', 'gpc',
+                \'GNU Pascal Compiler', 'gpc',
                 \'-o $(FILE_TITLE)$', l:common_run_command)
     call SingleCompile#SetOutfile('pascal', 'gpc',
                 \l:common_out_file)
 
 
     " perl
-    call SingleCompile#SetCompilerTemplate('perl', 'perl', 
+    call SingleCompile#SetCompilerTemplate('perl', 'perl',
                 \'Perl Interpreter', 'perl', '', '')
 
     " php
@@ -996,7 +996,7 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('python', 'pypy', 'PyPy',
                 \'pypy', '', '')
     call SingleCompile#SetPriority('python', 'pypy', 110)
-    call SingleCompile#SetCompilerTemplate('python', 'python3', 
+    call SingleCompile#SetCompilerTemplate('python', 'python3',
                 \'CPython 3', 'python3', '', '')
     call SingleCompile#SetPriority('python', 'python3', 120)
 
@@ -1005,28 +1005,28 @@ function! s:Initialize() "{{{1
                 \'CMD BATCH', '')
 
     " ruby
-    call SingleCompile#SetCompilerTemplate('ruby', 'ruby', 
+    call SingleCompile#SetCompilerTemplate('ruby', 'ruby',
                 \'Ruby Interpreter', 'ruby', '', '')
 
     " sh
-    call SingleCompile#SetCompilerTemplate('sh', 'sh', 
+    call SingleCompile#SetCompilerTemplate('sh', 'sh',
                 \'Bourne Shell', 'sh', '', '')
     call SingleCompile#SetPriority('sh', 'sh', 80)
-    call SingleCompile#SetCompilerTemplate('sh', 'bash', 
+    call SingleCompile#SetCompilerTemplate('sh', 'bash',
                 \'Bourne-Again Shell', 'bash', '', '')
     call SingleCompile#SetPriority('sh', 'bash', 90)
-    call SingleCompile#SetCompilerTemplate('sh', 'ksh', 
+    call SingleCompile#SetCompilerTemplate('sh', 'ksh',
                 \'Korn Shell', 'ksh', '', '')
-    call SingleCompile#SetCompilerTemplate('sh', 'zsh', 
+    call SingleCompile#SetCompilerTemplate('sh', 'zsh',
                 \'Z Shell', 'zsh', '', '')
-    call SingleCompile#SetCompilerTemplate('sh', 'ash', 
+    call SingleCompile#SetCompilerTemplate('sh', 'ash',
                 \'Almquist Shell', 'ash', '', '')
-    call SingleCompile#SetCompilerTemplate('sh', 'dash', 
+    call SingleCompile#SetCompilerTemplate('sh', 'dash',
                 \'Debian Almquist Shell', 'dash', '', '')
 
     " tcl
-    call SingleCompile#SetCompilerTemplate('tcl', 'tclsh', 
-                \'Simple shell containing Tcl interpreter', 'tclsh', 
+    call SingleCompile#SetCompilerTemplate('tcl', 'tclsh',
+                \'Simple shell containing Tcl interpreter', 'tclsh',
                 \'', '')
     call SingleCompile#SetVimCompiler('tcl', 'tclsh', 'tcl')
 
@@ -1035,20 +1035,20 @@ function! s:Initialize() "{{{1
                 \'TENEX C Shell', 'tcsh', '', '')
 
     " vbs
-    call SingleCompile#SetCompilerTemplate('vb', 'vbs', 
+    call SingleCompile#SetCompilerTemplate('vb', 'vbs',
                 \'VB Script Interpreter', 'cscript', '', '')
 
     " xhtml
-    call SingleCompile#SetCompilerTemplate('xhtml', 'firefox', 
+    call SingleCompile#SetCompilerTemplate('xhtml', 'firefox',
                 \'Mozilla Firefox', 'firefox', '', '')
     call SingleCompile#SetPriority('xhtml', 'firefox', 60)
-    call SingleCompile#SetCompilerTemplate('xhtml', 'chrome', 
+    call SingleCompile#SetCompilerTemplate('xhtml', 'chrome',
                 \'Google Chrome', 'google-chrome', '', '')
     call SingleCompile#SetPriority('xhtml', 'chrome', 70)
     call SingleCompile#SetCompilerTemplate('xhtml', 'chromium',
                 \'Chromium', 'chromium', '', '')
     call SingleCompile#SetPriority('xhtml', 'chromium', 71)
-    call SingleCompile#SetCompilerTemplate('xhtml', 'opera', 
+    call SingleCompile#SetCompilerTemplate('xhtml', 'opera',
                 \'Opera', 'opera', '', '')
     call SingleCompile#SetPriority('xhtml', 'opera', 80)
     call SingleCompile#SetCompilerTemplate('xhtml', 'konqueror',
@@ -1058,17 +1058,17 @@ function! s:Initialize() "{{{1
     call SingleCompile#SetCompilerTemplate('xhtml', 'epiphany',
                 \'Epiphany', 'epiphany', '', '')
     if has('win32')
-        call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
+        call SingleCompile#SetCompilerTemplate('xhtml', 'ie',
                     \'Microsoft Internet Explorer', 'iexplore', '', '',
                     \function('s:DetectIe'))
         call SingleCompile#SetPriority('xhtml', 'ie', 50)
     else
-        call SingleCompile#SetCompilerTemplate('xhtml', 'ie', 
+        call SingleCompile#SetCompilerTemplate('xhtml', 'ie',
                     \'Microsoft Internet Explorer', 'iexplore', '', '')
     endif
 
     " zsh
-    call SingleCompile#SetCompilerTemplate('zsh', 'zsh', 
+    call SingleCompile#SetCompilerTemplate('zsh', 'zsh',
                 \'Z Shell', 'zsh', '', '')
     " 2}}}
 endfunction
@@ -1097,7 +1097,7 @@ endfunction
 
 " SingleCompile#SetCompilerTemplate {{{1
 function! SingleCompile#SetCompilerTemplate(lang_name, compiler,
-            \compiler_name, detect_func_arg, flags, run_command, ...) 
+            \compiler_name, detect_func_arg, flags, run_command, ...)
     " set compiler's template, including compiler, compiler's name, the
     " detecting function argument, compilation flags, run command and
     " a compiler detecting function which is optional.
@@ -1122,7 +1122,7 @@ endfunction
 
 " function! SingleCompile#SetCompilerTemplateByDict {{{1
 function! SingleCompile#SetCompilerTemplateByDict(
-            \lang_name, compiler, template_dict) 
+            \lang_name, compiler, template_dict)
     " set templates by using a dict(template_dict), thus calling the template
     " settings functions below one by one is not needed.
 
@@ -1140,30 +1140,30 @@ endfunction
 
 " extra template settings functions {{{1
 function! SingleCompile#SetDetectFunc(lang_name, compiler, detect_func) " {{{2
-    " set the detect_func function 
+    " set the detect_func function
 
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'detect_func',
                 \a:detect_func)
 endfunction
 
 function! SingleCompile#SetPredo(lang_name, compiler, predo_func) " {{{2
-    " set the pre-do function 
+    " set the pre-do function
 
     call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 'pre-do',
                 \a:predo_func)
 endfunction
 
 function! SingleCompile#SetPostdo(lang_name, compiler, postdo_func) " {{{2
-    " set the post-do function 
+    " set the post-do function
 
-    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler,
                 \'post-do', a:postdo_func)
 endfunction
 
 function! SingleCompile#SetOutfile(lang_name, compiler, outfile) " {{{2
     " set out-file
 
-    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler, 
+    call s:SetCompilerSingleTemplate(a:lang_name, a:compiler,
                 \'out-file', a:outfile)
 endfunction
 
@@ -1188,9 +1188,9 @@ endfunction
 " SetCompilerSingleTemplate {{{1
 fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
     " set the template. if the '...' is nonzero, this function will not
-    " override the corresponding template if there is an existing template 
+    " override the corresponding template if there is an existing template
 
-    " Set the default template first so that we could let this override the 
+    " Set the default template first so that we could let this override the
     " default compile template.
     call s:Initialize()
 
@@ -1220,8 +1220,8 @@ fun! s:SetCompilerSingleTemplate(lang_name, compiler, key, value, ...)
     " if a:key does not exist, create it
     " if the ... from the argument is 0 or the additional argument does
     " not exist, also override the original one
-    if !has_key(s:CompilerTemplate[a:lang_name][a:compiler], a:key) || 
-                \a:0 == 0 || a:1 == 0 
+    if !has_key(s:CompilerTemplate[a:lang_name][a:compiler], a:key) ||
+                \a:0 == 0 || a:1 == 0
         let s:CompilerTemplate[a:lang_name][a:compiler][a:key] = a:value
     endif
 endfunction
@@ -1229,13 +1229,13 @@ endfunction
 function! SingleCompile#SetTemplate(lang_name, stype, string,...) " {{{1
     " set the template. if the '...' is nonzero, this function will not
     " override the corresponding template if there is an existing template
-    
+
     if a:0 > 1
         call s:ShowMessage('Too many argument for '.
                     \'SingleCompile#SetTemplate function')
         return
     endif
-    
+
     if a:0 == 0 || a:1 == 0
         let l:override = 0
     else
@@ -1290,23 +1290,23 @@ function! s:ShowMessage(message) "{{{1
 
 endfunction
 
-function! s:IsLanguageInterpreting(filetype_name) "{{{1 
+function! s:IsLanguageInterpreting(filetype_name) "{{{1
     "tell if a language is an interpreting language, reutrn 1 if yes, 0 if no
 
     let l:chosen_compiler =
                 \s:CompilerTemplate[a:filetype_name]['chosen_compiler']
     return (!has_key(
-                \s:CompilerTemplate[a:filetype_name][l:chosen_compiler], 
+                \s:CompilerTemplate[a:filetype_name][l:chosen_compiler],
                 \'run')
                 \ || substitute(
                 \s:CompilerTemplate[a:filetype_name][l:chosen_compiler]
-                \['run'], 
+                \['run'],
                 \' ', '', "g") == '')
 endfunction
 
 function! s:ShouldQuickfixBeUsed() " tell whether quickfix sould be used{{{1
     if g:SingleCompile_usequickfix == 0
-                \ || !has('quickfix') 
+                \ || !has('quickfix')
                 \ || ( s:IsLanguageInterpreting(&filetype) && !has('unix') )
         return 0
     else
@@ -1333,7 +1333,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " save current file type. Don't use &filetype directly because after
     " 'make' and quickfix is working and the error is in another file,
     " sometimes the value of &filetype may be incorrect.
-    let l:cur_filetype = &filetype 
+    let l:cur_filetype = &filetype
 
     " if current filetype is an empty string, show an error message and
     " return.
@@ -1346,7 +1346,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     endif
 
     " Check whether the language template is available
-    if !(has_key(s:CompilerTemplate, l:cur_filetype) && 
+    if !(has_key(s:CompilerTemplate, l:cur_filetype) &&
                 \type(s:CompilerTemplate[l:cur_filetype]) == type({}))
         call s:ShowMessage('Language template for "'.
                     \l:cur_filetype.'" is not defined on your system.')
@@ -1379,10 +1379,10 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             return -1
         endif
 
-        let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] = 
+        let s:CompilerTemplate[l:cur_filetype]['chosen_compiler'] =
                     \get(l:detected_compilers, 0)
     endif
-    let l:chosen_compiler = 
+    let l:chosen_compiler =
                 \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']
     let l:compile_cmd = s:GetCompilerSingleTemplate(
                 \l:cur_filetype, l:chosen_compiler, 'command')
@@ -1399,7 +1399,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     if !g:SingleCompile_alwayscompile
                 \&& !s:IsLanguageInterpreting(l:cur_filetype)
                 \&& has_key(
-                \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
+                \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
                 \'out-file')
                 \&& getftime(s:Expand(
                 \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler]
@@ -1413,37 +1413,37 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         return 0
     endif
 
-    if len(a:arg_list) == 1 
+    if len(a:arg_list) == 1
         " if there is only one argument, it means use this argument as the
         " compilation flag
- 
+
         let l:compile_flags = a:arg_list[0]
     elseif len(a:arg_list) == 2 && has_key(
-                \s:CompilerTemplate[l:cur_filetype][ 
-                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
+                \s:CompilerTemplate[l:cur_filetype][
+                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']],
                 \'flags')
         " if there are two arguments, it means append the provided argument to
         " the flag defined in the template
 
-        let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype, 
-                    \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'], 
+        let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype,
+                    \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'],
                     \'flags').' '.a:arg_list[1]
     elseif len(a:arg_list) == 0 && has_key(
-                \s:CompilerTemplate[l:cur_filetype][ 
-                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']], 
+                \s:CompilerTemplate[l:cur_filetype][
+                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']],
                 \'flags')
         let l:compile_flags = s:GetCompilerSingleTemplate(l:cur_filetype,
                     \s:CompilerTemplate[l:cur_filetype]['chosen_compiler'],
                     \'flags')
-    else  
+    else
         " if len(a:arg_list) is zero and 'flags' is not defined, assign '' to
         " let l:compile_flags
 
         let l:compile_flags = ''
     endif
 
-    
-    if match(l:compile_flags, '\$(FILE_PATH)\$') == -1 && 
+
+    if match(l:compile_flags, '\$(FILE_PATH)\$') == -1 &&
                 \match(l:compile_flags, '\$(FILE_NAME)\$') == -1
         let l:compile_flags = l:compile_flags.' $(FILE_PATH)$'
     endif
@@ -1452,10 +1452,10 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " call the pre-do function if set
     if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
                 \ 'pre-do')
-        let l:command_dic = 
+        let l:command_dic =
                     \s:CompilerTemplate[l:cur_filetype][l:chosen_compiler][
                     \'pre-do'](
-                    \{ 'command': l:compile_cmd, 
+                    \{ 'command': l:compile_cmd,
                     \'args': l:compile_args})
         let l:compile_cmd = l:command_dic['command']
         let l:compile_args = l:command_dic['args']
@@ -1477,13 +1477,13 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             " with error message highlighting and set the return value to 1
             if v:shell_error != 0
                 echo ' '
-                echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error 
+                echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error
                             \| echohl None
                 let l:toret = 1
             endif
         endif
 
-    elseif has('unix') && s:IsLanguageInterpreting(l:cur_filetype) 
+    elseif has('unix') && s:IsLanguageInterpreting(l:cur_filetype)
         " use quickfix for interpreting language in unix
 
         if l:async
@@ -1512,7 +1512,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
     else " use quickfix for compiling language
 
-        " change the makeprg and shellpipe temporarily 
+        " change the makeprg and shellpipe temporarily
         let l:old_makeprg = &l:makeprg
         let l:old_shellpipe = &l:shellpipe
         let l:old_errorformat = &l:errorformat
@@ -1528,7 +1528,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         " with error message highlighting and set the return value to 1
         if v:shell_error != 0
             echo ' '
-            echohl ErrorMsg | echo 'Return value is '.v:shell_error 
+            echohl ErrorMsg | echo 'Return value is '.v:shell_error
                         \| echohl None
             let l:toret = 1
         endif
@@ -1546,7 +1546,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     endif
 
     " call the post-do function if set
-    if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler], 
+    if has_key(s:CompilerTemplate[l:cur_filetype][l:chosen_compiler],
                 \'post-do')
         let l:TmpFunc = s:CompilerTemplate[l:cur_filetype][l:chosen_compiler][
                     \'post-do']
@@ -1557,7 +1557,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " switch back to the original directory
     exec 'lcd '.escape(l:cwd, s:CharsEscape)
 
-    " show the quickfix window if error occurs, quickfix is used and 
+    " show the quickfix window if error occurs, quickfix is used and
     " g:SingleCompile_showquickfixiferror is set to nonzero
     if l:toret == 1 && g:SingleCompile_showquickfixiferror &&
                 \s:ShouldQuickfixBeUsed()
@@ -1569,7 +1569,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " are not running it asynchronously, then we call SingleCompile#ViewResult
     if executable('tee') && l:toret == 2 && !l:async
                 \&& g:SingleCompile_showresultafterrun == 1
-        call SingleCompile#ViewResult()
+        call SingleCompile#ViewResult(0)
     endif
 
     return l:toret
@@ -1598,7 +1598,7 @@ function! s:CompareCompilerPriority(compiler1, compiler2) " {{{1
     else
         let l:compiler2_priority = 100
     endif
-    
+
     return l:compiler1_priority == l:compiler2_priority ? 0 : (
                 \ l:compiler1_priority > l:compiler2_priority ? 1 : -1)
 endfunction
@@ -1630,9 +1630,9 @@ function! s:DetectCompiler(lang_name) " {{{1
                     \'detect_func']
 
         call s:SetCompilerSingleTemplate(
-                    \a:lang_name, 
+                    \a:lang_name,
                     \some_compiler,
-                    \'command', 
+                    \'command',
                     \l:DetectFunc(
                     \s:CompilerTemplate[a:lang_name][some_compiler][
                     \'detect_func_arg']))
@@ -1640,7 +1640,7 @@ function! s:DetectCompiler(lang_name) " {{{1
         " if the type of s:CompilerTemplate[&filetype]['command'] returned
         " by the detection function is not a string, then we may think
         " that this compiler cannot be detected
-        if type(s:CompilerTemplate[a:lang_name][some_compiler]['command']) == 
+        if type(s:CompilerTemplate[a:lang_name][some_compiler]['command']) ==
                     \type('')
             call add(l:toret, some_compiler)
         endif
@@ -1663,7 +1663,7 @@ function! s:Run(async) " {{{1
     " whether we should use async mode
     let l:async = a:async && !empty(SingleCompileAsync#GetMode())
 
-    if !(has_key(s:CompilerTemplate[&filetype][ 
+    if !(has_key(s:CompilerTemplate[&filetype][
                 \s:CompilerTemplate[&filetype]['chosen_compiler']],
                 \'run'))
         call s:ShowMessage('Fail to run!')
@@ -1674,7 +1674,7 @@ function! s:Run(async) " {{{1
     let l:cwd = getcwd()
     silent lcd %:p:h
 
-    let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype, 
+    let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype,
                 \ s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'),
                 \ 1)
 
@@ -1699,8 +1699,8 @@ function! s:Run(async) " {{{1
     " switch back to the original directory
     exec 'lcd '.escape(l:cwd, s:CharsEscape)
 
-    " if tee is available, and we are running synchronously, and we want to 
-    " show the result window right after the run, then we call 
+    " if tee is available, and we are running synchronously, and we want to
+    " show the result window right after the run, then we call
     " SingleCompile#ViewResult
     if !l:async && executable('tee') &&
                 \ g:SingleCompile_showresultafterrun == 1
@@ -1779,13 +1779,13 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
         " available on the system; If not, then an error message is given.  If
         " the current langauge template is not set, then we give an error
         " message directly.
-        if has_key(s:CompilerTemplate, a:lang_name) && 
+        if has_key(s:CompilerTemplate, a:lang_name) &&
                     \has_key(s:CompilerTemplate[a:lang_name], a:1)
             " current language template is set
 
             let l:detected_compilers = s:DetectCompiler(a:lang_name)
 
-            if count(l:detected_compilers, a:1) == 0 
+            if count(l:detected_compilers, a:1) == 0
                 " if a:1 is not a detected compiler
 
                 call s:ShowMessage('"'.
@@ -1818,9 +1818,9 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         let l:detected_compilers = s:DetectCompiler(a:lang_name)
         " used to store the detected compilers
-        let l:choose_list = [] 
+        let l:choose_list = []
         " used to filled with compiler names to be displayed in front of user
-        let l:choose_list_display = [] 
+        let l:choose_list_display = []
 
         let l:count = 1
 
@@ -1829,12 +1829,12 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
                 continue
             endif
 
-            if count(l:detected_compilers, some_compiler) > 0 
+            if count(l:detected_compilers, some_compiler) > 0
                 " if the compiler is detected, then add it to the choose_list,
                 " which would be displayed then
 
                 call add(l:choose_list, some_compiler)
-                call add(l:choose_list_display, 
+                call add(l:choose_list_display,
                             \l:count.'. '.some_compiler.'('.
                             \s:CompilerTemplate[a:lang_name][some_compiler][
                             \'name'].
@@ -1853,20 +1853,20 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         let l:user_choose = inputlist( extend(['Detected compilers: '],
                     \l:choose_list_display) )
-        
+
         " If user cancels the choosing, then return directly; if user chooses
         " a number which is too big, then echo an empty line first and then
         " show an error message, then return
         if l:user_choose <= 0
             return
-        elseif l:user_choose > len(l:choose_list_display) 
-            echo ' ' 
+        elseif l:user_choose > len(l:choose_list_display)
+            echo ' '
             call s:ShowMessage(
                         \'The number you have chosen is invalid.')
             return
         endif
 
-        let s:CompilerTemplate[a:lang_name]['chosen_compiler'] = 
+        let s:CompilerTemplate[a:lang_name]['chosen_compiler'] =
                     \get(l:choose_list, l:user_choose-1)
 
         return
@@ -1876,8 +1876,8 @@ endfunction
 function! SingleCompile#ViewResult(async) " view the running result {{{1
     " split a window below and put the result there
 
-    " don't show result if s:run_result_tempfile is empty for synchronous run 
-    " result and the mode hasn't been set or the process is still running in 
+    " don't show result if s:run_result_tempfile is empty for synchronous run
+    " result and the mode hasn't been set or the process is still running in
     " background
     if (!a:async && empty(s:run_result_tempfile))
                 \|| (a:async
@@ -1886,7 +1886,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
         return
     endif
 
-    " if the async output cannot be obtained, give an error message and return 
+    " if the async output cannot be obtained, give an error message and return
     " directly
     if a:async
         let l:async_out = SingleCompileAsync#GetOutput()
@@ -1900,17 +1900,23 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
 
     call s:Initialize()
 
-    " if the __SINGLE_COMPILE_RUN_RESULT__ buffer has already existed, delete
-    " it first
-    let l:result_bufnr = bufnr('__SINGLE_COMPILE_RUN_RESULT__') 
-    if l:result_bufnr != -1
-        exec l:result_bufnr.'bdelete'
+    let l:result_bufnr = bufnr('__SINGLE_COMPILE_RUN_RESULT__')
+
+    " if the __SINGLE_COMPILE_RUN_RESULT__ buffer doesn't exist, make one
+    " else clear it, but leave it there to be refilled
+    if l:result_bufnr == -1
+        exec 'rightbelow '.g:SingleCompile_resultheight.
+                    \'split __SINGLE_COMPILE_RUN_RESULT__'
+        setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
+    else
+        let l:result_bufwinnr = bufwinnr(l:result_bufnr)
+        exec l:result_bufwinnr.'wincmd w'
+        let l:save_cursor = getpos(".")
+        setl modifiable
+            exec "g//d"
+        setl nomodifiable
     endif
 
-    exec 'rightbelow '.g:SingleCompile_resultheight.
-                \'split __SINGLE_COMPILE_RUN_RESULT__'
-
-    setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
 
     setl modifiable
     if a:async
@@ -1919,6 +1925,12 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
         call append(0, readfile(s:run_result_tempfile))
     endif
     setl nomodifiable
+
+    if l:result_bufnr != -1
+        call setpos('.', l:save_cursor)
+    endif
+
+    exec 'wincmd p'
 
 endfunction
 
