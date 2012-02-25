@@ -68,7 +68,7 @@ class SingleCompileAsync:
     output = None
     # This value will be set below if we are on win32. For other systems,
     # leave this as None
-    startupinfo = None  
+    startupinfo = None
 
 # if we are on win32, we need to set STARTUPINFO before calling
 # subprocess.Popen() to make the console of the subprocess show minimized and

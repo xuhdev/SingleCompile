@@ -135,7 +135,7 @@ endif
 " eg call scriptmanager#Activate(["vim-addon-actions","SingleCompile"])
 if exists('g:vim_actions')
     for cmd in ['SingleCompile','SingleCompileRun']
-        call actions#AddAction('run '.cmd, 
+        call actions#AddAction('run '.cmd,
                     \{'action': funcref#Function('return '.string([cmd]))})
     endfor
 endif

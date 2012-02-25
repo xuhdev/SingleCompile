@@ -218,13 +218,13 @@ python:
     pypy (PyPy)
     python (Python Interpreter)
     python3 (Python 3 Interpreter)
-    
+
 R:
     R (R)
 
 ruby:
     ruby (Ruby Interpreter)
-    
+
 sh:
     ash (Almquist Shell)
     bash (Bourne-Again Shell)
@@ -241,7 +241,7 @@ tcsh:
 
 vb script:
     vb (VB Script Interpreter)
-    
+
 xhtml:
     arora (Arora)
     chrome (Google Chrome)
@@ -273,7 +273,7 @@ built-in templates.
 
 
 Mercurial repository on bitbucket.org: https://bitbucket.org/xuhdev/singlecompile
-Git repository on github.com: https://github.com/xuhdev/SingleCompile 
+Git repository on github.com: https://github.com/xuhdev/SingleCompile
 
 Follow xuhdev on twitter if you are interested in my development:
 http://twitter.com/xuhdev
@@ -314,7 +314,7 @@ Also see |:SCCompileAF|.
                                             *:SingleCompile*
 Command:
     :SingleCompile
-Same as |:SCCompile|, only for backward compatibility use. Not recommended to 
+Same as |:SCCompile|, only for backward compatibility use. Not recommended to
 use any more.
 
                                             *:SCCompileAF*
@@ -338,7 +338,7 @@ flags defined in the original templates are not used. For example, the
 templates of GCC defined "flags" as '-o "%<"', "%<" stands for the output file
 name. ":SCCompile -O2" will use "gcc -O2 some_file.c" to compile your source
 file, while ":SCCompileAF -O2" will use "gcc -o some_file -O2 some_file.c" to
-compile your source file. 
+compile your source file.
 
                                             *:SCCompileRun*
 Command:
@@ -364,7 +364,7 @@ instead. See |:SCCompileRunAsync| for further information.
                                             *:SingleCompileRun*
 Command:
     :SingleCompileRun
-Same as |:SCCompileRun|, only for backward compatibility use. Not recommended 
+Same as |:SCCompileRun|, only for backward compatibility use. Not recommended
 to use any more.
 
                                             *:SCCompileRunAF*
@@ -424,7 +424,7 @@ Terminate the process which is running asynchronously if exists. Also see
 
                                             *:SCViewResult*
 Command:
-    :SCViewResult 
+    :SCViewResult
 View the result of the last run command. Only valid when "tee" command is
 available.  "tee" is usually available on a UNIX system. If you are under
 Windows, install cygwin or visit the following link to download a "tee"
@@ -618,7 +618,7 @@ is the command of compiling, such as "gcc", "g++"; "flag" is the flags of
 compiling, such as "-O2"; "run_command" is the command of running, such as
 "./a.out". For interpreted languages such as Python, Ruby, "command" is the
 command of interpreting, such as "python"; "flag" is the flags of
-interpreting; and "run_command" MUST be set to be empty. 
+interpreting; and "run_command" MUST be set to be empty.
 
 For the second line, "filetype" and  "compiler" has the same meanings with the
 first line. "out_file" is the output file of the compilation, such as
@@ -646,7 +646,7 @@ Here are some examples modified from built-in compiler templates:
  call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',
              \'gcc', '-o $(FILE_TITLE)$', l:common_run_command)
  call SingleCompile#SetOutfile('c', 'gcc', l:common_out_file)
- call SingleCompile#SetCompilerTemplate('c', 'icc', 
+ call SingleCompile#SetCompilerTemplate('c', 'icc',
              \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)
@@ -654,11 +654,11 @@ Here are some examples modified from built-in compiler templates:
  call SingleCompile#ChooseCompiler('c', 'gcc')
 
  " fortran
- call SingleCompile#SetCompilerTemplate('fortran', 'g77', 
+ call SingleCompile#SetCompilerTemplate('fortran', 'g77',
              \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)
- call SingleCompile#SetCompilerTemplate('fortran', 'ifort', 
+ call SingleCompile#SetCompilerTemplate('fortran', 'ifort',
              \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',
              \l:common_run_command)
  call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)
@@ -674,10 +674,10 @@ Here are some examples modified from built-in compiler templates:
  call SingleCompile#ChooseCompiler('python', 'jython')
 <
 
-2. (Deprecated, only kept for backward compatibility use) 
-If you use this method to add a language template, many features of 
-SingleCompile will be unavailable. For example, ":SCChooseCompiler" command 
-will not be available. So I don't recommend you to use this method, and this 
+2. (Deprecated, only kept for backward compatibility use)
+If you use this method to add a language template, many features of
+SingleCompile will be unavailable. For example, ":SCChooseCompiler" command
+will not be available. So I don't recommend you to use this method, and this
 method is kept ONLY for backward compatibility.
 
 Add the following lines to your vimrc file:
@@ -690,7 +690,7 @@ For compiling languages such as C, Java, stringA is the command of compiling,
 stringB is the flags of compiling, stringC is the command of running; For
 interpreted languages such as Python, Ruby, stringA is the command of
 interpreting, stringB is the flags of interpreting, stringC MUST be set to
-be empty. 
+be empty.
 
 Here are some examples:
 >
@@ -877,10 +877,10 @@ python:
 
 R:
     R (R)
-    
+
 ruby:
     ruby (Ruby Interpreter)
-    
+
 sh:
     ash (Almquist Shell)
     bash (Bourne-Again Shell)
@@ -897,7 +897,7 @@ tcsh:
 
 vb script:
     vb (VB Script Interpreter)
-    
+
 xhtml:
     arora (Arora)
     chrome (Google Chrome)
@@ -920,7 +920,7 @@ SUPPORTINGS~
 There are some supporting code in this plugin for Marc Weber's
 vim-addon-actions:
     http://github.com/MarcWeber/vim-addon-actions
-    
+
 
 ADVANCED~
                                             *SingleCompile-advanced*
@@ -949,7 +949,7 @@ function will use a built-in default compiler detecting function instead. The
 default function would check whether the "command" is in PATH, ~/bin,
 /usr/local/bin, /usr/bin, /bin on UNIX and whether it is in PATH on other
 OSes, and returns the full path of the command if it is not in PATH. If the
-command is not detected, the default function would return 0.  
+command is not detected, the default function would return 0.
 
 Here is a short example excerpted from built-in template(OpenWatcom detecting
 function):
@@ -1024,7 +1024,7 @@ Example: OpenWatcom's "Predo" and "Postdo" functions:
  call SingleCompile#SetPostdo('c', 'open-watcom', function('s:PostdoWatcom'))
 <
 As you see, the OpenWatcom "Predo" function first saves the current PATH
-environment varible, then modifies $PATH to meet the OpenWatcom compiler needs. 
+environment varible, then modifies $PATH to meet the OpenWatcom compiler needs.
 It returns the original compiling info because it does not need to modify it.
 The OpenWatcom "Postdo" function restores the original $PATH. After defining
 the two functions, the example calls "SetPredo" and "SetPostdo" function to
@@ -1098,7 +1098,7 @@ When running compiled program, if "tee" is used for redirecting, things
 written to stdout are not printed as if what happens when stdout is a tty.
 This need to be fixed.
 
-Make it possible to store compiler template in config files, such as ini 
+Make it possible to store compiler template in config files, such as ini
 files.
 
 Reduce startup time and shrink memory use.
