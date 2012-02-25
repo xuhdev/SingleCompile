@@ -1907,7 +1907,6 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
     if l:result_bufnr == -1
         exec 'rightbelow '.g:SingleCompile_resultheight.
                     \'split __SINGLE_COMPILE_RUN_RESULT__'
-        let l:save_cursor = getpos(".")
         setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
     else
         let l:result_bufwinnr = bufwinnr(l:result_bufnr)
@@ -1927,7 +1926,9 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
     endif
     setl nomodifiable
 
-    call setpos('.', l:save_cursor)
+    if l:result_bufnr != -1
+        call setpos('.', l:save_cursor)
+    endif
 
     exec 'wincmd p'
 
