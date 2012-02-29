@@ -1824,13 +1824,8 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         let l:count = 1
 
-        let l:detected_compilers = s:DetectCompiler(a:lang_name)
-        let s:CompilerTemplate[a:lang_name]['chosen_compiler'] =
-                    \get(l:detected_compilers, 0)
-
         for some_compiler in sort(keys(s:CompilerTemplate[a:lang_name]))
             if some_compiler == 'chosen_compiler'
-                echo "Current Compiler: ".s:CompilerTemplate[a:lang_name]['chosen_compiler']
                 continue
             endif
 
