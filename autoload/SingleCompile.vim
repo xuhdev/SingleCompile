@@ -1824,6 +1824,11 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
 
         let l:count = 1
 
+        if !has_key(s:CompilerTemplate[a:lang_name], 'chosen_compiler')
+            let s:CompilerTemplate[a:lang_name]['chosen_compiler'] =
+                        \ get(l:detected_compilers, 0)
+        endif
+
         for some_compiler in sort(keys(s:CompilerTemplate[a:lang_name]))
             if some_compiler == 'chosen_compiler'
                 continue
@@ -1850,6 +1855,10 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
                         \'No compiler is available for this language!')
             return
         endif
+
+        " display current compiler
+        echo "Current Compiler: " .
+                    \ s:CompilerTemplate[a:lang_name]['chosen_compiler']
 
         let l:user_choose = inputlist( extend(['Detected compilers: '],
                     \l:choose_list_display) )
