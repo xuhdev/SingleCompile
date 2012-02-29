@@ -1922,7 +1922,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
         exec l:result_bufwinnr.'wincmd w'
         let l:save_cursor = getpos(".")
         setl modifiable
-            exec "g//d"
+            exec "g/./d"
         setl nomodifiable
     endif
 
