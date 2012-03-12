@@ -530,7 +530,7 @@ your vimrc file:
 <
 The default value of g:SingleCompile_showquickfixiferror is 0. Note that this
 option is only valid for compilation languages such as C, Fortran. For
-interpreting langauges such as python, perl, ruby, this option is invalid.
+interpreting langauges such as python, perl, ruby, this option is ignored.
 
                                             *SingleCompile-showresultafterrun*
 If "tee" command is available on your system, copy the following line to your
