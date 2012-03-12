@@ -528,7 +528,9 @@ your vimrc file:
 >
  let g:SingleCompile_showquickfixiferror = 1
 <
-The default value of g:SingleCompile_showquickfixiferror is 0.
+The default value of g:SingleCompile_showquickfixiferror is 0. Note that this
+option is only valid for compilation languages such as C, Fortran. For
+interpreting langauges such as python, perl, ruby, this option is invalid.
 
                                             *SingleCompile-showresultafterrun*
 If "tee" command is available on your system, copy the following line to your
