@@ -1504,7 +1504,12 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
                         \' '.s:run_result_tempfile
 
             cgetexpr readfile(s:run_result_tempfile)
-            cwindow
+
+            " Open quickfix if possible
+            if g:SingleCompile_showquickfixiferror &&
+                \s:ShouldQuickfixBeUsed()
+                cwindow " only if quickfix contains errors
+            endif
 
             " recover the old makeprg and errorformat value
             let &g:makeprg = l:old_makeprg
