@@ -1505,6 +1505,12 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
             cgetexpr readfile(s:run_result_tempfile)
 
+            " Open quickfix if possible
+            if g:SingleCompile_showquickfixiferror &&
+                \s:ShouldQuickfixBeUsed()
+                cwindow " only if quickfix contains errors
+            endif
+
             " recover the old makeprg and errorformat value
             let &g:makeprg = l:old_makeprg
             let &g:errorformat = l:old_errorformat
@@ -1561,7 +1567,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " g:SingleCompile_showquickfixiferror is set to nonzero
     if l:toret == 1 && g:SingleCompile_showquickfixiferror &&
                 \s:ShouldQuickfixBeUsed()
-        cope
+        copen
     endif
 
     " if tee is available, and we are running an interpreting language source
