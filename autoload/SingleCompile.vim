@@ -80,6 +80,48 @@ function! s:GetCurrentShell() " {{{1
 endfunction
 
 " util {{{1
+function! s:IsShellSh(shell_name) " is the shell Bourne shell? {{2
+    if a:shell_name =~ '^sh' ||
+                \a:shell_name =~ '^bash' ||
+                \a:shell_name =~ '^ksh' ||
+                \a:shell_name =~ '^mksh' ||
+                \a:shell_name =~ '^pdksh' ||
+                \a:shell_name =~ '^zsh'
+        return 1
+    else
+        return 0
+    endif
+endfunction
+
+function! s:IsShellCsh(shell_name) " is the shell C Shell? {{2
+    if a:shell_name =~ '^csh' || a:shell_name =~ '^tcsh'
+        return 1
+    else
+        return 0
+    endif
+endfunction
+
+function! s:GetShellLastExitCodeVariable() " {{{2
+    " Get the variable that presents the exit code of last command.
+
+    if has('unix')
+
+        let l:cur_shell = s:GetCurrentShell()
+
+        if s:IsShellCsh(l:cur_shell)
+            return '$status'
+        elseif s:IsShellSh(l:cur_shell)
+            return '$?'
+        else
+            return ''
+        endif
+
+    elseif has('win32')
+        return '$?'
+    endif
+
+endfunction
+
 function! s:GetShellPipe(tee_used) " {{{2
     " get the shell pipe command according to it's platform. If a:tee_used is
     " set to nonzero, then the shell pipe contains "tee", otherwise "tee"
@@ -89,18 +131,13 @@ function! s:GetShellPipe(tee_used) " {{{2
 
         let l:cur_shell = s:GetCurrentShell()
 
-        if l:cur_shell =~ '^csh' || l:cur_shell =~ '^tcsh'
+        if s:IsShellCsh(l:cur_shell)
             if a:tee_used
                 return '|& tee'
             else
                 return '>&'
             endif
-        elseif l:cur_shell =~ '^sh' ||
-                    \l:cur_shell =~ '^bash' ||
-                    \l:cur_shell =~ '^ksh' ||
-                    \l:cur_shell =~ '^mksh' ||
-                    \l:cur_shell =~ '^pdksh' ||
-                    \l:cur_shell =~ '^zsh'
+        elseif s:IsShellSh(l:cur_shell)
             if a:tee_used
                 return '2>&1| tee'
             else
