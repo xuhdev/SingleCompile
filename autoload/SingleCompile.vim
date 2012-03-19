@@ -71,6 +71,14 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     return 2101
 endfunction
 
+if has('unix')
+    " Get the name of the current shell according to &shell for UNIX. For
+    " example, if &shell is '/bin/sh', the return value would be 'sh'.
+    function! s:GetCurrentShell() " {{{2
+        return strpart(&shell, strridx(&shell, '/') + 1)
+    endfunction
+endif
+
 " util {{{1
 function! s:GetShellPipe(tee_used) " {{{2
     " get the shell pipe command according to it's platform. If a:tee_used is
@@ -78,7 +86,8 @@ function! s:GetShellPipe(tee_used) " {{{2
     " wouldn't be contained in the return value.
 
     if has('unix')
-        let l:cur_shell = strpart(&shell, strridx(&shell, '/') + 1)
+
+        let l:cur_shell = s:GetCurrentShell()
 
         if l:cur_shell =~ '^csh' || l:cur_shell =~ '^tcsh'
             if a:tee_used
