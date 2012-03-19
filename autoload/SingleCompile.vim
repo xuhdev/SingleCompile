@@ -71,15 +71,15 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     return 2101
 endfunction
 
+" util {{{1
+function! s:GetCurrentShell() " {{{2
 " Get the name of the current shell according to &shell for UNIX. For example,
 " if &shell is '/bin/sh', the return value would be 'sh'.
-function! s:GetCurrentShell() " {{{1
     if has('unix')
         return strpart(&shell, strridx(&shell, '/') + 1)
     endif
 endfunction
 
-" util {{{1
 function! s:IsShellSh(shell_name) " is the shell Bourne shell? {{2
     if a:shell_name =~ '^sh' ||
                 \a:shell_name =~ '^bash' ||
