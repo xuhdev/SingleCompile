@@ -1369,6 +1369,11 @@ function! SingleCompile#CompileAsync(...) " compile asynchronously {{{1
 endfunction
 
 function! s:CompileInternal(arg_list, async) " compile only {{{1
+    " Return 0 for compiling language successfully compiled;
+    " Return 1 for compiling language failed to be compiled;
+    " Return 2 for interpreting language successfully run;
+    " Return 3 for interpreting language failed to be run.
+
     call s:Initialize()
     let l:toret = 0
 
@@ -1525,7 +1530,11 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
                 echo ' '
                 echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error
                             \| echohl None
-                let l:toret = 1
+                if s:IsLanguageInterpreting(l:cur_filetype)
+                    let l:toret = 3
+                else
+                    let l:toret = 1
+                endif
             endif
         endif
 
@@ -1545,9 +1554,26 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             " call :compiler command to set vim compiler
             call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
 
+            let l:exit_code_tempfile = tempname()
             let s:run_result_tempfile = tempname()
-            exec '!'.l:compile_cmd.' '.l:compile_args.' '.s:GetShellPipe(1).
-                        \' '.s:run_result_tempfile
+            " The output is put into s:run_result_tempfile, and exit code is
+            " written into l:exit_code_tempfile. The command should be
+            " something like this on bash:
+            "   !(compiler_cmd compile_args; echo $? >tmp1) | tee tmp2
+            exec '!('.l:compile_cmd.' '.l:compile_args.'; '.
+                        \ 'echo '.s:GetShellLastExitCodeVariable().' >'.
+                        \ l:exit_code_tempfile.') '.s:GetShellPipe(1).' '.
+                        \ s:run_result_tempfile
+
+            " if the exit code couldn't be obtained or the exit code is not 0,
+            " l:toret is set to 3 (this return value is for interpreting
+            " langauge only, means interpreting failed)
+            let l:exit_code_str = readfile(l:exit_code_tempfile)
+            if (len(l:exit_code_str) < 1) ||
+                        \ (len(l:exit_code_str) >= 1 &&
+                        \ str2nr(l:exit_code_str[0]))
+                let l:toret = 3
+            endif
 
             cgetexpr readfile(s:run_result_tempfile)
 
@@ -1585,9 +1611,9 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         let &l:errorformat = l:old_errorformat
     endif
 
-    " if it's interpreting language, then return 2 (means do not call run if
-    " user uses SCCompileRun command
-    if s:IsLanguageInterpreting(l:cur_filetype)
+    " if it's interpreting language, and l:toret has not been set, then return
+    " 2 (means do not call run if user uses SCCompileRun command
+    if l:toret == 0 && s:IsLanguageInterpreting(l:cur_filetype)
         let l:toret = 2
     endif
 
@@ -1605,8 +1631,9 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
     " show the quickfix window if error occurs, quickfix is used and
     " g:SingleCompile_showquickfixiferror is set to nonzero
-    if l:toret == 1 && g:SingleCompile_showquickfixiferror &&
-                \s:ShouldQuickfixBeUsed()
+    if (l:toret == 1 || l:toret == 3) &&
+                \ g:SingleCompile_showquickfixiferror && 
+                \ s:ShouldQuickfixBeUsed()
         cope
     endif
 
