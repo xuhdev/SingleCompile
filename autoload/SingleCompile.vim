@@ -1929,8 +1929,8 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             return
         endif
 
-        " display current compiler
-        echo "Current Compiler: " .
+        " display current compiler/interpreter
+        echo "Current Compiler/Interpreter: " .
                     \ s:CompilerTemplate[a:lang_name]['chosen_compiler']
 
         let l:user_choose = inputlist( extend(['Detected compilers: '],
