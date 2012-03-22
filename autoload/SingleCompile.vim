@@ -1572,6 +1572,11 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             if (len(l:exit_code_str) < 1) ||
                         \ (len(l:exit_code_str) >= 1 &&
                         \ str2nr(l:exit_code_str[0]))
+                echo ' '
+                echohl ErrorMsg
+                echo 'Interpreter exit code is '.l:exit_code_str[0]
+                echohl None
+
                 let l:toret = 3
             endif
 
@@ -1600,7 +1605,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
         " with error message highlighting and set the return value to 1
         if v:shell_error != 0
             echo ' '
-            echohl ErrorMsg | echo 'Return value is '.v:shell_error
+            echohl ErrorMsg | echo 'Compiler exit code is '.v:shell_error
                         \| echohl None
             let l:toret = 1
         endif
