@@ -44,6 +44,9 @@ OVERVIEW~
 This plugin is aimed at making it more convenient to compile or run a single
 source file without leaving vim.
 
+A short introduction is available here:
+http://hong-xu.github.com/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/ 
+
 Consider this situation: you have just written a small c source file for a
 small test, but you have to write a Makefile to compile it or exit vim to
 compile it or compile it using "!gcc" without quickfix feature because vim's
@@ -272,8 +275,8 @@ people, you could send me an email to inform me, and I'll put them in the
 built-in templates.
 
 
-Mercurial repository on bitbucket.org: https://bitbucket.org/xuhdev/singlecompile
 Git repository on github.com: https://github.com/xuhdev/SingleCompile
+Mercurial repository on bitbucket.org: https://bitbucket.org/xuhdev/singlecompile
 
 Follow xuhdev on twitter if you are interested in my development:
 http://twitter.com/xuhdev
