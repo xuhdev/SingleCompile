@@ -1528,8 +1528,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             " with error message highlighting and set the return value to 1
             if v:shell_error != 0
                 echo ' '
-                echohl ErrorMsg | echo 'Error! Return value is '.v:shell_error
-                            \| echohl None
+                call s:ShowMessage('Error! Return value is '.v:shell_error)
                 if s:IsLanguageInterpreting(l:cur_filetype)
                     let l:toret = 3
                 else
