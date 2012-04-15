@@ -16,7 +16,7 @@
 " along with SingleCompile.  If not, see <http://www.gnu.org/licenses/>.
 
 " File: autoload/SingleCompileAsync.vim
-" Version: 2.10.2-beta
+" Version: 2.10.3
 " check doc/SingleCompile.txt for more information
 
 

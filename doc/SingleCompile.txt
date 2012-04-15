@@ -1,9 +1,9 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.10.2-beta
+Version: 2.10.3
 Original Author and Current Maintainer: H Xu <xuhdev@gmail.com>
-Last Change: 22 March 2011
+Last Change: 15 April 2012
 Description: Make it more convenient to compile or run a single source file.
 License:
     Copyright (C) 2010-2012 Hong Xu
