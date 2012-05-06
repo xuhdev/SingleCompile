@@ -20,7 +20,8 @@
 function! SingleCompile#templates#cpp#Initialize()
     call SingleCompile#SetCompilerTemplate('cpp', 'open-watcom',
                 \'Open Watcom C/C++32 Compiler',
-                \'wcl386', '', g:SingleCompile_common_run_command)
+                \ 'wcl386', '', g:SingleCompile_common_run_command,
+                \ function('SingleCompile#DetectWatcom'))
     call SingleCompile#SetCompilerTemplateByDict('cpp', 'open-watcom', {
                 \ 'pre-do'  : function('SingleCompile#PredoWatcom'),
                 \ 'post-do' : function('SingleCompile#PostdoWatcom'),
