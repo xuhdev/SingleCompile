@@ -1,3 +1,3 @@
 #!/bin/sh
 
-zip SingleCompile.zip autoload/*.vim plugin/*.vim doc/*.txt
+zip SingleCompile.zip autoload/*.vim autoload/SingleCompile/templates/*.vim plugin/*.vim doc/*.txt
