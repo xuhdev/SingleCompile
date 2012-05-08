@@ -849,6 +849,9 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " sometimes the value of &filetype may be incorrect.
     let l:cur_filetype = &filetype
 
+    " Save the filetype to a script variable so it can be used by s:Run()
+    let s:cur_filetype = l:cur_filetype
+
     " if current filetype is an empty string, show an error message and
     " return.
     if l:cur_filetype == ''
@@ -1195,6 +1198,11 @@ endfunction
 function! s:Run(async) " {{{1
     " if async is non-zero, then run asynchronously
 
+    " Get the current filetype. We do not use &filetype because quickfix may
+    " open another file automatically, which may cause the filetype changed to
+    " an incorrect value.
+    let l:cur_filetype = s:cur_filetype
+
     let l:ret_val = 0
 
     call s:Initialize()
@@ -1202,8 +1210,8 @@ function! s:Run(async) " {{{1
     " whether we should use async mode
     let l:async = a:async && !empty(SingleCompileAsync#GetMode())
 
-    if !(has_key(s:CompilerTemplate[&filetype][
-                \s:CompilerTemplate[&filetype]['chosen_compiler']],
+    if !(has_key(s:CompilerTemplate[l:cur_filetype][
+                \s:CompilerTemplate[l:cur_filetype]['chosen_compiler']],
                 \'run'))
         call s:ShowMessage('Fail to run!')
         return 1
@@ -1213,9 +1221,9 @@ function! s:Run(async) " {{{1
     let l:cwd = getcwd()
     silent lcd %:p:h
 
-    let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(&filetype,
-                \ s:CompilerTemplate[&filetype]['chosen_compiler'], 'run'),
-                \ 1)
+    let l:run_cmd = s:Expand(s:GetCompilerSingleTemplate(l:cur_filetype,
+                \ s:CompilerTemplate[l:cur_filetype]['chosen_compiler'],
+                \ 'run'), 1)
 
     if l:async
         let l:ret_val = s:RunAsyncWithMessage(l:run_cmd)
