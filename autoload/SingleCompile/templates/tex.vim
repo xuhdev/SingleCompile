@@ -18,24 +18,14 @@
 " check doc/SingleCompile.txt for more information
 
 function! SingleCompile#templates#tex#Initialize()
-    if has('win32') || has('macunix')
-        call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
-                    \'pdflatex', '-interaction=nonstopmode',
-                    \'open "$(FILE_TITLE)$.pdf"')
-    elseif has('unix')
-        call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
-                    \'pdflatex', '-interaction=nonstopmode',
-                    \'xdg-open "$(FILE_TITLE)$.pdf"')
-    endif
+    call SingleCompile#SetCompilerTemplate('tex', 'pdflatex', 'pdfLaTeX',
+                \'pdflatex', '-interaction=nonstopmode',
+                \ SingleCompile#GetDefaultOpenCommand() .
+                \ ' "$(FILE_TITLE)$.pdf"')
     call SingleCompile#SetPriority('tex', 'pdflatex', 50)
-    if has('win32') || has('macunix')
-        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
-                    \'latex', '-interaction=nonstopmode',
-                    \'open "$(FILE_TITLE)$.dvi"')
-    elseif has('unix')
-        call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
-                    \'latex', '-interaction=nonstopmode',
-                    \'xdg-open "$(FILE_TITLE)$.dvi"')
-    endif
+    call SingleCompile#SetCompilerTemplate('tex', 'latex', 'LaTeX',
+                \'latex', '-interaction=nonstopmode',
+                \ SingleCompile#GetDefaultOpenCommand() .
+                \ ' "$(FILE_TITLE)$.dvi"')
     call SingleCompile#SetPriority('tex', 'latex', 80)
 endfunction

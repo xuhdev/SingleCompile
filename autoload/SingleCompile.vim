@@ -76,6 +76,18 @@ function! SingleCompile#GetVersion() " get the script version {{{1
 endfunction
 
 " util {{{1
+function! SingleCompile#GetDefaultOpenCommand() " {{{2
+" Get the default open command. It is "open" on Windows and Mac OS X,
+" "xdg-open" on Linux and other UNIX systems.
+    if has('win32') || has('macunix')
+        return 'open'
+    elseif has('unix')
+        return 'xdg-open'
+    else
+        return 'open' " We guess 'open' for any other systems
+    endif
+endfunction
+
 function! s:GetCurrentShell() " {{{2
 " Get the name of the current shell according to &shell for UNIX. For example,
 " if &shell is '/bin/sh', the return value would be 'sh'.
