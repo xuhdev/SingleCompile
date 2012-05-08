@@ -205,6 +205,7 @@ Makefile:
 
 Markdown:
     markdown (text-to-HTML conversion tool)
+    rdiscount (Discount Markdown Processor for Ruby)
 
 Object-C:
     clang (the Clang C and Objective-C compiler)
@@ -866,6 +867,7 @@ Makefile:
 
 Markdown:
     markdown (text-to-HTML conversion tool)
+    rdiscount (Discount Markdown Processor for Ruby)
 
 Object-C:
     clang (the Clang C and Objective-C compiler)

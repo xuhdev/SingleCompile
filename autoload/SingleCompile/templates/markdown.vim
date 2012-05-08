@@ -23,6 +23,13 @@ function! SingleCompile#templates#markdown#Initialize()
                 \ '-o $(FILE_TITLE)$.html',
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
+    call SingleCompile#SetPriority('markdown', 'markdown', 50)
+
+    call SingleCompile#SetCompilerTemplate('markdown', 'rdiscount',
+                \ 'Discount Markdown Processor for Ruby', 'rdiscount',
+                \ '$(FILE_NAME)$ >$(FILE_TITLE)$.html',
+                \ SingleCompile#GetDefaultOpenCommand() .
+                \ ' "$(FILE_TITLE)$.html"')
 endfunction
 
 "vim703: cc=78
