@@ -29,3 +29,6 @@ function! SingleCompile#templates#java#Initialize()
                 \'GNU Java Compiler', 'gcj', '', 'java $(FILE_TITLE)$')
     call SingleCompile#SetOutfile('java', 'gcj', '$(FILE_TITLE)$'.'.class')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

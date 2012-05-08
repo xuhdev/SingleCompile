@@ -25,3 +25,6 @@ function! SingleCompile#templates#lisp#Initialize()
     call SingleCompile#SetCompilerTemplate('lisp', 'gcl',
                 \'GNU Common Lisp', 'gcl', '-batch -load', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

@@ -33,3 +33,6 @@ function! SingleCompile#templates#sh#Initialize()
     call SingleCompile#SetCompilerTemplate('sh', 'dash',
                 \'Debian Almquist Shell', 'dash', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

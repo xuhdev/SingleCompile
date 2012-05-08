@@ -29,3 +29,6 @@ function! SingleCompile#templates#pascal#Initialize()
     call SingleCompile#SetOutfile('pascal', 'gpc',
                 \g:SingleCompile_common_out_file)
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

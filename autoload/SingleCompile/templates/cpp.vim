@@ -105,3 +105,6 @@ function! SingleCompile#templates#cpp#Initialize()
         call SingleCompile#SetOutfile('cpp', 'open64', g:SingleCompile_common_out_file)
     endif
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

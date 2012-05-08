@@ -27,3 +27,6 @@ function! SingleCompile#templates#idlang#Initialize()
                 \'GNU Data Language incremental compiler',
                 \'gdl', "-quiet -e '.run $(FILE_NAME)$'", '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

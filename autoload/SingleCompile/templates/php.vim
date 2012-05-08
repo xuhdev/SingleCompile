@@ -21,3 +21,6 @@ function! SingleCompile#templates#php#Initialize()
     call SingleCompile#SetCompilerTemplate('php', 'php',
                 \"PHP Command Line Interface 'CLI'", 'php', '-f', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

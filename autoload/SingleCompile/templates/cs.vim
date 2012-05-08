@@ -34,3 +34,6 @@ function! SingleCompile#templates#cs#Initialize()
                 \'$(FILE_TITLE)$'.'.exe')
     call SingleCompile#SetVimCompiler('cs', 'mono', 'mcs')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

@@ -21,3 +21,6 @@ function! SingleCompile#templates#cmake#Initialize()
     call SingleCompile#SetCompilerTemplate('cmake', 'cmake', 'cmake',
                 \'cmake', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

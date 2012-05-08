@@ -21,3 +21,6 @@ function! SingleCompile#templates#zsh#Initialize()
     call SingleCompile#SetCompilerTemplate('zsh', 'zsh',
                 \'Z Shell', 'zsh', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

@@ -21,3 +21,6 @@ function! SingleCompile#templates#bash#Initialize()
     call SingleCompile#SetCompilerTemplate('bash', 'bash',
                 \'Bourne-Again Shell', 'bash', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

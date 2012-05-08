@@ -21,3 +21,6 @@ function! SingleCompile#templates#vb#Initialize()
     call SingleCompile#SetCompilerTemplate('vb', 'vbs',
                 \'VB Script Interpreter', 'cscript', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

@@ -32,3 +32,6 @@ function! SingleCompile#templates#python#Initialize()
                 \'CPython 3', 'python3', '', '')
     call SingleCompile#SetPriority('python', 'python3', 120)
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

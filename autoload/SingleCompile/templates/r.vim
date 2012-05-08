@@ -21,3 +21,6 @@ function! SingleCompile#templates#r#Initialize()
     call SingleCompile#SetCompilerTemplate('r', 'R', 'R', 'R',
                 \'CMD BATCH', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

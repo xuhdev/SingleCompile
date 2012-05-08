@@ -21,3 +21,6 @@ function! SingleCompile#templates#d#Initialize()
     call SingleCompile#SetCompilerTemplate('d', 'dmd', 'DMD Compiler',
                 \'dmd', '', g:SingleCompile_common_run_command)
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

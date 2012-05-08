@@ -24,3 +24,6 @@ function! SingleCompile#templates#markdown#Initialize()
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

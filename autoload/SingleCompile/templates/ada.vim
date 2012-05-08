@@ -22,3 +22,6 @@ function! SingleCompile#templates#ada#Initialize()
                 \'make', g:SingleCompile_common_run_command)
     call SingleCompile#SetOutfile('ada', 'gnat', g:SingleCompile_common_out_file)
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

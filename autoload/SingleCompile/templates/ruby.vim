@@ -21,3 +21,6 @@ function! SingleCompile#templates#ruby#Initialize()
     call SingleCompile#SetCompilerTemplate('ruby', 'ruby',
                 \'Ruby Interpreter', 'ruby', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4

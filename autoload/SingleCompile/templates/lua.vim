@@ -21,3 +21,6 @@ function! SingleCompile#templates#lua#Initialize()
     call SingleCompile#SetCompilerTemplate('lua', 'lua',
                 \'Lua Interpreter', 'lua', '', '')
 endfunction
+
+"vim703: cc=78
+"vim: et ts=4 tw=78 sw=4
