@@ -575,6 +575,7 @@ function! s:Initialize() "{{{1
                 \ 'lisp',
                 \ 'lua',
                 \ 'make',
+                \ 'markdown',
                 \ 'objc',
                 \ 'pascal',
                 \ 'perl',

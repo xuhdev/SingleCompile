@@ -203,6 +203,9 @@ Makefile:
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
 
+Markdown:
+    markdown (text-to-HTML conversion tool)
+
 Object-C:
     clang (the Clang C and Objective-C compiler)
     gcc (GNU Object-C Compiler)
@@ -860,6 +863,9 @@ Makefile:
     gmake (GNU Make)
     nmake (Microsoft Program Maintenance Utility)
     mingw32-make (MinGW32 Make)
+
+Markdown:
+    markdown (text-to-HTML conversion tool)
 
 Object-C:
     clang (the Clang C and Objective-C compiler)
