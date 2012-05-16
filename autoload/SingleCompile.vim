@@ -559,6 +559,7 @@ function! s:Initialize() "{{{1
                 \ 'ada',
                 \ 'bash',
                 \ 'c',
+                \ 'cmake',
                 \ 'cpp',
                 \ 'cs',
                 \ 'csh',
