@@ -24,7 +24,7 @@ function! SingleCompile#templates#rst#Initialize()
                 \ '$(FILE_NAME)$ > $(FILE_TITLE)$.html',
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
-    "call SingleCompile#SetPriority('rst', 'rst2html', 50)
+    call SingleCompile#SetPriority('rst', 'rst2html', 50)
 endfunction
 
 "vim703: cc=78
