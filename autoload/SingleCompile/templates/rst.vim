@@ -24,6 +24,7 @@ function! SingleCompile#templates#rst#Initialize()
                 \ '$(FILE_NAME)$ > $(FILE_TITLE)$.html',
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
+    call SingleCompile#SetOutfile('rst', 'rst2html', '"$(FILE_TITLE)$.html"')
 	call SingleCompile#ChooseCompiler('rst', 'rst2html')
     call SingleCompile#SetPriority('rst', 'rst2html', 50)
 endfunction
