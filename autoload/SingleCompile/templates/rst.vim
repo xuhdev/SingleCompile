@@ -26,7 +26,6 @@ function! SingleCompile#templates#rst#Initialize()
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
     call SingleCompile#SetOutfile('rst', 'rst2html', '"$(FILE_TITLE)$.html"')
-	call SingleCompile#ChooseCompiler('rst', 'rst2html')
     call SingleCompile#SetPriority('rst', 'rst2html', 50)
 endfunction
 
