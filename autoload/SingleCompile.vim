@@ -1030,7 +1030,9 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
             let l:old_makeprg = &g:makeprg
             let l:old_errorformat = &g:errorformat
 
-            " call :compiler command to set vim compiler
+            " call :compiler! command to set vim compiler. We use :compiler!
+            " but not :compiler because cgetexpr command uses global option
+            " value of errorformat
             call s:SetGlobalVimCompiler(l:cur_filetype, l:chosen_compiler)
 
             let l:exit_code_tempfile = tempname()
