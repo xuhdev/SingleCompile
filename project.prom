@@ -1,6 +1,0 @@
-; This file is not part of the plugin; It is used to help generate tag file for
-; the sources of this plugin by ProjectTag.
-; Main page of ProjectTag: http://www.vim.org/scripts/script.php?script_id=3219
-
-[general]
-sources=plugin/SingleCompile.vim, autoload/SingleCompile.vim, autoload/SingleCompileAsync.vim
