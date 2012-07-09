@@ -17,17 +17,12 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! s:DetectDosbatch(not_used_arg) " {{{2
-    " always return an empty string, because dosbatch is always available on
-    " Windows.
-    return ''
-endfunction
-
 function! SingleCompile#templates#dosbatch#Initialize()
     if has('win32')
+        let l:cmd_path = $SYSTEMROOT . '\System32\cmd.exe'
+
         call SingleCompile#SetCompilerTemplate('dosbatch', 'dosbatch',
-                    \'DOS Batch', '', '', '',
-                    \function('s:DetectDosbatch'))
+                    \'DOS Batch', l:cmd_path, '/C', '')
     endif
 endfunction
 
