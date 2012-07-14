@@ -22,7 +22,7 @@ function! SingleCompile#templates#rst#Initialize()
     call SingleCompile#SetCompilerTemplate('rst', 'rst2html',
                 \ 'reST-to-HTML conversion tool',
                 \ 'rst2html',
-                \ '$(FILE_NAME)$ >$(FILE_TITLE)$.html',
+                \ '$(FILE_NAME)$ $(FILE_TITLE)$.html',
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
     call SingleCompile#SetOutfile('rst', 'rst2html', '"$(FILE_TITLE)$.html"')
