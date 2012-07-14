@@ -583,6 +583,7 @@ function! s:Initialize() "{{{1
                 \ 'php',
                 \ 'python',
                 \ 'r',
+                \ 'rst',
                 \ 'ruby',
                 \ 'sh',
                 \ 'tcl',
