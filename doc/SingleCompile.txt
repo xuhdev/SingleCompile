@@ -1,7 +1,7 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.10.5
+Version: 2.10.6
 Original Author and Current Maintainer: Hong Xu <dev@hong.me>
 Last Change: 15 May 2012
 Homepage: http://www.vim.org/scripts/script.php?script_id=3115
