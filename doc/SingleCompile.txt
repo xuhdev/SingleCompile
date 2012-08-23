@@ -854,6 +854,7 @@ ksh:
 LaTeX:
     latex (LaTeX)
     pdflatex (pdfLaTeX)
+    latexmk (Automatic LaTeX document generation routine)
 
 LISP:
     clisp (GNU CLISP)
