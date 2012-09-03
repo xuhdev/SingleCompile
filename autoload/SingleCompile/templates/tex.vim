@@ -33,7 +33,8 @@ function! SingleCompile#templates#tex#Initialize()
 	" to that all references are sorted out correctly.
 	call SingleCompile#SetCompilerTemplate('tex', 'latexmk', 'latexmk',
 				\ 'latexmk', '-pdf',
-				\ SingleCompile#GetDefaultOpenCommand() . "$(FILE_TITLE)$.pdf")
+				\ SingleCompile#GetDefaultOpenCommand() .
+                \ ' "$(FILE_TITLE)$.pdf"')
     call SingleCompile#SetPriority('tex', 'latexmk', 30)
 endfunction
 
