@@ -590,6 +590,7 @@ function! s:Initialize() "{{{1
                 \ 'tcsh',
                 \ 'tex',
                 \ 'vb',
+                \ 'vim',
                 \ 'xhtml',
                 \ 'zsh']
         exec 'call SingleCompile#templates#' .
