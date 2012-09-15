@@ -1050,7 +1050,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
             " if the exit code couldn't be obtained or the exit code is not 0,
             " l:toret is set to 3 (this return value is for interpreting
-            " langauge only, means interpreting failed)
+            " language only, means interpreting failed)
             let l:exit_code_str = readfile(l:exit_code_tempfile)
             if (len(l:exit_code_str) < 1) ||
                         \ (len(l:exit_code_str) >= 1 &&
@@ -1355,9 +1355,9 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             return
         endif
 
-        " If the current langauge template is set, then we check whether it is
+        " If the current language template is set, then we check whether it is
         " available on the system; If not, then an error message is given.  If
-        " the current langauge template is not set, then we give an error
+        " the current language template is not set, then we give an error
         " message directly.
         if has_key(s:CompilerTemplate, a:lang_name) &&
                     \has_key(s:CompilerTemplate[a:lang_name], a:1)
