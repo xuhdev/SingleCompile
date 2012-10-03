@@ -541,6 +541,11 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_usequickfix = 1
     endif
 
+    if !exists('g:SingleCompile_silentcompileifshowquickfix') ||
+                \type(g:SingleCompile_silentcompileifshowquickfix) != type(0)
+        unlet! g:SingleCompile_silentcompileifshowquickfix
+        let g:SingleCompile_silentcompileifshowquickfix = 0
+    endif
 
     " Initialize async mode
     if g:SingleCompile_asyncrunmode !=? 'none'
@@ -1102,14 +1107,24 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
         let &l:makeprg = l:compile_cmd
         let &l:shellpipe = s:GetShellPipe(0)
-        exec 'make'.' '.l:compile_args
+        let l:prefix_args = ''
+        let l:silentcompile = g:SingleCompile_silentcompileifshowquickfix &&
+                    \ g:SingleCompile_showquickfixiferror &&
+                    \ has("gui_running")
+
+        if l:silentcompile
+            let l:prefix_args = 'silent '
+        endif
+        exec l:prefix_args.'make'.' '.l:compile_args
 
         " check whether compiling is successful, if not, show the return value
         " with error message highlighting and set the return value to 1
         if v:shell_error != 0
-            echo ' '
-            call s:ShowMessage(
-                        \ 'Compiler exit code is '.v:shell_error)
+            if !l:silentcompile
+                echo ' '
+                call s:ShowMessage(
+                            \ 'Compiler exit code is '.v:shell_error)
+            endif
             let l:toret = 1
         endif
 
