@@ -192,26 +192,39 @@ function! s:Expand(str, ...) " expand the string{{{2
 
     let l:rep_dict = {
                 \'\$(FILE_NAME)\$': '%',
-                \'\$(FILE_TITLE)\$': '%:r',
                 \'\$(FILE_PATH)\$': '%:p',
-                \'\$(FILE_EXEC)\$': '%:p'}
-
+                \'\$(FILE_TITLE)\$': '%:r',
+                \'\$(FILE_EXEC)\$': '%:p:r',
+                \'\$(FILE_RUN)\$': '%:p:r'}
+    let l:rep_dict_prefix = {
+                \'\$(FILE_NAME)\$': '',
+                \'\$(FILE_PATH)\$': '',
+                \'\$(FILE_TITLE)\$': '',
+                \'\$(FILE_EXEC)\$': '',
+                \'\$(FILE_RUN)\$': ''}
     let l:rep_dict_suffix = {
                 \'\$(FILE_NAME)\$': '',
+                \'\$(FILE_PATH)\$': '',
                 \'\$(FILE_TITLE)\$': '',
-                \'\$(FILE_PATH)\$': ''}
+                \'\$(FILE_EXEC)\$': '',
+                \'\$(FILE_RUN)\$': ''}
 
     if has('win32')
+        let l:rep_dict_prefix['\$(FILE_RUN)\$'] = ''
         let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = '.exe'
+        let l:rep_dict_suffix['\$(FILE_RUN)\$'] = '.exe'
     elseif has('unix')
+        let l:rep_dict_prefix['\$(FILE_RUN)\$'] = './'
         let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = ''
+        let l:rep_dict_suffix['\$(FILE_RUN)\$'] = ''
     endif
 
 
     let l:str = a:str
     for one_key in keys(l:rep_dict)
-        let l:rep_string = expand(l:rep_dict[one_key]).
-                    \l:rep_dict_suffix[one_key]
+        let l:rep_string = l:rep_dict_prefix[one_key] .
+                    \ expand(l:rep_dict[one_key]) .
+                    \ l:rep_dict_suffix[one_key]
 
         " on win32, replace the backslash with '/'
         if has('win32')
