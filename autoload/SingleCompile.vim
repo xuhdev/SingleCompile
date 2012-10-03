@@ -523,6 +523,13 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_showquickfixiferror = 0
     endif
 
+    if !exists('g:SingleCompile_showquickfixifwarning') ||
+                \type(g:SingleCompile_showquickfixifwarning) != type(0)
+        unlet! g:SingleCompile_showquickfixifwarning
+        let g:SingleCompile_showquickfixifwarning =
+                    \g:SingleCompile_showquickfixiferror
+    endif
+
     if !exists('g:SingleCompile_showresultafterrun') ||
                 \type(g:SingleCompile_showresultafterrun) != type(0)
         unlet! g:SingleCompile_showresultafterrun
@@ -1154,10 +1161,15 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
     " show the quickfix window if error occurs, quickfix is used and
     " g:SingleCompile_showquickfixiferror is set to nonzero
-    if (l:toret == 1 || l:toret == 3) &&
-                \ g:SingleCompile_showquickfixiferror && 
-                \ s:ShouldQuickfixBeUsed()
-        cope
+    if g:SingleCompile_showquickfixiferror && s:ShouldQuickfixBeUsed()
+        " We have error
+        if l:toret == 1 || l:toret == 3
+            " wordaround when the compiler file is broken
+            cope
+        " We may have warning
+        elseif g:SingleCompile_showquickfixifwarning
+            cw
+        endif
     endif
 
     " if tee is available, and we are running an interpreting language source

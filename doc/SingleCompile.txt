@@ -361,6 +361,16 @@ use this option with |SingleCompile-silentcompileifshowquickfix|. Note that
 this option will be ignored if you are using interpreting languages on
 Windows, such as python, ruby.
 
+                                          *SingleCompile-showquickfixifwarning*
+If |quickfix| is enabled and used, and you want the quickfix window to show
+automatically if there is a compilation warning.  This setting is only valid
+when g:SingleCompile_showquickfixiferror = 1.
+>
+ let g:SingleCompile_showquickfixifwarning = 0
+<
+The default value of g:SingleCompile_showquickfixifwarning is as same as
+g:SingleCompile_showquickfixiferror.  You don't want miss a warning, will you?
+
                                             *SingleCompile-showresultafterrun*
 If "tee" command is available on your system, copy the following line to your
 vimrc file will make vim show the result of the run automatically after you
