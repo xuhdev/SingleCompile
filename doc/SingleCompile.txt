@@ -456,6 +456,14 @@ first line. "out_file" is the output file of the compilation, such as
 SingleCompile to check whether compilation is needed. See
 |SingleCompile-alwayscompile| for more information.
 
+There are four special variable that you can use:
+'$(FILE_NAME)$' returns the "%".
+'$(FILE_PATH)$' returns "%:p".
+'$(FILE_TITLE)$' returns "%:r".
+'$(FILE_EXEC)$' returns "%:r.exe" on windows and "%:r" on unix.
+'$(FILE_RUN)$' returns "%:r.exe" on windows and "./%:r" on unix.
+Also see |%|.
+
 The first two lines are to set the template of your compiler, while the third
 line is to tell SingleCompile to use your compiler. If the second line is
 omitted, SingleCompile will detect the compilers available on your system
@@ -464,6 +472,7 @@ automatically, and use the first detected one.
 Here are some examples modified from built-in compiler templates:
 >
  " set the most common used run command
+ " you may also use $(FILE_RUN)$ as an alternative.
  if has('win32') || has('win64') || has('os2')
      let l:common_run_command = '$(FILE_TITLE)$'
      let l:common_out_file = '$(FILE_TITLE)$.exe'
