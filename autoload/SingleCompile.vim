@@ -191,26 +191,39 @@ function! s:Expand(str, ...) " expand the string{{{2
 
     let l:rep_dict = {
                 \'\$(FILE_NAME)\$': '%',
-                \'\$(FILE_TITLE)\$': '%:r',
                 \'\$(FILE_PATH)\$': '%:p',
-                \'\$(FILE_EXEC)\$': '%:p'}
-
+                \'\$(FILE_TITLE)\$': '%:r',
+                \'\$(FILE_EXEC)\$': '%:p:r',
+                \'\$(FILE_RUN)\$': '%:p:r'}
+    let l:rep_dict_prefix = {
+                \'\$(FILE_NAME)\$': '',
+                \'\$(FILE_PATH)\$': '',
+                \'\$(FILE_TITLE)\$': '',
+                \'\$(FILE_EXEC)\$': '',
+                \'\$(FILE_RUN)\$': ''}
     let l:rep_dict_suffix = {
                 \'\$(FILE_NAME)\$': '',
+                \'\$(FILE_PATH)\$': '',
                 \'\$(FILE_TITLE)\$': '',
-                \'\$(FILE_PATH)\$': ''}
+                \'\$(FILE_EXEC)\$': '',
+                \'\$(FILE_RUN)\$': ''}
 
     if has('win32')
+        let l:rep_dict_prefix['\$(FILE_RUN)\$'] = ''
         let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = '.exe'
+        let l:rep_dict_suffix['\$(FILE_RUN)\$'] = '.exe'
     elseif has('unix')
+        let l:rep_dict_prefix['\$(FILE_RUN)\$'] = './'
         let l:rep_dict_suffix['\$(FILE_EXEC)\$'] = ''
+        let l:rep_dict_suffix['\$(FILE_RUN)\$'] = ''
     endif
 
 
     let l:str = a:str
     for one_key in keys(l:rep_dict)
-        let l:rep_string = expand(l:rep_dict[one_key]).
-                    \l:rep_dict_suffix[one_key]
+        let l:rep_string = l:rep_dict_prefix[one_key] .
+                    \ expand(l:rep_dict[one_key]) .
+                    \ l:rep_dict_suffix[one_key]
 
         " on win32, replace the backslash with '/'
         if has('win32')
@@ -503,6 +516,13 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_showquickfixiferror = 0
     endif
 
+    if !exists('g:SingleCompile_showquickfixifwarning') ||
+                \type(g:SingleCompile_showquickfixifwarning) != type(0)
+        unlet! g:SingleCompile_showquickfixifwarning
+        let g:SingleCompile_showquickfixifwarning =
+                    \g:SingleCompile_showquickfixiferror
+    endif
+
     if !exists('g:SingleCompile_showresultafterrun') ||
                 \type(g:SingleCompile_showresultafterrun) != type(0)
         unlet! g:SingleCompile_showresultafterrun
@@ -521,6 +541,11 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_usequickfix = 1
     endif
 
+    if !exists('g:SingleCompile_silentcompileifshowquickfix') ||
+                \type(g:SingleCompile_silentcompileifshowquickfix) != type(0)
+        unlet! g:SingleCompile_silentcompileifshowquickfix
+        let g:SingleCompile_silentcompileifshowquickfix = 0
+    endif
 
     " Initialize async mode
     if g:SingleCompile_asyncrunmode !=? 'none'
@@ -1081,14 +1106,24 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
         let &l:makeprg = l:compile_cmd
         let &l:shellpipe = s:GetShellPipe(0)
-        exec 'make'.' '.l:compile_args
+        let l:prefix_args = ''
+        let l:silentcompile = g:SingleCompile_silentcompileifshowquickfix &&
+                    \ g:SingleCompile_showquickfixiferror &&
+                    \ has("gui_running")
+
+        if l:silentcompile
+            let l:prefix_args = 'silent '
+        endif
+        exec l:prefix_args.'make'.' '.l:compile_args
 
         " check whether compiling is successful, if not, show the return value
         " with error message highlighting and set the return value to 1
         if v:shell_error != 0
-            echo ' '
-            call s:ShowMessage(
-                        \ 'Compiler exit code is '.v:shell_error)
+            if !l:silentcompile
+                echo ' '
+                call s:ShowMessage(
+                            \ 'Compiler exit code is '.v:shell_error)
+            endif
             let l:toret = 1
         endif
 
@@ -1118,10 +1153,15 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
     " show the quickfix window if error occurs, quickfix is used and
     " g:SingleCompile_showquickfixiferror is set to nonzero
-    if (l:toret == 1 || l:toret == 3) &&
-                \ g:SingleCompile_showquickfixiferror && 
-                \ s:ShouldQuickfixBeUsed()
-        cope
+    if g:SingleCompile_showquickfixiferror && s:ShouldQuickfixBeUsed()
+        " We have error
+        if l:toret == 1 || l:toret == 3
+            " wordaround when the compiler file is broken
+            cope
+        " We may have warning
+        elseif g:SingleCompile_showquickfixifwarning
+            cw
+        endif
     endif
 
     " if tee is available, and we are running an interpreting language source
