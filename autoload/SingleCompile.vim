@@ -574,6 +574,7 @@ function! s:Initialize() "{{{1
                 \ 'dosbatch',
                 \ 'erlang',
                 \ 'fortran',
+                \ 'go',
                 \ 'haskell',
                 \ 'html',
                 \ 'idlang',
