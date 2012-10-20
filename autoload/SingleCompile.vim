@@ -177,15 +177,16 @@ function! s:GetShellPipe(tee_used) " {{{2
 endfunction
 function! s:Expand(str, ...) " expand the string{{{2
     " the second argument is optional. If it is given and it is zero, then
-    " we thought we don't need single quote.
+    " we thought we don't need any quote; otherwise, we use double quotes on
+    " Windows and single quotes on all other systems.
 
-    let l:double_quote_needed = 1
+    let l:quote_needed = 1
     if a:0 > 1
         call s:ShowMessage('s:Expand argument error.')
         return ''
     elseif a:0 == 1
         if !a:1
-            let l:double_quote_needed = 0
+            let l:quote_needed = 0
         endif
     endif
 
@@ -218,8 +219,14 @@ function! s:Expand(str, ...) " expand the string{{{2
         endif
 
         let l:rep_string = escape(l:rep_string, '\')
-        if l:double_quote_needed && match(l:rep_string, ' ') != -1
-            let l:rep_string = "'".l:rep_string."'"
+        if l:quote_needed && match(l:rep_string, ' ') != -1
+
+            if has('win32')
+                let l:rep_string = '"'.l:rep_string.'"'
+            else
+                let l:rep_string = "'".l:rep_string."'"
+            endif
+
         endif
         let l:str = substitute(l:str, one_key, l:rep_string, 'g')
     endfor
@@ -1050,7 +1057,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
 
             " if the exit code couldn't be obtained or the exit code is not 0,
             " l:toret is set to 3 (this return value is for interpreting
-            " langauge only, means interpreting failed)
+            " language only, means interpreting failed)
             let l:exit_code_str = readfile(l:exit_code_tempfile)
             if (len(l:exit_code_str) < 1) ||
                         \ (len(l:exit_code_str) >= 1 &&
@@ -1355,9 +1362,9 @@ fun! SingleCompile#ChooseCompiler(lang_name, ...) " choose a compiler {{{1
             return
         endif
 
-        " If the current langauge template is set, then we check whether it is
+        " If the current language template is set, then we check whether it is
         " available on the system; If not, then an error message is given.  If
-        " the current langauge template is not set, then we give an error
+        " the current language template is not set, then we give an error
         " message directly.
         if has_key(s:CompilerTemplate, a:lang_name) &&
                     \has_key(s:CompilerTemplate[a:lang_name], a:1)
