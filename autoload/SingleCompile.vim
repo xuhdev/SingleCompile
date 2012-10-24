@@ -177,15 +177,16 @@ function! s:GetShellPipe(tee_used) " {{{2
 endfunction
 function! s:Expand(str, ...) " expand the string{{{2
     " the second argument is optional. If it is given and it is zero, then
-    " we thought we don't need single quote.
+    " we thought we don't need any quote; otherwise, we use double quotes on
+    " Windows and single quotes on all other systems.
 
-    let l:double_quote_needed = 1
+    let l:quote_needed = 1
     if a:0 > 1
         call s:ShowMessage('s:Expand argument error.')
         return ''
     elseif a:0 == 1
         if !a:1
-            let l:double_quote_needed = 0
+            let l:quote_needed = 0
         endif
     endif
 
@@ -231,8 +232,14 @@ function! s:Expand(str, ...) " expand the string{{{2
         endif
 
         let l:rep_string = escape(l:rep_string, '\')
-        if l:double_quote_needed && match(l:rep_string, ' ') != -1
-            let l:rep_string = "'".l:rep_string."'"
+        if l:quote_needed && match(l:rep_string, ' ') != -1
+
+            if has('win32')
+                let l:rep_string = '"'.l:rep_string.'"'
+            else
+                let l:rep_string = "'".l:rep_string."'"
+            endif
+
         endif
         let l:str = substitute(l:str, one_key, l:rep_string, 'g')
     endfor
@@ -592,6 +599,7 @@ function! s:Initialize() "{{{1
                 \ 'dosbatch',
                 \ 'erlang',
                 \ 'fortran',
+                \ 'go',
                 \ 'haskell',
                 \ 'html',
                 \ 'idlang',
