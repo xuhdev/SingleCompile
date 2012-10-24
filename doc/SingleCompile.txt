@@ -254,9 +254,10 @@ Terminate the process which is running asynchronously if exists. Also see
 Command:
     :SCViewResult
 View the result of the last run command. Only valid when "tee" command is
-available.  "tee" is usually available on a UNIX system. If you are under
-Windows, install cygwin or visit the following link to download a "tee"
-command for Windows:
+available.  When you disable "tee" by setting |SingleCompile_usetee| to 0, you
+will disable this feature.  "tee" is usually available on a UNIX system. If
+you are under Windows, install cygwin or visit the following link to download
+a "tee" command for Windows:
 http://gnuwin32.sourceforge.net/packages/coreutils.htm
 
                                             *:SCViewResultAsync*
