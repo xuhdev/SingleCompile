@@ -167,7 +167,7 @@ function! s:GetShellPipe(tee_used) " {{{2
             endif
         endif
     elseif has('win32')
-        if executable('tee') && a:tee_used
+        if executable('tee') && a:tee_used && g:SingleCompile_usetee
             return '2>&1 | tee'
         else
             return '>%s 2>&1'
@@ -546,6 +546,12 @@ function! s:Initialize() "{{{1
                 \type(g:SingleCompile_usequickfix) != type(0)
         unlet! g:SingleCompile_usequickfix
         let g:SingleCompile_usequickfix = 1
+    endif
+
+    if !exists('g:SingleCompile_usetee') ||
+                \type(g:SingleCompile_usetee) != type(0)
+        unlet! g:SingleCompile_usetee
+        let g:SingleCompile_usetee = 1
     endif
 
     if !exists('g:SingleCompile_silentcompileifshowquickfix') ||
@@ -1175,7 +1181,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " if tee is available, and we are running an interpreting language source
     " file, and we want to show the result window right after the run, and we
     " are not running it asynchronously, then we call SingleCompile#ViewResult
-    if executable('tee') && l:toret == 2 && !l:async
+    if executable('tee') && g:SingleCompile_usetee
+                \&& l:toret == 2 && !l:async
                 \&& g:SingleCompile_showresultafterrun == 1
         call SingleCompile#ViewResult(0)
     endif
@@ -1294,8 +1301,9 @@ function! s:Run(async) " {{{1
     if l:async
         let l:ret_val = s:RunAsyncWithMessage(l:run_cmd)
     else
-        if executable('tee')
-            " if tee is available, then redirect the result to a temp file
+        if executable('tee') && g:SingleCompile_usetee
+            " if tee is available, and we enabled the use of "tee", then
+            " redirect the result to a temp file
 
             let s:run_result_tempfile = tempname()
             let l:run_cmd = l:run_cmd.
@@ -1315,8 +1323,8 @@ function! s:Run(async) " {{{1
     " if tee is available, and we are running synchronously, and we want to
     " show the result window right after the run, then we call
     " SingleCompile#ViewResult
-    if !l:async && executable('tee') &&
-                \ g:SingleCompile_showresultafterrun == 1
+    if !l:async && executable('tee') && g:SingleCompile_usetee
+                \&& g:SingleCompile_showresultafterrun == 1
         call SingleCompile#ViewResult(0)
     endif
 
