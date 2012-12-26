@@ -593,6 +593,7 @@ function! s:Initialize() "{{{1
                 \ 'r',
                 \ 'rst',
                 \ 'ruby',
+                \ 'scala',
                 \ 'sh',
                 \ 'tcl',
                 \ 'tcsh',
