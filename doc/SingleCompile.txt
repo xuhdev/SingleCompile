@@ -710,7 +710,7 @@ python:
     ironpython (IronPython)
     jython (Jython)
     pypy (PyPy)
-    python (Python Interpreter, usually the system default Python, no matter it is 2 or 3.)
+    python (Python Interpreter, usually the system default Python, no matter it is Python 2 or 3.)
     python2 (Python 2 Interpreter)
     python3 (Python 3 Interpreter)
 

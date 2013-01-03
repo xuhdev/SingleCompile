@@ -18,7 +18,7 @@
 " check doc/SingleCompile.txt for more information
 
 function! SingleCompile#templates#python#Initialize()
-    call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython (Usually the system default version. Can be 2 or 3.)',
+    call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython (Usually the system default version. Can be Python 2 or 3.)',
                 \'python', '', '')
     call SingleCompile#SetPriority('python', 'python', 50)
     call SingleCompile#SetCompilerTemplate('python', 'ironpython',
