@@ -722,6 +722,11 @@ reStructuredText:
 ruby:
     ruby (Ruby Interpreter)
 
+scala:
+    scala (Scala compiler)
+    Note: vim does not detect scala files out the box.
+    See https://github.com/bjartek/scala-vim-support
+
 sh:
     ash (Almquist Shell)
     bash (Bourne-Again Shell)
