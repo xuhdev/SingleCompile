@@ -4,7 +4,7 @@ File: SingleCompile.txt
 Version: 2.10.7
 Original Author and Current Maintainer: Hong Xu <hong@topbug.net>
 Last Change: 13 Feb 2013
-Homepage: http://www.vim.org/scripts/script.php?script_id=3115
+Homepage: http://www.topbug.net/SingleCompile
 GitHub repo: https://github.com/xuhdev/SingleCompile
 Description: Make it more convenient to compile or run a single source file.
 License:
