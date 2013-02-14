@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2012 Hong Xu
+" Copyright (C) 2010-2013 Hong Xu
 
 " This file is part of SingleCompile.
 
@@ -16,7 +16,7 @@
 " along with SingleCompile.  If not, see <http://www.gnu.org/licenses/>.
 
 " File: autoload/SingleCompileAsync.vim
-" Version: 2.10.5
+" Version: 2.10.7
 " check doc/SingleCompile.txt for more information
 
 
