@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2012 Hong Xu
+" Copyright (C) 2010-2013 Hong Xu
 
 " This file is part of SingleCompile.
 
@@ -17,7 +17,7 @@
 
 " File: plugin/SingleCompile.vim
 " GetLatestVimScripts: 3115 1 SingleCompile.zip
-" version 2.10.6
+" version 2.10.7
 " check doc/SingleCompile.txt for more version information
 
 if v:version < 700

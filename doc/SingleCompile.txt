@@ -1,14 +1,14 @@
 *SingleCompile.txt*
 
 File: SingleCompile.txt
-Version: 2.10.6
+Version: 2.10.7
 Original Author and Current Maintainer: Hong Xu <hong@topbug.net>
-Last Change: 15 May 2012
-Homepage: http://www.vim.org/scripts/script.php?script_id=3115
+Last Change: 13 Feb 2013
+Homepage: http://www.topbug.net/SingleCompile
 GitHub repo: https://github.com/xuhdev/SingleCompile
 Description: Make it more convenient to compile or run a single source file.
 License:
-    Copyright (C) 2010-2012 Hong Xu
+    Copyright (C) 2010-2013 Hong Xu
 
     This file is part of SingleCompile.
 
@@ -47,7 +47,7 @@ This plugin is aimed at making it more convenient to compile or run a single
 source file without leaving vim.
 
 A short introduction is available here:
-http://hong-xu.github.com/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/ 
+http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/ 
 
 Consider this situation: you have just written a small c source file for a
 small test, but you have to write a Makefile to compile it or exit vim to
@@ -679,6 +679,9 @@ Fortran:
     sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX only
     sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX only
 
+Go:
+    go (Go)
+
 Haskell:
     ghc (Glasgow Haskell Compiler)
     runhaskell (runhaskell)
@@ -750,7 +753,8 @@ python:
     ironpython (IronPython)
     jython (Jython)
     pypy (PyPy)
-    python (Python Interpreter)
+    python (Python Interpreter, usually the system default Python, no matter it is Python 2 or 3.)
+    python2 (Python 2 Interpreter)
     python3 (Python 3 Interpreter)
 
 R:
@@ -761,6 +765,11 @@ reStructuredText:
 
 ruby:
     ruby (Ruby Interpreter)
+
+scala:
+    scala (Scala compiler)
+    Note: vim does not detect scala files out the box.
+    See https://github.com/bjartek/scala-vim-support
 
 sh:
     ash (Almquist Shell)
