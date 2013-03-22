@@ -510,6 +510,12 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_autowrite = 1
     endif
 
+    if !exists('g:SingleCompile_quickfixwindowposition') ||
+                \type(g:SingleCompile_quickfixwindowposition) != type('')
+        unlet! g:SingleCompile_quickfixwindowposition
+        let g:SingleCompile_quickfixwindowposition = 'botright'
+    end
+
     if !exists('g:SingleCompile_resultheight') ||
                 \type(g:SingleCompile_resultheight) != type(0) ||
                 \g:SingleCompile_resultheight <= 0
@@ -1171,11 +1177,11 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     if g:SingleCompile_showquickfixiferror && s:ShouldQuickfixBeUsed()
         " We have error
         if l:toret == 1 || l:toret == 3
-            " wordaround when the compiler file is broken
-            cope
+            " workaround when the compiler file is broken
+            exec g:SingleCompile_quickfixwindowposition . ' cope'
         " We may have warning
         elseif g:SingleCompile_showquickfixifwarning
-            cw
+            exec g:SingleCompile_quickfixwindowposition . ' cw'
         endif
     endif
 

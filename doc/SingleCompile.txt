@@ -343,6 +343,19 @@ following line to your vimrc:
 <
 The default value is 1.
 
+                                            *SingleCompile-quickfixwindowposition*
+If |g:SingleCompile_showquickfixiferror| is set to 1,
+|g:SingleCompile_quickfixwindowposition| defines the position where quickfix
+window shows up. The default value is "botright", but you can change this
+value by add the following line to your vimrc file:
+>
+ let g:SingleCompile_quickfixwindowposition = 'some_position'
+<
+Accepted values are "aboveleft", "topleft", "botright", "belowright",
+"vertical", "leftabove", etc. SingleCompile will simply prepend
+|g:SingleCompile_quickfixwindowposition| to 'cope' and 'cw' commands. See
+|opening-window| and 'cope' for more details.
+
                                             *SingleCompile-resultheight*
 g:SingleCompile_resultheight is the height of the result displaying window
 triggered by |:SCViewResult| command. To set the value, add the following line
