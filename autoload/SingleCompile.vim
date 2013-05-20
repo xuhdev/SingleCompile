@@ -16,7 +16,7 @@
 " along with SingleCompile.  If not, see <http://www.gnu.org/licenses/>.
 
 " File: autoload/SingleCompile.vim
-" Version: 2.10.7
+" Version: 2.11.0
 " check doc/SingleCompile.txt for more information
 
 
@@ -72,7 +72,7 @@ function! SingleCompile#GetVersion() " get the script version {{{1
     " For example, 2.9.2 is corresponding to 292
     " From 2.10.0, the return value is: major * 1000 + minor * 10 + subminor
     " For example, 2.10.1 is corresponding to 2101
-    return 2107
+    return 2110
 endfunction
 
 " util {{{1
