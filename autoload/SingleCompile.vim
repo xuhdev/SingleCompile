@@ -117,6 +117,10 @@ function! s:IsShellCsh(shell_name) " is the shell C Shell? {{2
     endif
 endfunction
 
+function! s:IsShellFish(shell_name) " is the shell FISH shell {{2
+    return a:shell_name =~ '^fish'
+endfunction
+
 function! s:GetShellLastExitCodeVariable() " {{{2
     " Get the variable that presents the exit code of last command.
 
@@ -124,7 +128,7 @@ function! s:GetShellLastExitCodeVariable() " {{{2
 
         let l:cur_shell = s:GetCurrentShell()
 
-        if s:IsShellCsh(l:cur_shell)
+        if s:IsShellCsh(l:cur_shell) || s:IsShellFish(l:cur_shell)
             return '$status'
         elseif s:IsShellSh(l:cur_shell)
             return '$?'
@@ -153,7 +157,7 @@ function! s:GetShellPipe(tee_used) " {{{2
             else
                 return '>&'
             endif
-        elseif s:IsShellSh(l:cur_shell)
+        elseif s:IsShellSh(l:cur_shell) || s:IsShellFish(l:cur_shell)
             if a:tee_used
                 return '2>&1| tee'
             else
