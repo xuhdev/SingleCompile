@@ -47,7 +47,7 @@ This plugin is aimed at making it more convenient to compile or run a single
 source file without leaving vim.
 
 A short introduction is available here:
-http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/ 
+http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/
 
 Consider this situation: you have just written a small c source file for a
 small test, but you have to write a Makefile to compile it or exit vim to
@@ -261,7 +261,7 @@ command for Windows:
 http://gnuwin32.sourceforge.net/packages/coreutils.htm
 
 NOTE: When you disable "tee" by setting |SingleCompile_usetee| to 0, you
-will disable this feature. 
+will disable this feature.
 
                                             *:SCViewResultAsync*
 Command:
@@ -666,6 +666,9 @@ C#:
 cmake:
     cmake (cmake)
 
+CoffeeScript:
+    coffee (CoffeeScript is a little language that compiles into JavaScript)
+
 csh:
     csh (C Shell)
     tcsh (TENEX C Shell)
@@ -735,6 +738,9 @@ LISP:
     clisp (GNU CLISP)
     ecl (Embeddable Common-Lisp)
     gcl (GNU Common Lisp)
+
+LiveScript:
+    lsc (LiveScript is a language which compiles to JavaScript)
 
 lua:
     lua (Lua Interpreter)
