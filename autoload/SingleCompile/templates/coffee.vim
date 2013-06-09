@@ -17,7 +17,7 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#coffeescript#Initialize()
+function! SingleCompile#templates#coffee#Initialize()
     call SingleCompile#SetCompilerTemplate('coffee', 'coffee',
                 \'CoffeeScript', 'coffee', '-c $(FILE_NAME)$', 'coffee $(FILE_NAME)$')
 endfunction
