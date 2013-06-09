@@ -667,7 +667,7 @@ cmake:
     cmake (cmake)
 
 CoffeeScript:
-    coffee (CoffeeScript is a little language that compiles into JavaScript)
+    coffee (CoffeeScript)
 
 csh:
     csh (C Shell)
@@ -740,7 +740,7 @@ LISP:
     gcl (GNU Common Lisp)
 
 LiveScript:
-    lsc (LiveScript is a language which compiles to JavaScript)
+    lsc (LiveScript)
 
 lua:
     lua (Lua Interpreter)
