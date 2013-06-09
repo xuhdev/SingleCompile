@@ -609,6 +609,7 @@ function! s:Initialize() "{{{1
                 \ 'c',
                 \ 'cmake',
                 \ 'cpp',
+                \ 'coffee',
                 \ 'cs',
                 \ 'csh',
                 \ 'd',
