@@ -1,4 +1,5 @@
-" Copyright (C) 2010-2012 Hong Xu
+" Copyright (C) 2010-2012 Rack Lin
+"
 
 " This file is part of SingleCompile.
 
@@ -17,7 +18,7 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#livescript#Initialize()
+function! SingleCompile#templates#ls#Initialize()
     call SingleCompile#SetCompilerTemplate('ls', 'lsc',
                 \'LiveScript', 'lsc', '-c $(FILE_NAME)$', 'lsc $(FILE_NAME)$')
 endfunction
