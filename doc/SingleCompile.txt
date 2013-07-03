@@ -754,6 +754,10 @@ Markdown:
     markdown (text-to-HTML conversion tool)
     rdiscount (Discount Markdown Processor for Ruby)
 
+Matlab:
+    matlab (MathWorks MATLAB)
+    octave (GNU Octave)
+
 Object-C:
     clang (the Clang C and Objective-C compiler)
     gcc (GNU Object-C Compiler)
