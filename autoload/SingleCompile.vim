@@ -628,6 +628,7 @@ function! s:Initialize() "{{{1
                 \ 'lua',
                 \ 'make',
                 \ 'markdown',
+                \ 'matlab',
                 \ 'objc',
                 \ 'pascal',
                 \ 'perl',
