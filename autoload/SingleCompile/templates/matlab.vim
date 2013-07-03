@@ -19,7 +19,7 @@
 
 function! SingleCompile#templates#matlab#Initialize()
     call SingleCompile#SetCompilerTemplate('matlab', 'matlab', 'MathWorks MATLAB',
-                \'matlab', '', '')
+                \'matlab', '-nodisplay -nosplash -r $(FILE_TITLE)$,exit', '')
     call SingleCompile#SetPriority('matlab', 'matlab', 50)
     call SingleCompile#SetCompilerTemplate('matlab', 'octave', 'GNU Octave',
                 \'octave', '', '')
