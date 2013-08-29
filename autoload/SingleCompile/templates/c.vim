@@ -43,7 +43,7 @@ function! SingleCompile#templates#c#Initialize()
                     \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('c', 'msvc90',
                     \ 'Microsoft Visual C++ 2008 (9.0)', 'cl90',
-                    \ '-o $(FILE_TITLE)$', g:SingleCompile_common_run_command,
+                    \ ' ', g:SingleCompile_common_run_command,
                     \ function('SingleCompile#DetectMicrosoftVC'))
         call SingleCompile#SetCompilerTemplateByDict('c', 'msvc90', {
                     \ 'pre-do' : function('SingleCompile#PredoMicrosoftVC'),
