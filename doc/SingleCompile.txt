@@ -789,6 +789,9 @@ reStructuredText:
 ruby:
     ruby (Ruby Interpreter)
 
+rust:
+    rust (Rust compiler)
+
 scala:
     scala (Scala compiler)
     Note: vim does not detect scala files out the box.
