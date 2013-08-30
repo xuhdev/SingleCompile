@@ -62,6 +62,16 @@ function! SingleCompile#templates#cpp#Initialize()
                     \ 'out-file' : g:SingleCompile_common_out_file,
                     \ 'priority' : 13,
                     \ 'vim-compiler' : 'msvc'})
+        call SingleCompile#SetCompilerTemplate('cpp', 'msvc110',
+                    \ 'Microsoft Visual C++ 2012 (11.0)', 'cl110',
+                    \ '/EHsc', g:SingleCompile_common_run_command,
+                    \ function('SingleCompile#DetectMicrosoftVC'))
+        call SingleCompile#SetCompilerTemplateByDict('cpp', 'msvc110', {
+                    \ 'pre-do' : function('SingleCompile#PredoMicrosoftVC'),
+                    \ 'post-do' : function('SingleCompile#PostdoMicrosoftVC'),
+                    \ 'out-file' : g:SingleCompile_common_out_file,
+                    \ 'priority' : 12,
+                    \ 'vim-compiler' : 'msvc'})
         call SingleCompile#SetCompilerTemplate('cpp', 'bcc',
                     \'Borland C++ Builder','bcc32', '-o$(FILE_TITLE)$',
                     \g:SingleCompile_common_run_command)
