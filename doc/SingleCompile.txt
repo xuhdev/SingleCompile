@@ -638,6 +638,7 @@ C:
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
+    msvc110 (Microsoft Visual C++ 2012), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C Compiler), UNIX only
     pcc (Portable C Compiler)
@@ -655,6 +656,7 @@ C++:
     msvc80 (Microsoft Visual C++ 2005), Windows only
     msvc90 (Microsoft Visual C++ 2008), Windows only
     msvc100 (Microsoft Visual C++ 2010), Windows only
+    msvc110 (Microsoft Visual C++ 2012), Windows only
     open-watcom (Open Watcom C/C++32 Compiler)
     open64 (Open64 C++ Compiler), UNIX only
     sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
