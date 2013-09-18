@@ -790,6 +790,7 @@ reStructuredText:
 
 ruby:
     ruby (Ruby Interpreter)
+    JRuby (Ruby on top of Java JVM)
 
 rust:
     rust (Rust compiler)

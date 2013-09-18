@@ -20,6 +20,17 @@
 function! SingleCompile#templates#ruby#Initialize()
     call SingleCompile#SetCompilerTemplate('ruby', 'ruby',
                 \'Ruby Interpreter', 'ruby', '', '')
+    call SingleCompile#SetPriority('ruby', 'ruby', 50)
+
+    call SingleCompile#SetCompilerTemplate('ruby', 'jruby1.8',
+                \'Ruby JVM Interpreter (1.8)', 'jruby', '--1.8', '')
+    call SingleCompile#SetPriority('ruby', 'jruby1.8', 80)
+
+    call SingleCompile#SetCompilerTemplate('ruby', 'jruby1.9',
+                \'Ruby JVM Interpreter (1.9)', 'jruby', '--1.9', '')
+    call SingleCompile#SetPriority('ruby', 'jruby1.9', 60)
+
+
 endfunction
 
 "vim703: cc=78
