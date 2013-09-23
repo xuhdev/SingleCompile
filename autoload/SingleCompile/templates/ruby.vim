@@ -22,6 +22,10 @@ function! SingleCompile#templates#ruby#Initialize()
                 \'Ruby Interpreter', 'ruby', '', '')
     call SingleCompile#SetPriority('ruby', 'ruby', 50)
 
+    call SingleCompile#SetCompilerTemplate('ruby', 'jruby',
+                \'Ruby JVM Interpreter (default Ruby version)', 'jruby', '', '')
+    call SingleCompile#SetPriority('ruby', 'jruby', 55)
+
     call SingleCompile#SetCompilerTemplate('ruby', 'jruby1.8',
                 \'Ruby JVM Interpreter (1.8)', 'jruby', '--1.8', '')
     call SingleCompile#SetPriority('ruby', 'jruby1.8', 80)
@@ -30,6 +34,9 @@ function! SingleCompile#templates#ruby#Initialize()
                 \'Ruby JVM Interpreter (1.9)', 'jruby', '--1.9', '')
     call SingleCompile#SetPriority('ruby', 'jruby1.9', 60)
 
+    call SingleCompile#SetCompilerTemplate('ruby', 'jruby2.0',
+                \'Ruby JVM Interpreter (2.0)', 'jruby', '--2.0', '')
+    call SingleCompile#SetPriority('ruby', 'jruby2.0', 70)
 
 endfunction
 

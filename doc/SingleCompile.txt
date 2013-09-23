@@ -790,7 +790,11 @@ reStructuredText:
 
 ruby:
     ruby (Ruby Interpreter)
-    JRuby (Ruby on top of Java JVM)
+    jruby (Ruby on top of Java JVM, default mode)
+    jruby1.8 (Ruby on top of Java JVM, Ruby 1.8 mode)
+    jruby1.9 (Ruby on top of Java JVM, Ruby 1.9 mode)
+    jruby2.0 (Ruby on top of Java JVM, Ruby 2.0 mode, requires JRuby 1.7.4 or
+later)
 
 rust:
     rust (Rust compiler)
