@@ -19,7 +19,7 @@
 
 function! SingleCompile#templates#go#Initialize()
     call SingleCompile#SetCompilerTemplate('go', 'go', 'Go',
-                \ 'go', 'build -o $(FILE_TITLE)$', g:SingleCompile_common_run_command)
+                \ 'go', 'build -o $(FILE_EXEC)$', g:SingleCompile_common_run_command)
     call SingleCompile#SetPriority('go', 'Go', 20)
 endfunction
 
