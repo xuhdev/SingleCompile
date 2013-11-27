@@ -760,6 +760,7 @@ Markdown:
 
 Matlab:
     matlab (MathWorks MATLAB)
+        Note: For Matlab, I highly recommend you to try out vim-matlab-behave plugin: https://github.com/elmanuelito/vim-matlab-behave
     octave (GNU Octave)
 
 Object-C:
@@ -1013,8 +1014,6 @@ TODO~
                                             *SingleCompile-todo*
 ----------------------------------------------------------------------------
 Add asynchronous compilation support.
-
-Add matlab built-in template.
 
 If "tee" is used when we are executing ":make" command, currently we can't get
 the exit code of the compiler. We need to fix this.
