@@ -18,8 +18,8 @@
 " check doc/SingleCompile.txt for more information
 
 function! SingleCompile#templates#rust#Initialize()
-    call SingleCompile#SetCompilerTemplate('rust', 'rust', 'Rust',
-                \ 'rust', 'build -o $(FILE_TITLE)$', g:SingleCompile_common_run_command)
+    call SingleCompile#SetCompilerTemplate('rust', 'rustc', 'Rust',
+                \ 'rustc', '-o $(FILE_TITLE)$', g:SingleCompile_common_run_command)
 endfunction
 
 "vim703: cc=78
