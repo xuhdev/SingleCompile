@@ -30,6 +30,12 @@ function! SingleCompile#templates#markdown#Initialize()
                 \ '$(FILE_NAME)$ >$(FILE_TITLE)$.html',
                 \ SingleCompile#GetDefaultOpenCommand() .
                 \ ' "$(FILE_TITLE)$.html"')
+
+    call SingleCompile#SetCompilerTemplate('markdown', 'markdown_py',
+                \ 'Discount Markdown Processor for Python', 'markdown_py',
+                \ '-f $(FILE_TITLE)$.html -o html5 $(FILE_NAME)$',
+                \ SingleCompile#GetDefaultOpenCommand() .
+                \ ' "$(FILE_TITLE)$.html"')
 endfunction
 
 "vim703: cc=78
