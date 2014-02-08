@@ -757,6 +757,7 @@ Makefile:
 Markdown:
     markdown (text-to-HTML conversion tool)
     rdiscount (Discount Markdown Processor for Ruby)
+    Markdown (Python implementation of the Markdown language)
 
 Matlab:
     matlab (MathWorks MATLAB)
