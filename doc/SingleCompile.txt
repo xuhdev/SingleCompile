@@ -356,15 +356,24 @@ Accepted values are "aboveleft", "topleft", "botright", "belowright",
 |g:SingleCompile_quickfixwindowposition| to 'cope' and 'cw' commands. See
 |opening-window| and 'cope' for more details.
 
-                                            *SingleCompile-resultheight*
-g:SingleCompile_resultheight is the height of the result displaying window
+                                            *SingleCompile-resultsize*
+g:SingleCompile_resultsize is the height/width of the result displaying window
 triggered by |:SCViewResult| command. To set the value, add the following line
 to your vimrc file:
 >
- let g:SingleCompile_resultheight = a_number
+ let g:SingleCompile_resultsize = a_number
 <
 Replace a_number to any number you want, such as "10", "4". The default value
-of g:SingleCompile_resultheight is 5.
+of g:SingleCompile_resultsize is 5.
+
+                                            *SingleCompile-split*
+g:SingleCompile_split is the split command used to displaying window triggered
+by |:SCViewResult| command. To set the value, add the following line to your
+vimrc file:
+>
+ let g:SingleCompile_split = 'vsplit'
+<
+The default value is `'split'`.
 
                                             *SingleCompile-showquickfixiferror*
                                             *g:SingleCompile_showquickfixiferror*
