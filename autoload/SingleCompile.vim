@@ -920,6 +920,8 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     if !l:async && executable('tee') && g:SingleCompile_usetee 
                 \ && g:SingleCompile_showresultafterrun == 1
         let l:show_result_after_run = 1
+    else
+        let l:show_result_after_run = 0
     endif
 
     " save current file type. Don't use &filetype directly because after
@@ -1205,7 +1207,7 @@ function! s:CompileInternal(arg_list, async) " compile only {{{1
     " if we are running an interpreting language source file, and we want to
     " show the result window right after the run, and we are not running it
     " asynchronously, then we show or hide the result
-    if exists('l:show_result_after_run') 
+    if l:show_result_after_run 
         if l:toret == 2
             call SingleCompile#ViewResult(0)
             redraw!
@@ -1312,6 +1314,8 @@ function! s:Run(async) " {{{1
     if !l:async && executable('tee') && g:SingleCompile_usetee 
                 \ && g:SingleCompile_showresultafterrun == 1
         let l:show_result_after_run = 1
+    else
+        let l:show_result_after_run = 0
     endif
 
     if !(has_key(s:CompilerTemplate[l:cur_filetype][
@@ -1354,7 +1358,7 @@ function! s:Run(async) " {{{1
     " if tee is available, and we are running synchronously, and we want to
     " show the result window right after the run, then we call
     " SingleCompile#ViewResult
-    if exists('l:show_result_after_run')
+    if l:show_result_after_run
         call SingleCompile#ViewResult(0)
         redraw!
     endif
