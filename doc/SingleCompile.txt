@@ -801,7 +801,7 @@ ruby:
 later)
 
 rust:
-    rust (Rust compiler)
+    rustc (Rust compiler)
 
 scala:
     scala (Scala compiler)
