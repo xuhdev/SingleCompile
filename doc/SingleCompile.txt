@@ -786,6 +786,12 @@ python:
     python2 (Python 2 Interpreter)
     python3 (Python 3 Interpreter)
 
+QML:
+    qmlscene (QML Scene, for viewing QML based on QtQuick 2)
+    qmlviewer (QML Viewer, for viewing QML based on QtQuick 1)
+    Note: vim does not detect qml files out of the box.
+    See https://github.com/peterhoeg/vim-qml
+
 R:
     R (R)
 

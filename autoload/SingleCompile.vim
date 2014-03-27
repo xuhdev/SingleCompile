@@ -634,6 +634,7 @@ function! s:Initialize() "{{{1
                 \ 'perl',
                 \ 'php',
                 \ 'python',
+                \ 'qml',
                 \ 'r',
                 \ 'rst',
                 \ 'ruby',
