@@ -527,8 +527,8 @@ function! s:Initialize() "{{{1
         let g:SingleCompile_resultsize = 5
     endif
 
-    if !exists('g:SingleCompileRun_split')
-        let g:SingleCompileRun_split = 'split'
+    if !exists('g:SingleCompile_split')
+        let g:SingleCompile_split = 'split'
     endif
 
     if !exists('g:SingleCompile_showquickfixiferror') ||
@@ -1586,7 +1586,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
     " else clear it, but leave it there to be refilled
     if l:result_bufnr == -1
         exec 'rightbelow '.g:SingleCompile_resultsize.
-                    \g:SingleCompileRun_split.' __SINGLE_COMPILE_RUN_RESULT__'
+                    \g:SingleCompile_split.' __SINGLE_COMPILE_RUN_RESULT__'
         setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
     else
         let l:result_bufwinnr = bufwinnr(l:result_bufnr)

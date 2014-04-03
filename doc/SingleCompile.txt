@@ -379,16 +379,16 @@ or
 <
 It is also possible to select between vertical or horizontal split depending
 on the current window width. To achieve this it is necessary to update the
-option on the mapping that calls |:SCCompileRun|. This can be done in a new
-mapping, or replacing the default mapping to |:SCCompileRun|, <F10>:
+plugin options on the mapping that calls |:SCCompileRun|. This can be done in
+a new mapping, or replacing the default mapping to |:SCCompileRun|, <F10>:
 >
- nnoremap <F10> :update \| call SingleCompileSplit() \| SCCompileRun<CR>
+ nnoremap <F10> :call SingleCompileSplit() \| SCCompileRun<CR>
  function! SingleCompileSplit()
     if winwidth(0) > 160
-       let g:SingleCompileRun_split = "vsplit"
+       let g:SingleCompile_split = "vsplit"
        let g:SingleCompile_resultsize = winwidth(0)/2
     else
-       let g:SingleCompileRun_split = "split"
+       let g:SingleCompile_split = "split"
        let g:SingleCompile_resultsize = 15
     endif
  endfunction
