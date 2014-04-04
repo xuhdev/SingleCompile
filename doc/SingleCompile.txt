@@ -356,15 +356,44 @@ Accepted values are "aboveleft", "topleft", "botright", "belowright",
 |g:SingleCompile_quickfixwindowposition| to 'cope' and 'cw' commands. See
 |opening-window| and 'cope' for more details.
 
-                                            *SingleCompile-resultheight*
-g:SingleCompile_resultheight is the height of the result displaying window
+                                            *SingleCompile-resultsize*
+g:SingleCompile_resultsize is the height/width of the result displaying window
 triggered by |:SCViewResult| command. To set the value, add the following line
 to your vimrc file:
 >
- let g:SingleCompile_resultheight = a_number
+ let g:SingleCompile_resultsize = a_number
 <
 Replace a_number to any number you want, such as "10", "4". The default value
-of g:SingleCompile_resultheight is 5.
+of g:SingleCompile_resultsize is 5.
+
+                                            *SingleCompile-split*
+g:SingleCompile_split is the command used to open the result window triggered
+by |:SCViewResult| command. To set the value, add the following line to your
+vimrc file:
+>
+ let g:SingleCompile_split = 'vsplit'
+<
+or
+>
+ let g:SingleCompile_split = 'tabe'
+<
+It is also possible to select between vertical or horizontal split depending
+on the current window width. To achieve this it is necessary to update the
+plugin options on the mapping that calls |:SCCompileRun|. This can be done in
+a new mapping, or replacing the default mapping to |:SCCompileRun|, <F10>:
+>
+ nnoremap <F10> :call SingleCompileSplit() \| SCCompileRun<CR>
+ function! SingleCompileSplit()
+    if winwidth(0) > 160
+       let g:SingleCompile_split = "vsplit"
+       let g:SingleCompile_resultsize = winwidth(0)/2
+    else
+       let g:SingleCompile_split = "split"
+       let g:SingleCompile_resultsize = 15
+    endif
+ endfunction
+<
+The default value is `'split'`.
 
                                             *SingleCompile-showquickfixiferror*
                                             *g:SingleCompile_showquickfixiferror*
