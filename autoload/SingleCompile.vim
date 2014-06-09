@@ -79,7 +79,9 @@ endfunction
 function! SingleCompile#GetDefaultOpenCommand() " {{{2
 " Get the default open command. It is "open" on Windows and Mac OS X,
 " "xdg-open" on Linux and other UNIX systems.
-    if has('win32') || has('macunix')
+    if has('win32')
+        return 'start'
+    elseif has('macunix')
         return 'open'
     elseif has('unix')
         return 'xdg-open'
