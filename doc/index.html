@@ -1,0 +1,1113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/.dotfiles/vim/bundle/SingleCompile/doc/SingleCompile.txt.html</title>
+<meta name="Generator" content="Vim/7.4">
+<meta name="plugin-version" content="vim7.4_v1">
+<meta name="syntax" content="help">
+<meta name="settings" content="use_css,pre_wrap,no_foldcolumn,expand_tabs,prevent_copy=">
+<meta name="colorscheme" content="shine">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #000000; background-color: #ffffff; }
+body { font-family: monospace; color: #000000; background-color: #ffffff; }
+* { font-size: 1em; }
+.Type { color: #2e8b57; font-weight: bold; }
+.Comment { color: #a9a9a9; font-weight: bold; }
+.Statement { color: #a52a2a; font-weight: bold; }
+.PreProc { color: #a020f0; }
+.Constant { color: #a07070; background-color: #cccccc; padding-bottom: 1px; }
+.Special { color: #ff8c00; background-color: #cccccc; padding-bottom: 1px; }
+.Identifier { color: #008b8b; }
+.Todo { color: #0000ff; background-color: #ffff00; padding-bottom: 1px; }
+-->
+</style>
+
+<script type='text/javascript'>
+<!--
+
+-->
+</script>
+</head>
+<body>
+<pre id='vimCodeElement'>
+<span class="Constant">SingleCompile.txt</span>
+
+File: SingleCompile.txt
+Version: 2.12.0
+Original Author and Current Maintainer: Hong Xu &lt;hong@topbug.net&gt;
+Last Change: 11 June 2013
+Homepage: <span class="Constant"><a href="http://www.topbug.net/SingleCompile">http://www.topbug.net/SingleCompile</a></span>
+GitHub repo: <span class="Constant"><a href="https://github.com/xuhdev/SingleCompile">https://github.com/xuhdev/SingleCompile</a></span>
+Description: Make it more convenient to compile or run a single source file.
+License:
+    Copyright (C) 2010-2014 Hong Xu
+
+    This file is part of SingleCompile.
+
+    SingleCompile is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SingleCompile is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SingleCompile.  If not, see &lt;<span class="Constant"><a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a></span>&gt;.
+
+<span class="PreProc">CONTENTS</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-contents</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+1.  Overview                                 <span class="Identifier">SingleCompile-overview</span>
+2.  Installation                             <span class="Identifier">SingleCompile-installation</span>
+3.  Commands                                 <span class="Identifier">SingleCompile-commands</span>
+4.  Settings                                 <span class="Identifier">SingleCompile-settings</span>
+5.  Key-mappings                             <span class="Identifier">SingleCompile-key-mapping</span>
+6.  Compiler template                        <span class="Identifier">SingleCompile-compiler-template</span>
+7.  Supporting plugins                       <span class="Identifier">SingleCompile-supporting-plugins</span>
+8.  Advanced                                 <span class="Identifier">SingleCompile-advanced</span>
+9.  Credits                                  <span class="Identifier">SingleCompile-credits</span>
+10. Todo                                     <span class="Identifier">SingleCompile-todo</span>
+
+
+<span class="PreProc">OVERVIEW</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-overview</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+This plugin is aimed at making it more convenient to compile or run a single
+source file without leaving vim.
+
+A short introduction is available here:
+<span class="Constant"><a href="http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/">http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/</a></span>
+
+Consider this situation: you have just written a small c source file for a
+small test, but you have to write a Makefile to compile it or exit vim to
+compile it or compile it using &quot;!gcc&quot; without quickfix feature because vim's
+make command only use the &quot;make&quot; command? This plugin will help you out.
+
+Add these key-mappings to your vimrc:
+
+<span class="Comment"> nmap &lt;F9&gt; :SCCompile&lt;cr&gt;</span>
+<span class="Comment"> nmap &lt;F10&gt; :SCCompileRun&lt;cr&gt;</span>
+
+<span class="Todo">Note</span> that the two lines here should not have any trailing space. If your file
+type is supported, then press F9 to compile your source file, and press F10 to
+compile and run your source file. If there is a compilation error, and the
+<span class="Identifier">quickfix</span> feature is enabled, then you could use <span class="Identifier">:cope</span> command to see the
+error list. You may also use &quot;:SCChooseCompiler&quot; command to choose a compiler
+if you have more than one kind of compiler available on you system.
+&quot;:SCViewResult&quot; will show you the last run result.
+
+
+Features:
+1. Compile or run the source file quickly using <span class="Identifier">quickfix</span> feature and
+   <span class="Identifier">compiler</span> feature of vim;
+2. Compilers and interpreters auto detecting;
+3. Fast switch between several installed compilers or interpreters;
+4. Multi-language support;
+5. Custom your own compiler/interpreter template;
+6. View the result of last run command at any time(requires &quot;tee&quot; command);
+7. Run the compiled program asynchronously and view the result at any time
+   (see <span class="Identifier">:SCCompileRunAsync</span>).
+
+
+The complete list of built-in compiler templates is at
+<span class="Identifier">SingleCompile-built-in-compiler</span>.
+
+You can add your compiler or interpreter support if the compiler or
+interpreter you want is not in the list. See details in the help file.
+
+There are some supporting code in this plugin for Marc Weber's
+vim-addon-actions:
+     <span class="Constant"><a href="http://github.com/MarcWeber/vim-addon-actions">http://github.com/MarcWeber/vim-addon-actions</a></span>
+
+If you find any bug, please report it to xuhdev@gmail.com or submit it on
+the issue tracker:
+<span class="Constant"><a href="https://bitbucket.org/xuhdev/singlecompile/issues">https://bitbucket.org/xuhdev/singlecompile/issues</a></span>
+
+If you've written some templates for some compilers or interpreters which are
+not included as built-in template, and you think they are useful for other
+people, you could send me an email to inform me, and I'll put them in the
+built-in templates.
+
+
+Git repository on github.com: <span class="Constant"><a href="https://github.com/xuhdev/SingleCompile">https://github.com/xuhdev/SingleCompile</a></span>
+Mercurial repository on bitbucket.org: <span class="Constant"><a href="https://bitbucket.org/xuhdev/singlecompile">https://bitbucket.org/xuhdev/singlecompile</a></span>
+
+Follow xuhdev on twitter if you are interested in my development:
+<span class="Constant"><a href="http://twitter.com/xuhdev">http://twitter.com/xuhdev</a></span>
+
+
+<span class="PreProc">INSTALLATION</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-installation</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+Download the SingleCompile.zip file and extract it to your vim runtime
+directory(~/.vim on linux and $VIM_INSTALLATION_FOLDER\vimfiles on windows),
+you'd better then use &quot;:helptags&quot; command to generate the help tag(for example
+use &quot;:helptags ~/.vim/doc&quot; on UNIX/Linux).
+
+
+<span class="PreProc">COMMANDS</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-commands</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompile</span>
+Command:
+    :SCCompile
+If you are editing a source file of a compiling language such as C, Java, this
+command will compile the file which you are editing now. If you are editing a
+source file of a interpreted language such as python language, this command
+will run the file which you are editing. See <span class="Identifier">SingleCompile-compiler-template</span>
+about the compilation command.
+
+You can add some arguments after the command. For example, you want to compile
+your c source file with &quot;-g -o %&lt;&quot; flag instead of the &quot;-o %&lt;&quot; flag defined in
+the language template(see <span class="Identifier">SingleCompile-compiler-template</span>) for just this
+time, just use the following command:
+
+<span class="Comment"> :SCCompile -g -o %&lt;</span>
+
+&quot;%&lt;&quot; means the current file name without extension.
+Also see <span class="Identifier">:SCCompileAF</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SingleCompile</span>
+Command:
+    :SingleCompile
+Same as <span class="Identifier">:SCCompile</span>, only for backward compatibility use. Not recommended to
+use any more.
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompileAF</span>
+Command:
+    :SCCompileAF
+This command is also used for compiling your source file, but it allows you to
+append some additional compilation or interpretion flags other than the flags
+already defined in the compiler and interpreter template. The &quot;AF&quot; is short
+for &quot;Addtional Flags&quot;. For example, GCC compiler for C has already been
+defined some flags: &quot;-o &quot;%&lt;&quot;&quot;. But sometimes you also want to use &quot;-O2&quot; flag
+to optimize your code, then you can use the following commands to compile your
+file:
+
+<span class="Comment"> :SCCompileAF -O2</span>
+
+:SCCompile can also be used with some arguments, but there are some
+differences. :SCCompileAF use your arguments as &quot;additional&quot; compilation
+flags, which means the flags defined in the original templates are also valid,
+while :SCCompile use you arguments as compilation flags only, which means the
+flags defined in the original templates are not used. For example, the
+templates of GCC defined &quot;flags&quot; as '-o &quot;%&lt;&quot;', &quot;%&lt;&quot; stands for the output file
+name. &quot;:SCCompile -O2&quot; will use &quot;gcc -O2 some_file.c&quot; to compile your source
+file, while &quot;:SCCompileAF -O2&quot; will use &quot;gcc -o some_file -O2 some_file.c&quot; to
+compile your source file.
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompileRun</span>
+Command:
+    :SCCompileRun
+If you are editing a source file of a compiling language such as C, Java, this
+command will compile the file which you are editing now and run the
+executable; if you are editing a source file of a interpreted language such as
+python, ruby, this command will run the source file you are editing. That
+means, there is nothing different between <span class="Identifier">:SCCompile</span> and <span class="Identifier">:SCCompileRun</span> for an
+interpreted language source file.
+
+You can also add some arguments after SCCompileRun command, the meaning of
+arguments is the same as SingleCompile command above. Here is an example:
+
+<span class="Comment"> :SCCompileRun -g -o %&lt;</span>
+
+
+When the program you've just compiled (or the script you've just written)
+runs, vim will hang up to wait for the program to terminate. If you do not
+want vim to hang up when running the program, use <span class="Identifier">:SCCompileRunAsync</span>
+instead. See <span class="Identifier">:SCCompileRunAsync</span> for further information.
+
+<span class="Statement">                                            </span><span class="Constant">:SingleCompileRun</span>
+Command:
+    :SingleCompileRun
+Same as <span class="Identifier">:SCCompileRun</span>, only for backward compatibility use. Not recommended
+to use any more.
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompileRunAF</span>
+Command:
+    :SCCompileRunAF
+Same as <span class="Identifier">:SCCompileAF</span>, but also run the binary file after compilation. For
+example, the following command is going to compile your source file with an
+additional &quot;-O2&quot; flag and run the output binary file:
+
+<span class="Comment"> :SCCompileRunAF -O2</span>
+
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompileRunAsync</span>
+Command:
+    :SCCompileRunAsync
+Same as <span class="Identifier">:SCCompileRun</span>, but compile the source and run asynchronously. That
+is to say, after the program starts to run, you are still able to edit the
+source file, because vim does not hang up waiting for the program to
+terminate. The result of the run could be viewed by <span class="Identifier">:SCViewResultAsync</span>
+command. This command might not be available on your vim, see
+<span class="Identifier">SingleCompile-asyncrunmode</span> for more information. This command is useful when
+the program takes a long time to run or you are developing a GUI program. Also
+see <span class="Identifier">:SCViewResultAsync</span>, <span class="Identifier">:SCTerminateAsync</span> and <span class="Identifier">:SCIsRunningAsync</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCCompileRunAsyncAF</span>
+Command:
+    :SCCompileRunAsyncAF
+Same as <span class="Identifier">:SCCompileRunAF</span>, but compile the source and run asynchronously. The
+result of the run could be viewed by <span class="Identifier">:SCViewResultAsync</span> command. This
+command is disabled by default, to enable it, see
+<span class="Identifier">SingleCompile-asyncrunmode</span>. Also see <span class="Identifier">:SCCompileRunAsync</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCChooseCompiler</span>
+Command:
+    :SCChooseCompiler
+Choose a compiler to use. This command will display a list of compilers for
+you to choose one. If you want to set a default compiler in your vimrc, please
+use the function SingleCompile#ChooseCompiler. See
+<span class="Identifier">SingleCompile-use-built-in-template</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCChooseInterpreter</span>
+Command:
+    :SCChooseInterpreter
+Same as <span class="Identifier">:SCChooseCompiler</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCIsRunningAsync</span>
+Command:
+    :SCIsRunningAsync
+Check whether the asynchronously run process is still running. Also see
+<span class="Identifier">:SCCompileRunAsync</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCTerminateAsync</span>
+Command:
+    :SCTerminateAsync
+Terminate the process which is running asynchronously if exists. Also see
+<span class="Identifier">:SCCompileRunAsync</span>.
+
+<span class="Statement">                                            </span><span class="Constant">:SCViewResult</span>
+Command:
+    :SCViewResult
+View the result of the last run command. Only valid when &quot;tee&quot; command is
+available. &quot;tee&quot; is usually available on a UNIX system. If you are under
+Windows, install cygwin or visit the following link to download a &quot;tee&quot;
+command for Windows:
+
+<span class="Constant"><a href="http://gnuwin32.sourceforge.net/packages/coreutils.htm">http://gnuwin32.sourceforge.net/packages/coreutils.htm</a></span>
+
+<span class="Todo">NOTE</span>: When you disable &quot;tee&quot; by setting <span class="Identifier">SingleCompile_usetee</span> to 0, you
+will disable this feature.
+
+<span class="Statement">                                            </span><span class="Constant">:SCViewResultAsync</span>
+Command:
+    :SCViewResultAsync
+Same as <span class="Identifier">:SCViewResult</span>, but the result displayed is the result of the process
+run by <span class="Identifier">:SCCompileRunAsync</span> or <span class="Identifier">:SCCompileRunAsyncAF</span>.
+
+
+<span class="PreProc">SETTINGS</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-settings</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_alwayscompile</span>
+If g:SingleCompile_alwayscompile is set to 0, when using <span class="Identifier">:SCCompileRun</span>
+command, SingleCompile may run the output of the compilation directly if the
+modification time of the source file is earlier than the output file. If you
+want to enable this feature, add the following line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_alwayscompile = 0</span>
+
+The default value of g:SingleCompile_alwayscompile is 1.
+
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_asyncrunmode</span>
+This option specifies the asynchronous mode for <span class="Identifier">:SCCompileRunAsync</span> and
+<span class="Identifier">:SCCompileRunAsyncAF</span>. The default value is &quot;auto&quot;, which means SingleCompile
+will automatically detect whether you are able to enable async run mode and
+select one mode for you. Use the following line, replace modename with the
+mode you want to change mode:
+
+<span class="Comment"> let g:SingleCompile_asyncrunmode = 'modename'</span>
+
+
+Here is a list of available mode:
+
+auto        This is the default value. SingleCompile automatically selects one
+            mode for you.
+
+<span class="Comment"> let g:SingleCompile_asyncrunmode = 'auto'</span>
+
+
+none        Disable asynchronous mode, which means <span class="Identifier">:SCCompileRunAsync</span> and
+            <span class="Identifier">:SCCompileRunAsyncAF</span> and related commands are disabled.
+
+<span class="Comment"> let g:SingleCompile_asyncrunmode = 'none'</span>
+
+
+python      Use python interface when running asynchronously. Required vim
+            compiled with python interface 2.6+. See <span class="Identifier">+python</span>.
+
+<span class="Comment"> let g:SingleCompile_asyncrunmode = 'python'</span>
+
+
+
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_autowrite</span>
+If you don't want to save your file automatically when you use &quot;SingleCompile&quot;
+command or &quot;SingleCompileRun&quot; command, add the following line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_autowrite = 0</span>
+
+<span class="Todo">NOTE</span>: If you let g:SingleCompile_usequickfix=1, this option will take no
+effect, the running result will depend on the vim's option <span class="Type">'autowrite'</span>. See
+<span class="Type">'autowrite'</span> for more information.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-menumode</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_menumode</span>
+If you don't want the menus of SingleCompile to show, copy the following line
+to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_menumode = 0</span>
+
+If you want the menus of SingleCompile to show as a sub menu of Plugin, copy
+the following line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_menumode = 1</span>
+
+If you want the menus of SingleCompile to show in the menu bar, copy the
+following line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_menumode = 2</span>
+
+The default value is 1.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-quickfixwindowposition</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_quickfixwindowposition</span>
+If <span class="Identifier">g:SingleCompile_showquickfixiferror</span> is set to 1,
+<span class="Identifier">g:SingleCompile_quickfixwindowposition</span> defines the position where quickfix
+window shows up. The default value is &quot;botright&quot;, but you can change this
+value by add the following line to your vimrc file:
+
+<span class="Comment"> let g:SingleCompile_quickfixwindowposition = 'some_position'</span>
+
+Accepted values are &quot;aboveleft&quot;, &quot;topleft&quot;, &quot;botright&quot;, &quot;belowright&quot;,
+&quot;vertical&quot;, &quot;leftabove&quot;, etc. SingleCompile will simply prepend
+<span class="Identifier">g:SingleCompile_quickfixwindowposition</span> to <span class="Type">'cope'</span> and <span class="Type">'cw'</span> commands. See
+<span class="Identifier">opening-window</span> and <span class="Type">'cope'</span> for more details.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-resultsize</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_resultsize</span>
+g:SingleCompile_resultsize is the height/width of the result displaying window
+triggered by <span class="Identifier">:SCViewResult</span> command. To set the value, add the following line
+to your vimrc file:
+
+<span class="Comment"> let g:SingleCompile_resultsize = a_number</span>
+
+Replace a_number to any number you want, such as &quot;10&quot;, &quot;4&quot;. The default value
+of g:SingleCompile_resultsize is 5.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-split</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_split</span>
+g:SingleCompile_split is the command used to open the result window triggered
+by <span class="Identifier">:SCViewResult</span> command. To set the value, add the following line to your
+vimrc file:
+
+<span class="Comment"> let g:SingleCompile_split = 'vsplit'</span>
+
+or
+
+<span class="Comment"> let g:SingleCompile_split = 'tabe'</span>
+
+It is also possible to select between vertical or horizontal split depending
+on the current window width. To achieve this it is necessary to update the
+plugin options on the mapping that calls <span class="Identifier">:SCCompileRun</span>. This can be done in
+a new mapping, or replacing the default mapping to <span class="Identifier">:SCCompileRun</span>, <span class="Special">&lt;F10&gt;</span>:
+
+<span class="Comment"> nnoremap &lt;F10&gt; :call SingleCompileSplit() \| SCCompileRun&lt;CR&gt;</span>
+<span class="Comment"> function! SingleCompileSplit()</span>
+<span class="Comment">    if winwidth(0) &gt; 160</span>
+<span class="Comment">       let g:SingleCompile_split = &quot;vsplit&quot;</span>
+<span class="Comment">       let g:SingleCompile_resultsize = winwidth(0)/2</span>
+<span class="Comment">    else</span>
+<span class="Comment">       let g:SingleCompile_split = &quot;split&quot;</span>
+<span class="Comment">       let g:SingleCompile_resultsize = 15</span>
+<span class="Comment">    endif</span>
+<span class="Comment"> endfunction</span>
+
+The default value is <span class="Comment">'split'</span>.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-showquickfixiferror</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_showquickfixiferror</span>
+If <span class="Identifier">quickfix</span> is enabled and used, and you want the quickfix window to show
+automatically if there is a compilation error, then add the following line to
+your vimrc file:
+
+<span class="Comment"> let g:SingleCompile_showquickfixiferror = 1</span>
+
+The default value of g:SingleCompile_showquickfixiferror is 0. You may want to
+use this option with <span class="Identifier">SingleCompile-silentcompileifshowquickfix</span>. <span class="Todo">Note</span> that
+this option will be ignored if you are using interpreting languages on
+Windows, such as Python, Ruby. Also see <span class="Identifier">SingleCompile-showquickfixifwarning</span>.
+
+<span class="Statement">                                          </span><span class="Constant">SingleCompile-showquickfixifwarning</span>
+<span class="Statement">                                          </span><span class="Constant">g:SingleCompile_showquickfixifwarning</span>
+If <span class="Identifier">quickfix</span> is enabled and used, and you want the quickfix window to show
+automatically if there is a compilation warning.  This setting is only valid
+when <span class="Identifier">g:SingleCompile_showquickfixiferror</span> is set to 1.
+
+<span class="Comment"> let g:SingleCompile_showquickfixifwarning = 0</span>
+
+The default value of g:SingleCompile_showquickfixifwarning is as same as
+g:SingleCompile_showquickfixiferror.  You don't want miss a warning, will you?
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-showresultafterrun</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_showresultafterrun</span>
+If &quot;tee&quot; command is available on your system, copy the following line to your
+vimrc file will make vim show the result of the run automatically after you
+run the program:
+
+<span class="Comment"> let g:SingleCompile_showresultafterrun = 1</span>
+
+This option is only valid for synchronous run. That is to say, asynchronous
+run is not affected by this option. The default value of
+g:SingleCompile_showresultafterrun is 0. Also see <span class="Identifier">:SCViewResult</span>.
+
+<span class="Statement">                                    </span><span class="Constant">SingleCompile-silentcompileifshowquickfix</span>
+<span class="Statement">                                    </span><span class="Constant">g:SingleCompile_silentcompileifshowquickfix</span>
+Avoid the additional hit of enter when using quickfix feature to compile.
+This is done by dismisses the output of the compilation (:silent make).  This
+feature is only valid when showquickfixiferror is enabled.  This feature won't
+enable on terminal because of the problem of screen refresh.
+
+<span class="Comment"> let g:SingleCompile_silentcompileifshowquickfix = 1</span>
+
+This is not default enabled for compatible.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-usedialog</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_usedialog</span>
+If you want SingleCompile to show message in a dialog, add the
+following line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_usedialog = 1</span>
+
+This setting will take no effect if your vim is not compiled with
+'+dialog_con' and '+dialog_gui'.
+
+<span class="Statement">                                          </span><span class="Constant">SingleCompile-usetee</span>
+<span class="Statement">                                          </span><span class="Constant">g:SingleCompile_usetee</span>
+When set to 0, the use of tee is disabled when running your compiled program.
+This would make the flush of the display of the output of your program perform
+normally but you will lose the feature of <span class="Identifier">SCViewResult</span>.
+
+<span class="Comment"> let g:SingleCompile_usetee = 0</span>
+
+The default value of g:SingleCompile_usetee is 1.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-usequickfix</span>
+<span class="Statement">                                            </span><span class="Constant">g:SingleCompile_usequickfix</span>
+If you don't want SingleCompile to use quickfix feature, add the following
+line to your vimrc:
+
+<span class="Comment"> let g:SingleCompile_usequickfix = 0</span>
+
+
+
+<span class="PreProc">KEY-MAPPING</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-key-mapping</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+I recommend you to copy the following two lines about key mapping to your
+vimrc:
+
+<span class="Comment"> nmap &lt;F9&gt; :SingleCompile&lt;cr&gt;</span>
+<span class="Comment"> nmap &lt;F10&gt; :SingleCompileRun&lt;cr&gt;</span>
+
+Then you can press F9 to compile, and F10 to compile and run.
+
+
+<span class="PreProc">COMPILER-TEMPLATE</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-compiler-template</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+<span class="Statement">                                          </span><span class="Constant">SingleCompile-use-built-in-template</span>
+<span class="Statement">                                          </span><span class="Constant">SingleCompile#ChooseCompiler</span>
+To use a built-in compiler, add the following line to your vimrc file:
+
+<span class="Comment"> call SingleCompile#ChooseCompiler('filetype', 'compiler')</span>
+
+&quot;filetype&quot; is the type of file which your compiler is for, such as &quot;c&quot;,
+&quot;python&quot;, and &quot;compiler&quot; is the short name of the compiler. &quot;filetype&quot; is a
+terminology of vim. See <span class="Identifier">filetype</span> if you don't know what is &quot;filetype&quot;. For
+example:
+
+<span class="Comment"> call SingleCompile#ChooseCompiler('c', 'icc')</span>
+<span class="Comment"> call SingleCompile#ChooseCompiler('fortran', 'gfortran')</span>
+
+This will choose icc (short for Intel C++ Compiler) as your current C compiler
+and choose gfortran (GNU Fortran Compiler) as your current Fortran compiler.
+For the list of built-in supported compilers, see
+<span class="Identifier">SingleCompile-built-in-compilers</span>.
+
+If you don't choose a compiler by yourself, SingleCompile will automatically
+choose one for you according to the compiler's priority value (See
+<span class="Identifier">SingleCompile-priority</span>).
+
+You can also extend the compiler template if the compiler you want is not in
+the built-in supporting list. SingleCompile#ChooseCompiler could also be used
+to choose a user defined compiler. Check <span class="Identifier">SingleCompile-add-your-compiler</span> for
+more information.
+
+<span class="Statement">                                          </span><span class="Constant">SingleCompile-add-your-compiler</span>
+<span class="Statement">                                          </span><span class="Constant">SingleCompile#SetCompilerTemplate</span>
+To add a new compiler support by yourself, there are two ways:
+1. (Recommended) Add the following lines to your vimrc file:
+
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('filetype', 'compiler', 'compiler_name', 'command', 'flag', 'run_command')</span>
+<span class="Comment"> call SingleCompile#SetOutfile('filetype', 'compiler', 'out_file')</span>
+<span class="Comment"> call SingleCompile#ChooseCompiler('filetype', 'compiler')</span>
+
+Now Let's see the first line. &quot;filetype&quot; is the source file type, such as &quot;c&quot;,
+&quot;cpp&quot;, &quot;python&quot;, etc. It is a terminology of vim. See <span class="Identifier">filetype</span> if you don't
+know what is &quot;filetype&quot;. For compiling languages such as C, Java, Fortran,
+&quot;compiler&quot; is the short name for the compiler, such as &quot;gcc&quot;, &quot;icc&quot;; &quot;command&quot;
+is the command of compiling, such as &quot;gcc&quot;, &quot;g++&quot;; &quot;flag&quot; is the flags of
+compiling, such as &quot;-O2&quot;; &quot;run_command&quot; is the command of running, such as
+&quot;./a.out&quot;. For interpreted languages such as Python, Ruby, &quot;command&quot; is the
+command of interpreting, such as &quot;python&quot;; &quot;flag&quot; is the flags of
+interpreting; and &quot;run_command&quot; MUST be set to be empty.
+
+For the second line, &quot;filetype&quot; and  &quot;compiler&quot; has the same meanings with the
+first line. &quot;out_file&quot; is the output file of the compilation, such as
+&quot;./a.out&quot;, &quot;./a.exe&quot;, etc. This line could be omitted if you don't want
+SingleCompile to check whether compilation is needed. See
+<span class="Identifier">SingleCompile-alwayscompile</span> for more information.
+
+There are four special variable that you can use:
+'$(FILE_NAME)$' returns the &quot;%&quot;.
+'$(FILE_PATH)$' returns &quot;%:p&quot;.
+'$(FILE_TITLE)$' returns &quot;%:r&quot;.
+'$(FILE_EXEC)$' returns &quot;%:r.exe&quot; on windows and &quot;%:r&quot; on unix.
+'$(FILE_RUN)$' returns &quot;%:r.exe&quot; on windows and &quot;./%:r&quot; on unix.
+Also see <span class="Identifier">%</span>.
+
+The first two lines are to set the template of your compiler, while the third
+line is to tell SingleCompile to use your compiler. If the second line is
+omitted, SingleCompile will detect the compilers available on your system
+automatically, and use the first detected one.
+
+Here are some examples modified from built-in compiler templates:
+
+<span class="Comment"> &quot; set the most common used run command</span>
+<span class="Comment"> &quot; you may also use $(FILE_RUN)$ as an alternative.</span>
+<span class="Comment"> if has('win32') || has('win64') || has('os2')</span>
+<span class="Comment">     let l:common_run_command = '$(FILE_TITLE)$'</span>
+<span class="Comment">     let l:common_out_file = '$(FILE_TITLE)$.exe'</span>
+<span class="Comment"> else</span>
+<span class="Comment">     let l:common_run_command = './$(FILE_TITLE)$'</span>
+<span class="Comment">     let l:common_out_file = '$(FILE_TITLE)$'</span>
+<span class="Comment"> endif</span>
+
+<span class="Comment"> &quot; c</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('c', 'gcc', 'GNU C Compiler',</span>
+<span class="Comment">             \'gcc', '-o $(FILE_TITLE)$', l:common_run_command)</span>
+<span class="Comment"> call SingleCompile#SetOutfile('c', 'gcc', l:common_out_file)</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('c', 'icc',</span>
+<span class="Comment">             \'Intel C++ Compiler', 'icc', '-o $(FILE_TITLE)$',</span>
+<span class="Comment">             \l:common_run_command)</span>
+<span class="Comment"> call SingleCompile#SetOutfile('c', 'icc', l:common_out_file)</span>
+
+<span class="Comment"> call SingleCompile#ChooseCompiler('c', 'gcc')</span>
+
+<span class="Comment"> &quot; fortran</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('fortran', 'g77',</span>
+<span class="Comment">             \'GNU Fortran 77 Compiler', 'g77', '-o $(FILE_TITLE)$',</span>
+<span class="Comment">             \l:common_run_command)</span>
+<span class="Comment"> call SingleCompile#SetOutfile('fortran', 'g77', l:common_out_file)</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('fortran', 'ifort',</span>
+<span class="Comment">             \'Intel Fortran Compiler', 'ifort', '-o $(FILE_TITLE)$',</span>
+<span class="Comment">             \l:common_run_command)</span>
+<span class="Comment"> call SingleCompile#SetOutfile('fortran', 'ifort', l:common_out_file)</span>
+
+<span class="Comment"> call SingleCompile#ChooseCompiler('fortran', 'g77')</span>
+
+<span class="Comment"> &quot; python</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('python', 'python', 'CPython',</span>
+<span class="Comment">             \'python', '', '')</span>
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('python', 'jython', 'Jython',</span>
+<span class="Comment">             \'jython', '', '')</span>
+
+<span class="Comment"> call SingleCompile#ChooseCompiler('python', 'jython')</span>
+
+
+2. (Deprecated, only kept for backward compatibility use)
+If you use this method to add a language template, many features of
+SingleCompile will be unavailable. For example, &quot;:SCChooseCompiler&quot; command
+will not be available. So I don't recommend you to use this method, and this
+method is kept ONLY for backward compatibility.
+
+Add the following lines to your vimrc file:
+
+<span class="Comment"> call SingleCompile#SetTemplate('filetype', 'command', 'stringA')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('filetype', 'flags', 'stringB')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('filetype', 'run', 'stringC')</span>
+
+For compiling languages such as C, Java, stringA is the command of compiling,
+stringB is the flags of compiling, stringC is the command of running; For
+interpreted languages such as Python, Ruby, stringA is the command of
+interpreting, stringB is the flags of interpreting, stringC MUST be set to
+be empty.
+
+Here are some examples:
+
+<span class="Comment"> &quot; java</span>
+<span class="Comment"> call SingleCompile#SetTemplate('java', 'command', 'javac')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('java', 'flags', '')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('java', 'run', 'java %&lt;')</span>
+
+<span class="Comment"> &quot; python</span>
+<span class="Comment"> call SingleCompile#SetTemplate('python', 'command', 'python')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('python', 'flags', '')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('python', 'run', '')</span>
+
+<span class="Comment"> &quot; latex</span>
+<span class="Comment"> call SingleCompile#SetTemplate('tex', 'command', 'latex')</span>
+<span class="Comment"> call SingleCompile#SetTemplate('tex', 'flags', '')</span>
+<span class="Comment"> if has('unix')</span>
+<span class="Comment">     call SingleCompile#SetTemplate('tex', 'run', 'xdvi %&lt;.dvi')</span>
+<span class="Comment"> elseif has('win32')</span>
+<span class="Comment">     call SingleCompile#SetTemplate('tex', 'run', 'dviout %&lt;.dvi')</span>
+<span class="Comment"> endif</span>
+
+You can also use this method to modify the templates of a built-in supported
+language. For example, you can change <span class="Type">'dviout'</span> to <span class="Type">'yap'</span> in the example above
+to modify the built-in latex language template.
+
+Advanced: If you don't want to override the template if there is an existing
+one, but use the new template if there is no corresponding template existing,
+for example, you want to set the &quot;command&quot; of java language to javac if no
+command is set for java, but do nothing if the command of java is not set, use
+the following:
+
+<span class="Comment"> call SingleCompile#SetTemplate('java', 'command', 'javac', 1)</span>
+
+In this way, if the command of java is already set, this sentence will do
+nothing. On the contrary, if the command of java is not set, it will set the
+compilation command of java to &quot;javac&quot;.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-built-in-compiler</span>
+The following compilers have built-in support in this plugin (For some
+compilers/interpreters, you need to set the environment varibles correctly to
+make them available for SingleCompile):
+
+Ada:
+    gnat (GNAT)
+
+bash:
+    bash (Bourne-Again Shell)
+
+C:
+    bcc (Borland C++ Builder), Windows only
+    cc (UNIX C Compiler), UNIX only
+    ch (SoftIntegration Ch)
+    clang (the Clang C and Objective-C compiler)
+    gcc (GNU C Compiler)
+    icc (Intel C++ Compiler)
+    lcc (Little C Compiler)
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
+    msvc110 (Microsoft Visual C++ 2012), Windows only
+    open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 C Compiler), UNIX only
+    pcc (Portable C Compiler)
+    sol-studio (Sun C Compiler(Sun Solaris Studio)), UNIX only
+    tcc (Tiny C Compiler)
+    tcc-run (Tiny C Compiler with &quot;-run&quot; Flag)
+
+C++:
+    bcc (Borland C++ Builder), Windows Only
+    ch (SoftIntegration Ch)
+    clang (the Clang C and Objective-C compiler)
+    g++ (GNU C++ Compiler)
+    icc (Intel C++ Compiler)
+    msvc (Microsoft Visual C++ (In PATH)), Windows only
+    msvc80 (Microsoft Visual C++ 2005), Windows only
+    msvc90 (Microsoft Visual C++ 2008), Windows only
+    msvc100 (Microsoft Visual C++ 2010), Windows only
+    msvc110 (Microsoft Visual C++ 2012), Windows only
+    open-watcom (Open Watcom C/C++32 Compiler)
+    open64 (Open64 C++ Compiler), UNIX only
+    sol-studio (Sun C++ Compiler(Sun Solaris Studio)), UNIX only
+
+C#:
+    msvcs(Microsoft Visual C#), Windows Only
+    mono (Mono C# compiler)
+
+cmake:
+    cmake (cmake)
+
+CoffeeScript:
+    coffee (CoffeeScript)
+
+csh:
+    csh (C Shell)
+    tcsh (TENEX C Shell)
+
+D:
+    dmd (DMD Compiler)
+
+dos batch:
+    dosbatch (DOS Batch)
+
+erlang:
+    escript (Erlang Scripting Support)
+
+Fortran:
+    ftn95 (Silverfrost FTN95), Windows only
+    g77 (GNU Fortran 77 Compiler)
+    g95 (G95)
+    gfortran (GNU Fortran Compiler)
+    ifort (Intel Fortran Compiler)
+    open-watcom (Open Watcom Fortran 77/32 Compiler)
+    open64-f90 (Open64 Fortran 90 Compiler), UNIX only
+    open64-f95 (Open64 Fortran 95 Compiler), UNIX only
+    sol-studio-f77 (Sun Fortran 77 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f90 (Sun Fortran 90 Compiler(Sun Solaris Studio)), UNIX only
+    sol-studio-f95 (Sun Fortran 95 Compiler(Sun Solaris Studio)), UNIX only
+
+Go:
+    go (Go)
+
+Haskell:
+    ghc (Glasgow Haskell Compiler)
+    runhaskell (runhaskell)
+
+html:
+    arora (Arora)
+    chrome (Google Chrome)
+    chromium (Chromium)
+    epiphany (Epiphany)
+    firefox (Mozilla Firefox)
+    ie (Microsoft Internet Explorer)
+    konqueror (Konqueror)
+    opera (Opera)
+
+IDL(Interactive Data Language):
+    idl (ITT Visual Information Solutions Interactive Data Language)
+    gdl (GNU Data Language incremental compiler)
+
+Java:
+    gcj (GNU Java Compiler)
+    sunjdk (Sun Java Development Kit)
+
+JavaScript:
+    gjs (Javascript Bindings for GNOME)
+    js (SpiderMonkey, a JavaScript engine written in C)
+    node.js (node.js)
+    rhino (Rhino, a JavaScript engine written in Java)
+
+ksh:
+    ksh (Korn Shell)
+
+LaTeX:
+    latex (LaTeX)
+    pdflatex (pdfLaTeX)
+    latexmk (Automatic LaTeX document generation routine)
+
+LISP:
+    clisp (GNU CLISP)
+    ecl (Embeddable Common-Lisp)
+    gcl (GNU Common Lisp)
+
+LiveScript:
+    lsc (LiveScript)
+
+lua:
+    lua (Lua Interpreter)
+
+Makefile:
+    gmake (GNU Make)
+    nmake (Microsoft Program Maintenance Utility)
+    mingw32-make (MinGW32 Make)
+
+Markdown:
+    markdown (text-to-HTML conversion tool)
+    rdiscount (Discount Markdown Processor for Ruby)
+    Markdown (Python implementation of the Markdown language)
+
+Matlab:
+    matlab (MathWorks MATLAB)
+        <span class="Todo">Note</span>: For Matlab, I highly recommend you to try out vim-matlab-behave plugin: <span class="Constant"><a href="https://github.com/elmanuelito/vim-matlab-behave">https://github.com/elmanuelito/vim-matlab-behave</a></span>
+    octave (GNU Octave)
+
+Object-C:
+    clang (the Clang C and Objective-C compiler)
+    gcc (GNU Object-C Compiler)
+
+Pascal:
+    fpc (Free Pascal Compiler)
+    gpc (GNU Pascal Compiler)
+
+perl:
+    perl (Perl Interpreter)
+
+PHP:
+    php (PHP Command Line Interface 'CLI')
+
+python:
+    ironpython (IronPython)
+    jython (Jython)
+    pypy (PyPy)
+    python (Python Interpreter, usually the system default Python, no matter it is Python 2 or 3.)
+    python2 (Python 2 Interpreter)
+    python3 (Python 3 Interpreter)
+
+QML:
+    qmlscene (QML Scene, for viewing QML based on QtQuick 2)
+    qmlviewer (QML Viewer, for viewing QML based on QtQuick 1)
+    <span class="Todo">Note</span>: vim does not detect qml files out of the box.
+    See <span class="Constant"><a href="https://github.com/peterhoeg/vim-qml">https://github.com/peterhoeg/vim-qml</a></span>
+
+R:
+    R (R)
+
+reStructuredText:
+    rst2html (reST to HTML)
+
+ruby:
+    ruby (Ruby Interpreter)
+    jruby (Ruby on top of Java JVM, default mode)
+    jruby1.8 (Ruby on top of Java JVM, Ruby 1.8 mode)
+    jruby1.9 (Ruby on top of Java JVM, Ruby 1.9 mode)
+    jruby2.0 (Ruby on top of Java JVM, Ruby 2.0 mode, requires JRuby 1.7.4 or
+later)
+
+rust:
+    rustc (Rust compiler)
+
+scala:
+    scala (Scala compiler)
+    <span class="Todo">Note</span>: vim does not detect scala files out the box.
+    See <span class="Constant"><a href="https://github.com/bjartek/scala-vim-support">https://github.com/bjartek/scala-vim-support</a></span>
+
+sh:
+    ash (Almquist Shell)
+    bash (Bourne-Again Shell)
+    dash (Debian Almquist Shell)
+    ksh (Korn Shell)
+    sh (Bourne Shell)
+    zsh (Z Shell)
+
+tcl:
+    tclsh (Simple shell containing Tcl interpreter)
+
+tcsh:
+    tcsh (TENEX C Shell)
+
+vb script:
+    vb (VB Script Interpreter)
+
+xhtml:
+    arora (Arora)
+    chrome (Google Chrome)
+    epiphany (Epiphany)
+    firefox (Mozilla Firefox)
+    ie (Microsoft Internet Explorer)
+    konqueror (Konqueror)
+    opera (Opera)
+
+zsh:
+    zsh (Z Shell)
+
+
+See <span class="Identifier">SingleCompile-add-your-compiler</span> to add your compiler support.
+
+
+<span class="PreProc">SUPPORTINGS</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-supporting-plugins</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+There are some supporting code in this plugin for Marc Weber's
+vim-addon-actions:
+    <span class="Constant"><a href="http://github.com/MarcWeber/vim-addon-actions">http://github.com/MarcWeber/vim-addon-actions</a></span>
+
+
+<span class="PreProc">ADVANCED</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-advanced</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+This chapter is for advanced users.
+
+<span class="Statement">                                    </span><span class="Constant">SingleCompile-custom-compiler-detecting</span>
+SingleCompile allows you to custom compiler detecting function by yourself.
+
+In <span class="Identifier">SingleCompile-compiler-template</span>, the following function is introduced:
+
+<span class="Comment"> call SingleCompile#SetCompilerTemplate('filetype', 'compiler',</span>
+<span class="Comment">             \'compiler_name', 'command', 'flag', 'run_command')</span>
+
+
+However, in fact, the function SingleCompile#SetCompilerTemplate could have a
+seventh parameter. The seventh parameter is a <span class="Identifier">Funcref</span> which references to a
+compiler detecting function. The compiler detecting function will be called in
+the function SingleCompile#SetCompilerTemplate. The compiler detecting
+function must accept one parameter, which would be passed in the &quot;command&quot;
+parameter in SingleCompile#SetCompilerTemplate, and return a detected compiler
+command if detected, which will be used as the compiling command by
+SingleCompile, or returns 0 if the compiler is not detected. Thus, it is more
+powerful to detect some compilers. If the seventh parameter is omitted, the
+function will use a built-in default compiler detecting function instead. The
+default function would check whether the &quot;command&quot; is in PATH, ~/bin,
+/usr/local/bin, /usr/bin, /bin on UNIX and whether it is in PATH on other
+OSes, and returns the full path of the command if it is not in PATH. If the
+command is not detected, the default function would return 0.
+
+Here is a short example excerpted from built-in template(OpenWatcom detecting
+function):
+
+<span class="Comment"> function! s:DetectWatcom(compiling_command)</span>
+<span class="Comment">     let l:watcom_command =</span>
+<span class="Comment">                 \SingleCompile#DetectCompilerGenerally(a:compiling_command)</span>
+<span class="Comment">     if l:watcom_command != 0</span>
+<span class="Comment">         return l:watcom_command</span>
+<span class="Comment">     endif</span>
+
+<span class="Comment">     if $WATCOM != ''</span>
+<span class="Comment">         return $WATCOM.'\binnt\'.a:compiling_command</span>
+<span class="Comment">     endif</span>
+<span class="Comment"> endfunction</span>
+
+SingleCompile#DetectCompilerGenerally is the default compiler detecting
+function introduced in the above paragraph. This function first uses a general
+way to detect the compiler. If the general way can not detect it, it check the
+environment varible &quot;$WATCOM&quot; to get the compiler's installation directory and
+get the full path of the compiling program.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-predo-postdo</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-predo</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-postdo</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile#SetPredo</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile#SetPostdo</span>
+&quot;Predo&quot; and &quot;Postdo&quot; features allow you to initialize the compiler before
+compiling and clean up after compiling in you own way.
+
+&quot;Predo&quot; feature allows you to define a function, which would be called before
+compiling by SingleCompile, all by yourself. In the same way, &quot;Postdo&quot; feature
+allows you to define a function called by SingleCompile after compiling. Your
+&quot;Predo&quot; or &quot;Postdo&quot; function should accept one parameter, which would be
+passed in a dictionary containing compiling information, and return a new
+compiling information modified in the function by you. SingleCompile will use
+the new compiling information in its following work. The dictionary passed in
+is like this:
+<span class="Comment"> {&quot;command&quot;: &quot;the-compiling-command&quot;, &quot;args&quot;: &quot;the-compiling-argument&quot;}</span>
+
+Then modify the dictionary to meet your need and return the modified
+dictionary. If you don't want to modify the dictionary, please return the
+parameter passed in directly.
+
+The two functions below provide a way to set the &quot;Predo&quot; and &quot;Postdo&quot;
+functions:
+
+<span class="Comment"> call SingleCompile#SetPredo('filetype', 'compiler',</span>
+<span class="Comment">             \function('your_predo_function'))</span>
+<span class="Comment"> call SingleCompile#SetPostdo('filetype', 'compiler',</span>
+<span class="Comment">             \function('your_postdo_function'))</span>
+
+
+Example: OpenWatcom's &quot;Predo&quot; and &quot;Postdo&quot; functions:
+
+<span class="Comment"> &quot; pre-do</span>
+<span class="Comment"> function! s:PredoWatcom(compiling_info)</span>
+<span class="Comment">     let s:old_path = $PATH</span>
+<span class="Comment">     let $PATH = $WATCOM.s:GetPathSeperator().'binnt'.s:GetEnvSeperator().</span>
+<span class="Comment">                 \$WATCOM.s:GetPathSeperator().'binw'.s:GetEnvSeperator().</span>
+<span class="Comment">                 \$PATH</span>
+<span class="Comment">     return a:compiling_info</span>
+<span class="Comment"> endfunction</span>
+
+<span class="Comment"> &quot; post-do</span>
+<span class="Comment"> function! s:PostdoWatcom(compiling_info) &quot; watcom pre-do {{{2</span>
+<span class="Comment">     let $PATH = s:old_path</span>
+<span class="Comment">     return a:compiling_info</span>
+<span class="Comment"> endfunction</span>
+
+<span class="Comment"> call SingleCompile#SetPredo('c', 'open-watcom', function('s:PredoWatcom'))</span>
+<span class="Comment"> call SingleCompile#SetPostdo('c', 'open-watcom', function('s:PostdoWatcom'))</span>
+
+As you see, the OpenWatcom &quot;Predo&quot; function first saves the current PATH
+environment varible, then modifies $PATH to meet the OpenWatcom compiler needs.
+It returns the original compiling info because it does not need to modify it.
+The OpenWatcom &quot;Postdo&quot; function restores the original $PATH. After defining
+the two functions, the example calls &quot;SetPredo&quot; and &quot;SetPostdo&quot; function to
+set the functions as the &quot;Predo&quot; function and &quot;Postdo&quot; function for
+corresponding language and compiler.
+
+
+To make it less confusing, I better explain the calling order here. The
+calling order is: first the compiler detecting function, then &quot;Predo&quot;
+function, then compile, and the last is the &quot;Postdo&quot; function.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-vim-compiler</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile#SetVimCompiler</span>
+SingleCompile can work with the compiler feature of vim(see <span class="Identifier">:compiler</span>). To
+set the compiler file in the compiler direcotry for a compiler, use
+SingleCompile#SetVimCompiler function. For example, for g77, the GNU Fortran
+77 compiler, use the following line to set the compiler file for g77:
+
+<span class="Comment"> call SingleCompile#SetVimCompiler('fortran', 'g77', 'fortran_g77')</span>
+
+(This line is excerpted from the built-in templates.)
+
+Then if we are using g77 as our compiler, SingleCompile will first execute
+&quot;:compiler fortran_g77&quot; before compiling the source file. This will give us
+the advantage that vim's quickfix will recognize the messages output by g77
+and help us locate these errors quickly.
+
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-priority</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile#SetPriority</span>
+Since version 2.9, every compiler template could be assigned a priority value.
+This value determines which compiler to use when seversal compilers has been
+detected. Use the following line to set a compiler's priority:
+
+<span class="Comment"> call SingleCompile#SetPriority('language_name', 'compiler_name', priority)</span>
+
+The parameter &quot;priority&quot; is an integer. The less the parameter &quot;priority&quot; is,
+the higher priority the compiler has. For example, the following two lines set
+two Fortran compilers' priorities (The two lines are excerpted from the
+built-in template):
+
+<span class="Comment"> call SingleCompile#SetPriority('fortran', 'gfortran', 70)</span>
+<span class="Comment"> call SingleCompile#SetPriority('fortran', 'ifort', 80)</span>
+
+After executing the two lines above, if ifort (which is Intel Fortran
+Compiler) and gfortran (GNU fortran compiler) are both detected by
+SingleCompile, and the user does not call <span class="Identifier">SingleCompile#ChooseCompiler</span> to
+choose a compiler explicitly, SingleCompile will choose gfortran as the
+current compiler.
+
+<span class="PreProc">CREDITS</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-credits</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+Marc Weber  Integrated SingleCompile with vim-addon-actions, and some other
+            improvements
+Darek       Fixed a directory switching bug
+sky hi      Provided DMD compiler for D language built-in template
+Zhou Yichao Made several improvements and fixed several bugs.
+
+
+<span class="PreProc">TODO</span>
+<span class="Statement">                                            </span><span class="Constant">SingleCompile-todo</span>
+<span class="PreProc">----------------------------------------------------------------------------</span>
+Add asynchronous compilation support.
+
+If &quot;tee&quot; is used when we are executing &quot;:make&quot; command, currently we can't get
+the exit code of the compiler. We need to fix this.
+
+When running compiled program, if &quot;tee&quot; is used for redirecting, things
+written to stdout are not printed as if what happens when stdout is a tty.
+This need to be fixed.
+
+Make it possible to store compiler template in config files, such as ini
+files.
+
+Reduce startup time and shrink memory use.
+
+vim&#0058;ts=4:ft=help:tw=78:et
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->

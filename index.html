@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>SingleCompile: A Vim plugin making it more convenient to compile and run a single source file</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+      <h1>SingleCompile</h1>
+      <p>A Vim plugin making it more convenient to compile and run a single source file.</p>
+      <p class="view"><a href="https://github.com/xuhdev/SingleCompile">View the Project on GitHub <small>xuhdev/SingleCompile</small></a></p>
+      <ul>
+        <li><a href="http://www.vim.org/scripts/download_script.php?src_id=22022">Download <strong>ZIP File</strong></a></li>
+        <li><a href="https://github.com/xuhdev/SingleCompile">View On <strong>GitHub</strong></a></li>
+        <li><a href="http://www.vim.org/scripts/script.php?script_id=3115">View On <strong>Vim Online</strong></a></li>
+      </ul>
+      </header>
+      <section>
+
+      <h3></h3>
+
+      <p>
+      SingleCompile is a <a href="http://www.vim.org">Vim</a> plugin aimed at
+      making it more convenient to compile or run a single source file without
+      leaving Vim.
+      </p>
+      <p>
+      Consider this situation: you have just written a small C source file for
+      a tiny test, but you have to write a Makefile to compile it, or exit Vim
+      to compile it, or compile it using "!gcc" without quickfix feature
+      because Vim's make command only use the "make" command? This plugin will
+      help you out.
+      </p>
+
+      <p>
+      <em>You can also find this plugin on <a href="https://github.com/xuhdev/SingleCompile">GitHub</a> and
+        <a href="http://www.vim.org/scripts/script.php?script_id=3115">Vim Online</a>.
+        An online document is available <a href="http://www.topbug.net/singlecompile/doc">here</a>.
+        There is also a simple tutorial available
+      <a href="http://www.topbug.net/blog/2012/03/07/use-singlecompile-to-compile-and-run-a-single-source-file-easily-in-vim/">here</a>.</em>
+      </p>
+
+      <h3>Features</h3>
+      <p>
+      <ul>
+        <li>Compile or run the source file quickly using
+        <a href="http://vimdoc.sourceforge.net/htmldoc/quickfix.html">quickfix feature</a>
+        and
+        <a href="http://vimdoc.sourceforge.net/htmldoc/quickfix.html#compiler-select">compiler feature</a>
+        of vim;</li>
+        <li>Auto detecting compilers and interpreters;</li>
+        <li>Fast switch between several installed compilers or interpreters;</li>
+        <li>Multi-language support;</li>
+        <li>Custom your own compiler/interpreter template;</li>
+        <li>View the result of last run command at any time(requires
+        <strong>tee</strong> command);</li>
+        <li>Run the compiled program asynchronously and view the result at any
+        time (see <strong>:SCCompileRunAsync</strong> in the help file).</li>
+      </ul>
+      </p>
+
+      <h3>Download and Install</h3>
+
+      <p>
+      Download the <strong>SingleCompile.zip</strong> file from <a
+        href="http://www.vim.org/scripts/script.php?script_id=3115">this
+        page</a> and extract it to your vim runtime
+      directory(<strong>~/.vim</strong> on UNIX/Linux and
+      <strong>$VIM_INSTALLATION_FOLDER\vimfiles</strong> on Windows).
+
+      add <code>filetype plugin on</code> to your vimrc if you haven't done it.
+      </p>
+
+      <h3>Simple Usage</h3>
+
+      <p>
+      After having SingleCompile installed, Add these key-mapping in your vimrc:
+      </p>
+
+      <pre><code>nmap &lt;F9&gt; :SCCompile&lt;cr&gt;
+nmap &lt;F10&gt; :SCCompileRun&lt;cr&gt;
+</code></pre>
+
+      <p>
+      <strong>F9</strong> and <strong>F10</strong> can be replaced with other
+      keys. Note that the two lines here should not have any trailing space. If
+      your file type is supported, then press <strong>F9</strong> to compile
+      your source file, and press <strong>F10</strong> to compile and run your
+      source file. If there is a compilation error, and the <a
+        href="http://vimdoc.sourceforge.net/htmldoc/quickfix.html">quickfix</a>
+      feature is enabled, then you could use <strong>:cope</strong> command to
+      see the error list. You may also use <strong>:SCChooseCompiler</strong>
+      command to choose a compiler if you have more than one compiler available
+      on you system. <strong>:SCViewResult</strong> will show you the last run
+      output.
+      </p>
+
+      <h3>Builtin Support Compilers and Interpreters</h3>
+
+      <p>
+      To see a list of builtin supported compilers and interpreters, check <a
+        href="http://www.topbug.net/singlecompile/doc#658">here</a>.
+      You can add your compiler or interpreter support if the compiler or
+      interpreter you want is not in the list. See details in the help file
+      SingleCompile.txt.
+      </p>
+
+      <h3>Wiki Page</h3>
+      <p>
+      <a href="http://github.com/xuhdev/SingleCompile/wiki/_pages">Check the
+      wiki pages</a> for some tricks.
+      </p>
+
+      <h3>Third-party Code</h3>
+      <p>
+      There are some supporting code in this plugin for Marc Weber's
+      vim-addon-actions:
+      <a href="http://github.com/MarcWeber/vim-addon-actions">http://github.com/MarcWeber/vim-addon-actions</a>
+      </p>
+
+      <h3>Feedback</h3>
+      <p>
+      Feedback is welcome. If you find any bug or have some good ideas to
+      improve this plugin, please feel free to submit it on the
+      <a href="https://github.com/xuhdev/SingleCompile/issues">
+        issue tracker</a>.
+      </p>
+
+      <p>
+      If you've written some templates for some compilers or interpreters which are
+      not included as built-in template, and you think they are useful for other
+      people, you could send me an email to inform me, or <a
+        href="https://github.com/xuhdev/SingleCompile/pulls">make a pull request</a>
+      on GitHub, and I'll put them in the built-in templates. If you have any
+      tips that you want to share with other people, feel free to <a
+        href="http://github.com/xuhdev/SingleCompile/wiki/_pages">add a wiki
+      page</a>.
+      </p>
+
+      <p>
+      <a href="http://twitter.com/xuhdev">Follow me on Twitter</a> if you are interested in my development.
+      </p>
+
+      <h3>Code Repository</h3>
+      <ul>
+        <li><a href="https://github.com/xuhdev/SingleCompile">Git repository on github.com</a></li>
+      </ul>
+
+      </section>
+    </div>
+  <footer>
+  <p>Project maintained by <a href="http://www.topbug.net">Hong Xu</a></p>
+  <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+  </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-29984794-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
+
+<!-- vim: sw=2 ts=2 et
+-->
