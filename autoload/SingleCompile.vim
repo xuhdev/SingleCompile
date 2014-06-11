@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2013 Hong Xu
+" Copyright (C) 2010-2014 Hong Xu
 
 " This file is part of SingleCompile.
 
