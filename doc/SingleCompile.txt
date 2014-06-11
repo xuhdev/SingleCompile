@@ -274,7 +274,7 @@ SETTINGS~
                                             *SingleCompile-settings*
 ----------------------------------------------------------------------------
 
-                                            *SingleCompile-alwayscompile*
+                                            *g:SingleCompile_alwayscompile*
 If g:SingleCompile_alwayscompile is set to 0, when using |:SCCompileRun|
 command, SingleCompile may run the output of the compilation directly if the
 modification time of the source file is earlier than the output file. If you
@@ -284,7 +284,7 @@ want to enable this feature, add the following line to your vimrc:
 <
 The default value of g:SingleCompile_alwayscompile is 1.
 
-                                            *SingleCompile-asyncrunmode*
+                                            *g:SingleCompile_asyncrunmode*
 This option specifies the asynchronous mode for |:SCCompileRunAsync| and
 |:SCCompileRunAsyncAF|. The default value is "auto", which means SingleCompile
 will automatically detect whether you are able to enable async run mode and
@@ -315,7 +315,7 @@ python      Use python interface when running asynchronously. Required vim
 <
 
 
-                                            *SingleCompile-autowrite*
+                                            *g:SingleCompile_autowrite*
 If you don't want to save your file automatically when you use "SingleCompile"
 command or "SingleCompileRun" command, add the following line to your vimrc:
 >
@@ -326,6 +326,7 @@ effect, the running result will depend on the vim's option 'autowrite'. See
 'autowrite' for more information.
 
                                             *SingleCompile-menumode*
+                                            *g:SingleCompile_menumode*
 If you don't want the menus of SingleCompile to show, copy the following line
 to your vimrc:
 >
@@ -344,6 +345,7 @@ following line to your vimrc:
 The default value is 1.
 
                                             *SingleCompile-quickfixwindowposition*
+                                            *g:SingleCompile_quickfixwindowposition*
 If |g:SingleCompile_showquickfixiferror| is set to 1,
 |g:SingleCompile_quickfixwindowposition| defines the position where quickfix
 window shows up. The default value is "botright", but you can change this
@@ -357,6 +359,7 @@ Accepted values are "aboveleft", "topleft", "botright", "belowright",
 |opening-window| and 'cope' for more details.
 
                                             *SingleCompile-resultsize*
+                                            *g:SingleCompile_resultsize*
 g:SingleCompile_resultsize is the height/width of the result displaying window
 triggered by |:SCViewResult| command. To set the value, add the following line
 to your vimrc file:
@@ -367,6 +370,7 @@ Replace a_number to any number you want, such as "10", "4". The default value
 of g:SingleCompile_resultsize is 5.
 
                                             *SingleCompile-split*
+                                            *g:SingleCompile_split*
 g:SingleCompile_split is the command used to open the result window triggered
 by |:SCViewResult| command. To set the value, add the following line to your
 vimrc file:
@@ -420,6 +424,7 @@ The default value of g:SingleCompile_showquickfixifwarning is as same as
 g:SingleCompile_showquickfixiferror.  You don't want miss a warning, will you?
 
                                             *SingleCompile-showresultafterrun*
+                                            *g:SingleCompile_showresultafterrun*
 If "tee" command is available on your system, copy the following line to your
 vimrc file will make vim show the result of the run automatically after you
 run the program:
@@ -431,6 +436,7 @@ run is not affected by this option. The default value of
 g:SingleCompile_showresultafterrun is 0. Also see |:SCViewResult|.
 
                                     *SingleCompile-silentcompileifshowquickfix*
+                                    *g:SingleCompile_silentcompileifshowquickfix*
 Avoid the additional hit of enter when using quickfix feature to compile.
 This is done by dismisses the output of the compilation (:silent make).  This
 feature is only valid when showquickfixiferror is enabled.  This feature won't
@@ -441,6 +447,7 @@ enable on terminal because of the problem of screen refresh.
 This is not default enabled for compatible.
 
                                             *SingleCompile-usedialog*
+                                            *g:SingleCompile_usedialog*
 If you want SingleCompile to show message in a dialog, add the
 following line to your vimrc:
 >
@@ -450,6 +457,7 @@ This setting will take no effect if your vim is not compiled with
 '+dialog_con' and '+dialog_gui'.
 
                                           *SingleCompile-usetee*
+                                          *g:SingleCompile_usetee*
 When set to 0, the use of tee is disabled when running your compiled program.
 This would make the flush of the display of the output of your program perform
 normally but you will lose the feature of |SCViewResult|.
@@ -459,6 +467,7 @@ normally but you will lose the feature of |SCViewResult|.
 The default value of g:SingleCompile_usetee is 1.
 
                                             *SingleCompile-usequickfix*
+                                            *g:SingleCompile_usequickfix*
 If you don't want SingleCompile to use quickfix feature, add the following
 line to your vimrc:
 >
