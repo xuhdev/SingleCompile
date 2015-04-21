@@ -90,7 +90,7 @@ There are some supporting code in this plugin for Marc Weber's
 vim-addon-actions:
      http://github.com/MarcWeber/vim-addon-actions
 
-If you find any bug, please report it to xuhdev@gmail.com or submit it on
+If you find any bug, please report it to hong@topbug.net or submit it on
 the issue tracker:
 https://bitbucket.org/xuhdev/singlecompile/issues
 
