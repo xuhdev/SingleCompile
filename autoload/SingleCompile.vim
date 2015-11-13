@@ -635,6 +635,7 @@ function! s:Initialize() "{{{1
                 \ 'make',
                 \ 'markdown',
                 \ 'matlab',
+                \ 'ocaml',
                 \ 'objc',
                 \ 'pascal',
                 \ 'perl',
