@@ -620,6 +620,7 @@ function! s:Initialize() "{{{1
                 \ 'csh',
                 \ 'd',
                 \ 'dosbatch',
+                \ 'elixir',
                 \ 'erlang',
                 \ 'fortran',
                 \ 'go',
