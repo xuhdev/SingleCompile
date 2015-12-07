@@ -1589,7 +1589,7 @@ function! SingleCompile#ViewResult(async) " view the running result {{{1
     " if the __SINGLE_COMPILE_RUN_RESULT__ buffer doesn't exist, make one
     " else clear it, but leave it there to be refilled
     if l:result_bufnr == -1
-        exec 'rightbelow '.g:SingleCompile_resultsize.
+        exec 'keepalt rightbelow '.g:SingleCompile_resultsize.
                     \g:SingleCompile_split.' __SINGLE_COMPILE_RUN_RESULT__'
         setl noswapfile buftype=nofile bufhidden=wipe foldcolumn=0 nobuflisted
     else
