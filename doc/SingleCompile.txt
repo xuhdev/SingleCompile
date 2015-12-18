@@ -724,6 +724,9 @@ dos batch:
 erlang:
     escript (Erlang Scripting Support)
 
+Elixir:
+    elixir (Elixir)
+
 Fortran:
     ftn95 (Silverfrost FTN95), Windows only
     g77 (GNU Fortran 77 Compiler)
@@ -805,6 +808,9 @@ Matlab:
 Object-C:
     clang (the Clang C and Objective-C compiler)
     gcc (GNU Object-C Compiler)
+
+OCaml:
+    ocaml (OCaml)
 
 Pascal:
     fpc (Free Pascal Compiler)
