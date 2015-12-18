@@ -1031,9 +1031,9 @@ detected. Use the following line to set a compiler's priority:
 >
  call SingleCompile#SetPriority('language_name', 'compiler_name', priority)
 <
-The parameter "priority" is an integer. The less the parameter "priority" is,
-the higher priority the compiler has. For example, the following two lines set
-two Fortran compilers' priorities (The two lines are excerpted from the
+The parameter "priority" is an integer. The smaller the parameter "priority"
+is, the higher priority the compiler has. For example, the following two lines
+set two Fortran compilers' priorities (The two lines are excerpted from the
 built-in template):
 >
  call SingleCompile#SetPriority('fortran', 'gfortran', 70)
