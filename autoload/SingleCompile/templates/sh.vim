@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2012 Hong Xu
+" Copyright (C) 2010-2015 Hong Xu
 
 " This file is part of SingleCompile.
 
@@ -18,6 +18,11 @@
 " check doc/SingleCompile.txt for more information
 
 function! SingleCompile#templates#sh#Initialize()
+    call SingleCompile#SetCompilerTemplate('sh', 'shell',
+                \'Guess from shebang', 'sh', '', '')
+    call SingleCompile#SetPriority('sh', 'shell', 10)
+    call SingleCompile#SetPredo('sh', 'shell',
+                \function('SingleCompile#PredoShell'))
     call SingleCompile#SetCompilerTemplate('sh', 'sh',
                 \'Bourne Shell', 'sh', '', '')
     call SingleCompile#SetPriority('sh', 'sh', 80)

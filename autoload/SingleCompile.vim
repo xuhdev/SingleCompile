@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2014 Hong Xu
+" Copyright (C) 2010-2015 Hong Xu
 
 " This file is part of SingleCompile.
 
@@ -397,6 +397,20 @@ function! SingleCompile#PredoMicrosoftVC(compiling_info) " MSVC Predo {{{2
 
     let l:new_compiling_info = a:compiling_info
     let l:new_compiling_info['command'] = 'cl'
+
+    return l:new_compiling_info
+endfunction
+
+function! SingleCompile#PredoShell(compiling_info) " shell predo {{{2
+    let l:new_compiling_info = a:compiling_info
+
+    let l:shebang = getline(1)
+    if l:shebang !~ '#!/.*' " don't change anything if no shebang is found
+        return a:compiling_info
+    endif
+
+    " Use the shell indicated by the shebang
+    let l:new_compiling_info['command'] = matchstr(l:shebang, '#!\zs/.*')
 
     return l:new_compiling_info
 endfunction
