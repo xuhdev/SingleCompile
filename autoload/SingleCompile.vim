@@ -335,7 +335,7 @@ function! s:AddLmIfMathH(compiling_info) " {{{2
     if match(getline(1, '$'), '^[ \t]*#[ \t]*include[ \t]*["<]math.h[">][ \t]*$')
                 \!= -1
         let l:new_comp_info = a:compiling_info
-        let l:new_comp_info['args'] = '-lm '.l:new_comp_info['args']
+        let l:new_comp_info['args'] = l:new_comp_info['args'] . ' -lm'
         return l:new_comp_info
     endif
 
