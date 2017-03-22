@@ -137,6 +137,13 @@ time, just use the following command:
  :SCCompile -g -o %<
 <
 "%<" means the current file name without extension.
+Usually the filename is automatically included at the end of the command,
+unless you use $(FILE_PATH)$ or $(FILE_NAME)$:
+>
+  :SCCompile -g -o %<                        gcc -g -o file /path/file.c
+  :SCCompile -g -o %< -lMylib                gcc -g -o file -lMylib /path/file.c
+  :SCCompile -g -o %< $(FILE_PATH)$ -lMylib  gcc -g -o file /path/file.c -lMylib
+
 Also see |:SCCompileAF|.
 
                                             *:SingleCompile*
