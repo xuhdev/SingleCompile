@@ -638,6 +638,7 @@ function! s:Initialize() "{{{1
                 \ 'erlang',
                 \ 'fortran',
                 \ 'go',
+                \ 'groovy',
                 \ 'haskell',
                 \ 'html',
                 \ 'idlang',
