@@ -17,7 +17,7 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#python#Initialize()
+function! SingleCompile#templates#groovy#Initialize()
     call SingleCompile#SetCompilerTemplate('groovy', 'groovy', 'Apache Groovy compiler',
                 \'groovy', '', '')
     call SingleCompile#SetVimCompiler('groovy', 'apache', 'groovyc')
