@@ -1,4 +1,4 @@
-" Copyright (C) 2010-2017 white Jia
+" Copyright (C) 2017 white Jia
 
 " This file is part of SingleCompile.
 
@@ -18,7 +18,7 @@
 " check doc/SingleCompile.txt for more information
 
 function! SingleCompile#templates#python#Initialize()
-    call SingleCompile#SetCompilerTemplate('groovy', 'groovy', 'apache groovy compiler',
+    call SingleCompile#SetCompilerTemplate('groovy', 'groovy', 'Apache Groovy compiler',
                 \'groovy', '', '')
     call SingleCompile#SetVimCompiler('groovy', 'apache', 'groovyc')
     call SingleCompile#SetPriority('groovy', 'apache', 70)
