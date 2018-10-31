@@ -663,6 +663,7 @@ function! s:Initialize() "{{{1
                 \ 'rust',
                 \ 'scala',
                 \ 'sh',
+                \ 'swift',
                 \ 'tcl',
                 \ 'tcsh',
                 \ 'tex',
