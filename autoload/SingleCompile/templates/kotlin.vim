@@ -17,10 +17,10 @@
 
 " check doc/SingleCompile.txt for more information
 
-function! SingleCompile#templates#swift#Initialize()
-    call SingleCompile#SetCompilerTemplate('swift', 'swiftc', 'swiftc',
-                \ 'swiftc', ' -o $(FILE_EXEC)$', g:SingleCompile_common_run_command)
-    call SingleCompile#SetPriority('swift', 'swiftc', 20)
+function! SingleCompile#templates#kotlin#Initialize()
+    call SingleCompile#SetCompilerTemplate('kotlin', 'kotlinc', 'kotlinc',
+                \ 'kotlinc', ' -script $(FILE_NAME)$', "")
+    call SingleCompile#SetPriority('kotlin', 'kotlinc', 20)
 endfunction
 
 "vim703: cc=78

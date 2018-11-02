@@ -644,6 +644,7 @@ function! s:Initialize() "{{{1
                 \ 'java',
                 \ 'javascript',
                 \ 'ksh',
+                \ 'kotlin',
                 \ 'lisp',
                 \ 'ls',
                 \ 'lua',
