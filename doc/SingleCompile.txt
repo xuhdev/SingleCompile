@@ -746,6 +746,8 @@ Go:
 Haskell:
     ghc (Glasgow Haskell Compiler)
     runhaskell (runhaskell)
+    stack-ghc (The Haskell Tool Stack (stack exec -- ghc))
+    stack-runhaskell (The Haskell Tool Stack (stack exec -- runhaskell))
 
 html:
     arora (Arora)
