@@ -1423,6 +1423,9 @@ function! s:CompileRunInternal(comp_param, async) " {{{1
 
     let l:cur_filepath2 = expand('%:p')
 
+    if &buftype == 'quickfix'
+        wincmd p
+    endif
     if l:cur_filepath != l:cur_filepath2
         exec 'edit ' . l:cur_filepath
     endif
@@ -1435,6 +1438,9 @@ function! s:CompileRunInternal(comp_param, async) " {{{1
                     \.'output if the program has terminated.'
     endif
 
+    if &buftype == 'quickfix'
+        wincmd p
+    endif
     if l:cur_filepath != l:cur_filepath2
         exec 'edit ' . l:cur_filepath2
     endif
