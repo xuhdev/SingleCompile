@@ -1423,6 +1423,11 @@ function! s:CompileRunInternal(comp_param, async) " {{{1
 
     let l:cur_filepath2 = expand('%:p')
 
+    " only use l:cur_filepath on a regular window. If the cursor is on
+    " quickfix jump to the last accessed window
+    if &buftype == 'quickfix'
+        wincmd p
+    endif
     if l:cur_filepath != l:cur_filepath2
         exec 'edit ' . l:cur_filepath
     endif
@@ -1435,6 +1440,11 @@ function! s:CompileRunInternal(comp_param, async) " {{{1
                     \.'output if the program has terminated.'
     endif
 
+    " only use l:cur_filepath on a regular window. If the cursor is on
+    " quickfix jump to the last accessed window
+    if &buftype == 'quickfix'
+        wincmd p
+    endif
     if l:cur_filepath != l:cur_filepath2
         exec 'edit ' . l:cur_filepath2
     endif
